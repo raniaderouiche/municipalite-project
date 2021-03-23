@@ -2,9 +2,7 @@ package org.fsb.municipalite.dao.impl;
 
 import org.fsb.municipalite.dao.IGenericDao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -21,6 +19,11 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     }
 
     public GenericDaoImpl() {
+
+        //create an entity manager
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
+        em = entityManagerFactory.createEntityManager();
+
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class<E>) pt.getActualTypeArguments()[0];
@@ -28,7 +31,10 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E save(E entity) {
+        em.getTransaction().begin();
         em.persist(entity);
+       // em.getTransaction().commit();
+        em.close();
         return entity;
     }
 
@@ -40,18 +46,21 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     @Override
     public List<E> selectAll() {
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t");
+        em.close();
         return query.getResultList();
     }
 
     @Override
     public List<E> selectAll(String sortField, String sort) {
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t order by " + sortField + " " + sort);
+        em.close();
         return query.getResultList();
     }
 
     @Override
     public List<E> selectBy(String param, String value) {
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+"="+value);
+        em.close();
         return query.getResultList();
     }
 
@@ -64,12 +73,14 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     public void remove(Long id) {
         E tab = em.getReference(type, id);
         em.remove(tab);
+        em.close();
     }
 
     @Override
     public E findOne(String paramName, Object paramValue) {
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where " + paramName + " = :x");
         query.setParameter("x", paramValue);
+        em.close();
         return query.getResultList().size() > 0 ? (E) query.getResultList().get(0) : null;
     }
 

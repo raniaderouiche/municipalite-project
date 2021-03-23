@@ -1,21 +1,26 @@
 package org.fsb.municipalite.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Projet extends BaseEntity{
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
     private String Lieu;
-    private Long budget;
+    private int budget;
 
     @ManyToOne
     @JoinColumn
     private Employee employee;
+
+    @ManyToOne
+    @JoinColumn
+    private Equipe equipe;
+
+    @OneToMany(mappedBy = "projet")
+    private List<Materiel> materielList;
 
     public Projet() {
     }
@@ -44,11 +49,11 @@ public class Projet extends BaseEntity{
         Lieu = lieu;
     }
 
-    public Long getBudget() {
+    public int getBudget() {
         return budget;
     }
 
-    public void setBudget(Long budget) {
+    public void setBudget(int budget) {
         this.budget = budget;
     }
 
@@ -58,5 +63,37 @@ public class Projet extends BaseEntity{
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+    public List<Materiel> getMaterielList() {
+        return materielList;
+    }
+
+    public void setMaterielList(List<Materiel> materielList) {
+        this.materielList = materielList;
+    }
+
+    @Override
+    public String toString() {
+        return "Projet{" +
+                "id=" + id +
+                ", version=" + version +
+                ", createdAt=" + createdAt +
+                ", dateDebut=" + dateDebut +
+                ", dateFin=" + dateFin +
+                ", Lieu='" + Lieu + '\'' +
+                ", budget=" + budget +
+                ", employee=" + employee +
+                ", equipe=" + equipe +
+                ", materielList=" + materielList +
+                '}';
     }
 }

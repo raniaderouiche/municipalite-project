@@ -1,7 +1,6 @@
 package org.fsb.municipalite.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,12 +13,35 @@ public class Employee extends BaseEntity {
     private String etatCivil;
     private String sexe;
     private LocalDateTime dateNaissance;
-    private String fonction;
 
     @OneToMany(mappedBy = "employee")
     private List<Projet> projectList;
 
+    @ManyToOne
+    @JoinColumn
+    private Equipe equipe;
+
+    @OneToMany(mappedBy = "employee")
+    private List<Tache> tacheList;
+
+    @OneToOne(mappedBy = "employee")
+    private Compte compte;
+
+    @ManyToOne
+    @JoinColumn
+    private Role role;
+
     public Employee() {
+    }
+
+    public Employee(String nom, String prenom, String cin, String etatCivil, String sexe, LocalDateTime dateNaissance, String fonction, List<Projet> projectList) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.cin = cin;
+        this.etatCivil = etatCivil;
+        this.sexe = sexe;
+        this.dateNaissance = dateNaissance;
+        this.projectList = projectList;
     }
 
     public String getNom() {
@@ -69,14 +91,7 @@ public class Employee extends BaseEntity {
     public void setDateNaissance(LocalDateTime dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
-
-    public String getFonction() {
-        return fonction;
-    }
-
-    public void setFonction(String fonction) {
-        this.fonction = fonction;
-    }
+    
 
     public List<Projet> getProjectList() {
         return projectList;
@@ -84,5 +99,45 @@ public class Employee extends BaseEntity {
 
     public void setProjectList(List<Projet> projectList) {
         this.projectList = projectList;
+    }
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+    public List<Tache> getTacheList() {
+        return tacheList;
+    }
+
+    public void setTacheList(List<Tache> tacheList) {
+        this.tacheList = tacheList;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", cin='" + cin + '\'' +
+                ", etatCivil='" + etatCivil + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", dateNaissance=" + dateNaissance +
+                ", equipe=" + equipe +
+                ", role=" + role +
+                '}';
     }
 }

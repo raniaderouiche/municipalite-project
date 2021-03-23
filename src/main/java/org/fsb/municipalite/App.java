@@ -3,17 +3,20 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.fsb.municipalite.entities.Employee;
+import org.fsb.municipalite.entities.Projet;
+import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
+import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.io.IOException;
 
 
 public class App extends Application {
+
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -31,7 +34,22 @@ public class App extends Application {
         em.getTransaction().begin();
         em.close();
 
+      /*  Employee employee = new Employee();
+        employee.setNom("Rania");
+        employee.setPrenom("Derouiche");
+
+
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+        System.out.print(employeeService.create(employee));*/
+
+    /*
+        Projet projet = new Projet();
+        projet.setBudget(100);
+
+        ProjetServiceImpl projetService = new ProjetServiceImpl();
+        System.out.println(projetService.create(projet));
+    */
         //launch app window
-        launch(args);
+        launch();
     }
 }

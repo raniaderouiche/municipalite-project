@@ -13,13 +13,13 @@ public class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     @Version
-    private Long version;
+    protected Long version;
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    protected LocalDateTime createdAt;
 
     public BaseEntity() {
     }
