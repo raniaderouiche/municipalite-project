@@ -91,7 +91,7 @@ public class Employee extends BaseEntity {
     public void setDateNaissance(LocalDateTime dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
-    
+
 
     public List<Projet> getProjectList() {
         return projectList;
