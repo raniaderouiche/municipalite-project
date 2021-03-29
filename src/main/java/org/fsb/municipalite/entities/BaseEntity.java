@@ -1,5 +1,7 @@
 package org.fsb.municipalite.entities;
 
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -23,7 +25,6 @@ public class BaseEntity implements Serializable {
 
     public BaseEntity() {
     }
-
 
     public Long getId() {
         return id;

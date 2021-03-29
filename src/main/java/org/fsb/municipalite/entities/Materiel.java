@@ -7,32 +7,32 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Materiel extends BaseEntity{
-    private int reference;
+    private Long reference;
     private String nom;
 
-    enum Etat {
+    public enum Etat {
         disponible, occupe,enPanne;
     }
     private Etat etat;
 
     @ManyToOne
     @JoinColumn
-    private Projet projet;
+    private Projet projet_id;
 
     public Materiel() {
     }
 
-    public Materiel(int reference, String nom, Etat etat) {
+    public Materiel(Long reference, String nom, Etat etat) {
         this.reference = reference;
         this.nom = nom;
         this.etat = etat;
     }
 
-    public int getReference() {
+    public Long getReference() {
         return reference;
     }
 
-    public void setReference(int reference) {
+    public void setReference(Long reference) {
         this.reference = reference;
     }
 
@@ -53,11 +53,11 @@ public class Materiel extends BaseEntity{
     }
 
     public Projet getProjet() {
-        return projet;
+        return projet_id;
     }
 
     public void setProjet(Projet projet) {
-        this.projet = projet;
+        this.projet_id = projet;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class Materiel extends BaseEntity{
                 ", reference=" + reference +
                 ", nom='" + nom + '\'' +
                 ", etat=" + etat +
-                ", projet=" + projet +
+                ", projet=" + projet_id +
                 '}';
     }
 }

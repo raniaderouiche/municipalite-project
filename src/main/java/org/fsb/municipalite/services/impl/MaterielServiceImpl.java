@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MaterielServiceImpl implements IMaterielService {
 
-    private IMaterielDao materielDao;
+    private MaterielDaoImpl materielDao;
 
     public MaterielServiceImpl() {
         this.materielDao = new MaterielDaoImpl();

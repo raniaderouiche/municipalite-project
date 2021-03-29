@@ -2,7 +2,8 @@ package org.fsb.municipalite.entities;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
-@Entity
+
+
 public class Event extends BaseEntity{
     private LocalDateTime date;
     private String nom;

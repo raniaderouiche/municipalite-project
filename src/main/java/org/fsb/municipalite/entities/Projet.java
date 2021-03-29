@@ -19,7 +19,7 @@ public class Projet extends BaseEntity{
     @JoinColumn
     private Equipe equipe;
 
-    @OneToMany(mappedBy = "projet")
+    @OneToMany(mappedBy = "projet_id")
     private List<Materiel> materielList;
 
     public Projet() {

@@ -33,21 +33,26 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     public E save(E entity) {
         em.getTransaction().begin();
         em.persist(entity);
-       // em.getTransaction().commit();
+        em.getTransaction().commit();
         em.close();
         return entity;
     }
 
     @Override
     public E update(E entity) {
-        return em.merge(entity);
+        em.merge(entity);
+        em.getTransaction().commit();
+        em.close();
+        return entity;
     }
 
     @Override
     public List<E> selectAll() {
+        em.getTransaction().begin();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t");
+        List<E> list = query.getResultList();
         em.close();
-        return query.getResultList();
+        return list;
     }
 
     @Override
@@ -59,20 +64,25 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public List<E> selectBy(String param, String value) {
-        Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+"="+value);
+        Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+" = "+value);
+        List<E> list = query.getResultList();
         em.close();
-        return query.getResultList();
+        return list;
     }
 
     @Override
     public E getById(Long id) {
-        return em.find(type, id);
+        em.getTransaction().begin();
+        E entity = em.find(type, id);
+        return entity;
     }
 
     @Override
     public void remove(Long id) {
+        em.getTransaction().begin();
         E tab = em.getReference(type, id);
         em.remove(tab);
+        em.getTransaction().commit();
         em.close();
     }
 
@@ -80,7 +90,6 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     public E findOne(String paramName, Object paramValue) {
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where " + paramName + " = :x");
         query.setParameter("x", paramValue);
-        em.close();
         return query.getResultList().size() > 0 ? (E) query.getResultList().get(0) : null;
     }
 

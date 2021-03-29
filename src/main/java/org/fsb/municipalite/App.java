@@ -4,9 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.fsb.municipalite.entities.Employee;
+import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Projet;
-import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
+import org.fsb.municipalite.services.impl.MaterielServiceImpl;
 import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 
 import javax.persistence.EntityManager;
@@ -17,14 +17,14 @@ import javax.persistence.Persistence;
 public class App extends Application {
 
 
-
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/interfaces/HomePage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/interfaces/Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
 
     public static void main(String[] args) {
 
@@ -34,6 +34,12 @@ public class App extends Application {
         em.getTransaction().begin();
         em.close();
 
+        /*Materiel materiel = new Materiel();
+        materiel.setReference(Long.valueOf(100000));
+        materiel.setNom("TEST");
+        MaterielServiceImpl materielService = new MaterielServiceImpl();
+        System.out.println(materielService.create(materiel));*/
+
       /*  Employee employee = new Employee();
         employee.setNom("Rania");
         employee.setPrenom("Derouiche");
@@ -42,13 +48,13 @@ public class App extends Application {
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         System.out.print(employeeService.create(employee));*/
 
-    /*
-        Projet projet = new Projet();
-        projet.setBudget(100);
+
+       /* Projet projet = new Projet();
+        projet.setBudget(300);
 
         ProjetServiceImpl projetService = new ProjetServiceImpl();
-        System.out.println(projetService.create(projet));
-    */
+        System.out.println(projetService.create(projet));*/
+
         //launch app window
         launch();
     }
