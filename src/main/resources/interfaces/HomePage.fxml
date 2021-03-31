@@ -6,12 +6,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.HomePageController">
    <children>
-      <Button layoutX="546.0" layoutY="349.0" mnemonicParsing="false" onAction="#onClickAction" text="View Stock">
+      <Button layoutX="521.0" layoutY="340.0" mnemonicParsing="false" onAction="#onClickAction" prefHeight="65.0" prefWidth="212.0" text="View Stock">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
       <Button layoutX="566.0" layoutY="429.0" mnemonicParsing="false" onAction="#logout" text="Logout">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="521.0" layoutY="256.0" mnemonicParsing="false" onAction="#onClickViewEmployee" prefHeight="71.0" prefWidth="211.0" text="View Employee">
          <font>
             <Font size="24.0" />
          </font>
