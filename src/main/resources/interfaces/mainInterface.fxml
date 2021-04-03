@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="592.0" prefWidth="960.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MainInterfaceController">
+   <center>
+      <BorderPane fx:id="contentBorderPane" prefHeight="200.0" prefWidth="200.0">
+         <top>
+            <Pane fx:id="coverPane" prefHeight="161.0" prefWidth="737.0" BorderPane.alignment="BOTTOM_CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </Pane>
+         </top>
+      </BorderPane>
+   </center>
+   <left>
+      <VBox fx:id="sideMenu" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="221.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox maxHeight="-Infinity" prefHeight="87.0" prefWidth="221.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox fx:id="profile" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="57.0" prefWidth="221.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/profle.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets bottom="3.0" left="7.0" top="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="username_label" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="62.0" prefWidth="162.0" text="Admin" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="17.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="mymenu" prefHeight="469.0" prefWidth="221.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="l1" onMousePressed="#dashboardButton" prefHeight="56.0" prefWidth="229.0" text="Dashboard" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="2.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/home.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="l2" onMouseClicked="#servicesButton" prefHeight="56.0" prefWidth="229.0" text="Services" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/toolbox.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="l3" onMouseClicked="#toolsButton" prefHeight="56.0" prefWidth="229.0" text="Tools" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/tools.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="l4" onMouseClicked="#TeamsStaffButton" prefHeight="56.0" prefWidth="229.0" text="Teams &amp; Staff" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/team.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="l5" onMouseClicked="#FinanceButton" prefHeight="56.0" prefWidth="229.0" text="Finance" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/money.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+                  <Label fx:id="l6" prefHeight="56.0" prefWidth="229.0" text="Tasks" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/clipboard.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="l7" prefHeight="56.0" prefWidth="229.0" text="Projects" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/brightness.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="l8" prefHeight="56.0" prefWidth="222.0" text="Events" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/calendar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </VBox>
+            <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <Label onMousePressed="#logoutButton" prefHeight="25.0" prefWidth="221.0" text="Log Out" textFill="#9e9e9e">
+               <font>
+                  <Font name="Calibri Light Italic" size="15.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </left>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</BorderPane>

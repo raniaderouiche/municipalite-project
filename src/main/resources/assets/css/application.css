@@ -1,0 +1,127 @@
+.root{
+	-fx-focus-color: transparent;
+}
+
+#l1:hover, #l2:hover, #l3:hover, #l4:hover, #l5:hover, #l6:hover, #l7:hover, #l8:hover{
+	
+   -fx-background-color:rgba(255, 255, 255, 0.336);
+   -fx-font-color:rgb(47, 44, 87);
+   /*-fx-background-radius:5em;*/
+   
+}
+
+#fp:hover{
+	-fx-underline:true;
+}
+
+.tab{
+	-fx-font-size : 20;
+	-fx-background-radius: 10;
+	-fx-padding : 5 30 10 30;
+	-fx-border-width: 40;
+}
+.tab:selected{
+	-fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-text-base-color: white;
+	-fx-focus-color: transparent;
+}
+#sideMenu, .loginBackground{
+	-fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+}
+#settingsButton{
+        -fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+        -fx-background-radius: 5,4,3,5;
+        -fx-background-insets: 0,1,2,0;
+        -fx-text-fill: white;
+        -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+        -fx-font-family: "Arial";
+        -fx-text-fill: linear-gradient(white, #d0d0d0);
+        -fx-font-size: 12px;
+        -fx-padding: 10 20 10 20;
+}
+#coverPane{
+	
+	-fx-background-image:url('../img/bizertecover.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-size:100%;
+}
+
+#profile{
+   -fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+   -fx-background-radius:6em;
+   /*-fx-border-width: 1;
+   -fx-border-style: solid solid solid solid;
+   -fx-border-color:white;
+   -fx-border-radius:6em;*/
+}
+#profile:hover{
+	-fx-border-width: 1;
+    -fx-border-style: solid solid solid solid;
+    -fx-border-color:#003483;
+    -fx-border-radius:6em;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+   
+}
+#tabBackground{
+	-fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+}
+
+.CustomButtons{
+    -fx-font-size : 14;
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 40;
+    -fx-background-color: rgba(0, 0, 0,0.1);
+
+    -fx-text-fill: #015183;
+}
+.CustomButtons:hover{
+	-fx-background-color: rgba(1, 81, 131,0.4);
+    -fx-text-fill: white;
+}
+.CustomButtons:pressed {
+    -fx-background-color: rgba(1, 81, 131,1);
+    -fx-text-fill: white;
+}
+#Login_Button{
+	-fx-text-fill: white;
+	-fx-font-size : 18;
+	-fx-background-radius: 10;
+	
+}
+.loginTextFields{
+	-fx-background-color: transparent;
+	-fx-border-width: 1;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: rgba(58, 162, 247, 0.842);
+    -fx-border-radius:10;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 10;
+    -fx-font-size : 15;
+    -fx-text-fill: white;
+}
+.loginTextFields:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-width: 1;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: rgba(58, 162, 247, 0.842);
+    }

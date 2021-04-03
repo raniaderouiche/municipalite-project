@@ -14,24 +14,14 @@ import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
 
 public class MaterielAddContoller {
-    @FXML
-    public void onClickEventBack(ActionEvent event) {
-        try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/interfaces/MaterielPage.fxml"));
-            Scene scene = new Scene(parent);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
 
-    }
 
     @FXML
     RadioButton avail;
-    @FXML RadioButton unavail;
-    @FXML RadioButton outoford;
+    @FXML 
+    RadioButton unavail;
+    @FXML 
+    RadioButton outoford;
     @FXML
     TextField name;
     @FXML
@@ -60,5 +50,21 @@ public class MaterielAddContoller {
         name.clear();
         ref.clear();
         proj_id.clear();
+    }
+    @FXML
+    public void onClickEventBack(ActionEvent event) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/interfaces/MaterielPage.fxml"));
+            Scene scene = new Scene(parent);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    public void getFieldsData() {
+    	
     }
 }
