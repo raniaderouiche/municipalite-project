@@ -5,14 +5,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+
 @Entity
 public class Materiel extends BaseEntity{
+	
+	public enum Etat {
+	    disponible, occupe,enPanne;
+	}
+	
+	
     private Long reference;
     private String nom;
-
-    public enum Etat {
-        disponible, occupe,enPanne;
-    }
     private Etat etat;
 
     @ManyToOne

@@ -1,7 +1,6 @@
 package org.fsb.municipalite.entities;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
