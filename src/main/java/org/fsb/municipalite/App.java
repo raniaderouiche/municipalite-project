@@ -4,10 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.fsb.municipalite.entities.Materiel;
-import org.fsb.municipalite.entities.Projet;
-import org.fsb.municipalite.services.impl.MaterielServiceImpl;
-import org.fsb.municipalite.services.impl.ProjetServiceImpl;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
