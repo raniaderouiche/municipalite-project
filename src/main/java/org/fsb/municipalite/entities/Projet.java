@@ -1,13 +1,15 @@
 package org.fsb.municipalite.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 public class Projet extends BaseEntity{
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
+    private String name;
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
     private String Lieu;
     private int budget;
 
@@ -25,19 +27,27 @@ public class Projet extends BaseEntity{
     public Projet() {
     }
 
-    public LocalDateTime getDateDebut() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDateTime dateDebut) {
+    public void setDateDebut(LocalDate dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public LocalDateTime getDateFin() {
+    public LocalDate getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(LocalDateTime dateFin) {
+    public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
 

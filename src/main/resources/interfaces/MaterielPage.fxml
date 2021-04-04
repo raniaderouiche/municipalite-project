@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="512.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielPageController">
+<Pane prefHeight="512.0" prefWidth="897.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielPageController">
    <children>
       <VBox prefHeight="521.0" prefWidth="897.0">
          <children>
             <HBox prefHeight="64.0" prefWidth="897.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onClickEventAdd" prefHeight="25.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../../../../../eclipse-workspace/municipalite-project/src/main/resources/assets/css/application.css" text="Add">
+                  <Button mnemonicParsing="false" onAction="#onClickEventAdd" prefHeight="25.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -24,7 +24,7 @@
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onClickEventRemove" prefHeight="30.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../../../../../eclipse-workspace/municipalite-project/src/main/resources/assets/css/application.css" text="Remove">
+                  <Button mnemonicParsing="false" onAction="#onClickEventRemove" prefHeight="30.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -32,7 +32,7 @@
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="Refresh" mnemonicParsing="false" onAction="#monStock" prefHeight="30.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../../../../../eclipse-workspace/municipalite-project/src/main/resources/assets/css/application.css" text="Refresh">
+                  <Button fx:id="Refresh" mnemonicParsing="false" onAction="#monStock" prefHeight="30.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -40,13 +40,13 @@
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#UpdateEvent" styleClass="CustomButtons" stylesheets="@../../../../../eclipse-workspace/municipalite-project/src/main/resources/assets/css/application.css" text="Update">
+                  <Button mnemonicParsing="false" onAction="#UpdateEvent" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
                      <HBox.margin>
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                   <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="searchBox" prefHeight="34.0" prefWidth="239.0" promptText="Search..">
+                  <TextField fx:id="searchBox" onAction="#search" prefHeight="34.0" prefWidth="239.0" promptText="Search..">
                      <HBox.margin>
                         <Insets left="15.0" right="10.0" top="10.0" />
                      </HBox.margin>

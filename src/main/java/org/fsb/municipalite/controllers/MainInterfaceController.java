@@ -66,5 +66,11 @@ public class MainInterfaceController{
 		
 		contentBorderPane.setCenter(view);
 	}
+
+	public void projectsButton(MouseEvent mouseEvent) {
+		System.out.println("Tools Button Clicked");
+		Pane view = CustomFxmlLoader.getPage("ProjectPage");
+		contentBorderPane.setCenter(view);
+	}
 }
 

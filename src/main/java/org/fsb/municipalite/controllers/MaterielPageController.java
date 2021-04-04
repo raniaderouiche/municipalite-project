@@ -167,10 +167,36 @@ public class MaterielPageController implements Initializable{
 
     }
 
+    public boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
 
+    public void search(ActionEvent event) {
+        if(!(searchBox.getText().isEmpty())){
+            tableView.getItems().clear();
+            MaterielServiceImpl materielService =new MaterielServiceImpl();
+            data  =  FXCollections.observableArrayList();
+            if(isNumeric(searchBox.getText())){
+                List<Materiel> list = materielService.selectBy("id",searchBox.getText());
+                for (Materiel m : list) {
+                    data.add(m);
+                }
+            }else{
+                List<Materiel> list = materielService.selectBy("nom","'" + searchBox.getText() + "'");
+                for (Materiel m : list) {
+                    data.add(m);
+                }
+            }
+            tableView.setItems(data);
+            searchBox.clear();
+        }
+    }
 
-
-    
     @FXML
     public void UpdateEvent(ActionEvent event) {
     	try {
@@ -180,9 +206,6 @@ public class MaterielPageController implements Initializable{
 			MaterielUpdateController muc = f.getController();
 	    	
 			if(tableView.getSelectionModel().getSelectedItem() != null) {
-
-				
-				
 				MaterielServiceImpl materielService = new MaterielServiceImpl();
 				Materiel m = (Materiel) tableView.getSelectionModel().getSelectedItem();
 		        Materiel test = materielService.getById(m.getId());

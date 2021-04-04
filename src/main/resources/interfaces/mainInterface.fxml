@@ -179,7 +179,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="l7" prefHeight="56.0" prefWidth="229.0" text="Projects" textFill="WHITE">
+                  <Label fx:id="l7" onMouseClicked="#projectsButton" prefHeight="56.0" prefWidth="229.0" text="Projects" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>

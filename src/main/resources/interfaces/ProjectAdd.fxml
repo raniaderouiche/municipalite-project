@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ProjectAddController">
+   <content>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="name" layoutX="188.0" layoutY="110.0" prefHeight="38.0" prefWidth="336.0" promptText="Name" />
+            <TextField fx:id="budget" layoutX="190.0" layoutY="181.0" prefHeight="37.0" prefWidth="335.0" promptText="Budget" />
+            <TextField fx:id="lieu" layoutX="191.0" layoutY="255.0" prefHeight="38.0" prefWidth="331.0" promptText="Location" />
+            <Label layoutX="253.0" layoutY="48.0" text="Add Project">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="100.0" layoutY="121.0" text="Name :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="100.0" layoutY="191.0" text="Budget :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="100.0" layoutY="266.0" text="Lieu :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="90.0" layoutY="344.0" text="Start Date :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="92.0" layoutY="425.0" text="Due Date :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="91.0" layoutY="502.0" text="Employee :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="start" layoutX="196.0" layoutY="337.0" prefHeight="40.0" prefWidth="196.0" promptText="--/--/--" />
+            <DatePicker fx:id="end" layoutX="196.0" layoutY="418.0" prefHeight="40.0" prefWidth="196.0" promptText="--/--/--" />
+            <Label layoutX="102.0" layoutY="569.0" text="Team :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</DialogPane>
