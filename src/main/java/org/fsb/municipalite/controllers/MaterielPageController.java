@@ -22,7 +22,6 @@ import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
 import org.fsb.municipalite.services.impl.ProjetServiceImpl;
-import org.hibernate.internal.build.AllowSysOut;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -86,21 +85,21 @@ public class MaterielPageController implements Initializable{
             data.addAll(m);
         }
         tableView.setItems(data);
-        
+
     }
 
     @FXML
     public void onClickEventRemove(ActionEvent event) {
-    	//zidouna haka alert wjaw 
-    	// w multiple select
-    	if(tableView.getSelectionModel().getSelectedItem() != null) {
-    		Materiel m = (Materiel) tableView.getSelectionModel().getSelectedItem();
-            MaterielServiceImpl materielService = new MaterielServiceImpl();
-            materielService.remove(m.getId());
-            monStock(event);
-    	}
-    	
-      
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/interfaces/MaterielPageDelete.fxml"));
+            Scene scene = new Scene(parent);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     //refraiche
@@ -212,38 +211,36 @@ public class MaterielPageController implements Initializable{
 
     
     @FXML
-    public void UpdateEvent(ActionEvent event) {
-    	try {
-	    	FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/interfaces/MaterielPageUpdate.fxml"));
-			Pane materielDialogPane = f.load();
-			MaterielUpdateController muc = f.getController();
-	    	
-			if(tableView.getSelectionModel().getSelectedItem() != null) {
-
-				
-				
-				MaterielServiceImpl materielService = new MaterielServiceImpl();
-				Materiel m = (Materiel) tableView.getSelectionModel().getSelectedItem();
-		        Materiel test = materielService.getById(m.getId());
-
-				System.out.println(m.getId()+m.getNom()+m.getReference()+m.getProjet()+m.getEtat());
-				muc.setMaterielDialogPane(test);
-				Dialog<ButtonType> d = new Dialog<>();
-				d.setDialogPane((DialogPane) materielDialogPane);
-				d.setTitle("Update materiel");
-				Optional<ButtonType> clickedButton = d.showAndWait();
-				if(clickedButton.get() == ButtonType.APPLY) {
-						
-						muc.getCurrentMateriel(test);
-				        materielService.update(test);
-				        monStock(event);
-				}
-			}
-		
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    	}
+    public void updateItem(ActionEvent event){
+        Materiel materiel;
+        MaterielServiceImpl materielService = new MaterielServiceImpl();
+        materiel = materielService.getById(Long.parseLong(idField.getText()));
+        System.out.println(materiel.getId());
+        if ((nameField.getText().length()) != 0){
+            materiel.setNom(nameField.getText());
+        }
+        if ((refField.getText().length() != 0)) {
+            materiel.setReference(Long.parseLong(refField.getText()));
+        }
+        if (projField.getText().length() != 0){
+            ProjetServiceImpl projetService = new ProjetServiceImpl();
+            materiel.setProjet(projetService.getById(Long.parseLong(projField.getText())));
+        }
+        if (avail.isSelected()) {
+            materiel.setEtat(Materiel.Etat.disponible);
+        }
+        if (unavail.isSelected()) {
+            materiel.setEtat(Materiel.Etat.occupe);
+        }
+        if (outoford.isSelected()) {
+            materiel.setEtat(Materiel.Etat.enPanne);
+        }
+        materielService.update(materiel);
+        idField.clear();
+        nameField.clear();
+        refField.clear();
+        projField.clear();
     }
+
 
 }

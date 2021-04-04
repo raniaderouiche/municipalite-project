@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
@@ -9,51 +10,67 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefWidth="553.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielAddContoller">
+
+<DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielAddContoller">
    <content>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="553.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="689.0" prefWidth="553.0">
          <children>
-            <Label layoutX="189.0" layoutY="20.0" prefHeight="53.0" prefWidth="177.0" text="ADD ITEM:">
+            <Label layoutX="255.0" layoutY="14.0" prefHeight="53.0" prefWidth="177.0" text="ADD ITEM:">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <TextField fx:id="name" layoutX="172.0" layoutY="121.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Name">
+            <TextField fx:id="name" layoutX="174.0" layoutY="164.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Name">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="ref" layoutX="172.0" layoutY="198.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Reference">
+            <TextField fx:id="ref" layoutX="174.0" layoutY="241.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Reference">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="proj_id" layoutX="173.0" layoutY="280.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Project ID">
+            <TextField fx:id="proj_id" layoutX="175.0" layoutY="323.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Project ID">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <Label layoutX="39.0" layoutY="127.0" text="Name :">
+            <Label layoutX="41.0" layoutY="170.0" text="Name :">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="24.0" layoutY="204.0" text="Reference :">
+            <Label layoutX="26.0" layoutY="247.0" text="Reference :">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="39.0" layoutY="409.0" text="Status :">
+            <Label layoutX="41.0" layoutY="452.0" text="Status :">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="36.0" layoutY="286.0" text="Project :">
+            <Label layoutX="38.0" layoutY="329.0" text="Project :">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <RadioButton fx:id="avail" layoutX="173.0" layoutY="375.0" mnemonicParsing="false" selected="true" text="Available">
+            <Button layoutX="232.0" layoutY="566.0" mnemonicParsing="false" onAction="#addItem" prefHeight="39.0" prefWidth="224.0" text="Add">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <TextField fx:id="msg" layoutX="232.0" layoutY="633.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Button fx:id="back" layoutX="53.0" layoutY="21.0" mnemonicParsing="false" onAction="#onClickEventBack" text="Back">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <RadioButton fx:id="avail" layoutX="175.0" layoutY="418.0" mnemonicParsing="false" selected="true" text="Available">
                <font>
                   <Font size="18.0" />
                </font>
@@ -61,12 +78,12 @@
                   <ToggleGroup fx:id="status" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="unavail" layoutX="173.0" layoutY="410.0" mnemonicParsing="false" text="Unavailabe" toggleGroup="$status">
+            <RadioButton fx:id="unavail" layoutX="175.0" layoutY="453.0" mnemonicParsing="false" text="Unavailabe" toggleGroup="$status">
                <font>
                   <Font size="18.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="outoford" layoutX="173.0" layoutY="444.0" mnemonicParsing="false" text="Out of Order" toggleGroup="$status">
+            <RadioButton fx:id="outoford" layoutX="175.0" layoutY="487.0" mnemonicParsing="false" text="Out of Order" toggleGroup="$status">
                <font>
                   <Font size="18.0" />
                </font>
