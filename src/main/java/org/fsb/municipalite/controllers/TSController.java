@@ -5,8 +5,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import org.fsb.municipalite.entities.Employee;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,26 +33,24 @@ import javafx.scene.layout.Pane;
 
 public class TSController implements Initializable{
 	
+	@FXML
+	private TableView<Employee> mainTable;
+	@FXML
+	private TableColumn<Employee, String> nom;
+	@FXML
+	private TableColumn<Employee, String> prenom;
+	@FXML
+	private TableColumn<Employee, String> cin;
+	@FXML
+	private TableColumn<Employee, String> etatCivil;
+	@FXML
+	private TableColumn<Employee, String> sexe;
+	@FXML
+	private TableColumn<LocalDateTime, String> dateNaissance;
 	
-	/*
-	@FXML
-	private TableView<Personnel> mainTable;
-	@FXML
-	private TableColumn<Personnel, String> nom;
-	@FXML
-	private TableColumn<Personnel, String> prenom;
-	@FXML
-	private TableColumn<Personnel, String> cin;
-	@FXML
-	private TableColumn<Personnel, String> etatCivil;
-	@FXML
-	private TableColumn<Personnel, String> sexe;
-	@FXML
-	private TableColumn<Personnel, String> dateNaissance;
+	ObservableList<Employee> list_p = FXCollections.observableArrayList();
 	
-	ObservableList<Personnel> list_p = FXCollections.observableArrayList();
 	
-	*/
 	/*public ObservableList<Personnel> getdbpersonnellist(){
 		
 		try {
@@ -82,7 +83,7 @@ public class TSController implements Initializable{
 		return list_p;
 		
 	}*/
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
