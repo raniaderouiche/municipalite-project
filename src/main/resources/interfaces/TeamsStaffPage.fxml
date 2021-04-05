@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="633.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.TSController">
+   <top>
+      <TabPane fx:id="mainTabPane" prefHeight="581.0" prefWidth="977.0" stylesheets="@../assets/css/application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Staff">
+               <content>
+                  <BorderPane fx:id="tabBackground1" prefHeight="450.0" prefWidth="977.0" stylesheets="@../assets/css/application.css">
+                     <center>
+                        <TableView fx:id="mainTable" prefHeight="367.0" prefWidth="957.0" BorderPane.alignment="CENTER">
+                          <columns>
+                              <TableColumn fx:id="nom" prefWidth="103.0" text="First Name" />
+                            <TableColumn fx:id="prenom" prefWidth="109.0" text="Last Name" />
+                            <TableColumn fx:id="cin" prefWidth="52.0" text="CIN" />
+                              <TableColumn fx:id="etatCivil" prefWidth="81.0" text="Civil Status" />
+                              <TableColumn fx:id="sexe" minWidth="0.0" prefWidth="0.0" text="Gender" />
+                              <TableColumn fx:id="dateNaissance" minWidth="-Infinity" prefWidth="179.0" text="Birthday" />
+                          </columns>
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </BorderPane.margin>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </center>
+                     <top>
+                        <HBox prefHeight="37.0" prefWidth="550.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#addPersonnel" prefHeight="39.0" prefWidth="65.0" styleClass="CustomButtons" text="Add">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></Button>
+                              <Button mnemonicParsing="false" onAction="#updatePersonnel" prefHeight="39.0" prefWidth="85.0" styleClass="CustomButtons" text="Update">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></Button>
+                              <Button mnemonicParsing="false" onAction="#deletePersonnel" prefHeight="39.0" prefWidth="87.0" styleClass="CustomButtons" text="Delete">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></Button>
+                              <Pane HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Pane>
+                              <TextField fx:id="searchField" prefHeight="4.0" prefWidth="273.0" promptText="Search.." style="-fx-background-radius: 20;">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font></TextField>
+                              <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="38.0" styleClass="CustomButtons">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fx:id="searchIcon" fitHeight="23.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                       <image>
+                                          <Image url="@../assets/img/s.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets left="20.0" right="10.0" top="20.0" />
+                           </BorderPane.margin>
+                        </HBox>
+                     </top>
+                  </BorderPane>
+               </content>
+            </Tab>
+          <Tab text="Team">
+               <content>
+                  <BorderPane prefHeight="412.0" prefWidth="580.0">
+                     <center>
+                        <TableView prefHeight="303.0" prefWidth="539.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn prefWidth="103.0" text="Id" />
+                              <TableColumn prefWidth="109.0" text="Id Responsable" />
+                              <TableColumn prefWidth="52.0" text="Id Tache" />
+                              <TableColumn prefWidth="81.0" text="Nombre Employee" />
+                           </columns>
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </BorderPane.margin>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </center>
+                     <top>
+                        <HBox prefHeight="37.0" prefWidth="550.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="65.0" styleClass="CustomButtons" text="Add">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="85.0" styleClass="CustomButtons" text="Update">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" styleClass="CustomButtons" text="Delete">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Pane HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Pane>
+                              <TextField prefHeight="35.0" prefWidth="273.0" promptText="Search.." style="-fx-background-radius: 20;">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </TextField>
+                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="38.0" styleClass="CustomButtons">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fx:id="searchIcon1" fitHeight="23.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                       <image>
+                                          <Image url="@../assets/img/s.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets left="20.0" right="10.0" top="20.0" />
+                           </BorderPane.margin>
+                        </HBox>
+                     </top>
+                  </BorderPane>
+               </content></Tab>
+        </tabs>
+      </TabPane>
+   </top>
+</BorderPane>
