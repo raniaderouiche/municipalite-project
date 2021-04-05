@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<DialogPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.EquipeUpdateController">
+   <content>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="id" disable="true" layoutX="124.0" layoutY="157.0" prefHeight="41.0" prefWidth="301.0" />
+            <TextField fx:id="name" layoutX="124.0" layoutY="266.0" prefHeight="41.0" prefWidth="301.0" promptText="Name" />
+            <Text layoutX="198.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UPDATE TEAM">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Text>
+            <Text layoutX="59.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="42.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="40.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leader :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="leader" layoutX="134.0" layoutY="370.0" prefHeight="25.0" prefWidth="287.0" />
+         </children>
+      </AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</DialogPane>

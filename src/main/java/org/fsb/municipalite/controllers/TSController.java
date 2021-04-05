@@ -5,11 +5,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.fsb.municipalite.entities.Employee;
+import org.fsb.municipalite.entities.Equipe;
+import org.fsb.municipalite.entities.Projet;
+import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
+import org.fsb.municipalite.services.impl.EquipeServiceImpl;
+import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,226 +30,331 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class TSController implements Initializable{
 	
-	@FXML
-	private TableView<Employee> mainTable;
-	@FXML
-	private TableColumn<Employee, String> nom;
-	@FXML
-	private TableColumn<Employee, String> prenom;
-	@FXML
-	private TableColumn<Employee, String> cin;
-	@FXML
-	private TableColumn<Employee, String> etatCivil;
-	@FXML
-	private TableColumn<Employee, String> sexe;
-	@FXML
-	private TableColumn<LocalDateTime, String> dateNaissance;
+	//Staff (employee)
 	
-	ObservableList<Employee> list_p = FXCollections.observableArrayList();
+	@FXML
+	TableView<Employee> staffTable;
+	@FXML
+	TableColumn<Employee, Long> id_emp;
+	@FXML
+	TableColumn<Employee, String> nom;
+	@FXML
+	TableColumn<Employee, String> prenom;
+	@FXML
+	TableColumn<Employee, String> cin;
+	@FXML
+	TableColumn<Employee, String> etatCivil;
+	@FXML
+	TableColumn<Employee, String> sexe;
+	@FXML
+	TableColumn<Employee, LocalDateTime> dateNaissance;
+	@FXML
+    TextField empSearchField;
+
+	ObservableList<Employee> EmployeesData;
 	
+	//Team
+	@FXML 
+	TableView<Equipe> teamTable;
+	@FXML 
+	TableColumn<Equipe,Long> id_team;
+	@FXML 
+	TableColumn<Equipe, String> name;
+	@FXML 
+	TableColumn<Equipe,Long> leader;
+
+	@FXML
+    TextField teamSearchField;
 	
-	/*public ObservableList<Personnel> getdbpersonnellist(){
-		
-		try {
-			
-			
-			//create jdbc connection and create obj and load class
-			
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","Ilovecats2020");
-			
-			//create statement obj
-			Statement s = conn.createStatement();
-			
-			//execute the query
-			ResultSet rs = s.executeQuery("select * from Personnel");
-			
-			while(rs.next()) {
-				list_p.add(new Personnel(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)));
-			}
-			
-			//close all jdbc obj
-			rs.close();
-			s.close();
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		return list_p;
-		
-	}*/
+	ObservableList<Equipe> teamdata;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		/*
-		nom.setCellValueFactory(new PropertyValueFactory<Personnel, String>("nom"));
-		prenom.setCellValueFactory(new PropertyValueFactory<Personnel, String>("prenom"));
-		cin.setCellValueFactory(new PropertyValueFactory<Personnel, String>("cin"));
-		etatCivil.setCellValueFactory(new PropertyValueFactory<Personnel, String>("etatCivil"));
-		sexe.setCellValueFactory(new PropertyValueFactory<Personnel, String>("sexe"));
-		dateNaissance.setCellValueFactory(new PropertyValueFactory<Personnel, String>("dateNaissance"));
-		
-		mainTable.setItems(getdbpersonnellist());
+		//staff
+		id_emp.setCellValueFactory(new PropertyValueFactory<Employee, Long>("id"));
+		nom.setCellValueFactory(new PropertyValueFactory<Employee, String>("nom"));
+		prenom.setCellValueFactory(new PropertyValueFactory<Employee, String>("prenom"));
+		cin.setCellValueFactory(new PropertyValueFactory<Employee, String>("cin"));
+		etatCivil.setCellValueFactory(new PropertyValueFactory<Employee, String>("etatCivil"));
+		sexe.setCellValueFactory(new PropertyValueFactory<Employee, String>("sexe"));
+		dateNaissance.setCellValueFactory(new PropertyValueFactory<Employee, LocalDateTime>("dateNaissance"));
 		
 		
-        FilteredList<Personnel> filteredData = new FilteredList<>(list_p,b -> true);
-	        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-		        filteredData.setPredicate(perso -> {
-		        	if(newValue == null || newValue.isEmpty()) {
-		        		return true;
-		        	}
-		        	String lowerCaseFilter = newValue.toLowerCase();
-		        	if (perso.getNom().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true; // Filter matches first name.
-					}
-		        	if (perso.getPrenom().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true; // Filter matches first name.
-					}
-		        	if (perso.getEtatCivil().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true; // Filter matches first name.
-					}
-		        	if (perso.getCin().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true; // Filter matches first name.
-					}
-		        	else 
-		        		return false;
-		        	});
-		        });
-        SortedList<Personnel> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(mainTable.comparatorProperty());
-		mainTable.setItems(sortedData);
-		*/
+		EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+        List<Employee> list = employeeService.selectAll();
+        
+        EmployeesData =  FXCollections.observableArrayList();
+        for(Employee p : list) {
+        	System.out.println(p);
+        	EmployeesData.add(p);
+        }
+        
+		staffTable.setItems(EmployeesData);
+		//team
+		id_team.setCellValueFactory(new PropertyValueFactory<Equipe,Long>("id"));
+		name.setCellValueFactory(new PropertyValueFactory<Equipe, String>("nom"));
+		leader.setCellValueFactory(new PropertyValueFactory<Equipe,Long>("idResponsable"));
+
+		EquipeServiceImpl equipeService = new EquipeServiceImpl();
+		List<Equipe> equipeList = equipeService.selectAll();
+		teamdata  =  FXCollections.observableArrayList();
+		for (Equipe e : equipeList) {
+			teamdata.addAll(e);
+		}
+		teamTable.setItems(teamdata);
+	}
+	
+	//aamlou button pls :)
+	public void refreshTeam(){
+		teamTable.getItems().clear();
+		EquipeServiceImpl equipeService = new EquipeServiceImpl();
+		List<Equipe> equipeList = equipeService.selectAll();
+		teamdata  =  FXCollections.observableArrayList();
+		for (Equipe e : equipeList) {
+			teamdata.addAll(e);
+		}
+		teamTable.setItems(teamdata);
+
 	}
 	
 	@FXML
-	public void addPersonnel(ActionEvent event) {
-		/*
+	public void reloadEmp(ActionEvent event) {
+		EmployeeServiceImpl empService = new EmployeeServiceImpl();
+		staffTable.getItems().clear();
+		List<Employee> list = empService.selectAll();
+		for(Employee p : list) {
+			EmployeesData.add(p);
+		}
+		staffTable.setItems(EmployeesData);
+	}
+	
+	@FXML
+	public void addEmp(ActionEvent event) {
+		
 		try {
 			FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/addPersonnelBox.fxml"));
-			Pane personnelDialogPane = f.load();
+			f.setLocation(getClass().getResource("/interfaces/StaffAddPage.fxml"));
+			Pane empDialogPane = f.load();
 			
-			PersonnelDialogController pdc = f.getController();
+			EmployeeDialogController edc = f.getController();
 			
 			Dialog<ButtonType> d = new Dialog<>();
-			d.setDialogPane((DialogPane) personnelDialogPane);
-			d.setTitle("add personnel");
+			d.setDialogPane((DialogPane) empDialogPane);
+			d.setTitle("add Employee");
 			Optional<ButtonType> clickedButton = d.showAndWait();
 			
-			
 			if(clickedButton.get() == ButtonType.APPLY) {
-				if(pdc.getPersonnel().getNom().length()>0 && 
-				pdc.getPersonnel().getPrenom().length()>0 &&
-				pdc.getPersonnel().getCin().length()>0 &&
-				pdc.getPersonnel().getEtatCivil().length()>0 &&
-				pdc.getPersonnel().getSexe().length()>0 &&
-				pdc.getPersonnel().getDateNaissance().length()>0) {
-					
-					Class.forName("oracle.jdbc.driver.OracleDriver");
-					Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","Ilovecats2020");
-					Statement s = conn.createStatement(); 
-					int rs = s.executeUpdate("INSERT INTO Personnel VALUES('"+pdc.getPersonnel().getNom()+"','"+
-							pdc.getPersonnel().getPrenom()+"','"+
-							pdc.getPersonnel().getCin()+"','"+
-							pdc.getPersonnel().getEtatCivil()+"','"+
-							pdc.getPersonnel().getSexe()+"','"+
-							pdc.getPersonnel().getDateNaissance()+"')");
-					s.close();
-					conn.close();
+	               Employee emp = new Employee();
+	               if(!(edc.nom_field.getText().isEmpty())){
+	            	   emp.setNom(edc.nom_field.getText());
+	               }
+	               if(!(edc.prenom_field.getText().isEmpty())){
+	            	   emp.setPrenom(edc.prenom_field.getText());
+	               }
+	               if(!(edc.cin_field.getText().isEmpty())){
+	                   emp.setCin(edc.cin_field.getText());
+	               }
+	               emp.setEtatCivil(edc.civilStatusBox.getValue());
+	               RadioButton selectedRadioButton = (RadioButton) edc.genderGroup.getSelectedToggle();
+	               emp.setSexe(selectedRadioButton.getText());
+	               emp.setDateNaissance(edc.dnPicker.getValue().atStartOfDay());
+	               EmployeeServiceImpl empService = new EmployeeServiceImpl();
+	               empService.create(emp);
+	               //refreshEmpList(event);
 
-					list_p.add(pdc.getPersonnel());
-				}
-				
-			}
-			
+	            }
+			reloadEmp(event);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		*/
+		
 	}
 	
 	@FXML
-	public void updatePersonnel(ActionEvent event) {
-		/*
+	public void updateEmp(ActionEvent event) {
+		
 		try {
 			FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/addPersonnelBox.fxml"));
-			Pane personnelDialogPane = f.load();
+			f.setLocation(getClass().getResource("/interfaces/StaffAddPage.fxml"));
+			Pane empDialogPane = f.load();
 			
-			PersonnelDialogController pdc = f.getController();
-			if(mainTable.getSelectionModel().getSelectedItem() != null) {
-				pdc.setPersonnelDialogPane(mainTable.getSelectionModel().getSelectedItem());
+			EmployeeDialogController edc = f.getController();
+			if(staffTable.getSelectionModel().getSelectedItem() != null) {
+				
+				EmployeeServiceImpl empService = new EmployeeServiceImpl();
+				Employee selectedEmp = (Employee) staffTable.getSelectionModel().getSelectedItem();
+				Employee emp = empService.getById(selectedEmp.getId());
+				
+				edc.setEmpDialogPane(emp);
 				
 				Dialog<ButtonType> d = new Dialog<>();
-				d.setDialogPane((DialogPane) personnelDialogPane);
-				d.setTitle("Update personnel");
+				d.setDialogPane((DialogPane) empDialogPane);
+				d.setTitle("Update Employee");
 				Optional<ButtonType> clickedButton = d.showAndWait();
-				
 				if(clickedButton.get() == ButtonType.APPLY) {
-					if(pdc.getPersonnel().getNom().length()>0 && 
-					    pdc.getPersonnel().getPrenom().length()>0 &&
-				    	pdc.getPersonnel().getCin().length()>0 &&
-					    pdc.getPersonnel().getEtatCivil().length()>0 &&
-					    pdc.getPersonnel().getSexe().length()>0 &&
-					    pdc.getPersonnel().getDateNaissance().length()>0) {
-						
-							Class.forName("oracle.jdbc.driver.OracleDriver");
-							Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","Ilovecats2020");
-							Statement s = conn.createStatement(); 
-							int rs = s.executeUpdate("UPDATE Personnel SET nom ='"+pdc.getPersonnel().getNom()+"', prenom= '"+
-																				   pdc.getPersonnel().getPrenom()+"', cin= '"+
-																				   pdc.getPersonnel().getCin()+"', etatcivil= '"+
-																				   pdc.getPersonnel().getEtatCivil()+"', sexe= '"+
-																				   pdc.getPersonnel().getSexe()+"', datenaissance= '"+
-																				   pdc.getPersonnel().getDateNaissance()+"' WHERE cin = '"+
-																				   pdc.getPersonnel().getCin()+"'");
-							s.close();
-							conn.close();
-							
-							list_p.set(mainTable.getSelectionModel().getSelectedIndex(), pdc.getPersonnel());
-					}
+					edc.setCurrentEmployee(emp);
+					empService.update(emp);
+					//refresh
 				}
 			}
-			
-			
-			
-		} catch (Exception e) {
+			reloadEmp(event);
+		}catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
+	}
+	
+	
+	@FXML void deleteEmp(ActionEvent event) {
 		
+		 if(staffTable.getSelectionModel().getSelectedItem() != null) {
+	            Employee emp = (Employee) staffTable.getSelectionModel().getSelectedItem();
+	            EmployeeServiceImpl empService = new EmployeeServiceImpl();
+	            empService.remove(emp.getId());
+	            reloadEmp(event);
+	        }
 	}
-	@FXML void deletePersonnel(ActionEvent event) {
-		/*
-		Personnel selectedP = mainTable.getSelectionModel().getSelectedItem();
-		int index = mainTable.getSelectionModel().getSelectedIndex();
-		if(index>=0) {
-			try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","Ilovecats2020");
-			Statement s = conn.createStatement(); 
-			ResultSet rs = s.executeQuery("DELETE FROM Personnel WHERE cin = '"+selectedP.getCin()+"'");
-			System.out.println(rs);
-			rs.close();
-			s.close();
-			conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
+	
+	public boolean isNumeric(String str) {
+		try {
+			Long.parseLong(str);
+			return true;
+		} catch(NumberFormatException e){
+			return false;
+		}
+	}
+
+	public void empSearch(ActionEvent event) {
+        if(!(empSearchField.getText().isEmpty())){
+        	staffTable.getItems().clear();
+            EmployeeServiceImpl empService =new EmployeeServiceImpl();
+            EmployeesData =  FXCollections.observableArrayList();
+            if(isNumeric(empSearchField.getText())){
+                List<Employee> list = empService.selectBy("id",empSearchField.getText());
+                for (Employee e : list) {
+                	EmployeesData.add(e);
+                }
+            }else{
+                List<Employee> list = empService.selectBy("nom","'" + empSearchField.getText() + "'");
+                for (Employee e : list) {
+                	EmployeesData.add(e);
+                }
+            }
+            staffTable.setItems(EmployeesData);
+            empSearchField.clear();
+        }
+    }
+
+
+	@FXML
+	public void addTeam(ActionEvent event) {
+		try {
+			FXMLLoader f = new FXMLLoader();
+			f.setLocation(getClass().getResource("/interfaces/EquipeAdd.fxml"));
+			Pane equipeDialogPane = f.load();
+			EquipeAddController eqac = f.getController();
+
+			Dialog<ButtonType> d = new Dialog<>();
+			d.setDialogPane((DialogPane) equipeDialogPane);
+			d.setTitle("add team");
+			Optional<ButtonType> clickedButton = d.showAndWait();
+
+			if(clickedButton.get() == ButtonType.APPLY) {
+				Equipe equipe = new Equipe();
+				if(!(eqac.name.getText().isEmpty())){
+					equipe.setNom(eqac.name.getText());
+				}
+				if(!(eqac.leader.getValue().toString().isEmpty())){
+					EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+					Employee emp = employeeService.getById(Long.parseLong(eqac.leader.getValue().toString().split(",")[0]));
+					equipe.setIdResponsable(emp.getId());
+				}
+
+				EquipeServiceImpl equipeService = new EquipeServiceImpl();
+				equipeService.create(equipe);
+				refreshTeam();
 			}
-			list_p.remove(index);
-		}*/
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
+
+
+	@FXML
+	public void updateTeam(ActionEvent event) {
+		try {
+			FXMLLoader f = new FXMLLoader();
+			f.setLocation(getClass().getResource("/interfaces/EquipeUpdate.fxml"));
+			Pane equipeDialogPane = f.load();
+			EquipeUpdateController equc = f.getController();
+
+			if(teamTable.getSelectionModel().getSelectedItem() != null) {
+
+				EquipeServiceImpl equipeService = new EquipeServiceImpl();
+				Equipe e = (Equipe) teamTable.getSelectionModel().getSelectedItem();
+				Equipe equipe = equipeService.getById(e.getId());
+
+				equc.setEquipeDialogPane(equipe);
+				Dialog<ButtonType> d = new Dialog<>();
+				d.setDialogPane((DialogPane) equipeDialogPane);
+				d.setTitle("Update equipe");
+				Optional<ButtonType> clickedButton = d.showAndWait();
+				if(clickedButton.get() == ButtonType.APPLY) {
+
+					equc.setCurrentEquipe(equipe);
+					equipeService.update(equipe);
+					refreshTeam();
+				}
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@FXML
+	public void deleteTeam(ActionEvent event) {
+		if(teamTable.getSelectionModel().getSelectedItem() != null){
+			Equipe equipe = (Equipe) teamTable.getSelectionModel().getSelectedItem();
+			EquipeServiceImpl equipeService = new EquipeServiceImpl();
+			equipeService.remove(equipe.getId());
+			refreshTeam();
+		}
+	}
+	@FXML
+	public void searchTeam(ActionEvent event) {
+		if(!(teamSearchField.getText().isEmpty())){
+			teamTable.getItems().clear();
+			EquipeServiceImpl equipeService = new EquipeServiceImpl();
+			teamdata  =  FXCollections.observableArrayList();
+			if(isNumeric(teamSearchField.getText())){
+				List<Equipe> list = equipeService.selectBy("id",teamSearchField.getText());
+				for (Equipe e : list) {
+					teamdata.add(e);
+				}
+			}else{
+				List<Equipe> list = equipeService.selectBy("nom","'" + teamSearchField.getText() + "'");
+				for (Equipe e : list) {
+					teamdata.add(e);
+				}
+			}
+			teamTable.setItems(teamdata);
+			teamSearchField.clear();
+		}
+	}
+	
 	
 }
