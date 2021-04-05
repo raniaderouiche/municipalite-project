@@ -54,7 +54,7 @@ public class MainInterfaceController{
 	private void TeamsStaffButton(MouseEvent event) {
 		
 		System.out.println("TS Clicked");
-		Pane view = CustomFxmlLoader.getPage("TeamsStaffGUI");
+		Pane view = CustomFxmlLoader.getPage("TeamsStaffPage");
 		
 		contentBorderPane.setCenter(view);
 	}

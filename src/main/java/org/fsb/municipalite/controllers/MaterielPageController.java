@@ -64,26 +64,25 @@ public class MaterielPageController implements Initializable{
         }
         tableView.setItems(data);
         
-        //we can use this for search
+        
         /*
         FilteredList<Materiel> filteredData = new FilteredList<>(data,b -> true);
-	        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
-		        filteredData.setPredicate(mat -> {
-		        	if(newValue == null || newValue.isEmpty()) {
-		        		return true;
-		        	}
-		        	String lowerCaseFilter = newValue.toLowerCase();
-		        	if (mat.getNom().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true;
-					}
-		        	else
-		        		return false;
-		        	});
-		        });
+	    searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+	        filteredData.setPredicate(mat -> {
+	        	if(newValue == null || newValue.isEmpty()) {
+	        		return true;
+	        	}
+	        	String lowerCaseFilter = newValue.toLowerCase();
+	        	if (mat.getNom().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+					return true;
+				}
+	        	else
+	        		return false;
+	        });
+	    });
         SortedList<Materiel> sortedData = new SortedList<>(filteredData);
 		sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-		for (Materiel i : sortedData)
-			System.out.println(i);
+		
 		tableView.setItems(sortedData);
 		*/
     }
