@@ -22,7 +22,7 @@
                <content>
                   <BorderPane fx:id="tabBackground1" prefHeight="450.0" prefWidth="977.0" stylesheets="@../assets/css/application.css">
                      <center>
-                        <TableView fx:id="mainTable" prefHeight="367.0" prefWidth="957.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="staffTable" prefHeight="367.0" prefWidth="957.0" BorderPane.alignment="CENTER">
                           <columns>
                               <TableColumn fx:id="id_emp" prefWidth="120.0" text="Id" />
                               <TableColumn fx:id="nom" prefWidth="158.0" text="First Name" />
@@ -43,33 +43,38 @@
                      <top>
                         <HBox prefHeight="37.0" prefWidth="550.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addPersonnel" prefHeight="39.0" prefWidth="65.0" styleClass="CustomButtons" text="Add">
+                              <Button mnemonicParsing="false" onAction="#addEmp" prefHeight="39.0" prefWidth="65.0" styleClass="CustomButtons" text="Add">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin></Button>
-                              <Button mnemonicParsing="false" onAction="#updatePersonnel" prefHeight="39.0" prefWidth="85.0" styleClass="CustomButtons" text="Update">
+                              <Button mnemonicParsing="false" onAction="#updateEmp" prefHeight="39.0" prefWidth="85.0" styleClass="CustomButtons" text="Update">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin></Button>
-                              <Button mnemonicParsing="false" onAction="#deletePersonnel" prefHeight="39.0" prefWidth="87.0" styleClass="CustomButtons" text="Delete">
+                              <Button mnemonicParsing="false" onAction="#deleteEmp" prefHeight="39.0" prefWidth="87.0" styleClass="CustomButtons" text="Delete">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin></Button>
+                              <Button layoutX="170.0" layoutY="10.0" mnemonicParsing="false" onAction="#reloadEmp" prefHeight="37.0" prefWidth="72.0" styleClass="CustomButtons" text="Refresh">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
                               <Pane HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </Pane>
-                              <TextField fx:id="searchField" prefHeight="4.0" prefWidth="273.0" promptText="Search.." style="-fx-background-radius: 20;">
+                              <TextField fx:id="empSearchField" onAction="#empSearch" prefHeight="4.0" prefWidth="273.0" promptText="Search.." style="-fx-background-radius: 20;">
                                  <font>
                                     <Font size="16.0" />
                                  </font></TextField>
@@ -114,7 +119,7 @@
                      <top>
                         <HBox prefHeight="37.0" prefWidth="550.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false" onMouseClicked="#addTeam" prefHeight="39.0" prefWidth="65.0" styleClass="CustomButtons" text="Add">
+                              <Button mnemonicParsing="false" onAction="#addTeam" prefHeight="39.0" prefWidth="65.0" styleClass="CustomButtons" text="Add">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -122,7 +127,9 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onMouseClicked="#update" prefHeight="39.0" prefWidth="85.0" styleClass="CustomButtons" text="Update">
+
+                              <Button fx:id="updateTeam" mnemonicParsing="false" onAction="#updateTeam" prefHeight="39.0" prefWidth="85.0" styleClass="CustomButtons" text="Update">
+
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -130,20 +137,29 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onMouseClicked="#delete" prefHeight="37.0" prefWidth="87.0" styleClass="CustomButtons" text="Delete">
+
+                              <Button fx:id="deleteTeam" mnemonicParsing="false" onAction="#deleteTeam" prefHeight="37.0" prefWidth="87.0" styleClass="CustomButtons" text="Delete">
+
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
+                              </Button>
+                              <Button layoutX="170.0" layoutY="10.0" mnemonicParsing="false" onAction="#refreshTeam" prefHeight="37.0" prefWidth="72.0" styleClass="CustomButtons" text="Refresh">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </Button>
                               <Pane HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </Pane>
-                              <TextField fx:id="searchBox" onAction="#searchTeam" prefHeight="35.0" prefWidth="273.0" promptText="Search.." style="-fx-background-radius: 20;">
+
+                              <TextField fx:id="teamSearchField" onAction="#searchTeam" prefHeight="35.0" prefWidth="273.0" promptText="Search.." style="-fx-background-radius: 20;">
+
                                  <font>
                                     <Font size="16.0" />
                                  </font>

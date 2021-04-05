@@ -19,7 +19,6 @@ public class CustomFxmlLoader {
 				throw new java.io.FileNotFoundException("FXML file can't be found");
 			view = new FXMLLoader().load(fileUrl);
 		}catch(Exception e) {
-			e.printStackTrace();
 			System.out.println("No page " + fileName + " please check FxmlLoader");
 		}
 		return view;

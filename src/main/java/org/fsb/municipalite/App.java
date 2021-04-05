@@ -3,6 +3,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -18,7 +19,10 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/interfaces/LoginScene.fxml"));
         Scene scene = new Scene(root);
+        Image icon = new Image("/assets/img/icon.png");
         stage.setScene(scene);
+        stage.getIcons().add(icon);
+		stage.setTitle("Bizerte Municipality");
         stage.show();
     }
 
@@ -30,27 +34,6 @@ public class App extends Application {
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
         em.close();
-
-        /*Materiel materiel = new Materiel();
-        materiel.setReference(Long.valueOf(100000));
-        materiel.setNom("TEST");
-        MaterielServiceImpl materielService = new MaterielServiceImpl();
-        System.out.println(materielService.create(materiel));*/
-
-      /*  Employee employee = new Employee();
-        employee.setNom("Rania");
-        employee.setPrenom("Derouiche");
-
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
-        System.out.print(employeeService.create(employee));*/
-
-
-       /* Projet projet = new Projet();
-        projet.setBudget(300);
-
-        ProjetServiceImpl projetService = new ProjetServiceImpl();
-        System.out.println(projetService.create(projet));*/
 
         //launch app window
         launch();
