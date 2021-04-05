@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 public class Equipe extends BaseEntity{
+
     private Long idResponsable;
 
     @OneToMany(mappedBy = "equipe")
