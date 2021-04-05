@@ -1,38 +1,32 @@
 package org.fsb.municipalite.controllers;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import org.fsb.municipalite.entities.Employee;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.fsb.municipalite.entities.Equipe;
+import org.fsb.municipalite.entities.Projet;
+import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
+import org.fsb.municipalite.services.impl.EquipeServiceImpl;
+import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 
 public class TSController implements Initializable{
-	
+
+	//staff
 	@FXML
 	private TableView<Employee> mainTable;
 	@FXML
@@ -47,202 +41,161 @@ public class TSController implements Initializable{
 	private TableColumn<Employee, String> sexe;
 	@FXML
 	private TableColumn<LocalDateTime, String> dateNaissance;
+
+
+	//Team
+
+	@FXML TableView teamTable;
+	@FXML TableColumn<Equipe,Long> id_team;
+	@FXML TableColumn<Equipe, String> name;
+	@FXML TableColumn<Equipe,Long> leader;
+	@FXML TextField searchBox;
 	
-	ObservableList<Employee> list_p = FXCollections.observableArrayList();
-	
-	
-	/*public ObservableList<Personnel> getdbpersonnellist(){
-		
-		try {
-			
-			
-			//create jdbc connection and create obj and load class
-			
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","Ilovecats2020");
-			
-			//create statement obj
-			Statement s = conn.createStatement();
-			
-			//execute the query
-			ResultSet rs = s.executeQuery("select * from Personnel");
-			
-			while(rs.next()) {
-				list_p.add(new Personnel(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)));
-			}
-			
-			//close all jdbc obj
-			rs.close();
-			s.close();
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		return list_p;
-		
-	}*/
+	ObservableList<Equipe> teamdata;
+
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		/*
-		nom.setCellValueFactory(new PropertyValueFactory<Personnel, String>("nom"));
-		prenom.setCellValueFactory(new PropertyValueFactory<Personnel, String>("prenom"));
-		cin.setCellValueFactory(new PropertyValueFactory<Personnel, String>("cin"));
-		etatCivil.setCellValueFactory(new PropertyValueFactory<Personnel, String>("etatCivil"));
-		sexe.setCellValueFactory(new PropertyValueFactory<Personnel, String>("sexe"));
-		dateNaissance.setCellValueFactory(new PropertyValueFactory<Personnel, String>("dateNaissance"));
-		
-		mainTable.setItems(getdbpersonnellist());
-		
-		
-        FilteredList<Personnel> filteredData = new FilteredList<>(list_p,b -> true);
-	        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-		        filteredData.setPredicate(perso -> {
-		        	if(newValue == null || newValue.isEmpty()) {
-		        		return true;
-		        	}
-		        	String lowerCaseFilter = newValue.toLowerCase();
-		        	if (perso.getNom().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true; // Filter matches first name.
-					}
-		        	if (perso.getPrenom().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true; // Filter matches first name.
-					}
-		        	if (perso.getEtatCivil().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true; // Filter matches first name.
-					}
-		        	if (perso.getCin().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-						return true; // Filter matches first name.
-					}
-		        	else 
-		        		return false;
-		        	});
-		        });
-        SortedList<Personnel> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(mainTable.comparatorProperty());
-		mainTable.setItems(sortedData);
-		*/
+
+		//team
+		id_team.setCellValueFactory(new PropertyValueFactory<Equipe,Long>("id"));
+		name.setCellValueFactory(new PropertyValueFactory<Equipe, String>("nom"));
+		leader.setCellValueFactory(new PropertyValueFactory<Equipe,Long>("idResponsable"));
+
+		EquipeServiceImpl equipeService = new EquipeServiceImpl();
+		List<Equipe> equipeList = equipeService.selectAll();
+		teamdata  =  FXCollections.observableArrayList();
+		for (Equipe e : equipeList) {
+			teamdata.addAll(e);
+		}
+		teamTable.setItems(teamdata);
 	}
-	
+	//aamlou button pls :)
+	public void refreshTeam(){
+		teamTable.getItems().clear();
+		EquipeServiceImpl equipeService = new EquipeServiceImpl();
+		List<Equipe> equipeList = equipeService.selectAll();
+		teamdata  =  FXCollections.observableArrayList();
+		for (Equipe e : equipeList) {
+			teamdata.addAll(e);
+		}
+		teamTable.setItems(teamdata);
+
+	}
+
 	@FXML
-	public void addPersonnel(ActionEvent event) {
-		/*
+	public void addTeam(MouseEvent mouseEvent) {
 		try {
 			FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/addPersonnelBox.fxml"));
-			Pane personnelDialogPane = f.load();
-			
-			PersonnelDialogController pdc = f.getController();
-			
-			Dialog<ButtonType> d = new Dialog<>();
-			d.setDialogPane((DialogPane) personnelDialogPane);
-			d.setTitle("add personnel");
-			Optional<ButtonType> clickedButton = d.showAndWait();
-			
-			
-			if(clickedButton.get() == ButtonType.APPLY) {
-				if(pdc.getPersonnel().getNom().length()>0 && 
-				pdc.getPersonnel().getPrenom().length()>0 &&
-				pdc.getPersonnel().getCin().length()>0 &&
-				pdc.getPersonnel().getEtatCivil().length()>0 &&
-				pdc.getPersonnel().getSexe().length()>0 &&
-				pdc.getPersonnel().getDateNaissance().length()>0) {
-					
-					Class.forName("oracle.jdbc.driver.OracleDriver");
-					Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","Ilovecats2020");
-					Statement s = conn.createStatement(); 
-					int rs = s.executeUpdate("INSERT INTO Personnel VALUES('"+pdc.getPersonnel().getNom()+"','"+
-							pdc.getPersonnel().getPrenom()+"','"+
-							pdc.getPersonnel().getCin()+"','"+
-							pdc.getPersonnel().getEtatCivil()+"','"+
-							pdc.getPersonnel().getSexe()+"','"+
-							pdc.getPersonnel().getDateNaissance()+"')");
-					s.close();
-					conn.close();
+			f.setLocation(getClass().getResource("/interfaces/EquipeAdd.fxml"));
+			Pane equipeDialogPane = f.load();
+			EquipeAddController eqac = f.getController();
 
-					list_p.add(pdc.getPersonnel());
+			Dialog<ButtonType> d = new Dialog<>();
+			d.setDialogPane((DialogPane) equipeDialogPane);
+			d.setTitle("add team");
+			Optional<ButtonType> clickedButton = d.showAndWait();
+
+			if(clickedButton.get() == ButtonType.APPLY) {
+				Equipe equipe = new Equipe();
+				if(!(eqac.name.getText().isEmpty())){
+					equipe.setNom(eqac.name.getText());
 				}
-				
+				if(!(eqac.leader.getValue().toString().isEmpty())){
+					EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+					Employee emp = employeeService.getById(Long.parseLong(eqac.leader.getValue().toString().split(",")[0]));
+					equipe.setIdResponsable(emp.getId());
+				}
+
+				EquipeServiceImpl equipeService = new EquipeServiceImpl();
+				equipeService.create(equipe);
+				refreshTeam();
 			}
-			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+
+	@FXML
+	public void update(MouseEvent mouseEvent) {
+		try {
+			FXMLLoader f = new FXMLLoader();
+			f.setLocation(getClass().getResource("/interfaces/EquipeUpdate.fxml"));
+			Pane equipeDialogPane = f.load();
+			EquipeUpdateController equc = f.getController();
+
+			if(teamTable.getSelectionModel().getSelectedItem() != null) {
+
+				EquipeServiceImpl equipeService = new EquipeServiceImpl();
+				Equipe e = (Equipe) teamTable.getSelectionModel().getSelectedItem();
+				Equipe equipe = equipeService.getById(e.getId());
+
+				equc.setEquipeDialogPane(equipe);
+				Dialog<ButtonType> d = new Dialog<>();
+				d.setDialogPane((DialogPane) equipeDialogPane);
+				d.setTitle("Update equipe");
+				Optional<ButtonType> clickedButton = d.showAndWait();
+				if(clickedButton.get() == ButtonType.APPLY) {
+
+					equc.setCurrentEquipe(equipe);
+					equipeService.update(equipe);
+					refreshTeam();
+				}
+			}
+
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		*/
+
 	}
-	
+
 	@FXML
-	public void updatePersonnel(ActionEvent event) {
-		/*
+	public void delete(MouseEvent mouseEvent) {
+		if(teamTable.getSelectionModel().getSelectedItem() != null){
+			Equipe equipe = (Equipe) teamTable.getSelectionModel().getSelectedItem();
+			EquipeServiceImpl equipeService = new EquipeServiceImpl();
+			equipeService.remove(equipe.getId());
+			refreshTeam();
+		}
+	}
+	public boolean isNumeric(String str) {
 		try {
-			FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/addPersonnelBox.fxml"));
-			Pane personnelDialogPane = f.load();
-			
-			PersonnelDialogController pdc = f.getController();
-			if(mainTable.getSelectionModel().getSelectedItem() != null) {
-				pdc.setPersonnelDialogPane(mainTable.getSelectionModel().getSelectedItem());
-				
-				Dialog<ButtonType> d = new Dialog<>();
-				d.setDialogPane((DialogPane) personnelDialogPane);
-				d.setTitle("Update personnel");
-				Optional<ButtonType> clickedButton = d.showAndWait();
-				
-				if(clickedButton.get() == ButtonType.APPLY) {
-					if(pdc.getPersonnel().getNom().length()>0 && 
-					    pdc.getPersonnel().getPrenom().length()>0 &&
-				    	pdc.getPersonnel().getCin().length()>0 &&
-					    pdc.getPersonnel().getEtatCivil().length()>0 &&
-					    pdc.getPersonnel().getSexe().length()>0 &&
-					    pdc.getPersonnel().getDateNaissance().length()>0) {
-						
-							Class.forName("oracle.jdbc.driver.OracleDriver");
-							Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","Ilovecats2020");
-							Statement s = conn.createStatement(); 
-							int rs = s.executeUpdate("UPDATE Personnel SET nom ='"+pdc.getPersonnel().getNom()+"', prenom= '"+
-																				   pdc.getPersonnel().getPrenom()+"', cin= '"+
-																				   pdc.getPersonnel().getCin()+"', etatcivil= '"+
-																				   pdc.getPersonnel().getEtatCivil()+"', sexe= '"+
-																				   pdc.getPersonnel().getSexe()+"', datenaissance= '"+
-																				   pdc.getPersonnel().getDateNaissance()+"' WHERE cin = '"+
-																				   pdc.getPersonnel().getCin()+"'");
-							s.close();
-							conn.close();
-							
-							list_p.set(mainTable.getSelectionModel().getSelectedIndex(), pdc.getPersonnel());
-					}
+			Long.parseLong(str);
+			return true;
+		} catch(NumberFormatException e){
+			return false;
+		}
+	}
+	@FXML
+	public void searchTeam(ActionEvent event) {
+		if(!(searchBox.getText().isEmpty())){
+			teamTable.getItems().clear();
+			EquipeServiceImpl equipeService = new EquipeServiceImpl();
+			teamdata  =  FXCollections.observableArrayList();
+			if(isNumeric(searchBox.getText())){
+				List<Equipe> list = equipeService.selectBy("id",searchBox.getText());
+				for (Equipe e : list) {
+					teamdata.add(e);
+				}
+			}else{
+				List<Equipe> list = equipeService.selectBy("nom","'" + searchBox.getText() + "'");
+				for (Equipe e : list) {
+					teamdata.add(e);
 				}
 			}
-			
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		
+			teamTable.setItems(teamdata);
+			searchBox.clear();
+		}
 	}
-	@FXML void deletePersonnel(ActionEvent event) {
-		/*
-		Personnel selectedP = mainTable.getSelectionModel().getSelectedItem();
-		int index = mainTable.getSelectionModel().getSelectedIndex();
-		if(index>=0) {
-			try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","Ilovecats2020");
-			Statement s = conn.createStatement(); 
-			ResultSet rs = s.executeQuery("DELETE FROM Personnel WHERE cin = '"+selectedP.getCin()+"'");
-			System.out.println(rs);
-			rs.close();
-			s.close();
-			conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-			list_p.remove(index);
-		}*/
+
+	public void addPersonnel(ActionEvent event) {
 	}
-	
+
+	public void updatePersonnel(ActionEvent event) {
+	}
+
+	public void deletePersonnel(ActionEvent event) {
+	}
+
 }
