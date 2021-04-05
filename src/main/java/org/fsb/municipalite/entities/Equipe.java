@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class Equipe extends BaseEntity{
     private Long idResponsable;
-
+    private String nom;
     @OneToMany(mappedBy = "equipe")
     private List<Employee> employeeList;
 
@@ -56,5 +56,11 @@ public class Equipe extends BaseEntity{
         this.projetList = projetList;
     }
 
+    public void setNom(String nom) {
+    	this.nom = nom;
+    }
 
+    public String getNom() {
+    	return this.nom;
+    }
 }

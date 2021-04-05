@@ -24,12 +24,13 @@
                      <center>
                         <TableView fx:id="mainTable" prefHeight="367.0" prefWidth="957.0" BorderPane.alignment="CENTER">
                           <columns>
-                              <TableColumn fx:id="nom" prefWidth="103.0" text="First Name" />
+                              <TableColumn prefWidth="120.0" text="Id" />
+                              <TableColumn fx:id="nom" prefWidth="158.0" text="First Name" />
                             <TableColumn fx:id="prenom" prefWidth="109.0" text="Last Name" />
                             <TableColumn fx:id="cin" prefWidth="52.0" text="CIN" />
                               <TableColumn fx:id="etatCivil" prefWidth="81.0" text="Civil Status" />
                               <TableColumn fx:id="sexe" minWidth="0.0" prefWidth="0.0" text="Gender" />
-                              <TableColumn fx:id="dateNaissance" minWidth="-Infinity" prefWidth="179.0" text="Birthday" />
+                              <TableColumn fx:id="dateNaissance" minWidth="-Infinity" prefWidth="179.0" text="Date of Birth" />
                           </columns>
                            <BorderPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -99,9 +100,8 @@
                         <TableView prefHeight="303.0" prefWidth="539.0" BorderPane.alignment="CENTER">
                            <columns>
                               <TableColumn prefWidth="103.0" text="Id" />
-                              <TableColumn prefWidth="109.0" text="Id Responsable" />
-                              <TableColumn prefWidth="52.0" text="Id Tache" />
-                              <TableColumn prefWidth="81.0" text="Nombre Employee" />
+                              <TableColumn prefWidth="109.0" text="Team Leader" />
+                              <TableColumn prefWidth="52.0" text="Name" />
                            </columns>
                            <BorderPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
