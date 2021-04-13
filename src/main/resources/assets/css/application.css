@@ -125,3 +125,6 @@
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: rgba(58, 162, 247, 0.842);
     }
+.searchField{
+	-fx-background-radius:20;
+}
