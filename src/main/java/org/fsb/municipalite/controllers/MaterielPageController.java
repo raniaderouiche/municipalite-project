@@ -13,9 +13,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
+
+
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -63,9 +66,7 @@ public class MaterielPageController implements Initializable{
             data.addAll(m);
         }
         tableView.setItems(data);
-        
-        
-        
+  
     }
 		
 
@@ -107,6 +108,7 @@ public class MaterielPageController implements Initializable{
 			Dialog<ButtonType> d = new Dialog<>();
 			d.setDialogPane((DialogPane) materielDialogPane);
 			d.setTitle("add materiel");
+			
 			Optional<ButtonType> clickedButton = d.showAndWait();
 			if(clickedButton.get() == ButtonType.APPLY) {
 				if(mac.name.getText().length()>0 && mac.ref.getText().length()>0 ) {
