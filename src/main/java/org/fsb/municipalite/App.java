@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,7 +27,6 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
-
         //create entity manager instance and run it for a first time to migrate changes
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
         EntityManager em = entityManagerFactory.createEntityManager();

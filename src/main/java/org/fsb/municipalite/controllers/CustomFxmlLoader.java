@@ -1,7 +1,5 @@
 package org.fsb.municipalite.controllers;
 
-
-
 import java.net.URL;
 
 import org.fsb.municipalite.App;
@@ -17,7 +15,7 @@ public class CustomFxmlLoader {
 			URL fileUrl = App.class.getResource("/interfaces/" + fileName + ".fxml");
 			if(fileUrl == null)
 				throw new java.io.FileNotFoundException("FXML file can't be found");
-			view = new FXMLLoader().load(fileUrl);
+			view = FXMLLoader.load(fileUrl);
 		}catch(Exception e) {
 			System.out.println("No page " + fileName + " please check FxmlLoader");
 		}

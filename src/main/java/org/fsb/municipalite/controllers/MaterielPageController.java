@@ -1,30 +1,22 @@
 package org.fsb.municipalite.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
-import org.fsb.municipalite.services.impl.ProjetServiceImpl;
-import org.hibernate.internal.build.AllowSysOut;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -73,9 +65,7 @@ public class MaterielPageController implements Initializable{
             data.addAll(m);
         }
         tableView.setItems(data);
-        
-        
-        
+  
     }
 		
 
@@ -117,6 +107,7 @@ public class MaterielPageController implements Initializable{
 			Dialog<ButtonType> d = new Dialog<>();
 			d.setDialogPane((DialogPane) materielDialogPane);
 			d.setTitle("add materiel");
+			
 			Optional<ButtonType> clickedButton = d.showAndWait();
 			if(clickedButton.get() == ButtonType.APPLY) {
 				if(mac.name.getText().length()>0 && mac.ref.getText().length()>0 ) {

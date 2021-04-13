@@ -1,11 +1,6 @@
 package org.fsb.municipalite.controllers;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -13,31 +8,23 @@ import java.util.ResourceBundle;
 
 import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.entities.Equipe;
-import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
 import org.fsb.municipalite.services.impl.EquipeServiceImpl;
-import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class TSController implements Initializable{
@@ -97,11 +84,16 @@ public class TSController implements Initializable{
         
         EmployeesData =  FXCollections.observableArrayList();
         for(Employee p : list) {
-        	System.out.println(p);
         	EmployeesData.add(p);
         }
-        
 		staffTable.setItems(EmployeesData);
+		
+		//searchListener
+		empSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println("textfield changed from " + oldValue + " to " + newValue);
+			ListenerSearch(newValue);
+		});		
+		
 		//team
 		id_team.setCellValueFactory(new PropertyValueFactory<Equipe,Long>("id"));
 		name.setCellValueFactory(new PropertyValueFactory<Equipe, String>("nom"));
@@ -217,8 +209,8 @@ public class TSController implements Initializable{
 	}
 	
 	
-	@FXML void deleteEmp(ActionEvent event) {
-		
+	@FXML 
+	void deleteEmp(ActionEvent event) {
 		 if(staffTable.getSelectionModel().getSelectedItem() != null) {
 	            Employee emp = (Employee) staffTable.getSelectionModel().getSelectedItem();
 	            EmployeeServiceImpl empService = new EmployeeServiceImpl();
@@ -257,6 +249,32 @@ public class TSController implements Initializable{
         }
     }
 
+	public void ListenerSearch(String n) {
+		EmployeeServiceImpl empService =new EmployeeServiceImpl();
+        EmployeesData =  FXCollections.observableArrayList();
+        List<Employee> list;
+        if(!(n.equals(""))) {
+	        if(isNumeric(n)){
+	            list = empService.selectBy("id",n);
+	            for (Employee e : list) {
+	            	EmployeesData.add(e);
+	            }
+	        }else{
+	            list = empService.selectBy("nom","'" + n + "'");
+	            for (Employee e : list) {
+	            	EmployeesData.add(e);
+	            }
+	        }
+	        staffTable.setItems(EmployeesData);
+        }
+        else {
+	        list = empService.selectAll();
+	        for (Employee e : list) {
+	        	EmployeesData.add(e);
+	        }
+	        staffTable.setItems(EmployeesData);
+	        }
+	}
 
 	@FXML
 	public void addTeam(ActionEvent event) {
@@ -290,7 +308,6 @@ public class TSController implements Initializable{
 			System.out.println(e.getMessage());
 		}
 	}
-
 
 	@FXML
 	public void updateTeam(ActionEvent event) {
@@ -355,21 +372,5 @@ public class TSController implements Initializable{
 			teamSearchField.clear();
 		}
 	}
-	public void ListenerSearch(String n) {
-		EmployeeServiceImpl empService = new EmployeeServiceImpl();
-		EmployeesData= FXCollections.observableArrayList();
-		List<Employee> list;
-		if(!(n.equals(""))) {
-			if(isNumeric(n)) {
-				list = empService.selectBy("id", n);
-				for (Employee e : list) {
-					EmployeesData.add(e);
-				}
-			}
-			
-			staffTable.setItems(EmployeesData);
-		}
-	}
-	
 	
 }
