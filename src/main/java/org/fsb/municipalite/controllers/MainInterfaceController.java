@@ -1,6 +1,6 @@
 package org.fsb.municipalite.controllers;
 
-import javafx.fxml.FXML;
+import javafx.fxml.FXML;	
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -40,7 +40,7 @@ public class MainInterfaceController{
 	@FXML
 	private void servicesButton(MouseEvent event) {
 		System.out.println("Services Clicked");
-		Pane view = CustomFxmlLoader.getPage("scene_1");
+		Pane view = CustomFxmlLoader.getPage("ComplaintPage");
 		contentBorderPane.setCenter(view);
 	}
 	@FXML
