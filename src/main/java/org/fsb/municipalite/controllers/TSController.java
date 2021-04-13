@@ -355,6 +355,21 @@ public class TSController implements Initializable{
 			teamSearchField.clear();
 		}
 	}
+	public void ListenerSearch(String n) {
+		EmployeeServiceImpl empService = new EmployeeServiceImpl();
+		EmployeesData= FXCollections.observableArrayList();
+		List<Employee> list;
+		if(!(n.equals(""))) {
+			if(isNumeric(n)) {
+				list = empService.selectBy("id", n);
+				for (Employee e : list) {
+					EmployeesData.add(e);
+				}
+			}
+			
+			staffTable.setItems(EmployeesData);
+		}
+	}
 	
 	
 }

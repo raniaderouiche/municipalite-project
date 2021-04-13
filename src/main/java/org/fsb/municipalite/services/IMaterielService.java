@@ -1,7 +1,6 @@
 package org.fsb.municipalite.services;
 
 import org.fsb.municipalite.entities.Materiel;
-
 import java.util.List;
 
 public interface IMaterielService {

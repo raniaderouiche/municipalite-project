@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 public class Complaint extends BaseEntity{
     private String nomCitoyen;
     private String sujet;
-    enum Etat {
+    public enum Etat {
         processed, unprocessed
     }
     private Etat etat;
