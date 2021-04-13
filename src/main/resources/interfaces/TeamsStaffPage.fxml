@@ -7,8 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -74,21 +72,10 @@
                                     <Insets />
                                  </HBox.margin>
                               </Pane>
-                              <TextField fx:id="empSearchField" onAction="#empSearch" prefHeight="4.0" prefWidth="273.0" promptText="Search.." style="-fx-background-radius: 20;">
+                              <TextField fx:id="empSearchField" onAction="#empSearch" prefHeight="4.0" prefWidth="273.0" promptText="Search.." styleClass="searchField">
                                  <font>
                                     <Font size="16.0" />
                                  </font></TextField>
-                              <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="38.0" styleClass="CustomButtons">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fx:id="searchIcon" fitHeight="23.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                       <image>
-                                          <Image url="@../assets/img/s.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
                            </children>
                            <BorderPane.margin>
                               <Insets left="20.0" right="10.0" top="20.0" />
@@ -157,25 +144,11 @@
                                     <Insets />
                                  </HBox.margin>
                               </Pane>
-
-                              <TextField fx:id="teamSearchField" onAction="#searchTeam" prefHeight="35.0" prefWidth="273.0" promptText="Search.." style="-fx-background-radius: 20;">
-
+                              <TextField fx:id="teamSearchField" onAction="#searchTeam" prefHeight="35.0" prefWidth="273.0" promptText="Search.." styleClass="searchField">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </TextField>
-                              <Button mnemonicParsing="false" onAction="#searchTeam" prefHeight="36.0" prefWidth="38.0" styleClass="CustomButtons">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fx:id="searchIcon1" fitHeight="23.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                       <image>
-                                          <Image url="@../assets/img/s.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
                            </children>
                            <BorderPane.margin>
                               <Insets left="20.0" right="10.0" top="20.0" />

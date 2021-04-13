@@ -124,7 +124,6 @@ public class TSController implements Initializable {
 			teamdata.addAll(e);
 		}
 		teamTable.setItems(teamdata);
-
 	}
 
 
