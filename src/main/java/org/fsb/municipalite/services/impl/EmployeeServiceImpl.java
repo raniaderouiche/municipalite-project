@@ -65,5 +65,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public int findCountBy(String paramName, String paramValue) {
         return employeeDao.findCountBy(paramName,paramValue);
     }
+    @Override
+    public List<Employee> selectLike(String param, String value) {
+        return employeeDao.selectLike(param,value);
+    }
 
 }

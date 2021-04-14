@@ -66,5 +66,10 @@ public class MaterielServiceImpl implements IMaterielService {
         return materielDao.findCountBy(paramName,paramValue);
     }
 
+    @Override
+    public List<Materiel> selectLike(String param, String value) {
+        return materielDao.selectLike(param,value);
+    }
+
 
 }

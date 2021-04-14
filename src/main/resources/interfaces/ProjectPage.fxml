@@ -12,14 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ProjectPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ProjectPageController">
    <center>
       <Pane prefHeight="485.0" prefWidth="943.0" stylesheets="@../assets/css/application.css">
          <children>
             <VBox prefHeight="499.0" prefWidth="943.0">
                <children>
-                  <Label prefHeight="51.0" prefWidth="943.0" text="Projects " VBox.vgrow="ALWAYS">
+                  <Label prefHeight="51.0" prefWidth="943.0" VBox.vgrow="ALWAYS">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -30,7 +29,7 @@
                         <Insets left="50.0" />
                      </padding>
                   </Label>
-                  <HBox prefHeight="58.0" prefWidth="943.0">
+                  <HBox minWidth="-Infinity" prefHeight="58.0" prefWidth="1269.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
                            <HBox.margin>
@@ -52,9 +51,9 @@
                               <Insets left="15.0" top="10.0" />
                            </HBox.margin>
                         </Button>
-                        <TextField fx:id="searchBox" onAction="#search" prefHeight="37.0" prefWidth="339.0" promptText="Search" styleClass="searchField">
+                        <TextField fx:id="searchBox" prefHeight="37.0" prefWidth="339.0" promptText="Search" styleClass="searchField">
                            <HBox.margin>
-                              <Insets left="300.0" right="15.0" top="10.0" />
+                              <Insets left="420.0" right="15.0" top="10.0" />
                            </HBox.margin>
                            <font>
                               <Font size="16.0" />
@@ -62,9 +61,9 @@
                         </TextField>
                      </children>
                   </HBox>
-                  <Pane prefHeight="378.0" prefWidth="943.0">
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="711.0" prefWidth="1391.0">
                      <children>
-                        <TableView fx:id="tableview" layoutX="15.0" layoutY="1.0" prefHeight="358.0" prefWidth="917.0">
+                        <TableView fx:id="tableview" layoutX="14.0" layoutY="28.0" prefHeight="664.0" prefWidth="1373.0">
                           <columns>
                             <TableColumn fx:id="id" prefWidth="127.0" text="ID" />
                             <TableColumn fx:id="name" prefWidth="146.0" text="Name" />

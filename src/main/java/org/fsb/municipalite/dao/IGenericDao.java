@@ -24,5 +24,7 @@ public interface IGenericDao<E> {
 
     public int findCountBy(String paramName, String paramValue);
 
+    public List<E> selectLike(String param, String value);
+
 
 }

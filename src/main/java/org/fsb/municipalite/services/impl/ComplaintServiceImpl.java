@@ -44,7 +44,11 @@ public class ComplaintServiceImpl implements IComplaintServices{
     public Complaint getById(Long id) {
         return complaintDao.getById(id);
     }
-	
-    
+
+	@Override
+	public List<Complaint> selectLike(String param, String value) {
+		return complaintDao.selectLike(param,value);
+	}
+
 
 }

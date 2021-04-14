@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import org.fsb.municipalite.entities.Complaint;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
+
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -58,8 +59,48 @@ public class ComplaintPageController implements Initializable{
         for (Complaint c : list) {
             data.addAll(c);
         }
-        tableView.setItems(data); 
+        tableView.setItems(data);
+       searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+           System.out.println("textfield changed from " + oldValue + " to " + newValue);
+           ListenerSearch(newValue);
+       });
    	}
+
+    public boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
+    public void ListenerSearch(String n){
+        ComplaintServiceImpl complaintService =new ComplaintServiceImpl();
+        data = FXCollections.observableArrayList();
+        List<Complaint> list;
+        if (!(n.equals(""))) {
+            if (isNumeric(n)) {
+                list = complaintService.selectLike("id", n );
+                for (Complaint p : list) {
+                    data.add(p);
+                }
+            } else {
+                list =complaintService.selectLike("nomCitoyen", "'" + n + "%'");
+                for (Complaint p : list) {
+                    data.add(p);
+                }
+            }
+            tableView.setItems(data);
+        } else {
+            list = complaintService.selectAll();
+            for (Complaint p : list) {
+                data.add(p);
+            }
+            tableView.setItems(data);
+        }
+
+    }
 		
     @FXML
     public void onClickEventRemove(ActionEvent event) {
@@ -127,35 +168,6 @@ public class ComplaintPageController implements Initializable{
 
     }
 
-    public boolean isNumeric(String str) {
-        try {
-            Long.parseLong(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
-
-    public void search(ActionEvent event) {
-        if(!(searchBox.getText().isEmpty())){
-            tableView.getItems().clear();
-            ComplaintServiceImpl complaintService =new ComplaintServiceImpl();
-            data  =  FXCollections.observableArrayList();
-            if(isNumeric(searchBox.getText())){
-                List<Complaint> list = complaintService.selectBy("id",searchBox.getText());
-                for (Complaint m : list) {
-                    data.add(m);
-                }
-            }else{
-                List<Complaint> list = complaintService.selectBy("nomCitoyen","'" + searchBox.getText() + "'");
-                for (Complaint m : list) {
-                    data.add(m);
-                }
-            }
-            tableView.setItems(data);
-            searchBox.clear();
-        }
-    }
 
     @FXML
     public void UpdateComplaint(ActionEvent event) {

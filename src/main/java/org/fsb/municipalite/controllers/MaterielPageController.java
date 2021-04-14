@@ -13,12 +13,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
-
-
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -66,7 +63,39 @@ public class MaterielPageController implements Initializable{
             data.addAll(m);
         }
         tableView.setItems(data);
+
+        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+            ListenerSearch(newValue);
+        });
   
+    }
+
+    public void ListenerSearch(String n){
+        MaterielServiceImpl materielService = new MaterielServiceImpl();
+        data = FXCollections.observableArrayList();
+        List<Materiel> list;
+        if (!(n.equals(""))) {
+            if (isNumeric(n)) {
+                list = materielService.selectLike("id", n ); //rigel il % kbal ma nbi3ouha
+                for (Materiel m : list) {
+                    data.add(m);
+                }
+            } else {
+                list = materielService.selectLike("nom", "'" + n + "%'");
+                for (Materiel m : list) {
+                    data.add(m);
+                }
+            }
+            tableView.setItems(data);
+        } else {
+            list = materielService.selectAll();
+            for (Materiel m : list) {
+                data.add(m);
+            }
+            tableView.setItems(data);
+        }
+
     }
 		
 
@@ -84,7 +113,7 @@ public class MaterielPageController implements Initializable{
       
     }
 
-    //refraiche
+    //refresh
     @FXML
     public void monStock(ActionEvent event){
         tableView.getItems().clear();
@@ -148,26 +177,6 @@ public class MaterielPageController implements Initializable{
         }
     }
 
-    public void search(ActionEvent event) {
-        if(!(searchBox.getText().isEmpty())){
-            tableView.getItems().clear();
-            MaterielServiceImpl materielService =new MaterielServiceImpl();
-            data  =  FXCollections.observableArrayList();
-            if(isNumeric(searchBox.getText())){
-                List<Materiel> list = materielService.selectBy("id",searchBox.getText());
-                for (Materiel m : list) {
-                    data.add(m);
-                }
-            }else{
-                List<Materiel> list = materielService.selectBy("nom","'" + searchBox.getText() + "'");
-                for (Materiel m : list) {
-                    data.add(m);
-                }
-            }
-            tableView.setItems(data);
-            searchBox.clear();
-        }
-    }
 
     @FXML
     public void UpdateEvent(ActionEvent event) {

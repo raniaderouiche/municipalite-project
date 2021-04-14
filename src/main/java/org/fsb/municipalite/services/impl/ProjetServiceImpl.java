@@ -64,4 +64,8 @@ public class ProjetServiceImpl implements IProjetService {
     public int findCountBy(String paramName, String paramValue) {
         return projetDao.findCountBy(paramName,paramValue);
     }
+
+    public List<Projet> selectLike(String param, String value){
+        return projetDao.selectLike(param,value);
+    }
 }

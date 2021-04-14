@@ -30,4 +30,6 @@ public interface IEquipeService {
 
     public void addMember(Employee employee, List<Employee> employeeList);
 
+    public List<Equipe> selectLike(String param, String value);
+
 }

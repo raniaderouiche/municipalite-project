@@ -71,4 +71,10 @@ public class EquipeServiceImpl implements IEquipeService {
         employeeList.add(employee);
     }
 
+    @Override
+    public List<Equipe> selectLike(String param, String value) {
+        return equipeDao.selectLike(param,value);
+    }
+
+
 }

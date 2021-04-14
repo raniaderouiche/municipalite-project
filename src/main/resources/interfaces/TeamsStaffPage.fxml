@@ -72,7 +72,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Pane>
-                              <TextField fx:id="empSearchField" onAction="#empSearch" prefHeight="4.0" prefWidth="273.0" promptText="Search.." styleClass="searchField">
+                              <TextField fx:id="empSearchField" prefHeight="4.0" prefWidth="273.0" promptText="Search.." styleClass="searchField">
                                  <font>
                                     <Font size="16.0" />
                                  </font></TextField>
@@ -144,7 +144,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Pane>
-                              <TextField fx:id="teamSearchField" onAction="#searchTeam" prefHeight="35.0" prefWidth="273.0" promptText="Search.." styleClass="searchField">
+                              <TextField fx:id="teamSearchField" prefHeight="35.0" prefWidth="273.0" promptText="Search.." styleClass="searchField">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

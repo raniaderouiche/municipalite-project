@@ -120,5 +120,13 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
         return query.getResultList().size() > 0 ? ((Long) query.getSingleResult()).intValue() : 0;
     }
 
+    @Override
+    public List<E> selectLike(String param, String value) {
+        Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+" LIKE "+value);
+        List<E> list = query.getResultList();
+        em.close();
+        return list;
+    }
+
 
 }

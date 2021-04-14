@@ -46,7 +46,7 @@
                      </HBox.margin>
                   </Button>
                   <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="searchBox" onAction="#search" prefHeight="34.0" prefWidth="239.0" promptText="Search.." styleClass="searchField">
+                  <TextField fx:id="searchBox" prefHeight="34.0" prefWidth="239.0" promptText="Search.." styleClass="searchField">
                      <HBox.margin>
                         <Insets left="15.0" right="10.0" top="10.0" />
                      </HBox.margin>

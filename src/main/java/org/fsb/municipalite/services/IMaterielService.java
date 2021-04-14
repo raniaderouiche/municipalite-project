@@ -1,5 +1,6 @@
 package org.fsb.municipalite.services;
 
+import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Materiel;
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface IMaterielService {
     public Materiel findOne(String[] paramNames, Object[] paramValues);
 
     public int findCountBy(String paramName, String paramValue);
+
+    public List<Materiel> selectLike(String param, String value);
 }

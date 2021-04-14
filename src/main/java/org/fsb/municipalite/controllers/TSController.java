@@ -96,7 +96,7 @@ public class TSController implements Initializable {
 		//searchListener
 		empSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
 			System.out.println("textfield changed from " + oldValue + " to " + newValue);
-			ListenerSearch(newValue);
+			ListenerSearchEmp(newValue);
 		});
 
 		//team
@@ -111,6 +111,13 @@ public class TSController implements Initializable {
 			teamdata.addAll(e);
 		}
 		teamTable.setItems(teamdata);
+
+		//searchListener
+
+		teamSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println("textfield changed from " + oldValue + " to " + newValue);
+			ListenerSearchTeam(newValue);
+		});
 	}
 
 
@@ -127,18 +134,45 @@ public class TSController implements Initializable {
 	}
 
 
-	public void ListenerSearch(String n) {
+	public void ListenerSearchTeam(String n){
+		EquipeServiceImpl equipeService = new EquipeServiceImpl();
+		teamdata = FXCollections.observableArrayList();
+		List<Equipe> list;
+		if (!(n.equals(""))) {
+			if (isNumeric(n)) {
+				list = equipeService.selectLike("id", n);
+				for (Equipe e : list) {
+					teamdata.add(e);
+				}
+			} else {
+				list = equipeService.selectLike("nom", "'" + n + "%'");
+				for (Equipe e : list) {
+					teamdata.add(e);
+				}
+			}
+			teamTable.setItems(teamdata);
+		} else {
+			list = equipeService.selectAll();
+			for (Equipe e : list) {
+				teamdata.add(e);
+			}
+			teamTable.setItems(teamdata);
+		}
+
+	}
+
+	public void ListenerSearchEmp(String n) {
 		EmployeeServiceImpl empService = new EmployeeServiceImpl();
 		EmployeesData = FXCollections.observableArrayList();
 		List<Employee> list;
 		if (!(n.equals(""))) {
 			if (isNumeric(n)) {
-				list = empService.selectBy("id", n);
+				list = empService.selectLike("id", n);
 				for (Employee e : list) {
 					EmployeesData.add(e);
 				}
 			} else {
-				list = empService.selectBy("nom", "'" + n + "'");
+				list = empService.selectLike("nom", "'" + n + "%'");
 				for (Employee e : list) {
 					EmployeesData.add(e);
 				}
@@ -241,26 +275,6 @@ public class TSController implements Initializable {
 		}
 	}
 
-	public void empSearch(ActionEvent event) {
-		if (!(empSearchField.getText().isEmpty())) {
-			staffTable.getItems().clear();
-			EmployeeServiceImpl empService = new EmployeeServiceImpl();
-			EmployeesData = FXCollections.observableArrayList();
-			if (isNumeric(empSearchField.getText())) {
-				List<Employee> list = empService.selectBy("id", empSearchField.getText());
-				for (Employee e : list) {
-					EmployeesData.add(e);
-				}
-			} else {
-				List<Employee> list = empService.selectBy("nom", "'" + empSearchField.getText() + "'");
-				for (Employee e : list) {
-					EmployeesData.add(e);
-				}
-			}
-			staffTable.setItems(EmployeesData);
-			empSearchField.clear();
-		}
-	}
 
 
 	@FXML
@@ -359,25 +373,5 @@ public class TSController implements Initializable {
 		}
 	}
 
-	@FXML
-	public void searchTeam(ActionEvent event) {
-		if (!(teamSearchField.getText().isEmpty())) {
-			teamTable.getItems().clear();
-			EquipeServiceImpl equipeService = new EquipeServiceImpl();
-			teamdata = FXCollections.observableArrayList();
-			if (isNumeric(teamSearchField.getText())) {
-				List<Equipe> list = equipeService.selectBy("id", teamSearchField.getText());
-				for (Equipe e : list) {
-					teamdata.add(e);
-				}
-			} else {
-				List<Equipe> list = equipeService.selectBy("nom", "'" + teamSearchField.getText() + "'");
-				for (Equipe e : list) {
-					teamdata.add(e);
-				}
-			}
-			teamTable.setItems(teamdata);
-			teamSearchField.clear();
-		}
-	}
+
 }

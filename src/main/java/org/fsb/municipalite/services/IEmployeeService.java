@@ -25,4 +25,6 @@ public interface IEmployeeService {
     public Employee findOne(String[] paramNames, Object[] paramValues);
 
     public int findCountBy(String paramName, String paramValue);
+
+    public List<Employee> selectLike(String param, String value);
 }

@@ -51,6 +51,37 @@ public class ProjectPageController implements Initializable {
         }
         tableview.setItems(data);
 
+        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+            ListenerSearch(newValue);
+        });
+
+    }
+
+    public void ListenerSearch(String n){
+        ProjetServiceImpl projetService = new ProjetServiceImpl();
+        data = FXCollections.observableArrayList();
+        List<Projet> list;
+        if (!(n.equals(""))) {
+            if (isNumeric(n)) {
+                list = projetService.selectLike("id", n ); //rigel il % kbal ma nbi3ouha
+                for (Projet p : list) {
+                    data.add(p);
+                }
+            } else {
+                list =projetService.selectLike("name", "'" + n + "%'");
+                for (Projet p : list) {
+                    data.add(p);
+                }
+            }
+            tableview.setItems(data);
+        } else {
+            list = projetService.selectAll();
+            for (Projet p : list) {
+                data.add(p);
+            }
+            tableview.setItems(data);
+        }
 
     }
 
@@ -75,26 +106,6 @@ public class ProjectPageController implements Initializable {
         }
     }
 
-    public void search(ActionEvent event) {
-        if(!(searchBox.getText().isEmpty())){
-            tableview.getItems().clear();
-            ProjetServiceImpl projetService =new ProjetServiceImpl();
-            data  =  FXCollections.observableArrayList();
-            if(isNumeric(searchBox.getText())){
-                List<Projet> list = projetService.selectBy("id",searchBox.getText());
-                for (Projet p : list) {
-                    data.add(p);
-                }
-            }else{
-                List<Projet> list = projetService.selectBy("name","'" + searchBox.getText() + "'");
-                for (Projet p : list) {
-                    data.add(p);
-                }
-            }
-            tableview.setItems(data);
-            searchBox.clear();
-        }
-    }
 
     @FXML
     public void add(ActionEvent event) {
