@@ -12,13 +12,15 @@ import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
 import org.fsb.municipalite.services.impl.EquipeServiceImpl;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -40,7 +42,6 @@ public class TSController implements Initializable {
 	TableColumn<Employee, Long> id_emp;
 	@FXML
 	TableColumn<Employee, String> nom;
-
 	@FXML
 	TableColumn<Employee, String> prenom;
 	@FXML
@@ -121,7 +122,7 @@ public class TSController implements Initializable {
 	}
 
 
-	//aamlou button pls :)
+	
 	public void refreshTeam() {
 		teamTable.getItems().clear();
 		EquipeServiceImpl equipeService = new EquipeServiceImpl();
@@ -211,28 +212,53 @@ public class TSController implements Initializable {
 
 			Dialog<ButtonType> d = new Dialog<>();
 			d.setDialogPane((DialogPane) empDialogPane);
-			d.setTitle("add Employee");
+			d.setTitle("Add Employee");
+			
+			
+			edc.nom_field.textProperty().addListener((observable, oldValue, newValue) -> {
+				System.out.println("textfield changed from " + oldValue + " to " + newValue);
+				
+				if(!isAlpha(newValue)) {
+					edc.inv_name.setVisible(true);
+				}else
+					edc.inv_name.setVisible(false);
+			});
+			
+			edc.prenom_field.textProperty().addListener((observable, oldValue, newValue) -> {
+				System.out.println("textfield changed from " + oldValue + " to " + newValue);
+				if(!isAlpha(newValue)) {
+					edc.inv_last.setVisible(true);
+				}else
+					edc.inv_last.setVisible(false);
+			});
+			
+			edc.cin_field.textProperty().addListener((observable, oldValue, newValue) -> {
+				System.out.println("textfield changed from " + oldValue + " to " + newValue);
+				if(isNumeric(newValue) && newValue.length() == 8) {
+					edc.inv_cin.setVisible(false);
+				}else
+					edc.inv_cin.setVisible(true);
+			});
+			
+			d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
+											edc.nom_field.getText().isEmpty() || edc.prenom_field.getText().isEmpty() || edc.cin_field.getText().isEmpty() || edc.dnPicker.getValue() == null || 
+											edc.cin_field.getText().length() != 8 || !isNumeric(edc.cin_field.getText()) || !isAlpha(edc.nom_field.getText()) || !isAlpha(edc.prenom_field.getText()),
+											edc.nom_field.textProperty(), edc.prenom_field.textProperty(), edc.cin_field.textProperty(), edc.dnPicker.valueProperty()));
+			
 			Optional<ButtonType> clickedButton = d.showAndWait();
-
+			
 			if (clickedButton.get() == ButtonType.APPLY) {
 				Employee emp = new Employee();
-				if (!(edc.nom_field.getText().isEmpty())) {
-					emp.setNom(edc.nom_field.getText());
-				}
-				if (!(edc.prenom_field.getText().isEmpty())) {
-					emp.setPrenom(edc.prenom_field.getText());
-				}
-				if (!(edc.cin_field.getText().isEmpty())) {
-					emp.setCin(edc.cin_field.getText());
-				}
+				
+				emp.setNom(edc.nom_field.getText());
+				emp.setPrenom(edc.prenom_field.getText());
+				emp.setCin(edc.cin_field.getText());
 				emp.setEtatCivil(edc.civilStatusBox.getValue());
 				RadioButton selectedRadioButton = (RadioButton) edc.genderGroup.getSelectedToggle();
 				emp.setSexe(selectedRadioButton.getText());
 				emp.setDateNaissance(edc.dnPicker.getValue().atStartOfDay());
 				EmployeeServiceImpl empService = new EmployeeServiceImpl();
 				empService.create(emp);
-				//refreshEmpList(event);
-
 			}
 			reloadEmp(event);
 
@@ -262,11 +288,39 @@ public class TSController implements Initializable {
 				Dialog<ButtonType> d = new Dialog<>();
 				d.setDialogPane((DialogPane) empDialogPane);
 				d.setTitle("Update Employee");
+				
+				edc.nom_field.textProperty().addListener((observable, oldValue, newValue) -> {
+					
+					if(!isAlpha(newValue)) {
+						edc.inv_name.setVisible(true);
+					}else
+						edc.inv_name.setVisible(false);
+				});
+				
+				edc.prenom_field.textProperty().addListener((observable, oldValue, newValue) -> {
+					if(!isAlpha(newValue)) {
+						edc.inv_last.setVisible(true);
+					}else
+						edc.inv_last.setVisible(false);
+				});
+				
+				edc.cin_field.textProperty().addListener((observable, oldValue, newValue) -> {
+					if(isNumeric(newValue) && newValue.length() == 8) {
+						edc.inv_cin.setVisible(false);
+					}else
+						edc.inv_cin.setVisible(true);
+				});
+				
+				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
+												edc.nom_field.getText().isEmpty() || edc.prenom_field.getText().isEmpty() || edc.cin_field.getText().isEmpty() || edc.dnPicker.getValue() == null || 
+												edc.cin_field.getText().length() != 8 || !isNumeric(edc.cin_field.getText()) || !isAlpha(edc.nom_field.getText()) || !isAlpha(edc.prenom_field.getText()),
+												edc.nom_field.textProperty(), edc.prenom_field.textProperty(), edc.cin_field.textProperty(), edc.dnPicker.valueProperty()));
+				
+				
 				Optional<ButtonType> clickedButton = d.showAndWait();
 				if (clickedButton.get() == ButtonType.APPLY) {
 					edc.setCurrentEmployee(emp);
 					empService.update(emp);
-					//refresh
 				}
 			}
 			reloadEmp(event);
@@ -280,10 +334,17 @@ public class TSController implements Initializable {
 	@FXML
 	void deleteEmp(ActionEvent event) {
 		if (staffTable.getSelectionModel().getSelectedItem() != null) {
-			Employee emp = (Employee) staffTable.getSelectionModel().getSelectedItem();
-			EmployeeServiceImpl empService = new EmployeeServiceImpl();
-			empService.remove(emp.getId());
-			reloadEmp(event);
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete Employee ?");
+			alert.setContentText("Are you Sure to Delete " + staffTable.getSelectionModel().getSelectedItem().getNom() + " ?");
+			Optional <ButtonType> action = alert.showAndWait();
+			if(action.get() == ButtonType.OK) {
+				Employee emp = (Employee) staffTable.getSelectionModel().getSelectedItem();
+				EmployeeServiceImpl empService = new EmployeeServiceImpl();
+				empService.remove(emp.getId());
+				reloadEmp(event);
+			}
+			
 		}
 	}
 
@@ -293,10 +354,13 @@ public class TSController implements Initializable {
 			return true;
 		} catch (NumberFormatException e) {
 			return false;
-
 		}
 	}
 
+	public boolean isAlpha(String name) {
+	    return name.matches("[a-zA-Z]+");
+	}
+	
 	@FXML
 	public void addTeam(ActionEvent event) {
 		try {

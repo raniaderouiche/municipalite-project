@@ -21,7 +21,7 @@
          </font>
       </Label>
       <TextField fx:id="usernameText" layoutX="140.0" layoutY="114.0" onAction="#login" prefHeight="44.0" prefWidth="386.0" promptText="Username" styleClass="loginTextFields" />
-      <PasswordField fx:id="passwordText" layoutX="140.0" layoutY="182.0" prefHeight="44.0" prefWidth="386.0" promptText="Password" styleClass="loginTextFields" />
+      <PasswordField fx:id="passwordText" layoutX="140.0" layoutY="182.0" onAction="#login" prefHeight="44.0" prefWidth="386.0" promptText="Password" styleClass="loginTextFields" />
       <Label fx:id="conditionText" alignment="CENTER" contentDisplay="CENTER" layoutX="289.0" layoutY="321.0" prefHeight="22.0" prefWidth="160.0" textFill="#fa1111" />
       <Label fx:id="fp" alignment="CENTER_RIGHT" layoutX="414.0" layoutY="226.0" prefHeight="22.0" prefWidth="112.0" text="Forgot Password?" textAlignment="RIGHT">
          <font>

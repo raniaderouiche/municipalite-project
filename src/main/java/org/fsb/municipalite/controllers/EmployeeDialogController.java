@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -41,7 +42,13 @@ public class EmployeeDialogController implements Initializable{
     RadioButton femaleRadioButton;
     @FXML
     DatePicker dnPicker;
-
+    @FXML
+    Label inv_cin;
+    @FXML
+    Label inv_last;
+    @FXML
+    Label inv_name;
+    
     ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
     RadioButton selectedRadioButton;
     

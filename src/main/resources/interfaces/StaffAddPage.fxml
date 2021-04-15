@@ -17,7 +17,7 @@
 
 <DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.EmployeeDialogController">
    <content>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="15.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="208.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="392.0" />
@@ -79,28 +79,43 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="nom_field" prefHeight="17.0" prefWidth="110.0" promptText="Adolf" style="-fx-background-radius: 20;" GridPane.columnIndex="1">
+            <TextField fx:id="nom_field" prefHeight="28.0" prefWidth="359.0" promptText="Alaa" style="-fx-background-radius: 20;" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
                <font>
-                  <Font size="21.0" />
+                  <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="prenom_field" prefHeight="17.0" prefWidth="110.0" promptText="Hitler" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="inv_cin" layoutX="218.0" layoutY="103.0" text="Invalid CIN" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" top="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="inv_last" layoutX="228.0" layoutY="68.0" text="Invalid Last name" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" top="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="inv_name" text="Invalid name" textFill="#e43131" visible="false" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" top="60.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="prenom_field" prefHeight="6.0" prefWidth="359.0" promptText="Dridi" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
                <font>
-                  <Font size="21.0" />
+                  <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="cin_field" prefHeight="17.0" prefWidth="110.0" promptText="12345678" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="cin_field" prefHeight="28.0" prefWidth="110.0" promptText="12345678" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
                <font>
-                  <Font size="21.0" />
+                  <Font size="17.0" />
                </font>
             </TextField>
             <ChoiceBox fx:id="civilStatusBox" prefHeight="28.0" prefWidth="242.0" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="3" />

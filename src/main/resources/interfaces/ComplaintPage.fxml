@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1420.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintPageController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="674.0" prefWidth="1211.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintPageController">
    <children>
-      <VBox prefHeight="774.0" prefWidth="1400.0">
+      <VBox layoutY="1.0" prefHeight="674.0" prefWidth="1211.0">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="1400.0">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="57.0" prefWidth="1210.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onClickEventAdd" prefHeight="25.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
+                  <Button mnemonicParsing="false" onAction="#onClickEventAdd" prefHeight="37.0" prefWidth="120.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -24,7 +24,7 @@
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onClickEventRemove" prefHeight="30.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
+                  <Button mnemonicParsing="false" onAction="#onClickEventRemove" prefHeight="37.0" prefWidth="120.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -32,7 +32,12 @@
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#monStock" prefHeight="30.0" prefWidth="79.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
+                  <Button mnemonicParsing="false" onAction="#UpdateComplaint" prefHeight="37.0" prefWidth="120.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
+                     <HBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#monStock" prefHeight="37.0" prefWidth="120.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -40,15 +45,10 @@
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#UpdateComplaint" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
+                  <Pane prefHeight="57.0" prefWidth="458.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="searchBox" prefHeight="40.0" prefWidth="287.0" promptText="  Search.." styleClass="searchField">
                      <HBox.margin>
-                        <Insets left="15.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="searchBox" prefHeight="40.0" prefWidth="263.0" promptText="  Search.." styleClass="searchField">
-                     <HBox.margin>
-                        <Insets right="25.0" top="10.0" />
+                        <Insets right="20.0" top="10.0" />
                      </HBox.margin>
                      <padding>
                         <Insets right="10.0" />
@@ -56,28 +56,28 @@
                   </TextField>
                </children>
                <VBox.margin>
-                  <Insets right="5.0" />
+                  <Insets />
                </VBox.margin>
                <padding>
                   <Insets left="5.0" />
                </padding>
             </HBox>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
-               <children>
-                  <TableView fx:id="tableView" editable="true" layoutX="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="704.0" prefWidth="1369.0">
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                     <columns>
-                        <TableColumn fx:id="Id" maxWidth="2000.0" prefWidth="72.0" text="Id" />
-                        <TableColumn fx:id="Version" maxWidth="2000.0" prefWidth="75.0" text="Version" />
-                        <TableColumn fx:id="Date" maxWidth="4000.0" prefWidth="216.0" text="Date" />
-                        <TableColumn fx:id="Status" maxWidth="3000.0" prefWidth="75.0" text="Status" />
-                        <TableColumn fx:id="Name" maxWidth="4000.0" prefWidth="75.0" text="Name" />
-                        <TableColumn fx:id="subject" maxWidth="10000.0" prefWidth="75.0" text="Subject" />
-                     </columns></TableView>
-               </children>
-            </Pane>
+            <TableView fx:id="tableView" editable="true" prefHeight="543.0" prefWidth="1211.0">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <columns>
+                  <TableColumn fx:id="Id" maxWidth="2000.0" prefWidth="72.0" text="Id" />
+                  <TableColumn fx:id="Version" maxWidth="2000.0" prefWidth="75.0" text="Version" />
+                  <TableColumn fx:id="Date" maxWidth="4000.0" prefWidth="216.0" text="Date" />
+                  <TableColumn fx:id="Status" maxWidth="3000.0" prefWidth="75.0" text="Status" />
+                  <TableColumn fx:id="Name" maxWidth="4000.0" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="subject" maxWidth="10000.0" prefWidth="75.0" text="Subject" />
+               </columns>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </TableView>
          </children>
       </VBox>
    </children>

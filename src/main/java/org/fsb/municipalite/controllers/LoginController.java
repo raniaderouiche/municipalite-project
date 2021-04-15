@@ -28,17 +28,23 @@ public class LoginController {
 	private Scene scene;
 	private Parent root;
 	
-	private String username;
 	
 	public void login(ActionEvent event) throws IOException {
 		
 		
-		username = usernameText.getText();
-		
-		
-		if(username.length()==0) {
+		if(usernameText.getText().length()==0) {
 			
 			conditionText.setText("Username is empty!");
+			usernameText.setStyle("-fx-border-color: red");
+			if(passwordText.getText().length()==0) passwordText.setStyle("-fx-border-color: red");
+			else passwordText.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+				
+		}
+		else if(passwordText.getText().length()==0){
+			conditionText.setText("Password is empty!");
+			passwordText.setStyle("-fx-border-color: red");
+			if(usernameText.getText().length()==0) usernameText.setStyle("-fx-border-color: red");
+			else usernameText.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
 		}
 		else {
 			
