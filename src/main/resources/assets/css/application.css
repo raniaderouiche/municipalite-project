@@ -106,7 +106,6 @@
 	-fx-text-fill: white;
 	-fx-font-size : 18;
 	-fx-background-radius: 10;
-	
 }
 .loginTextFields{
 	-fx-background-color: transparent;
@@ -127,4 +126,66 @@
     }
 .searchField{
 	-fx-background-radius:20;
+}
+.headers{
+	-fx-alignment: center;
+	-fx-background-radius: 0 0 25 25;
+	-fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    
+    -fx-text-fill: white;
+    -fx-border-style: hidden; 
+}
+.dialogheader{
+	-fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-alignment: center;
+    
+}
+.customChoiceBox{
+	-fx-background-radius:20;
+	-fx-background-color: rgba(58, 58, 58, 0.075);
+}
+.customChoiceBox:hover{
+	-fx-background-color: #6586b8;
+}
+.dialogButtons{
+	-fx-background-radius:20;
+	-fx-background-color: rgba(58, 58, 58, 0.075);
+	-fx-font-family:Gilroy-Regular;
+	-fx-font-size : 15;
+	
+}
+.dialogButtons:hover{
+    -fx-font-color:rgb(255, 255, 255);
+	-fx-background-color: #6586b8;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 3, 0.5, 0.0, 0.0);	
+	-fx-cursor: hand;
+}
+.dialogButtons:focused{
+	-fx-background-color: #74a4eb;
+}
+.globalFont{
+    -fx-font-family:Gilroy-Regular;
+}
+.dialogShadow{
+	-fx-border-color: rgb(4, 117, 161);
+    -fx-border-width: 1;
+    -fx-background-color: transparent;
+    /*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0);*/
+}
+.paneButtonIcons{
+    -fx-background-color: rgb(225, 234, 255);
+    -fx-background-radius: 25 25 25 25;
+}
+.paneButtonIcons:hover{
+	-fx-background-color: rgb(118, 159, 255);
+    -fx-cursor: hand;
+
 }

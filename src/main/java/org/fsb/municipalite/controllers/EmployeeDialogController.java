@@ -48,13 +48,17 @@ public class EmployeeDialogController implements Initializable{
     Label inv_last;
     @FXML
     Label inv_name;
-    
+    @FXML
+    Label inv_date;
+    @FXML
+    Label titleLabel;
     ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
     RadioButton selectedRadioButton;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
     	civilStatusBox.setValue("Single");
     	civilStatusBox.setItems(civilStatusList);
+    	
     }
     
     public void setCurrentEmployee(Employee e) {

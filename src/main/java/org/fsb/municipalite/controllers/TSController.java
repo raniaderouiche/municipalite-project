@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
@@ -18,7 +20,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -29,6 +35,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 
@@ -72,6 +81,10 @@ public class TSController implements Initializable {
 	TextField teamSearchField;
 
 
+	//define your offsets here
+    private double xOffset = 0;
+    private double yOffset = 0;
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//staff
@@ -207,19 +220,55 @@ public class TSController implements Initializable {
 			FXMLLoader f = new FXMLLoader();
 			f.setLocation(getClass().getResource("/interfaces/StaffAddPage.fxml"));
 			Pane empDialogPane = f.load();
-
+			//get the current controller and put it in edc
 			EmployeeDialogController edc = f.getController();
-
+			
 			Dialog<ButtonType> d = new Dialog<>();
+			//this is just for adding an icon to the dialog pane
+			Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+			stage.getIcons().add(new Image("/assets/img/icon.png"));
+			
 			d.setDialogPane((DialogPane) empDialogPane);
 			d.setTitle("Add Employee");
+			d.setResizable(false);
+			d.initStyle(StageStyle.UNDECORATED);
 			
-			
-			edc.nom_field.textProperty().addListener((observable, oldValue, newValue) -> {
+			//these two are for moving the window with the mouse
+			empDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+	           @Override
+	           public void handle(MouseEvent event) {
+	               xOffset = event.getSceneX();
+	               yOffset = event.getSceneY();
+	           }
+			});
+       
+            empDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	           @Override
+	           public void handle(MouseEvent event) {
+	               d.setX(event.getScreenX() - xOffset);
+	               d.setY(event.getScreenY() - yOffset);
+	           }
+            });
+			edc.dnPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 				System.out.println("textfield changed from " + oldValue + " to " + newValue);
+				if(newValue != null) {
+					if(Integer.parseInt(newValue.toString().substring(0,4))>1998) {
+						edc.inv_date.setVisible(true);
+					}
+					else {
+						edc.inv_date.setVisible(false);
+					}
+				}
+				
+				
+			});
+			edc.nom_field.textProperty().addListener((observable, oldValue, newValue) -> {
+				//System.out.println("textfield changed from " + oldValue + " to " + newValue);
 				
 				if(!isAlpha(newValue)) {
 					edc.inv_name.setVisible(true);
+					//System.out.println(edc.dnPicker.getValue().toString().substring(0,4));
+					
 				}else
 					edc.inv_name.setVisible(false);
 			});
@@ -228,6 +277,7 @@ public class TSController implements Initializable {
 				System.out.println("textfield changed from " + oldValue + " to " + newValue);
 				if(!isAlpha(newValue)) {
 					edc.inv_last.setVisible(true);
+					System.out.println(edc.nom_field.getText());
 				}else
 					edc.inv_last.setVisible(false);
 			});
@@ -239,6 +289,12 @@ public class TSController implements Initializable {
 				}else
 					edc.inv_cin.setVisible(true);
 			});
+			//to apply css on the dialog pane buttons
+			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+			
+			//make name field first to be selected
+			edc.nom_field.requestFocus();
 			
 			d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
 											edc.nom_field.getText().isEmpty() || edc.prenom_field.getText().isEmpty() || edc.cin_field.getText().isEmpty() || edc.dnPicker.getValue() == null || 
@@ -275,7 +331,6 @@ public class TSController implements Initializable {
 			f.setLocation(getClass().getResource("/interfaces/StaffAddPage.fxml"));
 			Pane empDialogPane = f.load();
 
-
 			EmployeeDialogController edc = f.getController();
 			if (staffTable.getSelectionModel().getSelectedItem() != null) {
 
@@ -284,11 +339,34 @@ public class TSController implements Initializable {
 				Employee emp = empService.getById(selectedEmp.getId());
 
 				edc.setEmpDialogPane(emp);
-
+				edc.titleLabel.setText("Update Employee");
 				Dialog<ButtonType> d = new Dialog<>();
+				//this is just for adding an icon to the dialog pane
+				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+				stage.getIcons().add(new Image("/assets/img/icon.png"));
+				
 				d.setDialogPane((DialogPane) empDialogPane);
 				d.setTitle("Update Employee");
+				d.setResizable(false);
+				d.initStyle(StageStyle.UNDECORATED);
 				
+				//these two are for moving the window with the mouse
+				empDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               xOffset = event.getSceneX();
+		               yOffset = event.getSceneY();
+		           }
+				});
+	       
+	            empDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               d.setX(event.getScreenX() - xOffset);
+		               d.setY(event.getScreenY() - yOffset);
+		           }
+	            });
+	            //a bunch of listener for testing the fields
 				edc.nom_field.textProperty().addListener((observable, oldValue, newValue) -> {
 					
 					if(!isAlpha(newValue)) {
@@ -310,6 +388,13 @@ public class TSController implements Initializable {
 					}else
 						edc.inv_cin.setVisible(true);
 				});
+				
+				//to apply css on the dialog pane buttons
+				d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+				
+				//make name field first to be selected
+				edc.nom_field.requestFocus();
 				
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
 												edc.nom_field.getText().isEmpty() || edc.prenom_field.getText().isEmpty() || edc.cin_field.getText().isEmpty() || edc.dnPicker.getValue() == null || 
@@ -334,7 +419,11 @@ public class TSController implements Initializable {
 	@FXML
 	void deleteEmp(ActionEvent event) {
 		if (staffTable.getSelectionModel().getSelectedItem() != null) {
+			//this is just for adding an icon to the dialog pane
+			
 			Alert alert = new Alert(AlertType.CONFIRMATION);
+			Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+			stage.getIcons().add(new Image("/assets/img/icon.png"));
 			alert.setTitle("Delete Employee ?");
 			alert.setContentText("Are you Sure to Delete " + staffTable.getSelectionModel().getSelectedItem().getNom() + " ?");
 			Optional <ButtonType> action = alert.showAndWait();

@@ -40,8 +40,8 @@ public class MaterielPageController implements Initializable{
     TableColumn<Materiel, String> Name;
     @FXML
     TableColumn<Materiel, Long> Reference;
-    @FXML
-    TableColumn<Materiel, Projet> Project;
+    //@FXML
+  //  TableColumn<Materiel, Projet> Project;
     
     public ObservableList<Materiel> data;
 
@@ -54,7 +54,7 @@ public class MaterielPageController implements Initializable{
         Status.setCellValueFactory(new PropertyValueFactory<Materiel,Materiel.Etat>("etat"));
         Name.setCellValueFactory(new PropertyValueFactory<Materiel,String>("nom"));
         Reference.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("reference"));
-        Project.setCellValueFactory(new PropertyValueFactory<Materiel,Projet>("projet_id"));
+        //Project.setCellValueFactory(new PropertyValueFactory<Materiel,Projet>("projet_id"));
 
         MaterielServiceImpl materielService =new MaterielServiceImpl();
         List<Materiel> list = materielService.selectAll();
@@ -65,7 +65,6 @@ public class MaterielPageController implements Initializable{
         tableView.setItems(data);
 
         searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("textfield changed from " + oldValue + " to " + newValue);
             ListenerSearch(newValue);
         });
   
@@ -75,13 +74,13 @@ public class MaterielPageController implements Initializable{
         MaterielServiceImpl materielService = new MaterielServiceImpl();
         data = FXCollections.observableArrayList();
         List<Materiel> list;
-        if (!(n.equals(""))) {
-            if (isNumeric(n)) {
+        if(!(n.equals(""))) {
+            if (isNumeric(n)){
                 list = materielService.selectLike("id", n ); //rigel il % kbal ma nbi3ouha
                 for (Materiel m : list) {
                     data.add(m);
                 }
-            } else {
+            }else{
                 list = materielService.selectLike("nom", "'" + n + "%'");
                 for (Materiel m : list) {
                     data.add(m);

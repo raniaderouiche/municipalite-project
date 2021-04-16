@@ -45,7 +45,6 @@ public class MainInterfaceController{
 	}
 	@FXML
 	private void toolsButton(MouseEvent event) {
-		//l2 == event.getSource() : true
 		System.out.println("Tools Button Clicked");
 		Pane view = CustomFxmlLoader.getPage("MaterielPage");
 		contentBorderPane.setCenter(view);
@@ -62,11 +61,11 @@ public class MainInterfaceController{
 	private void FinanceButton(MouseEvent event) {
 		
 		System.out.println("Finance Clicked");
-		Pane view = CustomFxmlLoader.getPage("FinanceGUI");
-		
+		Pane view = CustomFxmlLoader.getPage("ServicesPage");
 		contentBorderPane.setCenter(view);
+		
 	}
-
+	@FXML
 	public void projectsButton(MouseEvent mouseEvent) {
 		System.out.println("Tools Button Clicked");
 		Pane view = CustomFxmlLoader.getPage("ProjectPage");
