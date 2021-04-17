@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.entities.Equipe;
@@ -18,10 +19,13 @@ import java.util.ResourceBundle;
 public class EquipeUpdateController implements Initializable {
 
     @FXML
-    private TextField id;
+    TextField id;
 
     @FXML
-    private TextField name;
+    TextField name;
+
+    @FXML
+    Label inv_name;
 
     @FXML
     ChoiceBox leader;

@@ -23,12 +23,12 @@
                         <Insets left="10.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Remove">
+                  <Button mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
+                  <Button mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Remove">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
@@ -58,6 +58,7 @@
                   <TableColumn fx:id="budget" prefWidth="131.0" text="Budget" />
                   <TableColumn fx:id="version" prefWidth="107.0" text="Version" />
                   <TableColumn fx:id="place" prefWidth="95.0" text="Location" />
+                  <TableColumn fx:id="teamColumn" prefWidth="75.0" text="Team" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

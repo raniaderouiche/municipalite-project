@@ -1,35 +1,67 @@
 package org.fsb.municipalite.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Projet;
+import org.fsb.municipalite.services.impl.EquipeServiceImpl;
 
-public class ProjectUpdateController {
-    @FXML
-    private TextField name;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
+public class ProjectUpdateController implements Initializable {
     @FXML
-    private TextField budget;
-
-    @FXML
-    private TextField lieu;
-
-    @FXML
-    private DatePicker start;
+    TextField name;
 
     @FXML
-    private DatePicker end;
+    TextField budget;
+
+    @FXML
+    DatePicker start;
+
+    @FXML
+    DatePicker end;
+    @FXML
+    Label inv_name;
+    @FXML Label inv_budget;
+    @FXML
+    Label warning;
+
+    @FXML
+    ChoiceBox<String> place;
+    @FXML ChoiceBox team;
+
+    ObservableList teams =  FXCollections.observableArrayList();
+
+    ObservableList<String> locationList = FXCollections.observableArrayList("Bizerte Nord", "Bizerte Sud", "Djoumine","El Alia","Ghar El Melh","Ghezala","Mateur","Menzel Bourguiba","Menzel Jemil","Ras Jabel","Tinja","Utique","Zarzouna");
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        place.setValue("Bizerte Nord");
+        place.setItems(locationList);
+        setChoiceBox();
+    }
+
+    public void setChoiceBox(){
+        EquipeServiceImpl equipeService = new EquipeServiceImpl();
+        List<Equipe> list = equipeService.selectAll();
+        for(Equipe e : list){
+            teams.add(e.getId() + ", " + e.getNom());
+        }
+        team.setItems(teams);
+    }
 
     public void setCurrentProject(Projet projet) {
-        // testie hne wzid kel label wzid listener
         projet.setName(name.getText());
         projet.setBudget(Integer.parseInt(budget.getText()));
+        projet.setLieu(place.getValue());
         projet.setDateDebut(start.getValue());
         projet.setDateFin(end.getValue());
-        projet.setLieu(lieu.getText());
 
     }
 
@@ -37,9 +69,12 @@ public class ProjectUpdateController {
         name.setText(projet.getName());
         System.out.println("hi");
         budget.setText(projet.getBudget() +"");
-        lieu.setText(projet.getLieu());
+        place.setValue(projet.getLieu());
         start.setValue(projet.getDateDebut());
         end.setValue(projet.getDateFin());
+        EquipeServiceImpl equipeService = new EquipeServiceImpl();
+        Equipe e = equipeService.getById(projet.getEquipe().getId());
+        team.setValue(e.getId() + "," + e.getNom());
 
     }
 

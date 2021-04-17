@@ -1,28 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <DialogPane prefHeight="319.0" prefWidth="538.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.EquipeAddController">
    <content>
-      <AnchorPane prefHeight="250.0" prefWidth="538.0">
+      <GridPane>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.0" minWidth="10.0" prefWidth="88.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="430.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="103.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <TextField fx:id="name" layoutX="118.0" layoutY="102.0" prefHeight="41.0" prefWidth="315.0" promptText="Name" styleClass="searchField" />
-            <Text layoutX="202.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD TEAM">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ADD TEAM" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="110.0" />
+               </GridPane.margin>
             </Text>
-            <Text layoutX="42.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" />
-            <Text layoutX="24.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Leader :" />
-            <ChoiceBox fx:id="leader" layoutX="120.0" layoutY="186.0" prefHeight="6.0" prefWidth="311.0" />
+            <TextField fx:id="name" prefHeight="41.0" prefWidth="459.0" promptText="Name" styleClass="searchField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Label fx:id="inv_name" text="Invalid name" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="15.0" />
+               </GridPane.margin>
+            </Label>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Leader :" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Text>
+            <ChoiceBox fx:id="leader" prefHeight="25.0" prefWidth="316.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
-      </AnchorPane>
+      </GridPane>
    </content>
    <buttonTypes>
       <ButtonType fx:constant="APPLY" />

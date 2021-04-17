@@ -1,6 +1,7 @@
 package org.fsb.municipalite.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,10 +13,8 @@ public class Employee extends BaseEntity {
     private String cin;
     private String etatCivil;
     private String sexe;
-    private LocalDateTime dateNaissance;
+    private LocalDate dateNaissance;
 
-    @OneToMany(mappedBy = "employee")
-    private List<Projet> projectList;
 
     @ManyToOne
     @JoinColumn
@@ -31,17 +30,17 @@ public class Employee extends BaseEntity {
     @JoinColumn
     private Role role;
 
+
     public Employee() {
     }
 
-    public Employee(String nom, String prenom, String cin, String etatCivil, String sexe, LocalDateTime dateNaissance, String fonction, List<Projet> projectList) {
+    public Employee(String nom, String prenom, String cin, String etatCivil, String sexe, LocalDate dateNaissance, String fonction, List<Projet> projectList) {
         this.nom = nom;
         this.prenom = prenom;
         this.cin = cin;
         this.etatCivil = etatCivil;
         this.sexe = sexe;
         this.dateNaissance = dateNaissance;
-        this.projectList = projectList;
     }
 
     public String getNom() {
@@ -84,22 +83,14 @@ public class Employee extends BaseEntity {
         this.sexe = sexe;
     }
 
-    public LocalDateTime getDateNaissance() {
+    public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(LocalDateTime dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
-
-    public List<Projet> getProjectList() {
-        return projectList;
-    }
-
-    public void setProjectList(List<Projet> projectList) {
-        this.projectList = projectList;
-    }
 
     public Equipe getEquipe() {
         return equipe;

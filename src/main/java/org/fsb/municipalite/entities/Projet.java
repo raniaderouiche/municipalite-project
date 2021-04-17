@@ -13,9 +13,6 @@ public class Projet extends BaseEntity{
     private String Lieu;
     private int budget;
 
-    @ManyToOne
-    @JoinColumn
-    private Employee employee;
 
     @ManyToOne
     @JoinColumn
@@ -25,6 +22,7 @@ public class Projet extends BaseEntity{
     private List<Materiel> materielList;
 
     public Projet() {
+
     }
 
     public String getName() {
@@ -67,14 +65,6 @@ public class Projet extends BaseEntity{
         this.budget = budget;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public Equipe getEquipe() {
         return equipe;
     }
@@ -101,7 +91,6 @@ public class Projet extends BaseEntity{
                 ", dateFin=" + dateFin +
                 ", Lieu='" + Lieu + '\'' +
                 ", budget=" + budget +
-                ", employee=" + employee +
                 ", equipe=" + equipe +
                 ", materielList=" + materielList +
                 '}';

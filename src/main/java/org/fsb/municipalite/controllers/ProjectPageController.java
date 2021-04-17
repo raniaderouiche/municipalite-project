@@ -1,5 +1,6 @@
 package org.fsb.municipalite.controllers;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,7 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Projet;
+import org.fsb.municipalite.services.impl.EquipeServiceImpl;
 import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 
 import java.net.URL;
@@ -28,13 +31,15 @@ public class ProjectPageController implements Initializable {
     @FXML TableColumn<Projet,Integer> budget;
     @FXML TableColumn<Projet,Long> version ;
     @FXML TableColumn<Projet,String> place;
-    public ObservableList<Projet> data;
+    @FXML TableColumn<Projet, Long> teamColumn;
+    public ObservableList data;
     @FXML
     TextField searchBox;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tableview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         id.setCellValueFactory(new PropertyValueFactory<Projet,Long>("id"));
         name.setCellValueFactory(new PropertyValueFactory<Projet,String>("name"));
         startDate.setCellValueFactory(new PropertyValueFactory<Projet, LocalDate>("dateDebut"));
@@ -42,11 +47,21 @@ public class ProjectPageController implements Initializable {
         budget.setCellValueFactory(new PropertyValueFactory<Projet, Integer>("budget"));
         version.setCellValueFactory(new PropertyValueFactory<Projet,Long>("version"));
         place.setCellValueFactory(new PropertyValueFactory<Projet,String>("lieu"));
-
+        teamColumn.setCellValueFactory(new PropertyValueFactory<Projet,Long>("equipe"));
+        data  =  FXCollections.observableArrayList();
         ProjetServiceImpl projetService = new ProjetServiceImpl();
         List<Projet> list = projetService.selectAll();
-        data  =  FXCollections.observableArrayList();
+
         for(Projet p : list) {
+           /* ObservableList row  =  FXCollections.observableArrayList();
+            row.add(p.getId());
+            row.add(p.getName());
+            row.add(p.getDateDebut());
+            row.add(p.getDateFin());
+            row.add(p.getBudget());
+            row.add(p.getVersion());
+            row.add(p.getLieu());
+            row.add(p.getEquipe().getId());*/
             data.add(p);
         }
         tableview.setItems(data);
@@ -118,27 +133,77 @@ public class ProjectPageController implements Initializable {
             Dialog<ButtonType> d = new Dialog<>();
             d.setDialogPane((DialogPane) projetDialogPane);
             d.setTitle("add project");
+
+            //name field listener
+            pac.name.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(!isAlpha(newValue)) {
+                    pac.inv_name.setVisible(true);
+                }else
+                    pac.inv_name.setVisible(false);
+            });
+
+            pac.budget.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(!isNumeric(newValue)) {
+                    pac.inv_budget.setVisible(true);
+                }else
+                    pac.inv_budget.setVisible(false);
+            });
+
+            pac.start.valueProperty().addListener((observable, oldValue, newValue) -> {
+                try{
+                    if(newValue != null) {
+                        if(newValue.isAfter(pac.end.getValue())) {
+                            pac.warning.setVisible(true);
+                        }
+                        else {
+                            pac.warning.setVisible(false);
+                        }
+                    }
+                }catch(Exception e){
+                    System.out.println("start date picked");
+                }
+            });
+
+            pac.end.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue != null) {
+                    if(newValue.isBefore(pac.start.getValue())) {
+                        pac.warning.setVisible(true);
+                    }
+                    else {
+                        pac.warning.setVisible(false);
+                    }
+                }
+            });
+
+            d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+                            pac.name.getText().isEmpty()
+                                    || pac.budget.getText().isEmpty()
+                                    ||!isAlpha(pac.name.getText())
+                                    ||!isNumeric(pac.budget.getText())
+                                    || pac.start.getValue() == null
+                                    || pac.end.getValue() == null
+                                    ||pac.start.getValue().isAfter(pac.end.getValue()),
+                                    pac.name.textProperty(),
+                                    pac.budget.textProperty(),
+                                    pac.start.valueProperty(),
+                                    pac.end.valueProperty()));
+
+
             Optional<ButtonType> clickedButton = d.showAndWait();
             if(clickedButton.get() == ButtonType.APPLY) {
                Projet projet = new Projet();
-               if(!(pac.name.getText().isEmpty())){
-                   projet.setName(pac.name.getText());
-               }
-               if(!(pac.budget.getText().isEmpty())){
-                   projet.setBudget(Integer.parseInt(pac.budget.getText()));
-               }
-               if(!(pac.lieu.getText().isEmpty())){
-                   projet.setLieu(pac.lieu.getText());
-               }
-                if (pac.start.getEditor().getText().length() != 0){
-                    projet.setDateDebut(pac.start.getValue());
-                }
-                if (pac.end.getEditor().getText().length() != 0){
-                    projet.setDateFin(pac.end.getValue());
-                }
-                ProjetServiceImpl projetService = new ProjetServiceImpl();
-                projetService.create(projet);
-                refresh(event);
+               ProjetServiceImpl projetService = new ProjetServiceImpl();
+               projet.setName(pac.name.getText());
+               projet.setBudget(Integer.parseInt(pac.budget.getText()));
+               projet.setLieu(pac.place.getValue());
+               projet.setDateDebut(pac.start.getValue());
+               projet.setDateFin(pac.end.getValue());
+               EquipeServiceImpl equipeService = new EquipeServiceImpl();
+               Equipe e = equipeService.getById(Long.parseLong(pac.team.getValue().toString().split(",")[0]));
+               projet.setEquipe(e);
+
+               projetService.create(projet);
+               refresh(event);
 
             }
 
@@ -147,15 +212,19 @@ public class ProjectPageController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+
     @FXML
     public void remove(ActionEvent event) {
         if(tableview.getSelectionModel().getSelectedItem() != null) {
-            Projet m = (Projet) tableview.getSelectionModel().getSelectedItem();
-            ProjetServiceImpl projetService = new ProjetServiceImpl();
-            projetService.remove(m.getId());
-            refresh(event);
+            ObservableList<Projet> selectedItems = tableview.getSelectionModel().getSelectedItems();
+            for (Projet p : selectedItems){
+                ProjetServiceImpl projetService = new ProjetServiceImpl();
+                projetService.remove(p.getId());
+            }
         }
+        refresh(event);
     }
+
     @FXML
     public void update(ActionEvent event) {
         try {
@@ -174,6 +243,57 @@ public class ProjectPageController implements Initializable {
                 Dialog<ButtonType> d = new Dialog<>();
                 d.setDialogPane((DialogPane) materielDialogPane);
                 d.setTitle("Update projet");
+
+                //name field listener
+                puc.name.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if(!isAlpha(newValue)) {
+                        puc.inv_name.setVisible(true);
+                    }else
+                        puc.inv_name.setVisible(false);
+                });
+
+                puc.budget.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if(!isNumeric(newValue)) {
+                        puc.inv_budget.setVisible(true);
+                    }else
+                        puc.inv_budget.setVisible(false);
+                });
+
+                puc.start.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue != null) {
+                        if(newValue.isAfter(puc.end.getValue())) {
+                            puc.warning.setVisible(true);
+                        }
+                        else {
+                            puc.warning.setVisible(false);
+                        }
+                    }
+                });
+
+                puc.end.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue != null) {
+                        if(newValue.isBefore(puc.start.getValue())) {
+                            puc.warning.setVisible(true);
+                        }
+                        else {
+                            puc.warning.setVisible(false);
+                        }
+                    }
+                });
+
+                d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+                                puc.name.getText().isEmpty()
+                                        || puc.budget.getText().isEmpty()
+                                        ||!isAlpha(puc.name.getText())
+                                        ||!isNumeric(puc.budget.getText())
+                                        || puc.start.getValue() == null
+                                        || puc.end.getValue() == null
+                                        ||puc.start.getValue().isAfter(puc.end.getValue()),
+                        puc.name.textProperty(),
+                        puc.budget.textProperty(),
+                        puc.start.valueProperty(),
+                        puc.end.valueProperty()));
+
                 Optional<ButtonType> clickedButton = d.showAndWait();
                 if(clickedButton.get() == ButtonType.APPLY) {
 
@@ -186,6 +306,12 @@ public class ProjectPageController implements Initializable {
         }catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    //Test if String is alphabetical
+    public boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z]+");
     }
 
 }

@@ -68,7 +68,7 @@ public class EmployeeDialogController implements Initializable{
         e.setCin(cin_field.getText());
         e.setEtatCivil(civilStatusBox.getSelectionModel().getSelectedItem());
         e.setSexe(((RadioButton)genderGroup.getSelectedToggle()).getText());
-        e.setDateNaissance(dnPicker.getValue().atStartOfDay());
+        e.setDateNaissance(dnPicker.getValue());
 
     }
     public void setEmpDialogPane(Employee e) {
@@ -83,7 +83,7 @@ public class EmployeeDialogController implements Initializable{
     	}else {
     		femaleRadioButton.setSelected(true);
     	}
-    	dnPicker.setValue(e.getDateNaissance().toLocalDate());
+    	dnPicker.setValue(e.getDateNaissance());
     }
     
    

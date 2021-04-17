@@ -1,5 +1,6 @@
 package org.fsb.municipalite.controllers;
 
+import javafx.scene.control.Label;
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Materiel.Etat;
 
@@ -11,32 +12,33 @@ import javafx.scene.control.ToggleGroup;
 public class MaterielUpdateController {
 
     @FXML
-    private TextField nameField;
+    TextField nameField;
 
     @FXML
-    private TextField refField;
-
-    @FXML
-    private TextField projectField;
+    TextField refField;
     
     @FXML
-    private ToggleGroup statusGroup;
+    ToggleGroup statusGroup;
     
     @FXML
-    private RadioButton availableRB;
+   RadioButton availableRB;
 
     @FXML
-    private RadioButton UnavailableRB;
+    RadioButton UnavailableRB;
 
     @FXML
-    private RadioButton orderRB;
+    RadioButton orderRB;
+
+    @FXML
+	Label inv_name;
+    @FXML Label inv_ref;
     
     RadioButton selectedRadioButton;
     
     public void getCurrentMateriel(Materiel m) {
     	// testie hne wzid kel label wzid listener
     	m.setNom(nameField.getText());
-    	m.setReference(Long.parseLong(refField.getText()));
+    	m.setReference(refField.getText());
     	//set project to fix !
     	//m.setProjet(projet);
     	if(availableRB.isSelected()) {
@@ -56,8 +58,6 @@ public class MaterielUpdateController {
     	nameField.setText(m.getNom());
     	System.out.println("hi");
     	refField.setText(m.getReference().toString());
-    	//andna mochkla fel idproject so ala heka dima null 7ata nriglouha
-    	projectField.setText("null");
     	
     	if(m.getEtat().equals(Etat.disponible)) {
     		

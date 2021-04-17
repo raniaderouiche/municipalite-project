@@ -1,26 +1,22 @@
 package org.fsb.municipalite.controllers;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import org.fsb.municipalite.entities.Materiel;
-import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class MaterielPageController implements Initializable{
 
@@ -39,7 +35,7 @@ public class MaterielPageController implements Initializable{
     @FXML
     TableColumn<Materiel, String> Name;
     @FXML
-    TableColumn<Materiel, Long> Reference;
+    TableColumn<Materiel, String> Reference;
     //@FXML
   //  TableColumn<Materiel, Projet> Project;
     
@@ -47,13 +43,13 @@ public class MaterielPageController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         Id.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("id"));
         Date.setCellValueFactory(new PropertyValueFactory<Materiel,LocalDateTime>("createdAt"));
         Version.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("version"));
         Status.setCellValueFactory(new PropertyValueFactory<Materiel,Materiel.Etat>("etat"));
         Name.setCellValueFactory(new PropertyValueFactory<Materiel,String>("nom"));
-        Reference.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("reference"));
+        Reference.setCellValueFactory(new PropertyValueFactory<Materiel,String>("reference"));
         //Project.setCellValueFactory(new PropertyValueFactory<Materiel,Projet>("projet_id"));
 
         MaterielServiceImpl materielService =new MaterielServiceImpl();
@@ -100,12 +96,12 @@ public class MaterielPageController implements Initializable{
 
     @FXML
     public void onClickEventRemove(ActionEvent event) {
-    	//zidouna haka alert wjaw 
-    	// w multiple select
     	if(tableView.getSelectionModel().getSelectedItem() != null) {
-    		Materiel m = (Materiel) tableView.getSelectionModel().getSelectedItem();
-            MaterielServiceImpl materielService = new MaterielServiceImpl();
-            materielService.remove(m.getId());
+            ObservableList<Materiel> selectedItems = tableView.getSelectionModel().getSelectedItems();
+            for (Materiel m : selectedItems){
+                MaterielServiceImpl materielService = new MaterielServiceImpl();
+                materielService.remove(m.getId());
+            }
             monStock(event);
     	}
     	
@@ -125,6 +121,7 @@ public class MaterielPageController implements Initializable{
         tableView.setItems(data);
     }
 
+    //Add tools
     @FXML
     public void onClickEventAdd(ActionEvent event) {
         try {
@@ -136,26 +133,47 @@ public class MaterielPageController implements Initializable{
 			Dialog<ButtonType> d = new Dialog<>();
 			d.setDialogPane((DialogPane) materielDialogPane);
 			d.setTitle("add materiel");
+
+			//name field listener
+			mac.name.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(!isAlpha(newValue)) {
+                    mac.inv_name.setVisible(true);
+                }else
+                    mac.inv_name.setVisible(false);
+            });
+
+			//ref field listener
+			mac.ref.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(!Pattern.matches("[a-zA-Z0-9]+", newValue)) {
+                    mac.inv_ref.setVisible(true);
+                }else
+                    mac.inv_ref.setVisible(false);
+            });
+
+			//apply button binder
+            d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+                    mac.name.getText().isEmpty()
+                            || mac.ref.getText().isEmpty()
+                            ||!isAlpha(mac.name.getText())
+                            ||!Pattern.matches("[a-zA-Z0-9]+", mac.ref.getText()),
+			                mac.name.textProperty(),mac.ref.textProperty()));
 			
 			Optional<ButtonType> clickedButton = d.showAndWait();
 			if(clickedButton.get() == ButtonType.APPLY) {
-				if(mac.name.getText().length()>0 && mac.ref.getText().length()>0 ) {
-					Materiel mat = new Materiel();
-					mat.setNom(mac.name.getText());
-			        mat.setReference(Long.parseLong(mac.ref.getText()));
-			        if (mac.avail.isSelected()) {
-			            mat.setEtat(Materiel.Etat.disponible);
-			        }
-			        if (mac.unavail.isSelected()) {
-			            mat.setEtat(Materiel.Etat.occupe);
-			        }
-			        if (mac.outoford.isSelected()) {
-			            mat.setEtat(Materiel.Etat.enPanne);
-			        }
-			        MaterielServiceImpl materielService = new MaterielServiceImpl();
-			        materielService.create(mat);
-			        mac.msg.setText("ITEM ADDED !");
-				}
+			    Materiel mat = new Materiel();
+			    mat.setNom(mac.name.getText());
+			    mat.setReference(mac.ref.getText());
+			    if (mac.avail.isSelected()) {
+			        mat.setEtat(Materiel.Etat.disponible);
+			    }
+			    if (mac.unavail.isSelected()) {
+			        mat.setEtat(Materiel.Etat.occupe);
+			    }
+			    if (mac.outoford.isSelected()) {
+			        mat.setEtat(Materiel.Etat.enPanne);
+			    }
+			    MaterielServiceImpl materielService = new MaterielServiceImpl();
+			    materielService.create(mat);
 				
 			}
 			
@@ -165,15 +183,6 @@ public class MaterielPageController implements Initializable{
         }
         monStock(event);
 
-    }
-
-    public boolean isNumeric(String str) {
-        try {
-            Long.parseLong(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
     }
 
 
@@ -195,6 +204,31 @@ public class MaterielPageController implements Initializable{
 				Dialog<ButtonType> d = new Dialog<>();
 				d.setDialogPane((DialogPane) materielDialogPane);
 				d.setTitle("Update materiel");
+
+                //name field listener
+                muc.nameField.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if(!isAlpha(newValue)) {
+                        muc.inv_name.setVisible(true);
+                    }else
+                        muc.inv_name.setVisible(false);
+                });
+
+                //ref field listener
+                muc.refField.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if(!Pattern.matches("[a-zA-Z0-9]+", newValue)) {
+                        muc.inv_ref.setVisible(true);
+                    }else
+                       muc.inv_ref.setVisible(false);
+                });
+
+                //apply button binder
+                d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+                                muc.nameField.getText().isEmpty()
+                                        || muc.refField.getText().isEmpty()
+                                        ||!isAlpha(muc.nameField.getText())
+                                        ||!Pattern.matches("[a-zA-Z0-9]+", muc.refField.getText()),
+                                        muc.nameField.textProperty(),muc.refField.textProperty()));
+
 				Optional<ButtonType> clickedButton = d.showAndWait();
 				if(clickedButton.get() == ButtonType.APPLY) {
 						
@@ -207,6 +241,21 @@ public class MaterielPageController implements Initializable{
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
+    }
+
+    //Test if String is numeric
+    public boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
+    //Test if String is alphabetical
+    public boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z]+");
     }
 
 }

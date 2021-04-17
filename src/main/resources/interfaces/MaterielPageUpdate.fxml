@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -14,14 +15,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielUpdateController">
    <content>
       <VBox>
          <children>
             <Label style="-fx-alignment: center;" text="Update Item :" VBox.vgrow="ALWAYS">
                <font>
-                  <Font size="23.0" />
+                  <Font name="System Bold" size="23.0" />
                </font>
             </Label>
             <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
@@ -40,36 +40,49 @@
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </Label>
                   <Label text="Reference :" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </Label>
                   <Label text="Project :" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </Label>
                   <Label text="Status :" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </Label>
                   <TextField fx:id="nameField" prefHeight="31.0" prefWidth="328.0" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets right="25.0" />
                      </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </TextField>
-                  <TextField fx:id="refField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="refField" prefHeight="14.0" prefWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="25.0" />
                      </GridPane.margin>
-                  </TextField>
-                  <TextField fx:id="projectField" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets right="25.0" />
-                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </TextField>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
@@ -77,14 +90,40 @@
                            <toggleGroup>
                               <ToggleGroup fx:id="statusGroup" />
                            </toggleGroup>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                         </RadioButton>
-                        <RadioButton fx:id="UnavailableRB" mnemonicParsing="false" text="Unavailable" toggleGroup="$statusGroup" />
-                        <RadioButton fx:id="orderRB" mnemonicParsing="false" text="Out of Order" toggleGroup="$statusGroup" />
+                        <RadioButton fx:id="UnavailableRB" mnemonicParsing="false" text="Unavailable" toggleGroup="$statusGroup">
+                           <font>
+                              <Font size="14.0" />
+                           </font></RadioButton>
+                        <RadioButton fx:id="orderRB" mnemonicParsing="false" text="Out of Order" toggleGroup="$statusGroup">
+                           <font>
+                              <Font size="14.0" />
+                           </font></RadioButton>
                      </children>
                      <GridPane.margin>
                         <Insets right="25.0" />
                      </GridPane.margin>
                   </HBox>
+                  <Label fx:id="inv_name" text="Invalid name" textFill="#e43131" visible="false" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="69.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="inv_ref" text="Invalid reference" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets top="69.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ChoiceBox prefHeight="37.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

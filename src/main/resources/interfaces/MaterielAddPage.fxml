@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -15,7 +16,7 @@
          <children>
             <Label layoutX="189.0" layoutY="20.0" prefHeight="53.0" prefWidth="177.0" text="ADD ITEM:">
                <font>
-                  <Font size="36.0" />
+                  <Font name="System Bold" size="32.0" />
                </font>
             </Label>
             <TextField fx:id="name" layoutX="172.0" layoutY="121.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Name">
@@ -24,11 +25,6 @@
                </font>
             </TextField>
             <TextField fx:id="ref" layoutX="172.0" layoutY="198.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Reference">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="proj_id" layoutX="173.0" layoutY="280.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Project ID">
                <font>
                   <Font size="18.0" />
                </font>
@@ -48,7 +44,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="36.0" layoutY="286.0" text="Project :">
+            <Label layoutX="36.0" layoutY="305.0" text="Project :">
                <font>
                   <Font size="18.0" />
                </font>
@@ -71,6 +67,17 @@
                   <Font size="18.0" />
                </font>
             </RadioButton>
+            <Label fx:id="inv_name" layoutX="173.0" layoutY="160.0" text="Invalid name" textFill="#e43131" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="inv_ref" layoutX="173.0" layoutY="241.0" text="Invalid reference" textFill="#e43131" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="projects" layoutX="173.0" layoutY="302.0" prefHeight="33.0" prefWidth="192.0" />
          </children>
       </AnchorPane>
    </content>

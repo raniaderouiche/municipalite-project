@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
@@ -18,6 +19,8 @@ public class EquipeAddController implements Initializable {
     TextField name;
     @FXML
     ChoiceBox leader;
+    @FXML
+    Label inv_name;
     ObservableList emps =  FXCollections.observableArrayList();
 
 
@@ -34,5 +37,6 @@ public class EquipeAddController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setChoiceBox();
+        leader.setValue("Choose a leader");
     }
 }

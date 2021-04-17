@@ -14,7 +14,7 @@ public class Materiel extends BaseEntity{
 	}
 	
 	
-    private Long reference;
+    private String reference;
     private String nom;
     private Etat etat;
 
@@ -25,17 +25,17 @@ public class Materiel extends BaseEntity{
     public Materiel() {
     }
 
-    public Materiel(Long reference, String nom, Etat etat) {
+    public Materiel(String reference, String nom, Etat etat) {
         this.reference = reference;
         this.nom = nom;
         this.etat = etat;
     }
 
-    public Long getReference() {
+    public String getReference() {
         return reference;
     }
 
-    public void setReference(Long reference) {
+    public void setReference(String reference) {
         this.reference = reference;
     }
 
