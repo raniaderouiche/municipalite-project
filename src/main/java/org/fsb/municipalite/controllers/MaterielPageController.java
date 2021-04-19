@@ -19,14 +19,11 @@ import javafx.stage.StageStyle;
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-//change date format
-//fix project dependencie
 
 public class MaterielPageController implements Initializable{
 
@@ -37,7 +34,7 @@ public class MaterielPageController implements Initializable{
     @FXML
     TableColumn<Materiel, Long> Id;
     @FXML
-    TableColumn<Materiel, LocalDateTime> Date;
+    TableColumn<Materiel, String> Date;
     @FXML
     TableColumn<Materiel, Long> Version;
     @FXML
@@ -46,8 +43,8 @@ public class MaterielPageController implements Initializable{
     TableColumn<Materiel, String> Name;
     @FXML
     TableColumn<Materiel, String> Reference;
-    //@FXML
-    //TableColumn<Materiel, Projet> Project;
+    @FXML
+    TableColumn<Materiel, Long> Project;
     
     
     //define dialog window offsets here
@@ -60,12 +57,12 @@ public class MaterielPageController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         Id.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("id"));
-        Date.setCellValueFactory(new PropertyValueFactory<Materiel,LocalDateTime>("createdAt"));
+        Date.setCellValueFactory(new PropertyValueFactory<Materiel,String>("CreatedAtValue"));
         Version.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("version"));
         Status.setCellValueFactory(new PropertyValueFactory<Materiel,Materiel.Etat>("etat"));
         Name.setCellValueFactory(new PropertyValueFactory<Materiel,String>("nom"));
         Reference.setCellValueFactory(new PropertyValueFactory<Materiel,String>("reference"));
-        //Project.setCellValueFactory(new PropertyValueFactory<Materiel,Projet>("projet_id"));
+        Project.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("ProjetValue"));
 
         MaterielServiceImpl materielService =new MaterielServiceImpl();
         List<Materiel> list = materielService.selectAll();
@@ -217,6 +214,7 @@ public class MaterielPageController implements Initializable{
 			if(clickedButton.get() == ButtonType.APPLY) {
 
 			    Materiel mat = new Materiel();
+			    /*
 			    mat.setNom(mac.nameField.getText());
 			    mat.setReference(mac.refField.getText());
 			    if (mac.availableRB.isSelected()) {
@@ -227,7 +225,10 @@ public class MaterielPageController implements Initializable{
 			    }
 			    if (mac.orderRB.isSelected()) {
 			        mat.setEtat(Materiel.Etat.enPanne);
-			    }
+			    }*/
+
+                mac.setCurrentMateriel(mat);
+
 			    MaterielServiceImpl materielService = new MaterielServiceImpl();
 			    materielService.create(mat);
 		        monStock(event);
@@ -255,10 +256,8 @@ public class MaterielPageController implements Initializable{
 				MaterielServiceImpl materielService = new MaterielServiceImpl();
 				Materiel m = (Materiel) tableView.getSelectionModel().getSelectedItem();
 		        Materiel test = materielService.getById(m.getId());
-
-				System.out.println(m.getId()+m.getNom()+m.getReference()+m.getProjet()+m.getEtat());
 				muc.setMaterielDialogPane(test);
-				Dialog<ButtonType> d = new Dialog<>();
+                Dialog<ButtonType> d = new Dialog<>();
 				//this is just for adding an icon to the dialog pane
 				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
 				stage.getIcons().add(new Image("/assets/img/icon.png"));
@@ -320,7 +319,7 @@ public class MaterielPageController implements Initializable{
 				Optional<ButtonType> clickedButton = d.showAndWait();
 				if(clickedButton.get() == ButtonType.APPLY) {
 						
-						muc.getCurrentMateriel(test);
+						muc.setCurrentMateriel(test);
 				        materielService.update(test);
 				        monStock(event);
 				}

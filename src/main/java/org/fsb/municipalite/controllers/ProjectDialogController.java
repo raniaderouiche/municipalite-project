@@ -74,15 +74,15 @@ public class ProjectDialogController implements Initializable {
     }
 
     public void setProjectDialogPane(Projet projet) {
+        //ken ma khedmetch ma tkhafouch dali tlaa incel
+        EquipeServiceImpl equipeService = new EquipeServiceImpl();
+        Equipe e = equipeService.getById(projet.getEquipe().getId());
+        team.setValue(e.getId() + ", " + e.getNom());
         name.setText(projet.getName());
         budget.setText(projet.getBudget() +"");
         place.setValue(projet.getLieu());
         start.setValue(projet.getDateDebut());
         end.setValue(projet.getDateFin());
-        EquipeServiceImpl equipeService = new EquipeServiceImpl();
-        Equipe e = equipeService.getById(projet.getEquipe().getId());
-        team.setValue(e.getId() + "," + e.getNom());
-        System.out.println(e.getId() + "," + e.getNom());
         if(projet.getEtat() == Projet.Etat.Finished){
             finished.setSelected(true);
         }

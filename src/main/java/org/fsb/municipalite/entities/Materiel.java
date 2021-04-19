@@ -3,7 +3,8 @@ package org.fsb.municipalite.entities;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Entity
@@ -20,7 +21,8 @@ public class Materiel extends BaseEntity{
 
     @ManyToOne
     @JoinColumn
-    private Projet projet_id;
+    private Projet projet;
+
 
     public Materiel() {
     }
@@ -56,22 +58,32 @@ public class Materiel extends BaseEntity{
     }
 
     public Projet getProjet() {
-        return projet_id;
+        return projet;
     }
 
     public void setProjet(Projet projet) {
-        this.projet_id = projet;
+        this.projet = projet;
+    }
+
+    public Long getProjetValue() {
+        return projet.getId();
+    }
+
+    public String getCreatedAtValue(){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
+        return createdAt.format(format);
     }
 
     @Override
     public String toString() {
         return "Materiel{" +
                 "id=" + id +
+                ", version=" + version +
                 ", createdAt=" + createdAt +
-                ", reference=" + reference +
+                ", reference='" + reference + '\'' +
                 ", nom='" + nom + '\'' +
                 ", etat=" + etat +
-                ", projet=" + projet_id +
+                ", projet=" + projet +
                 '}';
     }
 }

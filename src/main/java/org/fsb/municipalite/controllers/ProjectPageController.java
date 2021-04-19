@@ -16,10 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Projet;
-import org.fsb.municipalite.services.impl.EquipeServiceImpl;
 import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 
 import java.net.URL;
@@ -27,9 +24,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-//add etat : done - in progress
-//set value in update choice box
 
 public class ProjectPageController implements Initializable {
 
@@ -239,18 +233,7 @@ public class ProjectPageController implements Initializable {
             if(clickedButton.get() == ButtonType.APPLY) {
                Projet projet = new Projet();
                ProjetServiceImpl projetService = new ProjetServiceImpl();
-               /*
-               projet.setName(pac.name.getText());
-               if(pac.finished.isSelected()) { projet.setEtat(Projet.Etat.Finished); }
-               if(pac.unfinished.isSelected()) { projet.setEtat(Projet.Etat.Unfinished); }
-               projet.setBudget(Integer.parseInt(pac.budget.getText()));
-               projet.setLieu(pac.place.getValue());
-               projet.setDateDebut(pac.start.getValue());
-               projet.setDateFin(pac.end.getValue());
-               EquipeServiceImpl equipeService = new EquipeServiceImpl();
-               Equipe e = equipeService.getById(Long.parseLong(pac.team.getValue().toString().split(",")[0]));
-               projet.setEquipe(e);*/
-                pac.setCurrentProject(projet);
+               pac.setCurrentProject(projet);
                projetService.create(projet);
                refresh(event);
 
@@ -277,8 +260,17 @@ public class ProjectPageController implements Initializable {
 			if(action.get() == ButtonType.OK) {
 	            ObservableList<Projet> selectedItems = tableview.getSelectionModel().getSelectedItems();
 	            for (Projet p : selectedItems){
-	                ProjetServiceImpl projetService = new ProjetServiceImpl();
-	                projetService.remove(p.getId());
+	                try{
+                        ProjetServiceImpl projetService = new ProjetServiceImpl();
+                        projetService.remove(p.getId());
+                    }catch(Exception e){
+                        Alert alert_2 = new Alert(AlertType.ERROR);
+                        alert_2.setTitle("Error!");
+                        alert_2.setHeaderText(null);
+                        alert_2.setContentText("Cannot delete project while refreneced in a the tools table!");
+                        alert_2.show();
+                    }
+
 	            }
 	            refresh(event);
 			}
