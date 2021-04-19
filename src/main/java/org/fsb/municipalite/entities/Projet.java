@@ -13,6 +13,11 @@ public class Projet extends BaseEntity{
     private String Lieu;
     private int budget;
 
+    public enum Etat {
+        Finished, Unfinished;
+    }
+
+    private Etat etat;
 
     @ManyToOne
     @JoinColumn
@@ -63,6 +68,14 @@ public class Projet extends BaseEntity{
 
     public void setBudget(int budget) {
         this.budget = budget;
+    }
+
+    public Etat getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Etat etat) {
+        this.etat = etat;
     }
 
     public Equipe getEquipe() {

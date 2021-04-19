@@ -430,7 +430,7 @@ public class TSController implements Initializable {
 						Alert alert_2 = new Alert(AlertType.ERROR);
 						alert_2.setTitle("Error!");
 						alert_2.setHeaderText(null);
-						alert_2.setContentText("delete from team first");
+						alert_2.setContentText("Employee is reference in another table.");
 						alert_2.show();
 
 					}

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Projet;
@@ -36,6 +37,8 @@ public class ProjectDialogController implements Initializable {
     ChoiceBox<String> place;
     @FXML 
     ChoiceBox team;
+    @FXML RadioButton finished;
+    @FXML RadioButton unfinished;
 
     ObservableList teams =  FXCollections.observableArrayList();
 
@@ -63,12 +66,15 @@ public class ProjectDialogController implements Initializable {
         projet.setLieu(place.getValue());
         projet.setDateDebut(start.getValue());
         projet.setDateFin(end.getValue());
-
+        if(finished.isSelected()) { projet.setEtat(Projet.Etat.Finished); }
+        if (unfinished.isSelected()) {projet.setEtat(Projet.Etat.Unfinished);}
+        EquipeServiceImpl equipeService = new EquipeServiceImpl();
+        Equipe e = equipeService.getById(Long.parseLong(team.getValue().toString().split(",")[0]));
+        projet.setEquipe(e);
     }
 
     public void setProjectDialogPane(Projet projet) {
         name.setText(projet.getName());
-        System.out.println("hi");
         budget.setText(projet.getBudget() +"");
         place.setValue(projet.getLieu());
         start.setValue(projet.getDateDebut());
@@ -76,6 +82,13 @@ public class ProjectDialogController implements Initializable {
         EquipeServiceImpl equipeService = new EquipeServiceImpl();
         Equipe e = equipeService.getById(projet.getEquipe().getId());
         team.setValue(e.getId() + "," + e.getNom());
+        System.out.println(e.getId() + "," + e.getNom());
+        if(projet.getEtat() == Projet.Etat.Finished){
+            finished.setSelected(true);
+        }
+        if(projet.getEtat() == Projet.Etat.Unfinished){
+            unfinished.setSelected(true);
+        }
 
     }
 

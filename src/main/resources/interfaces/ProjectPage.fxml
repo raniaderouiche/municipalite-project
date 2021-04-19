@@ -50,6 +50,7 @@
               <columns>
                 <TableColumn fx:id="id" prefWidth="127.0" text="ID" />
                 <TableColumn fx:id="name" prefWidth="146.0" text="Name" />
+                  <TableColumn fx:id="status" prefWidth="75.0" text="Status" />
                   <TableColumn fx:id="startDate" prefWidth="167.0" text="Start Date" />
                   <TableColumn fx:id="dueDate" prefWidth="169.0" text="Due Date" />
                   <TableColumn fx:id="budget" prefWidth="131.0" text="Budget" />

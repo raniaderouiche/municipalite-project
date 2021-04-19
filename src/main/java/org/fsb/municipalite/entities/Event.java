@@ -1,19 +1,20 @@
-package org.fsb.municipalite.entities;
+/*package org.fsb.municipalite.entities;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 
+@Entity
 public class Event extends BaseEntity{
     private LocalDateTime date;
     private String nom;
     private String location;
-    private Float budget;
+    private Double budget;
 
     public Event() {
     }
 
-    public Event(LocalDateTime date, String nom, String location, Float budget) {
+    public Event(LocalDateTime date, String nom, String location, Double budget) {
         this.date = date;
         this.nom = nom;
         this.location = location;
@@ -44,11 +45,11 @@ public class Event extends BaseEntity{
         this.location = location;
     }
 
-    public Float getBudget() {
+    public Double getBudget() {
         return budget;
     }
 
-    public void setBudget(Float budget) {
+    public void setBudget(Double budget) {
         this.budget = budget;
     }
 
@@ -63,3 +64,4 @@ public class Event extends BaseEntity{
                 '}';
     }
 }
+*/

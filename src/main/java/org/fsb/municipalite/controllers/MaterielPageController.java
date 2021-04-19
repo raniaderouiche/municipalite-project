@@ -25,6 +25,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+//change date format
+//fix project dependencie
+
 public class MaterielPageController implements Initializable{
 
 	@FXML
@@ -105,7 +108,7 @@ public class MaterielPageController implements Initializable{
 
     }
 		
-
+    //add try catch
     @FXML
     public void onClickEventRemove(ActionEvent event) {
     	if(tableView.getSelectionModel().getSelectedItem() != null) {
