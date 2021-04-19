@@ -69,6 +69,11 @@ public class Projet extends BaseEntity{
         return equipe;
     }
 
+    //allaho a3lam kifech te5dem
+    public Long getEquipeValue() {
+    	return equipe.getId();
+    }
+    
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
     }

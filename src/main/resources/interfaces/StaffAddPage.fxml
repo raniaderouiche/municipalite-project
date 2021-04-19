@@ -31,7 +31,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label styleClass="globalFont" text="First Name :">
+            <Label styleClass="dialogLabels" text="First Name :">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -39,7 +39,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label styleClass="globalFont" text="Last Name :" GridPane.rowIndex="1">
+            <Label styleClass="dialogLabels" text="Last Name :" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -47,7 +47,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label styleClass="globalFont" text="CIN :" GridPane.rowIndex="2">
+            <Label styleClass="dialogLabels" text="CIN :" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -55,7 +55,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label styleClass="globalFont" text="Civil Status :" GridPane.rowIndex="3">
+            <Label styleClass="dialogLabels" text="Civil Status :" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -63,7 +63,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label styleClass="globalFont" text="Gender :" GridPane.rowIndex="4">
+            <Label styleClass="dialogLabels" text="Gender :" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -71,7 +71,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label styleClass="globalFont" text="Birthday :" GridPane.rowIndex="5">
+            <Label styleClass="dialogLabels" text="Birthday :" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -79,12 +79,12 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="nom_field" prefHeight="28.0" prefWidth="359.0" promptText="Alaa" style="-fx-background-radius: 20;" GridPane.columnIndex="1">
+            <TextField fx:id="nom_field" prefHeight="28.0" prefWidth="359.0" promptText="Alaa" styleClass="dialogTextFields" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
                <font>
-                  <Font name="☞Gilroy-Regular" size="17.0" />
+                  <Font name="☞Gilroy-Regular" size="19.0" />
                </font>
             </TextField>
             <Label fx:id="inv_cin" layoutX="218.0" layoutY="103.0" text="Invalid CIN" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -92,7 +92,7 @@
                   <Insets left="10.0" top="60.0" />
                </GridPane.margin>
                <font>
-                  <Font name="☞Gilroy-Regular" size="15.0" />
+                  <Font name="☞Gilroy-Regular" size="16.0" />
                </font>
             </Label>
             <Label fx:id="inv_last" layoutX="228.0" layoutY="68.0" text="Invalid Last name" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -100,7 +100,7 @@
                   <Insets left="10.0" top="60.0" />
                </GridPane.margin>
                <font>
-                  <Font name="☞Gilroy-Regular" size="15.0" />
+                  <Font name="☞Gilroy-Regular" size="16.0" />
                </font>
             </Label>
             <Label fx:id="inv_name" text="Invalid name" textFill="#e43131" visible="false" GridPane.columnIndex="1">
@@ -108,10 +108,10 @@
                   <Insets left="10.0" top="60.0" />
                </GridPane.margin>
                <font>
-                  <Font name="☞Gilroy-Regular" size="15.0" />
+                  <Font name="☞Gilroy-Regular" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="prenom_field" prefHeight="6.0" prefWidth="359.0" promptText="Dridi" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="prenom_field" prefHeight="6.0" prefWidth="359.0" promptText="Dridi" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
@@ -119,7 +119,7 @@
                   <Font size="17.0" />
                </font>
             </TextField>
-            <TextField fx:id="cin_field" prefHeight="28.0" prefWidth="110.0" promptText="12345678" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="cin_field" prefHeight="28.0" prefWidth="110.0" promptText="12345678" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
@@ -139,10 +139,13 @@
                </children>
             </HBox>
             <DatePicker fx:id="dnPicker" prefHeight="31.0" prefWidth="245.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label fx:id="inv_date" layoutX="228.0" layoutY="68.0" style="-fx-font-family: gilroy-Regular;" text="Invalid Date" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Label fx:id="inv_date" layoutX="228.0" layoutY="68.0" text="Invalid Date" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="10.0" top="60.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="☞Gilroy-Regular" size="16.0" />
+               </font>
             </Label>
          </children>
       </GridPane>

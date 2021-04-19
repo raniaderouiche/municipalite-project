@@ -16,31 +16,37 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class EquipeUpdateController implements Initializable {
+public class EquipeDialogController implements Initializable {
 
+	@FXML
+	Label titleLabel;
     @FXML
     TextField id;
-
     @FXML
     TextField name;
-
     @FXML
     Label inv_name;
-
     @FXML
     ChoiceBox leader;
     ObservableList emps =  FXCollections.observableArrayList();
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    	leader.setValue("Choose a leader");
+    	setChoiceBox();
+    	
+    }
+    
     public void setCurrentEquipe(Equipe equipe){
         equipe.setNom(name.getText());
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         Employee emp = employeeService.getById(Long.parseLong(leader.getValue().toString().split(",")[0]));
-        equipe.setIdResponsable(emp.getId());
+        equipe.setResponsable(emp);
     }
 
     public void setEquipeDialogPane(Equipe equipe){
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
-        Employee e = employeeService.getById(equipe.getIdResponsable());
+        Employee e = employeeService.getById(equipe.getResponsable().getId());
         leader.setValue(e.getId() + ", " + e.getNom());
         id.setText(equipe.getId() + "");
         name.setText(equipe.getNom());
@@ -56,8 +62,5 @@ public class EquipeUpdateController implements Initializable {
         leader.setItems(emps);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setChoiceBox();
-    }
+    
 }

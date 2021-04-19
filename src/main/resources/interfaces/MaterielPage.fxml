@@ -16,7 +16,7 @@
    <center>
       <VBox prefHeight="521.0" prefWidth="897.0">
          <children>
-            <HBox prefHeight="47.0">
+            <HBox minHeight="-Infinity" prefHeight="50.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#onClickEventAdd" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
                      <font>
@@ -28,7 +28,7 @@
                   </Button>
                   <Button mnemonicParsing="false" onAction="#UpdateEvent" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#onClickEventRemove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
@@ -44,11 +44,11 @@
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets top="5.0" />
                      </HBox.margin>
                   </Button>
                   <Pane prefHeight="47.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="searchBox" prefHeight="34.0" prefWidth="239.0" promptText="Search.." styleClass="searchField">
+                  <TextField fx:id="searchBox" minHeight="-Infinity" prefHeight="37.0" prefWidth="270.0" promptText="Search.." styleClass="searchField">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
@@ -79,7 +79,7 @@
       </VBox>
    </center>
    <top>
-      <Label prefHeight="21.0" prefWidth="131.0" styleClass="headers" text="Tools" BorderPane.alignment="CENTER">
+      <Label prefHeight="25.0" prefWidth="326.0" styleClass="headers" text="Tools" BorderPane.alignment="CENTER">
          <font>
             <Font name="Calibri Light" size="22.0" />
          </font>

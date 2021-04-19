@@ -29,7 +29,9 @@ public class Employee extends BaseEntity {
     @ManyToOne
     @JoinColumn
     private Role role;
-
+    
+    @OneToMany(mappedBy = "Responsable")
+    private List<Equipe> equipeList;
 
     public Employee() {
     }
@@ -99,8 +101,18 @@ public class Employee extends BaseEntity {
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
     }
+    
+    
 
-    public List<Tache> getTacheList() {
+    public List<Equipe> getEquipeList() {
+		return equipeList;
+	}
+
+	public void setEquipeList(List<Equipe> equipeList) {
+		this.equipeList = equipeList;
+	}
+
+	public List<Tache> getTacheList() {
         return tacheList;
     }
 

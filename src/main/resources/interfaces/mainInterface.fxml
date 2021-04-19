@@ -15,7 +15,7 @@
    <center>
       <BorderPane fx:id="contentBorderPane" prefHeight="200.0" prefWidth="200.0">
          <top>
-            <Pane fx:id="coverPane" prefHeight="161.0" prefWidth="737.0" BorderPane.alignment="BOTTOM_CENTER">
+            <Pane fx:id="coverPane" prefHeight="177.0" prefWidth="739.0" BorderPane.alignment="BOTTOM_CENTER">
                <BorderPane.margin>
                   <Insets />
                </BorderPane.margin>
@@ -55,7 +55,7 @@
             </VBox>
             <VBox fx:id="mymenu" prefHeight="469.0" prefWidth="221.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="l1" onMousePressed="#dashboardButton" prefHeight="56.0" prefWidth="229.0" text="Dashboard" textFill="WHITE">
+                  <Label fx:id="l1" onMousePressed="#dashboardButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Dashboard" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -75,7 +75,7 @@
                            </image></ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l2" onMouseClicked="#servicesButton" prefHeight="56.0" prefWidth="229.0" text="Services" textFill="WHITE">
+                  <Label fx:id="l2" onMouseClicked="#servicesButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Services" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -95,7 +95,7 @@
                            </image></ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l3" onMouseClicked="#toolsButton" prefHeight="56.0" prefWidth="229.0" text="Tools" textFill="WHITE">
+                  <Label fx:id="l3" onMouseClicked="#toolsButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Tools" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -116,7 +116,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l4" onMouseClicked="#TeamsStaffButton" prefHeight="56.0" prefWidth="229.0" text="Teams &amp; Staff" textFill="WHITE">
+                  <Label fx:id="l4" onMouseClicked="#TeamsStaffButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Teams &amp; Staff" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -137,7 +137,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l5" onMouseClicked="#FinanceButton" prefHeight="56.0" prefWidth="229.0" text="Finance" textFill="WHITE">
+                  <Label fx:id="l5" onMouseClicked="#FinanceButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Finance" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -158,7 +158,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l6" prefHeight="56.0" prefWidth="229.0" text="Tasks" textFill="WHITE">
+                  <Label fx:id="l6" onMousePressed="#tasksButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Tasks" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -179,7 +179,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="l7" onMouseClicked="#projectsButton" prefHeight="56.0" prefWidth="229.0" text="Projects" textFill="WHITE">
+                  <Label fx:id="l7" onMouseClicked="#projectsButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Projects" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -200,7 +200,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="l8" prefHeight="56.0" prefWidth="222.0" text="Events" textFill="WHITE">
+                  <Label fx:id="l8" prefHeight="56.0" prefWidth="222.0" styleClass="menuLabel" text="Events" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>

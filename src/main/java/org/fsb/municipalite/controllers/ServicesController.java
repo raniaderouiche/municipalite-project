@@ -2,10 +2,15 @@ package org.fsb.municipalite.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class ServicesController {
 
+	@FXML
+    private BorderPane Container;
+	
     @FXML
     private Pane autoPane;
 
@@ -14,14 +19,17 @@ public class ServicesController {
     
     @FXML
     void autoButton(MouseEvent event) {
-    	System.out.println("auto clicked");
-    	System.out.println(autoPane.getScene());
+    	System.out.println("autorisation clicked");
+
     }
 
     @FXML
     void compButton(MouseEvent event) {
-    	System.out.println("comp clicked");
-
+    	System.out.println("complaints clicked");
+    	
+    	BorderPane MainInterface = (BorderPane) Container.getParent();
+		Pane view = CustomFxmlLoader.getPage("ComplaintPage");
+		MainInterface.setCenter(view);
     }
 
 }

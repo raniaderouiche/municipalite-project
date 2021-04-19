@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="396.0" prefWidth="548.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.EquipeDialogController">
+   <content>
+      <AnchorPane prefHeight="319.0" prefWidth="548.0">
+         <children>
+            <TextField fx:id="id" disable="true" layoutX="166.0" layoutY="57.0" prefHeight="41.0" prefWidth="301.0" styleClass="searchField">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="name" layoutX="166.0" layoutY="125.0" prefHeight="41.0" prefWidth="301.0" promptText="Name" styleClass="searchField">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label fx:id="inv_name" layoutX="138.0" layoutY="261.0" text="Invalid name" textFill="#e43131" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="leader" layoutX="166.0" layoutY="200.0" prefHeight="35.0" prefWidth="301.0" styleClass="customChoiceBox" />
+            <Label fx:id="inv_name1" layoutX="138.0" layoutY="261.0" text="Invalid name" textFill="#e43131" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="63.0" layoutY="67.0" prefHeight="21.0" prefWidth="40.0" text="ID :">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="61.0" layoutY="135.0" text="Name :">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="61.0" layoutY="203.0" prefHeight="30.0" prefWidth="86.0" text="Leader :">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+   <header>
+      <Label fx:id="titleLabel" prefHeight="55.0" prefWidth="583.0" styleClass="dialogheader" text="Update Team" textFill="WHITE">
+         <font>
+            <Font name="☞Gilroy-Regular" size="25.0" />
+         </font>
+      </Label>
+   </header>
+</DialogPane>

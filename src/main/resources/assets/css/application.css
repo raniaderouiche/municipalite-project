@@ -2,14 +2,64 @@
 	-fx-focus-color: transparent;
 }
 
-#l1:hover, #l2:hover, #l3:hover, #l4:hover, #l5:hover, #l6:hover, #l7:hover, #l8:hover{
+.table-view {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: 
+    #090a0c,
+    linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+    linear-gradient(#003483, #20354b),
+    radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));    -fx-background-radius: 7px 7px 0px 0px;
+    -fx-background-insets: 0 0 0 0;
+    -fx-padding: 0 0 0 0;
+    
+}
+.table-view .column-header {
 	
-   -fx-background-color:rgba(255, 255, 255, 0.336);
-   -fx-font-color:rgb(47, 44, 87);
-   /*-fx-background-radius:5em;*/
-   
+    -fx-background-color: transparent;
+	-fx-font-size : 16;
 }
 
+.table-view .column-header .label{
+    -fx-text-fill: white;
+	-fx-font-size : 16;
+    -fx-font-family:Gilroy-Regular;
+}
+
+
+.table-row-cell:hover {    
+    -fx-background-color: rgb(201, 222, 245);
+}
+.table-cell {	  
+    -fx-padding: 0.5em 0em 0.5em 0.5em;
+    -fx-border-color: transparent -fx-box-border transparent transparent;  
+    -fx-font: 14px "Segoe UI";    
+    -fx-text-fill: #000000;
+}
+.table-view:focused .table-row-cell:filled:selected, .table-view:row-selection .table-row-cell:filled:hover:selected {    
+    -fx-background-color: rgb(163, 163, 163);
+    -fx-background-insets: 0,1 1 1 1 0;
+    
+}
+
+.menuLabel{
+    -fx-font: 22px "Nirmala UI Semilight"; 
+    -fx-text-fill: #ffffff;
+
+}
+.menuLabel:hover{
+	-fx-background-color:rgba(255, 255, 255, 0.336);
+    -fx-font-color:rgb(47, 44, 87);
+	-fx-label-padding: 0 0 0 5;
+}
+.menuLabel:pressed{
+	-fx-background-color:rgba(131, 174, 255, 0.753);
+    
+}
 #fp:hover{
 	-fx-underline:true;
 }
@@ -53,8 +103,9 @@
 #coverPane{
 	
 	-fx-background-image:url('../img/bizertecover.png');
-	-fx-background-repeat: no-repeat;
-	-fx-background-size:100%;
+	-fx-background-repeat: stretch;
+	-fx-background-size: 100% 100%;
+	
 }
 
 #profile{
@@ -70,9 +121,8 @@
    -fx-border-radius:6em;*/
 }
 #profile:hover{
-	-fx-border-width: 1;
+	-fx-border-width: 0;
     -fx-border-style: solid solid solid solid;
-    -fx-border-color:#003483;
     -fx-border-radius:6em;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
    
@@ -86,7 +136,7 @@
 }
 
 .CustomButtons{
-    -fx-font-size : 14;
+    -fx-font-size : 15;
 	-fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-background-radius: 40;
@@ -126,6 +176,10 @@
     }
 .searchField{
 	-fx-background-radius:20;
+    -fx-font-size : 15;
+    
+
+
 }
 .headers{
 	-fx-alignment: center;
@@ -138,6 +192,8 @@
     
     -fx-text-fill: white;
     -fx-border-style: hidden; 
+    -fx-font-family: Gilroy-Regular;
+ 	-fx-font-size : 20;
 }
 .dialogheader{
 	-fx-background-color: 
@@ -146,6 +202,9 @@
         linear-gradient(#003483, #20354b),
         radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
     -fx-alignment: center;
+    -fx-text-fill : white;
+    -fx-font-family:Gilroy-Regular;
+ 	-fx-font-size : 25;
     
 }
 .customChoiceBox{
@@ -174,18 +233,60 @@
 .globalFont{
     -fx-font-family:Gilroy-Regular;
 }
+.dialogLabels{
+    -fx-font-family:Gilroy-Regular;
+    -fx-font-size : 18;
+}
+.dialogTextFields{
+	-fx-background-radius:20;
+	-fx-font-family:Gilroy-Regular;
+	-fx-font-size : 18;
+	
+}
 .dialogShadow{
-	-fx-border-color: rgb(4, 117, 161);
+	-fx-border-color: #002b6b;
     -fx-border-width: 1;
     -fx-background-color: transparent;
     /*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0);*/
 }
 .paneButtonIcons{
-    -fx-background-color: rgb(225, 234, 255);
+    -fx-background-color: rgb(212, 226, 255);
     -fx-background-radius: 25 25 25 25;
 }
 .paneButtonIcons:hover{
-	-fx-background-color: rgb(118, 159, 255);
+	-fx-background-color: rgb(170, 207, 255);
     -fx-cursor: hand;
 
 }
+
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: #003483;
+    -fx-background-color: white;
+    -fx-background-image: null;
+    -fx-border-radius: 15px;
+    -fx-padding: 4px;
+}
+.radio-button .radio:selected {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:armed {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:determinate {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:indeterminate {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button .dot {
+    -fx-background-radius: 20px;
+    -fx-padding: 8px;
+    -fx-mark-highlight-color: #002b6b;
+    -fx-mark-color: #002b6b;
+}
+

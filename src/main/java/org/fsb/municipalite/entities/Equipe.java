@@ -2,6 +2,7 @@ package org.fsb.municipalite.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.Collection;
@@ -9,30 +10,35 @@ import java.util.List;
 
 @Entity
 public class Equipe extends BaseEntity{
-
-    private Long idResponsable;
+	
+	@ManyToOne
+	@JoinColumn
+    private Employee Responsable;
+	
     private String nom;
     @OneToMany(mappedBy = "equipe")
     private List<Employee> employeeList;
 
     @OneToMany(mappedBy = "equipe")
     private List<Projet> projetList;
-
-    @OneToMany(mappedBy = "equipe")
-    private List<Tache> tacheList;
-
+    
     public Equipe() {
     }
 
-    public Long getIdResponsable() {
-        return idResponsable;
+    public Employee getResponsable() {
+        return Responsable;
     }
 
-    public void setIdResponsable(Long idResponsable) {
-        this.idResponsable = idResponsable;
+    public void setResponsable(Employee idResponsable) {
+        this.Responsable = idResponsable;
+    }
+    
+    
+    public Long getResponsableValue() {
+    	return Responsable.getId();
     }
 
-   /* public List<Employee> getEmployeeList() {
+    /* public List<Employee> getEmployeeList() {
         return employeeList;
     }*/
 
@@ -40,15 +46,7 @@ public class Equipe extends BaseEntity{
         this.employeeList = employeeList;
     }*/
 
-    public List<Tache> getTacheList() {
-        return tacheList;
-    }
-
-    public void setTacheList(List<Tache> tacheList) {
-        this.tacheList = tacheList;
-    }
-
-
+    
     public List<Projet> getProjetList() {
         return projetList;
     }
@@ -64,4 +62,5 @@ public class Equipe extends BaseEntity{
     public String getNom() {
     	return this.nom;
     }
+    
 }

@@ -13,14 +13,14 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="633.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.TSController">
-   <top>
+   <center>
       <TabPane fx:id="mainTabPane" prefHeight="581.0" prefWidth="977.0" stylesheets="@../assets/css/application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Staff">
                <content>
                   <BorderPane fx:id="tabBackground1" prefHeight="450.0" prefWidth="977.0" stylesheets="@../assets/css/application.css">
                      <center>
-                        <TableView fx:id="staffTable" prefHeight="367.0" prefWidth="957.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="staffTable" prefHeight="300.0" prefWidth="957.0" BorderPane.alignment="CENTER">
                           <columns>
                               <TableColumn fx:id="id_emp" prefWidth="120.0" text="Id" />
                               <TableColumn fx:id="nom" prefWidth="158.0" text="First Name" />
@@ -72,10 +72,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Pane>
-                              <TextField fx:id="empSearchField" prefHeight="4.0" prefWidth="273.0" promptText="Search.." styleClass="searchField">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
+                              <TextField fx:id="empSearchField" prefHeight="39.0" prefWidth="273.0" promptText="Search.." styleClass="searchField" />
                            </children>
                            <BorderPane.margin>
                               <Insets left="20.0" right="10.0" top="20.0" />
@@ -159,5 +156,5 @@
                </content></Tab>
         </tabs>
       </TabPane>
-   </top>
+   </center>
 </BorderPane>

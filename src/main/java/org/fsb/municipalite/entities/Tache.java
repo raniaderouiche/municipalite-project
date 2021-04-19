@@ -3,38 +3,35 @@ package org.fsb.municipalite.entities;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 @Entity
 public class Tache extends BaseEntity{
-    private LocalDateTime dueDate;
-    enum Etat {
+    private LocalDate dueDate;
+    public enum Etat {
         done,inProgress;
     }
     private Etat etat;
-
+    private String name;
     @ManyToOne
     @JoinColumn
     private Employee employee;
 
-    @ManyToOne
-    @JoinColumn
-    private Equipe equipe;
-
     public Tache() {
     }
 
-    public Tache(LocalDateTime dueDate, Employee employee, Equipe equipe) {
+    public Tache(String name, LocalDate dueDate, Employee employee) {
+    	this.name = name;
         this.dueDate = dueDate;
         this.employee = employee;
-        this.equipe = equipe;
     }
 
-    public LocalDateTime getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -49,19 +46,22 @@ public class Tache extends BaseEntity{
     public Employee getEmployee() {
         return employee;
     }
+    
+    public Long getEmployeeId() {
+    	return employee.getId();
+    }
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
-    public Equipe getEquipe() {
-        return equipe;
+    public String getName() { 
+    	return name;
     }
 
-    public void setEquipe(Equipe equipe) {
-        this.equipe = equipe;
-    }
-
+    public void setName(String name) {
+    	this.name = name; 
+	}
     @Override
     public String toString() {
         return "Tache{" +
@@ -71,7 +71,6 @@ public class Tache extends BaseEntity{
                 ", dueDate=" + dueDate +
                 ", etat=" + etat +
                 ", employee=" + employee +
-                ", equipe=" + equipe +
                 '}';
     }
 }

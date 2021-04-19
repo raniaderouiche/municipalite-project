@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import org.fsb.municipalite.entities.Complaint;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
@@ -24,6 +25,8 @@ import java.util.ResourceBundle;
 
 public class ComplaintPageController implements Initializable{
 
+	@FXML
+	private BorderPane container;
 	@FXML
     TextField searchBox;
     @FXML
@@ -199,6 +202,12 @@ public class ComplaintPageController implements Initializable{
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
+    }
+    
+    public void goBack(ActionEvent event) {
+    	BorderPane MainInterface = (BorderPane) container.getParent();
+		Pane view = CustomFxmlLoader.getPage("ServicesPage");
+		MainInterface.setCenter(view);
     }
 
 }

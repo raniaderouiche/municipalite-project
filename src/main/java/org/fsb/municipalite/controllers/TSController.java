@@ -72,7 +72,7 @@ public class TSController implements Initializable {
 	TextField teamSearchField;
 
 
-	//define your offsets here
+    //define dialog window offsets here
     private double xOffset = 0;
     private double yOffset = 0;
     
@@ -109,7 +109,7 @@ public class TSController implements Initializable {
 		teamTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		id_team.setCellValueFactory(new PropertyValueFactory<Equipe, Long>("id"));
 		name.setCellValueFactory(new PropertyValueFactory<Equipe, String>("nom"));
-		leader.setCellValueFactory(new PropertyValueFactory<Equipe, Long>("idResponsable"));
+		leader.setCellValueFactory(new PropertyValueFactory<Equipe, Long>("ResponsableValue"));
 
 		EquipeServiceImpl equipeService = new EquipeServiceImpl();
 		List<Equipe> equipeList = equipeService.selectAll();
@@ -126,8 +126,6 @@ public class TSController implements Initializable {
 			ListenerSearchTeam(newValue);
 		});
 	}
-
-
 	
 	public void refreshTeam() {
 		teamTable.getItems().clear();
@@ -139,7 +137,6 @@ public class TSController implements Initializable {
 		}
 		teamTable.setItems(teamdata);
 	}
-
 
 	public void ListenerSearchTeam(String n){
 		EquipeServiceImpl equipeService = new EquipeServiceImpl();
@@ -193,7 +190,6 @@ public class TSController implements Initializable {
 			staffTable.setItems(EmployeesData);
 		}
 	}
-
 
 	@FXML
 	public void reloadEmp(ActionEvent event) {
@@ -401,23 +397,23 @@ public class TSController implements Initializable {
 				if (clickedButton.get() == ButtonType.APPLY) {
 					edc.setCurrentEmployee(emp);
 					empService.update(emp);
+					reloadEmp(event);
+
 				}
 			}
-			reloadEmp(event);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-
-
 	@FXML
 	void deleteEmp(ActionEvent event) {
+		
 		if (staffTable.getSelectionModel().getSelectedItem() != null) {
-			//this is just for adding an icon to the dialog pane
 			
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+			//this is just for adding an icon to the dialog pane
 			stage.getIcons().add(new Image("/assets/img/icon.png"));
 			alert.setTitle("Delete Employee ?");
 			alert.setHeaderText(null);
@@ -425,9 +421,20 @@ public class TSController implements Initializable {
 			Optional <ButtonType> action = alert.showAndWait();
 			if(action.get() == ButtonType.OK) {
 				ObservableList<Employee> selectedItems = staffTable.getSelectionModel().getSelectedItems();
+				//todo
 				for (Employee e : selectedItems) {
-					EmployeeServiceImpl empService = new EmployeeServiceImpl();
-					empService.remove(e.getId());
+					try {
+						EmployeeServiceImpl empService = new EmployeeServiceImpl();
+						empService.remove(e.getId());
+					}catch(Exception ex) {
+						Alert alert_2 = new Alert(AlertType.ERROR);
+						alert_2.setTitle("Error!");
+						alert_2.setHeaderText(null);
+						alert_2.setContentText("delete from team first");
+						alert_2.show();
+
+					}
+					
 				}
 				reloadEmp(event);
 			}
@@ -446,20 +453,45 @@ public class TSController implements Initializable {
 
 	//Test if String is alphabetical
 	public boolean isAlpha(String name) {
-	    return name.matches("[a-zA-Z]+");
+	    return name.matches("[a-zA-Z ]+");
 	}
 	
 	@FXML
 	public void addTeam(ActionEvent event) {
 		try {
 			FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/interfaces/EquipeAdd.fxml"));
+			f.setLocation(getClass().getResource("/interfaces/EquipeDialog.fxml"));
 			Pane equipeDialogPane = f.load();
-			EquipeAddController eqac = f.getController();
+			EquipeDialogController eqac = f.getController();
 
 			Dialog<ButtonType> d = new Dialog<>();
+			
+			Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+			stage.getIcons().add(new Image("/assets/img/icon.png"));
+			eqac.titleLabel.setText("Add Team");
 			d.setDialogPane((DialogPane) equipeDialogPane);
-			d.setTitle("add team");
+			d.setTitle("Add Team");
+			d.setResizable(false);
+			d.initStyle(StageStyle.UNDECORATED);
+			
+			
+			//these two are for moving the window with the mouse
+			equipeDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+	           @Override
+	           public void handle(MouseEvent event) {
+	               xOffset = event.getSceneX();
+	               yOffset = event.getSceneY();
+	           }
+			});
+       
+			equipeDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	           @Override
+	           public void handle(MouseEvent event) {
+	               d.setX(event.getScreenX() - xOffset);
+	               d.setY(event.getScreenY() - yOffset);
+	           }
+            });
+			
 
 			//name field listener
 			eqac.name.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -470,7 +502,10 @@ public class TSController implements Initializable {
 				}else
 					eqac.inv_name.setVisible(false);
 			});
-
+			//to apply css on the dialog pane buttons
+			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+			
 			eqac.name.requestFocus();
 
 			//apply button binder
@@ -488,7 +523,7 @@ public class TSController implements Initializable {
 				equipe.setNom(eqac.name.getText());
 				EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 				Employee emp = employeeService.getById(Long.parseLong(eqac.leader.getValue().toString().split(",")[0]));
-				equipe.setIdResponsable(emp.getId());
+				equipe.setResponsable(emp);
 
 				EquipeServiceImpl equipeService = new EquipeServiceImpl();
 				equipeService.create(equipe);
@@ -503,9 +538,9 @@ public class TSController implements Initializable {
 	public void updateTeam(ActionEvent event) {
 		try {
 			FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/interfaces/EquipeUpdate.fxml"));
+			f.setLocation(getClass().getResource("/interfaces/EquipeDialog.fxml"));
 			Pane equipeDialogPane = f.load();
-			EquipeUpdateController equc = f.getController();
+			EquipeDialogController equc = f.getController();
 
 			if (teamTable.getSelectionModel().getSelectedItem() != null) {
 
@@ -513,11 +548,34 @@ public class TSController implements Initializable {
 				Equipe e = (Equipe) teamTable.getSelectionModel().getSelectedItem();
 				Equipe equipe = equipeService.getById(e.getId());
 
+				
 				equc.setEquipeDialogPane(equipe);
 				Dialog<ButtonType> d = new Dialog<>();
+				
+				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+				stage.getIcons().add(new Image("/assets/img/icon.png"));
+				
 				d.setDialogPane((DialogPane) equipeDialogPane);
-				d.setTitle("Update equipe");
-
+				d.setTitle("Update Employee");
+				d.setResizable(false);
+				d.initStyle(StageStyle.UNDECORATED);
+				
+				//these two are for moving the window with the mouse
+				equipeDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               xOffset = event.getSceneX();
+		               yOffset = event.getSceneY();
+		           }
+				});
+	       
+				equipeDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               d.setX(event.getScreenX() - xOffset);
+		               d.setY(event.getScreenY() - yOffset);
+		           }
+	            });
 				//name field listener
 				equc.name.textProperty().addListener((observable, oldValue, newValue) -> {
 					if(!isAlpha(newValue)) {
@@ -526,6 +584,12 @@ public class TSController implements Initializable {
 					}else
 						equc.inv_name.setVisible(false);
 				});
+				
+				//to apply css on the dialog pane buttons
+				d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+				
+				equc.name.requestFocus();
 
 				//apply button binder
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
@@ -554,14 +618,32 @@ public class TSController implements Initializable {
 	@FXML
 	public void deleteTeam(ActionEvent event) {
 		if (teamTable.getSelectionModel().getSelectedItem() != null) {
-			ObservableList<Equipe> selectedItems = teamTable.getSelectionModel().getSelectedItems();
-			for (Equipe e : selectedItems) {
-				EquipeServiceImpl equipeService = new EquipeServiceImpl();
-				equipeService.remove(e.getId());
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+			//this is just for adding an icon to the dialog pane
+			stage.getIcons().add(new Image("/assets/img/icon.png"));
+			alert.setTitle("Delete Employee ?");
+			alert.setHeaderText(null);
+			alert.setContentText("Are you Sure You Want to Delete Selected Item(s) ?");
+			Optional <ButtonType> action = alert.showAndWait();
+			if(action.get() == ButtonType.OK) {
+				ObservableList<Equipe> selectedItems = teamTable.getSelectionModel().getSelectedItems();
+				for (Equipe e : selectedItems) {
+					try {
+						EquipeServiceImpl equipeService = new EquipeServiceImpl();
+						equipeService.remove(e.getId());
+					}catch(Exception ex) {
+						Alert alert_2 = new Alert(AlertType.ERROR);
+						alert_2.setTitle("Error!");
+						alert_2.setHeaderText(null);
+						alert_2.setContentText("Cannot delete team while refreneced in a project!");
+						alert_2.show();
+					}
+					
+				}
+				refreshTeam();
 			}
-			refreshTeam();
 		}
 	}
-
 
 }

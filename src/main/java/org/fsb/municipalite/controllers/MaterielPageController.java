@@ -3,12 +3,19 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
 import java.net.URL;
@@ -37,7 +44,12 @@ public class MaterielPageController implements Initializable{
     @FXML
     TableColumn<Materiel, String> Reference;
     //@FXML
-  //  TableColumn<Materiel, Projet> Project;
+    //TableColumn<Materiel, Projet> Project;
+    
+    
+    //define dialog window offsets here
+    private double xOffset = 0;
+    private double yOffset = 0;
     
     public ObservableList<Materiel> data;
 
@@ -97,12 +109,23 @@ public class MaterielPageController implements Initializable{
     @FXML
     public void onClickEventRemove(ActionEvent event) {
     	if(tableView.getSelectionModel().getSelectedItem() != null) {
-            ObservableList<Materiel> selectedItems = tableView.getSelectionModel().getSelectedItems();
-            for (Materiel m : selectedItems){
-                MaterielServiceImpl materielService = new MaterielServiceImpl();
-                materielService.remove(m.getId());
-            }
-            monStock(event);
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+			Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+			//this is just for adding an icon to the dialog pane
+			stage.getIcons().add(new Image("/assets/img/icon.png"));
+			alert.setTitle("Delete Materiel?");
+			alert.setHeaderText(null);
+			alert.setContentText("Are you Sure You Want to Delete Selected Item(s) ?");
+			Optional <ButtonType> action = alert.showAndWait();
+			if(action.get() == ButtonType.OK) {
+	            ObservableList<Materiel> selectedItems = tableView.getSelectionModel().getSelectedItems();
+	            for (Materiel m : selectedItems){
+	                MaterielServiceImpl materielService = new MaterielServiceImpl();
+	                materielService.remove(m.getId());
+	            }
+	            monStock(event);
+
+	        }
     	}
     	
       
@@ -126,54 +149,86 @@ public class MaterielPageController implements Initializable{
     public void onClickEventAdd(ActionEvent event) {
         try {
         	FXMLLoader f = new FXMLLoader();
-        	f.setLocation(getClass().getResource("/interfaces/MaterielAddPage.fxml"));
+        	f.setLocation(getClass().getResource("/interfaces/MaterielDialogPage.fxml"));
 			Pane materielDialogPane = f.load();
-			MaterielAddContoller mac = f.getController();
-			
+			MaterielDialogController mac = f.getController();
 			Dialog<ButtonType> d = new Dialog<>();
+			//this is just for adding an icon to the dialog pane
+			Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+			stage.getIcons().add(new Image("/assets/img/icon.png"));
 			d.setDialogPane((DialogPane) materielDialogPane);
-			d.setTitle("add materiel");
-
+			d.setTitle("Add Materiel Item");
+			d.setResizable(false);
+			d.initStyle(StageStyle.UNDECORATED);
+		
+			//these two are for moving the window with the mouse
+			materielDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+	           @Override
+	           public void handle(MouseEvent event) {
+	               xOffset = event.getSceneX();
+	               yOffset = event.getSceneY();
+	           }
+			});
+			materielDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	           @Override
+	           public void handle(MouseEvent event) {
+	               d.setX(event.getScreenX() - xOffset);
+	               d.setY(event.getScreenY() - yOffset);
+	           }
+            });
+			
 			//name field listener
-			mac.name.textProperty().addListener((observable, oldValue, newValue) -> {
+			mac.nameField.textProperty().addListener((observable, oldValue, newValue) -> {
                 if(!isAlpha(newValue)) {
                     mac.inv_name.setVisible(true);
                 }else
                     mac.inv_name.setVisible(false);
-            });
+            }); 
 
 			//ref field listener
-			mac.ref.textProperty().addListener((observable, oldValue, newValue) -> {
+			mac.refField.textProperty().addListener((observable, oldValue, newValue) -> {
                 if(!Pattern.matches("[a-zA-Z0-9]+", newValue)) {
                     mac.inv_ref.setVisible(true);
                 }else
                     mac.inv_ref.setVisible(false);
             });
 
+
+			//to apply css on the dialog pane buttons
+			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+			
+			//make name field first to be selected
+			mac.nameField.requestFocus(); 
+			
 			//apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                    mac.name.getText().isEmpty()
-                            || mac.ref.getText().isEmpty()
-                            ||!isAlpha(mac.name.getText())
-                            ||!Pattern.matches("[a-zA-Z0-9]+", mac.ref.getText()),
-			                mac.name.textProperty(),mac.ref.textProperty()));
+                    mac.nameField.getText().isEmpty()
+                            || mac.refField.getText().isEmpty()
+                            ||!isAlpha(mac.nameField.getText())
+                            ||!Pattern.matches("[a-zA-Z0-9]+", mac.refField.getText()),
+                            
+			                mac.nameField.textProperty(),mac.refField.textProperty()));
 			
 			Optional<ButtonType> clickedButton = d.showAndWait();
 			if(clickedButton.get() == ButtonType.APPLY) {
+
 			    Materiel mat = new Materiel();
-			    mat.setNom(mac.name.getText());
-			    mat.setReference(mac.ref.getText());
-			    if (mac.avail.isSelected()) {
+			    mat.setNom(mac.nameField.getText());
+			    mat.setReference(mac.refField.getText());
+			    if (mac.availableRB.isSelected()) {
 			        mat.setEtat(Materiel.Etat.disponible);
 			    }
-			    if (mac.unavail.isSelected()) {
+			    if (mac.UnavailableRB.isSelected()) {
 			        mat.setEtat(Materiel.Etat.occupe);
 			    }
-			    if (mac.outoford.isSelected()) {
+			    if (mac.orderRB.isSelected()) {
 			        mat.setEtat(Materiel.Etat.enPanne);
 			    }
 			    MaterielServiceImpl materielService = new MaterielServiceImpl();
 			    materielService.create(mat);
+		        monStock(event);
+
 				
 			}
 			
@@ -181,7 +236,6 @@ public class MaterielPageController implements Initializable{
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        monStock(event);
 
     }
 
@@ -190,10 +244,10 @@ public class MaterielPageController implements Initializable{
     public void UpdateEvent(ActionEvent event) {
     	try {
 	    	FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/interfaces/MaterielPageUpdate.fxml"));
+			f.setLocation(getClass().getResource("/interfaces/MaterielDialogPage.fxml"));
 			Pane materielDialogPane = f.load();
-			MaterielUpdateController muc = f.getController();
-	    	
+			MaterielDialogController muc = f.getController();
+			muc.titleLabel.setText("Update Item");
 			if(tableView.getSelectionModel().getSelectedItem() != null) {
 				MaterielServiceImpl materielService = new MaterielServiceImpl();
 				Materiel m = (Materiel) tableView.getSelectionModel().getSelectedItem();
@@ -202,9 +256,33 @@ public class MaterielPageController implements Initializable{
 				System.out.println(m.getId()+m.getNom()+m.getReference()+m.getProjet()+m.getEtat());
 				muc.setMaterielDialogPane(test);
 				Dialog<ButtonType> d = new Dialog<>();
+				//this is just for adding an icon to the dialog pane
+				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+				stage.getIcons().add(new Image("/assets/img/icon.png"));
+				d.setDialogPane((DialogPane) materielDialogPane);
+				d.setTitle("Update Materiel Item");
+				d.setResizable(false);
+				d.initStyle(StageStyle.UNDECORATED);
 				d.setDialogPane((DialogPane) materielDialogPane);
 				d.setTitle("Update materiel");
 
+
+				//these two are for moving the window with the mouse
+				materielDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               xOffset = event.getSceneX();
+		               yOffset = event.getSceneY();
+		           }
+				});
+				materielDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               d.setX(event.getScreenX() - xOffset);
+		               d.setY(event.getScreenY() - yOffset);
+		           }
+	            });
+				
                 //name field listener
                 muc.nameField.textProperty().addListener((observable, oldValue, newValue) -> {
                     if(!isAlpha(newValue)) {
@@ -221,6 +299,13 @@ public class MaterielPageController implements Initializable{
                        muc.inv_ref.setVisible(false);
                 });
 
+                //to apply css on the dialog pane buttons
+    			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+    			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+    			
+    			//make name field first to be selected
+    			muc.nameField.requestFocus();
+    			
                 //apply button binder
                 d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
                                 muc.nameField.getText().isEmpty()

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="607.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.TacheDialogController">
+    <content>
+        <AnchorPane prefHeight="409.0" prefWidth="607.0">
+            <children>
+                <TextField fx:id="name" layoutX="189.0" layoutY="30.0" prefHeight="38.0" prefWidth="286.0" styleClass="searchField" />
+                <Label layoutX="105.0" layoutY="37.0" styleClass="globalFont" text="Name :">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="93.0" layoutY="107.0" styleClass="globalFont" text="Employee :">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="93.0" layoutY="180.0" styleClass="globalFont" text="Due Date :">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <DatePicker fx:id="DD" layoutX="191.0" layoutY="173.0" prefHeight="36.0" prefWidth="284.0" promptText="--/--/--" />
+            <RadioButton fx:id="Done" layoutX="191.0" layoutY="259.0" mnemonicParsing="false" selected="true" styleClass="globalFont" text="Done">
+               <toggleGroup>
+                  <ToggleGroup fx:id="statusGroup" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="InProg" layoutX="189.0" layoutY="294.0" mnemonicParsing="false" text="In Progress" toggleGroup="$statusGroup" />
+            <Label layoutX="93.0" layoutY="255.0" styleClass="globalFont" text="Status :">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="inv_name" layoutX="195.0" layoutY="68.0" prefHeight="26.0" prefWidth="104.0" styleClass="globalFont" text="Invalid Name" textFill="RED" visible="false" />
+            <ChoiceBox fx:id="employeeChoice" layoutX="193.0" layoutY="104.0" prefHeight="31.0" prefWidth="280.0" styleClass="customChoiceBox" />
+            <Label fx:id="inv_date" layoutX="195.0" layoutY="220.0" prefHeight="26.0" prefWidth="104.0" styleClass="globalFont" text="Invalid Date" textFill="RED" visible="false" />
+            </children>
+        </AnchorPane>
+    </content>
+    <buttonTypes>
+        <ButtonType fx:constant="APPLY" />
+        <ButtonType fx:constant="CANCEL" />
+    </buttonTypes>
+   <header>
+          <Label prefHeight="61.0" prefWidth="607.0" styleClass="dialogheader" text="Add Task ">
+              <font>
+                  <Font name="System Bold" size="24.0" />
+              </font>
+          </Label>
+   </header>
+</DialogPane>

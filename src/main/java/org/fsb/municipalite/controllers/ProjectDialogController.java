@@ -14,27 +14,28 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ProjectUpdateController implements Initializable {
-    @FXML
+public class ProjectDialogController implements Initializable {
+  
+	@FXML
+	Label titleLabel;
+	@FXML
     TextField name;
-
     @FXML
     TextField budget;
-
     @FXML
     DatePicker start;
-
     @FXML
     DatePicker end;
     @FXML
     Label inv_name;
-    @FXML Label inv_budget;
+    @FXML 
+    Label inv_budget;
     @FXML
     Label warning;
-
     @FXML
     ChoiceBox<String> place;
-    @FXML ChoiceBox team;
+    @FXML 
+    ChoiceBox team;
 
     ObservableList teams =  FXCollections.observableArrayList();
 
