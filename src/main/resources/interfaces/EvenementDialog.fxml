@@ -6,31 +6,26 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="600.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ProjectDialogController">
+
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="600.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.EvenementDialogController">
    <content>
       <GridPane prefHeight="471.0" prefWidth="586.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="161.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="411.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="161.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="411.0" />
+         </columnConstraints>
+         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+         </rowConstraints>
          <children>
             <TextField fx:id="name" prefHeight="38.0" prefWidth="375.0" promptText="Name" styleClass="dialogTextFields" GridPane.columnIndex="1">
                <GridPane.margin>
@@ -75,8 +70,12 @@
                   <Insets left="30.0" />
                </GridPane.margin>
             </Label>
-            <DatePicker fx:id="start" prefHeight="40.0" prefWidth="375.0" promptText="--/--/--" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label styleClass="dialogLabels" text="Start Date :" GridPane.rowIndex="3">
+            <DatePicker fx:id="eventDate" prefHeight="40.0" prefWidth="375.0" promptText="--/--/--" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+            </DatePicker>
+            <Label styleClass="dialogLabels" text="Date :" GridPane.rowIndex="3">
                <font>
                   <Font size="16.0" />
                </font>
@@ -84,24 +83,6 @@
                   <Insets left="30.0" />
                </GridPane.margin>
             </Label>
-            <DatePicker fx:id="end" prefHeight="40.0" prefWidth="375.0" promptText="--/--/--" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label styleClass="dialogLabels" text="Due Date :" GridPane.rowIndex="4">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="30.0" />
-               </GridPane.margin>
-            </Label>
-            <Label styleClass="dialogLabels" text="Team :" GridPane.rowIndex="5">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="30.0" />
-               </GridPane.margin>
-            </Label>
-            <ChoiceBox fx:id="team" prefHeight="35.0" prefWidth="375.0" styleClass="customChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label fx:id="inv_budget" style="-fx-font-size: 16;" styleClass="dialogLabels" text="Invalid budget" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
@@ -110,27 +91,12 @@
                   <Insets left="5.0" top="65.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="warning" style="-fx-font-size: 16;" styleClass="dialogLabels" text="Due date must be after start date" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label fx:id="inv_eventdate" style="-fx-font-size: 16;" styleClass="dialogLabels" text="Invalid date" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font>
                <GridPane.margin>
                   <Insets left="5.0" top="65.0" />
-               </GridPane.margin>
-            </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="45.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <children>
-                  <RadioButton fx:id="unfinished" mnemonicParsing="false" selected="true" text="Unfinished">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="StatusGroup" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="finished" mnemonicParsing="false" text="Finished" toggleGroup="$StatusGroup" />
-               </children>
-            </HBox>
-            <Label styleClass="dialogLabels" text="Status :" GridPane.rowIndex="6">
-               <GridPane.margin>
-                  <Insets left="30.0" />
                </GridPane.margin>
             </Label>
          </children>
@@ -141,7 +107,7 @@
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <header>
-      <Label fx:id="titleLabel" prefHeight="74.0" prefWidth="640.0" styleClass="dialogheader" text="Add Project">
+      <Label fx:id="titleLabel" prefHeight="74.0" prefWidth="640.0" styleClass="dialogheader" text="Add Event">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

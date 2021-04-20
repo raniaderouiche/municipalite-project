@@ -200,7 +200,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="l8" prefHeight="56.0" prefWidth="222.0" styleClass="menuLabel" text="Events" textFill="WHITE">
+                  <Label fx:id="l8" onMouseClicked="#eventsButton" prefHeight="56.0" prefWidth="222.0" styleClass="menuLabel" text="Events" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>

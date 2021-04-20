@@ -55,7 +55,6 @@ public class TSController implements Initializable {
 	TextField empSearchField;
 
 	ObservableList<Employee> EmployeesData;
-	final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
 	//Team
 	@FXML
@@ -193,8 +192,9 @@ public class TSController implements Initializable {
 
 	@FXML
 	public void reloadEmp(ActionEvent event) {
-		EmployeeServiceImpl empService = new EmployeeServiceImpl();
+		empSearchField.clear();
 		staffTable.getItems().clear();
+		EmployeeServiceImpl empService = new EmployeeServiceImpl();
 		List<Employee> list = empService.selectAll();
 		for (Employee p : list) {
 			EmployeesData.add(p);
@@ -261,7 +261,6 @@ public class TSController implements Initializable {
 
 			//last name listener
 			edc.prenom_field.textProperty().addListener((observable, oldValue, newValue) -> {
-				System.out.println("textfield changed from " + oldValue + " to " + newValue);
 				if(!isAlpha(newValue)) {
 					edc.inv_last.setVisible(true);
 					System.out.println(edc.nom_field.getText());

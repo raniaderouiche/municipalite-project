@@ -77,6 +77,12 @@ public class MainInterfaceController implements Initializable{
 		Pane view = CustomFxmlLoader.getPage("TachePage");
 		contentBorderPane.setCenter(view);
 	}
+	@FXML
+	public void eventsButton(MouseEvent mouseEvent) {
+		System.out.println("events Button Clicked");
+		Pane view = CustomFxmlLoader.getPage("EvenementPage");
+		contentBorderPane.setCenter(view);
+	}
 	
 	
 }
