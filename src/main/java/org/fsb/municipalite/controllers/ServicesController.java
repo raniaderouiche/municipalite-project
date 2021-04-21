@@ -20,7 +20,9 @@ public class ServicesController {
     @FXML
     void autoButton(MouseEvent event) {
     	System.out.println("autorisation clicked");
-
+    	BorderPane MainInterface = (BorderPane) Container.getParent();
+		Pane view = CustomFxmlLoader.getPage("AutorisationPage");
+		MainInterface.setCenter(view);
     }
 
     @FXML

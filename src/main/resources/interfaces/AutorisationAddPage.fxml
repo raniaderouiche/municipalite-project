@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane prefWidth="553.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="org.fsb.municipalite.controllers.AutorisationAddController">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="553.0">
+         <children>
+            <Label layoutX="145.0" layoutY="20.0" prefHeight="53.0" prefWidth="297.0" text="ADD Autorisation:">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" startX="0.42857142857142855" startY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.9736841917037964" green="0.04507797211408615" blue="0.04507797211408615" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.30927835051546393">
+                           <color>
+                              <Color red="0.8684210777282715" green="0.5839059352874756" blue="0.09247075766324997" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.5773195876288658">
+                           <color>
+                              <Color red="0.9078947305679321" green="0.07145468145608902" blue="0.3781493604183197" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.1809210479259491" green="0.09137427061796188" blue="0.9868420958518982" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <TextField fx:id="name" layoutX="172.0" layoutY="121.0" prefHeight="39.0" prefWidth="339.0" promptText="Enter Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="subject" layoutX="172.0" layoutY="198.0" prefHeight="165.0" prefWidth="339.0" promptText="Enter Text...">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Label layoutX="24.0" layoutY="127.0" text="citizen's name :">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="24.0" layoutY="204.0" text="Subject :">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="409.0" text="Status :">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="unprocessed" layoutX="173.0" layoutY="382.0" mnemonicParsing="false" selected="true" text="Unprocessed">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="status" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="processed" layoutX="172.0" layoutY="436.0" mnemonicParsing="false" text="Processed" toggleGroup="$status">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
+            <Label fx:id="msg" layoutX="397.0" layoutY="480.0" prefHeight="17.0" prefWidth="124.0" />
+         </children>
+      </AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</DialogPane>

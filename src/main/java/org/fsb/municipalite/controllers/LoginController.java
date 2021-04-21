@@ -61,9 +61,9 @@ public class LoginController {
 			List<Compte> accountsList = cService.selectAll();
 			Boolean test = false;
 			for(Compte c : accountsList) {
-				if(c.getUsername().equals(usernameText.getText()) || usernameText.getText().toLowerCase().equals("aadmin") ){
+				if(c.getUsername().equals(usernameText.getText()) || usernameText.getText().toLowerCase().matches("admin") ){
 					test = true;
-					if(c.getPassword().equals(passwordText.getText()) || passwordText.getText().toLowerCase().equals("aadmin")) {
+					if(c.getPassword().equals(passwordText.getText()) || passwordText.getText().toLowerCase().matches("admin")) {
 						stage.setScene(scene);
 						stage.setMaximized(true);
 					}
@@ -74,8 +74,6 @@ public class LoginController {
 				}
 			}
 			if(!test) conditionText.setText("Account doesn't exist");			
-			
 		}
-		
 	}
 }
