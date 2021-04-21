@@ -14,11 +14,11 @@
 
 <BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielPageController">
    <center>
-      <VBox prefHeight="521.0" prefWidth="897.0">
+      <VBox>
          <children>
-            <HBox minHeight="-Infinity" prefHeight="50.0">
+            <HBox minHeight="-Infinity" prefHeight="50.0" prefWidth="1154.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onClickEventAdd" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
+                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#onClickEventAdd" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -26,12 +26,12 @@
                         <Insets left="10.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#UpdateEvent" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
+                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#UpdateEvent" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onClickEventRemove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
+                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#onClickEventRemove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -39,7 +39,7 @@
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="Refresh" mnemonicParsing="false" onAction="#monStock" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
+                  <Button fx:id="Refresh" minHeight="-Infinity" mnemonicParsing="false" onAction="#monStock" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -47,7 +47,7 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Pane prefHeight="47.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Pane prefHeight="55.0" prefWidth="145.0" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="searchBox" minHeight="-Infinity" prefHeight="37.0" prefWidth="270.0" promptText="Search.." styleClass="searchField">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
@@ -83,6 +83,9 @@
          <font>
             <Font name="Calibri Light" size="22.0" />
          </font>
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin>
       </Label>
    </top>
 </BorderPane>

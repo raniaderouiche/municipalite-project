@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.fsb.municipalite.dao.impl.ComplaintDaoImpl;
 import org.fsb.municipalite.entities.Complaint;
-import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.services.IComplaintServices;
 
 public class ComplaintServiceImpl implements IComplaintServices{
@@ -37,7 +36,6 @@ public class ComplaintServiceImpl implements IComplaintServices{
 
 	@Override
 	public List<Complaint> selectAll() {
-		// TODO Auto-generated method stub
 		return complaintDao.selectAll();
 	}
 	@Override

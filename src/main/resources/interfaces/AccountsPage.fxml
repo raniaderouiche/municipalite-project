@@ -12,34 +12,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ProjectPageController">
+<BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.AccountPageController">
    <center>
-      <VBox>
+      <VBox BorderPane.alignment="CENTER">
          <children>
             <HBox minHeight="-Infinity" prefHeight="50.0" prefWidth="1154.0">
                <children>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
+                  <Button mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
                      <HBox.margin>
                         <Insets left="10.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
+                  <Button mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Remove">
+                  <Button mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Remove">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
+                  <Button mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Pane prefHeight="55.0" prefWidth="145.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="searchBox" minHeight="-Infinity" prefHeight="37.0" prefWidth="270.0" promptText="Search" styleClass="searchField">
+                  <Pane prefHeight="55.0" prefWidth="334.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="searchBox" prefHeight="37.0" prefWidth="270.0" promptText="Search" styleClass="searchField">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
@@ -49,14 +49,13 @@
             <TableView fx:id="tableview">
               <columns>
                 <TableColumn fx:id="id" prefWidth="127.0" text="ID" />
-                <TableColumn fx:id="name" prefWidth="146.0" text="Name" />
-                  <TableColumn fx:id="status" prefWidth="75.0" text="Status" />
-                  <TableColumn fx:id="startDate" prefWidth="167.0" text="Start Date" />
-                  <TableColumn fx:id="dueDate" prefWidth="169.0" text="Due Date" />
-                  <TableColumn fx:id="budget" prefWidth="131.0" text="Budget" />
-                  <TableColumn fx:id="version" prefWidth="107.0" text="Version" />
-                  <TableColumn fx:id="place" prefWidth="95.0" text="Location" />
-                  <TableColumn fx:id="teamColumn" prefWidth="75.0" text="Team" />
+                <TableColumn fx:id="username" prefWidth="146.0" text="Username" />
+                  <TableColumn fx:id="password" prefWidth="75.0" text="Password" />
+                  <TableColumn fx:id="creationdate" prefWidth="167.0" text="Creation Date" />
+                  <TableColumn fx:id="question" prefWidth="131.0" text="Question" />
+                  <TableColumn fx:id="answer" prefWidth="107.0" text="Answer" />
+                  <TableColumn fx:id="empID" prefWidth="127.0" text="Employee ID" />
+                  <TableColumn fx:id="loginSessions" prefWidth="127.0" text="Login Sessions" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -69,13 +68,10 @@
       </VBox>
    </center>
    <top>
-      <Label prefHeight="25.0" prefWidth="326.0" styleClass="headers" text="Projects" BorderPane.alignment="CENTER">
+      <Label prefHeight="25.0" prefWidth="326.0" styleClass="headers" text="Accounts" BorderPane.alignment="CENTER">
          <font>
             <Font name="Calibri Light" size="22.0" />
          </font>
-         <BorderPane.margin>
-            <Insets bottom="50.0" />
-         </BorderPane.margin>
       </Label>
    </top>
 </BorderPane>

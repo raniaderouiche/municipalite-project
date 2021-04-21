@@ -136,7 +136,7 @@
 }
 
 .CustomButtons{
-    -fx-font-size : 15;
+    -fx-font-size : 18;
 	-fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-background-radius: 40;
@@ -165,7 +165,7 @@
     -fx-border-radius:10;
     -fx-background-insets: 0, 0 0 1 0 ;
     -fx-background-radius: 10;
-    -fx-font-size : 15;
+    -fx-font-size : 18;
     -fx-text-fill: white;
 }
 .loginTextFields:focused {
@@ -290,3 +290,35 @@
     -fx-mark-color: #002b6b;
 }
 
+.default-color0.chart-bar { -fx-bar-fill: #7CB9E8; }
+.default-color1.chart-bar { -fx-bar-fill: #00308F; }
+.default-color2.chart-bar { -fx-bar-fill: #6CB4EE; }
+.default-color3.chart-bar { -fx-bar-fill: #c62b00; }
+.default-color4.chart-bar { -fx-bar-fill: #2f357f; }
+.default-color5.chart-bar { -fx-bar-fill: #860061; }
+.default-color6.chart-bar { -fx-bar-fill: #c62b00; }
+.default-color7.chart-bar { -fx-bar-fill: #ff5700; }
+
+.default-color0.chart-pie { -fx-pie-color: #7CB9E8; }
+.default-color1.chart-pie { -fx-pie-color: #00308F; }
+.default-color2.chart-pie { -fx-pie-color: #c62b00; }
+.default-color3.chart-pie { -fx-pie-color: #2f357f; }
+.default-color4.chart-pie { -fx-pie-color: #ff5700; }
+
+.countersdiv{
+    -fx-background-radius: 15;
+    -fx-background-color : rgb(205, 231, 252);
+
+}
+.countersdiv:hover{
+    -fx-background-color : rgb(177, 221, 255);
+
+}
+.dashboardLables{
+    -fx-font: 18px "Nirmala UI Semilight"; 
+
+}
+#empCount, #teamCount{
+    -fx-alignment : center;
+	-fx-font-size:40;
+}

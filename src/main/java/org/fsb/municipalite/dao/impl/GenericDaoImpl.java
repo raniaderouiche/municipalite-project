@@ -127,6 +127,14 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
         em.close();
         return list;
     }
-
+    
+    @Override
+    public List<E> selectAllInColumn(String param) {
+        em.getTransaction().begin();
+        Query query = em.createQuery("select" + param +"from " + type.getSimpleName());
+        List<E> list = query.getResultList();
+        em.close();
+        return list;
+    }
 
 }

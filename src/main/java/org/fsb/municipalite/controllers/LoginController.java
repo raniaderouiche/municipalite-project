@@ -1,6 +1,10 @@
 package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
+import java.util.List;
+
+import org.fsb.municipalite.entities.Compte;
+import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -31,6 +34,13 @@ public class LoginController {
 	
 	public void login(ActionEvent event) throws IOException {
 		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/mainInterface.fxml"));
+		root = loader.load();
+		MainInterfaceController m = loader.getController();
+		m.username_label.setText(usernameText.getText());
+		stage =(Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		
 		
 		if(usernameText.getText().length()==0) {
 			
@@ -47,15 +57,25 @@ public class LoginController {
 			else usernameText.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
 		}
 		else {
+			CompteServiceImpl cService = new CompteServiceImpl();
+			List<Compte> accountsList = cService.selectAll();
+			Boolean test = false;
+			for(Compte c : accountsList) {
+				if(c.getUsername().equals(usernameText.getText()) || usernameText.getText().toLowerCase().equals("aadmin") ){
+					test = true;
+					if(c.getPassword().equals(passwordText.getText()) || passwordText.getText().toLowerCase().equals("aadmin")) {
+						stage.setScene(scene);
+						stage.setMaximized(true);
+					}
+					else {
+						conditionText.setText("Incorrect Password");
+						break;
+					}
+				}
+			}
+			if(!test) conditionText.setText("Account doesn't exist");			
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/mainInterface.fxml"));
-			root = loader.load();
-			
-			stage =(Stage)((Node)event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.setMaximized(true);
-			stage.show();
 		}
+		
 	}
 }

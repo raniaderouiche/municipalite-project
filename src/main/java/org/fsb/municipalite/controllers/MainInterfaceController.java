@@ -1,10 +1,15 @@
 package org.fsb.municipalite.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -13,6 +18,8 @@ import javafx.stage.Stage;
 
 public class MainInterfaceController implements Initializable{
 
+	@FXML
+	Label username_label;
 	
 	@FXML
 	BorderPane contentBorderPane;
@@ -25,8 +32,17 @@ public class MainInterfaceController implements Initializable{
 	
 	@FXML
 	public void logoutButton(MouseEvent event) {
-		Stage s = (Stage)((Label)event.getSource()).getScene().getWindow();
-		s.close();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/loginScene.fxml"));
+		try {
+			Scene scene = new Scene(loader.load());
+			Stage s = (Stage)((Label)event.getSource()).getScene().getWindow();
+			//bech thablni heudhiad
+			s.setScene(scene);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	@FXML
@@ -83,6 +99,14 @@ public class MainInterfaceController implements Initializable{
 		Pane view = CustomFxmlLoader.getPage("EvenementPage");
 		contentBorderPane.setCenter(view);
 	}
+	@FXML
+	public void accountButton(MouseEvent mouseEvent) {
+		System.out.println("events Button Clicked");
+		Pane view = CustomFxmlLoader.getPage("AccountsPage");
+		contentBorderPane.setCenter(view);
+	}
+	
+	
 	
 	
 }

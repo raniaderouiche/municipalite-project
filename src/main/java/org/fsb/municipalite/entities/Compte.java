@@ -1,5 +1,7 @@
 package org.fsb.municipalite.entities;
 
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -8,12 +10,18 @@ import javax.persistence.OneToOne;
 public class Compte extends BaseEntity{
     private String username;
     private String password;
-
+    private String question;
+	private String answer;
+    private int loginSessions;
+    
     @OneToOne
     @JoinColumn
     private Employee employee;
 
     public Compte() {
+    	this.question = "";
+    	this.answer = "";
+    	this.loginSessions = 0;
     }
 
     public Compte(String username, String password) {
@@ -45,13 +53,48 @@ public class Compte extends BaseEntity{
         this.employee = employee;
     }
 
+    public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public int getLoginSessions() {
+		return loginSessions;
+	}
+
+	public void setLoginSessions(int loginSessions) {
+		this.loginSessions = loginSessions;
+	}
+	
+	public Long getEmpID() {
+		return employee.getId();
+	}
+	
+	public String getCreatedAtValue(){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
+        return createdAt.format(format);
+    }
     @Override
     public String toString() {
         return "Compte{" +
                 "createdAt=" + createdAt +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", employee=" + employee +
+                ", employee=" + employee + '\'' +
+                ", question=" + question + '\'' +
+                ", answer=" + answer + + '\'' +
+                ", loginSessions" + loginSessions + '\'' +
                 '}';
     }
 }

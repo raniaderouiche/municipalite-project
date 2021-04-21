@@ -221,15 +221,33 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
+                  <Label layoutX="10.0" layoutY="341.0" onMouseClicked="#accountButton" prefHeight="56.0" prefWidth="222.0" styleClass="menuLabel" text="Accounts" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/security.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </VBox>
             <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Label onMousePressed="#logoutButton" prefHeight="25.0" prefWidth="221.0" text="Log Out" textFill="#9e9e9e">
+            <Label onMousePressed="#logoutButton" prefHeight="21.0" prefWidth="204.0" text="Log Out" textFill="#9e9e9e">
                <font>
-                  <Font name="Calibri Light Italic" size="15.0" />
+                  <Font name="☞Gilroy-Regular" size="15.0" />
                </font>
                <padding>
                   <Insets left="5.0" />
@@ -240,12 +258,12 @@
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/img/logout.png" />
+                        <Image url="@../assets/img/power.png" />
                      </image>
                   </ImageView>
                </graphic>
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" />
+                  <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
          </children>
