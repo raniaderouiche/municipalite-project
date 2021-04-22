@@ -2,7 +2,6 @@ package org.fsb.municipalite.controllers;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -33,12 +32,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
-
 public class TSController implements Initializable {
 
 	//Staff (employee)
-
 	@FXML
 	TableView<Employee> staffTable;
 	@FXML
@@ -83,7 +79,6 @@ public class TSController implements Initializable {
 	private CategoryAxis catAxe;
 	@FXML
 	private NumberAxis nAxe;
-	
 	@FXML
     private Label empCount;
 
@@ -371,8 +366,9 @@ public class TSController implements Initializable {
 				emp.setDateNaissance(edc.dnPicker.getValue());
 				EmployeeServiceImpl empService = new EmployeeServiceImpl();
 				empService.create(emp);
+				reloadEmp(event);
 			}
-			reloadEmp(event);
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -709,5 +705,13 @@ public class TSController implements Initializable {
 			}
 		}
 	}
-
+	
+	@FXML
+	void selectAllStaff(ActionEvent event) {
+		this.staffTable.getSelectionModel().selectAll();
+	}
+	@FXML
+	void selectAllTeam(ActionEvent event) {
+		this.teamTable.getSelectionModel().selectAll();
+	}
 }

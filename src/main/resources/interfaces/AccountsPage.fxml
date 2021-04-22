@@ -14,32 +14,32 @@
 
 <BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.AccountPageController">
    <center>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
          <children>
             <HBox minHeight="-Infinity" prefHeight="50.0" prefWidth="1154.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
+                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
                      <HBox.margin>
                         <Insets left="10.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
+                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Remove">
+                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Remove">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
+                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Pane prefHeight="55.0" prefWidth="334.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="searchBox" prefHeight="37.0" prefWidth="270.0" promptText="Search" styleClass="searchField">
+                  <Pane prefHeight="55.0" prefWidth="145.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="searchBox" minHeight="-Infinity" prefHeight="37.0" prefWidth="270.0" promptText="Search" styleClass="searchField">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
@@ -64,6 +64,14 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </TableView>
+            <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#selectAll" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </center>
@@ -72,6 +80,9 @@
          <font>
             <Font name="Calibri Light" size="22.0" />
          </font>
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin>
       </Label>
    </top>
 </BorderPane>

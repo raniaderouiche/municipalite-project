@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="693.0" prefWidth="1019.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.TSController">
+<BorderPane prefHeight="693.0" prefWidth="1019.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.TSController">
    <center>
       <TabPane fx:id="mainTabPane" prefHeight="581.0" prefWidth="977.0" stylesheets="@../assets/css/application.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -26,23 +26,35 @@
                <content>
                   <BorderPane fx:id="tabBackground1" prefHeight="450.0" prefWidth="977.0" stylesheets="@../assets/css/application.css">
                      <center>
-                        <TableView fx:id="staffTable" BorderPane.alignment="CENTER">
-                          <columns>
-                              <TableColumn fx:id="id_emp" prefWidth="120.0" text="Id" />
-                              <TableColumn fx:id="nom" prefWidth="158.0" text="First Name" />
-                            <TableColumn fx:id="prenom" prefWidth="109.0" text="Last Name" />
-                            <TableColumn fx:id="cin" prefWidth="52.0" text="CIN" />
-                              <TableColumn fx:id="etatCivil" prefWidth="81.0" text="Civil Status" />
-                              <TableColumn fx:id="sexe" minWidth="0.0" prefWidth="0.0" text="Gender" />
-                              <TableColumn fx:id="dateNaissance" minWidth="-Infinity" prefWidth="179.0" text="Date of Birth" />
-                          </columns>
+                        <VBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </BorderPane.margin>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
+                           <children>
+                              <TableView fx:id="staffTable">
+                                <columns>
+                                    <TableColumn fx:id="id_emp" prefWidth="120.0" text="Id" />
+                                    <TableColumn fx:id="nom" prefWidth="158.0" text="First Name" />
+                                  <TableColumn fx:id="prenom" prefWidth="109.0" text="Last Name" />
+                                  <TableColumn fx:id="cin" prefWidth="52.0" text="CIN" />
+                                    <TableColumn fx:id="etatCivil" prefWidth="81.0" text="Civil Status" />
+                                    <TableColumn fx:id="sexe" minWidth="0.0" prefWidth="0.0" text="Gender" />
+                                    <TableColumn fx:id="dateNaissance" minWidth="-Infinity" prefWidth="179.0" text="Date of Birth" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Button alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" onAction="#selectAllStaff" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </center>
                      <top>
                         <HBox prefHeight="37.0" prefWidth="550.0" BorderPane.alignment="CENTER">
@@ -98,19 +110,31 @@
                <content>
                   <BorderPane prefHeight="412.0" prefWidth="580.0">
                      <center>
-                        <TableView fx:id="teamTable" BorderPane.alignment="CENTER">
-                           <columns>
-                              <TableColumn fx:id="id_team" prefWidth="103.0" text="Id" />
-                              <TableColumn fx:id="leader" prefWidth="109.0" text="Team Leader" />
-                              <TableColumn fx:id="name" prefWidth="52.0" text="Name" />
-                           </columns>
+                        <VBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </BorderPane.margin>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
+                           <children>
+                              <TableView fx:id="teamTable">
+                                 <columns>
+                                    <TableColumn fx:id="id_team" prefWidth="103.0" text="Id" />
+                                    <TableColumn fx:id="leader" prefWidth="109.0" text="Team Leader" />
+                                    <TableColumn fx:id="name" prefWidth="52.0" text="Name" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Button alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" onAction="#selectAllTeam" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </center>
                      <top>
                         <HBox prefHeight="37.0" prefWidth="550.0" BorderPane.alignment="CENTER">
@@ -176,47 +200,52 @@
       </TabPane>
    </center>
    <bottom>
-      <HBox prefHeight="210.0" prefWidth="1019.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_RIGHT" prefHeight="156.0" prefWidth="1019.0" BorderPane.alignment="CENTER">
          <children>
-            <BarChart fx:id="statusBarChart" prefHeight="210.0" prefWidth="509.0">
-              <xAxis>
-                <CategoryAxis fx:id="catAxe" side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis fx:id="nAxe" side="LEFT" />
-              </yAxis>
-            </BarChart>
-            <HBox prefHeight="211.0" prefWidth="198.0" spacing="10.0" stylesheets="@../assets/css/application.css" HBox.hgrow="ALWAYS">
+            <HBox prefHeight="210.0" prefWidth="1019.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="countersdiv" HBox.hgrow="ALWAYS">
+                  <BarChart fx:id="statusBarChart" prefHeight="210.0" prefWidth="509.0">
+                    <xAxis>
+                      <CategoryAxis fx:id="catAxe" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="nAxe" side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+                  <HBox prefHeight="211.0" prefWidth="198.0" spacing="10.0" stylesheets="@../assets/css/application.css" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label prefHeight="45.0" prefWidth="110.0" styleClass="dashboardLables" text="Employees" VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="empCount" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="99.0" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="countersdiv" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label prefHeight="45.0" prefWidth="110.0" styleClass="dashboardLables" text="Employees" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="empCount" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="99.0" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="countersdiv" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label prefHeight="45.0" prefWidth="105.0" styleClass="dashboardLables" text="Teams" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="teamCount" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="countersdiv" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label prefHeight="45.0" prefWidth="105.0" styleClass="dashboardLables" text="Teams" VBox.vgrow="ALWAYS">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin></Label>
-                        <Label fx:id="teamCount" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <PieChart fx:id="GenderChart" prefHeight="150.0" prefWidth="259.0" />
                </children>
-               <HBox.margin>
-                  <Insets bottom="10.0" />
-               </HBox.margin>
             </HBox>
-            <PieChart fx:id="GenderChart" prefHeight="150.0" prefWidth="259.0" />
          </children>
-      </HBox>
+      </VBox>
    </bottom>
 </BorderPane>

@@ -10,13 +10,10 @@ public class ServicesController {
 
 	@FXML
     private BorderPane Container;
-	
     @FXML
     private Pane autoPane;
-
     @FXML
     private Pane compPane;
-    
     @FXML
     void autoButton(MouseEvent event) {
     	System.out.println("autorisation clicked");

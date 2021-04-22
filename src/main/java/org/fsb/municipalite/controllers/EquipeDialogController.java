@@ -32,7 +32,6 @@ public class EquipeDialogController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	//leader.setValue("Choose a leader");
     	setChoiceBox();
     }
     
@@ -59,6 +58,8 @@ public class EquipeDialogController implements Initializable {
             emps.add(e.getId() + ", " + e.getNom());
         }
         leader.setItems(emps);
+    	leader.setValue("Choose a leader");
+
     }
 
     

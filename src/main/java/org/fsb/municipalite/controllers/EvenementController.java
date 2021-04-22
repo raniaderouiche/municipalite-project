@@ -347,4 +347,8 @@ public class EvenementController implements Initializable {
             }
         }
     }
+    @FXML
+	void selectAll(ActionEvent event) {
+		this.tableview.getSelectionModel().selectAll();
+	}
 }

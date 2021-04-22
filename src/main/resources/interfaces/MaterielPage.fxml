@@ -14,7 +14,7 @@
 
 <BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielPageController">
    <center>
-      <VBox>
+      <VBox alignment="TOP_RIGHT">
          <children>
             <HBox minHeight="-Infinity" prefHeight="50.0" prefWidth="1154.0">
                <children>
@@ -75,6 +75,14 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </TableView>
+            <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#selectAll" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </center>

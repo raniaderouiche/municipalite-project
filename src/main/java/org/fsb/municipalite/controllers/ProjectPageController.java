@@ -394,5 +394,9 @@ public class ProjectPageController implements Initializable {
     public boolean isAlpha(String name) {
         return name.matches("[a-zA-Z ]+");
     }
+    @FXML
+	void selectAll(ActionEvent event) {
+		this.tableview.getSelectionModel().selectAll();
+	}
 
 }

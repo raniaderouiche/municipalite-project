@@ -344,5 +344,9 @@ public class MaterielPageController implements Initializable{
     public boolean isAlpha(String name) {
         return name.matches("[a-zA-Z]+");
     }
+    @FXML
+	void selectAll(ActionEvent event) {
+		this.tableView.getSelectionModel().selectAll();
+	}
 
 }

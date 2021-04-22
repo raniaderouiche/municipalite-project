@@ -322,6 +322,10 @@ public class TachePageController implements Initializable {
             }
         }
     }
+    @FXML
+	void selectAll(ActionEvent event) {
+		this.tableView.getSelectionModel().selectAll();
+	}
 
 }
 

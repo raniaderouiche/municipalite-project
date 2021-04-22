@@ -70,6 +70,10 @@
 	-fx-padding : 5 30 10 30;
 	-fx-border-width: 40;
 }
+.tab-label {
+    -fx-font-family:Gilroy-Regular;
+}
+
 .tab:selected{
 	-fx-background-color: 
         #090a0c,
@@ -132,7 +136,7 @@
         #090a0c,
         linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
         linear-gradient(#003483, #20354b),
-        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));   
 }
 
 .CustomButtons{
@@ -152,6 +156,7 @@
     -fx-background-color: rgba(1, 81, 131,1);
     -fx-text-fill: white;
 }
+
 #Login_Button{
 	-fx-text-fill: white;
 	-fx-font-size : 18;
@@ -177,10 +182,24 @@
 .searchField{
 	-fx-background-radius:20;
     -fx-font-size : 15;
+ }
+ 
+.selectAllButton{
+	-fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+        -fx-font-size : 18;
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-font-family:Gilroy-Regular;
+    -fx-cursor: hand;
     
-
-
 }
+
 .headers{
 	-fx-alignment: center;
 	-fx-background-radius: 0 0 25 25;

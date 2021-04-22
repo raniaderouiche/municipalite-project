@@ -5,9 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.entities.Equipe;
-import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.EquipeServiceImpl;
 
@@ -46,7 +44,6 @@ public class ProjectDialogController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        place.setValue("Bizerte Nord");
         place.setItems(locationList);
         setChoiceBox();
     }
@@ -58,6 +55,9 @@ public class ProjectDialogController implements Initializable {
             teams.add(e.getId() + ", " + e.getNom());
         }
         team.setItems(teams);
+        team.setValue("Choose a Team");
+        
+
     }
 
     public void setCurrentProject(Projet projet) {
