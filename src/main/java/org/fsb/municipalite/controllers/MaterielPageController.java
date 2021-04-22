@@ -342,7 +342,7 @@ public class MaterielPageController implements Initializable{
 
     //Test if String is alphabetical
     public boolean isAlpha(String name) {
-        return name.matches("[a-zA-Z]+");
+        return name.matches("[a-zA-Z ]+");
     }
     @FXML
 	void selectAll(ActionEvent event) {

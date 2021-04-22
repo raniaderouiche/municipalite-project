@@ -125,7 +125,7 @@ public class TachePageController implements Initializable {
     }
 
     public boolean isAlpha(String name) {
-	    return name.matches("[a-zA-Z]+");
+	    return name.matches("[a-zA-Z ]+");
 	}
 
     @FXML
@@ -197,19 +197,7 @@ public class TachePageController implements Initializable {
             Optional<ButtonType> clickedButton = d.showAndWait();
             if (clickedButton.get() == ButtonType.APPLY) {
             	Tache tache = new Tache();
-                tache.setName(tac.name.getText());
-                EmployeeServiceImpl eService = new EmployeeServiceImpl();
-                Employee e = eService.getById(Long.parseLong(tac.employeeChoice.getValue().toString().split(",")[0]));
-                System.out.println("2");
-                tache.setEmployee(e);
-                System.out.println("3");
-                tache.setDueDate(tac.DD.getValue());
-                if (tac.Done.isSelected()) {
-                    tache.setEtat(Tache.Etat.done);
-                }
-                if (tac.InProg.isSelected()) {
-                    tache.setEtat(Tache.Etat.inProgress);
-                }
+                tac.setCurrentTache(tache);
                 TacheServiceImpl tacheService = new TacheServiceImpl();
                 tacheService.create(tache);
         		Taches(event);

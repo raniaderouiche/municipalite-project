@@ -63,8 +63,11 @@ public class MaterielDialogController implements Initializable {
     	m.setNom(nameField.getText());
     	m.setReference(refField.getText());
 		ProjetServiceImpl projetService = new ProjetServiceImpl();
-		Projet p = projetService.getById(Long.parseLong(projectsChoice.getValue().toString().split(",")[0]));
-		m.setProjet(p);
+		if(projectsChoice.getValue() != null) {
+			Projet p = projetService.getById(Long.parseLong(projectsChoice.getValue().toString().split(",")[0]));
+			m.setProjet(p);
+		}
+		
     	if(availableRB.isSelected()) {
     		m.setEtat(Etat.disponible);
     	}
@@ -79,9 +82,12 @@ public class MaterielDialogController implements Initializable {
     public void setMaterielDialogPane(Materiel m) {
     	nameField.setText(m.getNom());
     	refField.setText(m.getReference());
-		ProjetServiceImpl projetService = new ProjetServiceImpl();
-		Projet p = projetService.getById(m.getProjet().getId());
-		projectsChoice.setValue(p.getId() + ", " + p.getName());
+    	if(m.getProjetValue() != -1l) {
+    		ProjetServiceImpl projetService = new ProjetServiceImpl();
+    		Projet p = projetService.getById(m.getProjet().getId());
+    		projectsChoice.setValue(p.getId() + ", " + p.getName());
+    	}
+		
     	if(m.getEtat().equals(Etat.disponible)) {
     		
     		availableRB.setSelected(true);

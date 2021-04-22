@@ -48,7 +48,9 @@ public class Tache extends BaseEntity{
     }
     
     public Long getEmployeeId() {
-    	return employee.getId();
+    	if(this.employee != null)
+    		return employee.getId();
+    	return -1l;
     }
 
     public void setEmployee(Employee employee) {

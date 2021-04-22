@@ -17,11 +17,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.fsb.municipalite.entities.Employee;
-import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Tache;
 import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
-import org.fsb.municipalite.services.impl.EquipeServiceImpl;
-import org.fsb.municipalite.services.impl.TacheServiceImpl;
 
 public class TacheDialogController implements Initializable{
 	@FXML
@@ -68,9 +65,11 @@ public class TacheDialogController implements Initializable{
     
     public void setCurrentTache(Tache t) {
     	t.setName(name.getText());
-    	EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
-        Employee emp = employeeService.getById(Long.parseLong(employeeChoice.getValue().toString().split(",")[0]));
-    	t.setEmployee(emp);
+    	if(employeeChoice.getValue() != null) {
+    		EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+            Employee emp = employeeService.getById(Long.parseLong(employeeChoice.getValue().toString().split(",")[0]));
+        	t.setEmployee(emp);
+    	}
     	t.setDueDate(DD.getValue());
     	if(Done.isSelected()) {
     		t.setEtat(Tache.Etat.done);
@@ -83,9 +82,11 @@ public class TacheDialogController implements Initializable{
     
     public void setFields(Tache tache){
     	name.setText(tache.getName());
-    	EmployeeServiceImpl eService = new EmployeeServiceImpl();
-    	Employee e = eService.getById(tache.getEmployeeId());
-    	employeeChoice.setValue(e.getId() + ", " + e.getNom());
+    	if(tache.getEmployeeId() != -1l) {
+    		EmployeeServiceImpl eService = new EmployeeServiceImpl();
+        	Employee e = eService.getById(tache.getEmployeeId());
+        	employeeChoice.setValue(e.getId() + ", " + e.getNom());
+    	}
     	DD.setValue(tache.getDueDate());
     	if(tache.getEtat().equals(Tache.Etat.done))  Done.setSelected(true);
     	else InProg.setSelected(true);

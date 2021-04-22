@@ -66,7 +66,9 @@ public class Materiel extends BaseEntity{
     }
 
     public Long getProjetValue() {
-        return projet.getId();
+    	if(this.projet != null )
+    		return projet.getId();
+    	return -1l;
     }
 
     public String getCreatedAtValue(){
