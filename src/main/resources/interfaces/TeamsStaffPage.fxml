@@ -45,7 +45,7 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <Button alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" onAction="#selectAllStaff" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#selectAllStaff" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -59,28 +59,28 @@
                      <top>
                         <HBox prefHeight="37.0" prefWidth="550.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#addEmp" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
+                              <Button mnemonicParsing="false" onAction="#addEmp" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="10.0" right="5.0" top="5.0" />
                                  </HBox.margin></Button>
-                              <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#updateEmp" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
+                              <Button mnemonicParsing="false" onAction="#updateEmp" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="5.0" top="5.0" />
                                  </HBox.margin></Button>
-                              <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#deleteEmp" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Delete">
+                              <Button mnemonicParsing="false" onAction="#deleteEmp" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Delete">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets right="5.0" top="5.0" />
                                  </HBox.margin></Button>
-                              <Button layoutX="170.0" layoutY="10.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#reloadEmp" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
+                              <Button layoutX="170.0" layoutY="10.0" mnemonicParsing="false" onAction="#reloadEmp" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -125,7 +125,7 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <Button alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" onAction="#selectAllTeam" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#selectAllTeam" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -139,7 +139,7 @@
                      <top>
                         <HBox prefHeight="37.0" prefWidth="550.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#addTeam" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
+                              <Button mnemonicParsing="false" onAction="#addTeam" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -148,7 +148,7 @@
                                  </HBox.margin>
                               </Button>
 
-                              <Button fx:id="updateTeam" minHeight="-Infinity" mnemonicParsing="false" onAction="#updateTeam" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
+                              <Button fx:id="updateTeam" mnemonicParsing="false" onAction="#updateTeam" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
 
                                  <font>
                                     <Font size="14.0" />
@@ -158,7 +158,7 @@
                                  </HBox.margin>
                               </Button>
 
-                              <Button fx:id="deleteTeam" minHeight="-Infinity" mnemonicParsing="false" onAction="#deleteTeam" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Delete">
+                              <Button fx:id="deleteTeam" mnemonicParsing="false" onAction="#deleteTeam" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Delete">
 
                                  <font>
                                     <Font size="14.0" />
@@ -167,7 +167,7 @@
                                     <Insets right="5.0" top="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button layoutX="170.0" layoutY="10.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#refreshTeam" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
+                              <Button layoutX="170.0" layoutY="10.0" mnemonicParsing="false" onAction="#refreshTeam" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

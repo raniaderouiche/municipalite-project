@@ -18,22 +18,22 @@
          <children>
             <HBox minHeight="-Infinity" prefHeight="50.0" prefWidth="1154.0">
                <children>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
+                  <Button mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
                      <HBox.margin>
                         <Insets left="10.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
+                  <Button mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Update">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Remove">
+                  <Button mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Remove">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
+                  <Button mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Refresh">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
@@ -64,7 +64,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </TableView>
-            <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#selectAll" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+            <Button mnemonicParsing="false" onAction="#selectAll" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
                <font>
                   <Font size="18.0" />
                </font>

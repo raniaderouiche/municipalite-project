@@ -75,19 +75,15 @@ public class AccountDialogController implements Initializable{
     public void setChoiceBox(){
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         CompteServiceImpl compteService = new CompteServiceImpl();
-        
-        List<Employee> listemp = employeeService.selectAll();
-        List<Compte> listcompte = compteService.selectAll();
-        
-        //get employees with no accounts
-        List<Long> listID = new ArrayList<Long>();
-        for(Compte c : listcompte) listID.add(c.getEmployee().getId());
-        
-        for(Employee e : listemp){
-        	if(!listID.contains(e.getId()))
-        		emps.add(e.getId() + ", " + e.getNom());
-        }
-        employeeBox.setItems(emps);
+
+		List<Employee> listemp = employeeService.selectAll();
+		List<String> listID = compteService.selectAllInONEColumn("employee");
+
+		for(Employee e : listemp){
+			if(!listID.contains(e.toString()))
+				emps.add(e.getId() + ", " + e.getNom());
+		}
+		employeeBox.setItems(emps);
     }
     public TextField getUsernameField() {
 		return usernameField;

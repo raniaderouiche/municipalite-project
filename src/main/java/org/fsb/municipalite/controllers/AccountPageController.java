@@ -122,7 +122,10 @@ public class AccountPageController implements Initializable{
 			Pane accountDialogPane = f.load();
 			//get the current controller and put it in edc
 			AccountDialogController adc = f.getController();
-			
+
+			CompteServiceImpl cService = new CompteServiceImpl();
+			List<String> usernameList = cService.selectAllInONEColumn("username");
+
 			Dialog<ButtonType> d = new Dialog<>();
 			//this is just for adding an icon to the dialog pane
 			Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
@@ -152,9 +155,17 @@ public class AccountPageController implements Initializable{
 
 			adc.getUsernameField().textProperty().addListener((observable, oldValue, newValue) -> {
 				if(!isAlphaNumericdotdashbel8(newValue)) {
+					adc.getInv_username().setText("Invalid Username");
 					adc.getInv_username().setVisible(true);
-				}else
+
+				}else if(usernameList.contains(newValue)) {
+					adc.getInv_username().setText("Username already taken");
+					adc.getInv_username().setVisible(true);
+
+				}else {
 					adc.getInv_username().setVisible(false);
+				}
+
 			});
 
 			adc.getPasswordField().textProperty().addListener((observable, oldValue, newValue) -> {
@@ -192,7 +203,8 @@ public class AccountPageController implements Initializable{
 											|| !isAlphaNumericdotdashbel8(adc.getUsernameField().getText()) 
 											|| !isAlphaNumericdotdashbel8(adc.getPasswordField().getText()) 
 											|| !isAlphaNumericdotdashbel8(adc.getPasswordField2().getText())
-											|| !adc.getPasswordField().getText().equals(adc.getPasswordField2().getText()),
+											|| !adc.getPasswordField().getText().equals(adc.getPasswordField2().getText())
+											|| usernameList.contains(adc.getUsernameField().getText()),
 											adc.getUsernameField().textProperty(), 
 											adc.getPasswordField().textProperty(), 
 											adc.getPasswordField2().textProperty(),
@@ -204,7 +216,6 @@ public class AccountPageController implements Initializable{
 			if (clickedButton.get() == ButtonType.APPLY) {
 				Compte c = new Compte();
 				adc.setCurrentAccount(c);
-				CompteServiceImpl cService = new CompteServiceImpl();
 				cService.create(c);
 				refresh(event);
 			}
@@ -232,6 +243,8 @@ public class AccountPageController implements Initializable{
 				adc.setAccountDialogPane(compte);
 				adc.getTitleLabel().setText("Update Account");
 				adc.getEmployeeBox().setDisable(true);
+
+				List<String> usernameList = cService.selectAllInONEColumn("username");
 				
 				Dialog<ButtonType> d = new Dialog<>();
 				//this is just for adding an icon to the dialog pane
@@ -262,9 +275,16 @@ public class AccountPageController implements Initializable{
 	
 				adc.getUsernameField().textProperty().addListener((observable, oldValue, newValue) -> {
 					if(!isAlphaNumericdotdashbel8(newValue)) {
+						adc.getInv_username().setText("Invalid Username");
 						adc.getInv_username().setVisible(true);
-					}else
+
+					}else if(usernameList.contains(newValue) && !newValue.equals(c.getUsername())) {
+						adc.getInv_username().setText("Username already taken");
+						adc.getInv_username().setVisible(true);
+
+					}else {
 						adc.getInv_username().setVisible(false);
+					}
 				});
 	
 				adc.getPasswordField().textProperty().addListener((observable, oldValue, newValue) -> {
@@ -301,7 +321,8 @@ public class AccountPageController implements Initializable{
 												|| !isAlphaNumericdotdashbel8(adc.getUsernameField().getText()) 
 												|| !isAlphaNumericdotdashbel8(adc.getPasswordField().getText()) 
 												|| !isAlphaNumericdotdashbel8(adc.getPasswordField2().getText())
-												|| !adc.getPasswordField().getText().equals(adc.getPasswordField2().getText()),
+												|| !adc.getPasswordField().getText().equals(adc.getPasswordField2().getText())
+												|| (usernameList.contains(adc.getUsernameField().getText()) && !adc.getUsernameField().getText().equals(c.getUsername())),
 												adc.getUsernameField().textProperty(), 
 												adc.getPasswordField().textProperty(), 
 												adc.getPasswordField2().textProperty()));
@@ -385,5 +406,8 @@ public class AccountPageController implements Initializable{
 			return false;
 		}
 	}
-  	
+
+	public void selectAll(ActionEvent event) {
+		this.tableview.getSelectionModel().selectAll();
+	}
 }

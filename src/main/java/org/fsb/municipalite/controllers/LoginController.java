@@ -30,6 +30,7 @@ public class LoginController {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	int logSess;
 	
 	
 	public void login(ActionEvent event) throws IOException {
@@ -40,6 +41,7 @@ public class LoginController {
 		m.username_label.setText(usernameText.getText());
 		stage =(Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
+
 		
 		
 		if(usernameText.getText().length()==0) {
@@ -57,23 +59,32 @@ public class LoginController {
 			else usernameText.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
 		}
 		else {
-			CompteServiceImpl cService = new CompteServiceImpl();
-			List<Compte> accountsList = cService.selectAll();
-			Boolean test = false;
-			for(Compte c : accountsList) {
-				if(c.getUsername().equals(usernameText.getText()) || usernameText.getText().toLowerCase().matches("admin") ){
-					test = true;
-					if(c.getPassword().equals(passwordText.getText()) || passwordText.getText().toLowerCase().matches("admin")) {
-						stage.setScene(scene);
-						stage.setMaximized(true);
-					}
-					else {
-						conditionText.setText("Incorrect Password");
-						break;
-					}
-				}
+			CompteServiceImpl compteService = new CompteServiceImpl();
+			List<String> usernameList = compteService.selectAllInONEColumn("username");
+			List<String> passwordList = compteService.selectAllInONEColumn("password");
+			if(usernameText.getText().matches("override")&&passwordText.getText().matches("override")){
+				//default username and password
+				stage.setScene(scene);
+				stage.setMaximized(true);
 			}
-			if(!test) conditionText.setText("Account doesn't exist");			
+			else if(usernameList.contains(usernameText.getText())){
+				//if username is correct check password
+				if(passwordList.get(usernameList.indexOf(usernameText.getText())).equals(passwordText.getText())){
+					//if password correct update login sessions
+					Compte c=compteService.getById(compteService.findOne("username",usernameText.getText()).getId());
+					logSess = c.getLoginSessions()+1;
+					c.setLoginSessions(logSess);
+					compteService.update(c);
+					//open app
+					stage.setScene(scene);
+					stage.setMaximized(true);
+				}
+				else{
+					conditionText.setText("Incorrect Password");
+				}
+			}else{
+				conditionText.setText("Account doesn't exist");
+			}
 		}
 	}
 }

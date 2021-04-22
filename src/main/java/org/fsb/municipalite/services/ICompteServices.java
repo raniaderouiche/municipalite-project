@@ -18,8 +18,11 @@ public interface ICompteServices {
     public Compte getById(Long id);
 
     public List<Compte> selectLike(String param, String value);
-    
+
+    public Compte findOne(String paramName, Object paramValue);
+
     public List<Compte> selectAllInColumn(String param);
 
+    public List<String> selectAllInONEColumn(String param);
     
 }

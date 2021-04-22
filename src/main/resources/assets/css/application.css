@@ -192,12 +192,11 @@
         radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
         -fx-font-size : 18;
 	-fx-border-color: transparent;
-    -fx-border-width: 0;
     -fx-background-radius: 50;
     -fx-text-fill: white;
     -fx-font-family:Gilroy-Regular;
     -fx-cursor: hand;
-    
+    /*-fx-label-padding:0 5 0 0 ;*/
 }
 
 .headers{

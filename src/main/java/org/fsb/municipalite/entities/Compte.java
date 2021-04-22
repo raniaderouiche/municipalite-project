@@ -21,7 +21,6 @@ public class Compte extends BaseEntity{
     public Compte() {
     	this.question = "";
     	this.answer = "";
-    	this.loginSessions = 0;
     }
 
     public Compte(String username, String password) {
@@ -94,7 +93,7 @@ public class Compte extends BaseEntity{
                 ", employee=" + employee + '\'' +
                 ", question=" + question + '\'' +
                 ", answer=" + answer + + '\'' +
-                ", loginSessions" + loginSessions + '\'' +
+                ", loginSessions = " + loginSessions + '\'' +
                 '}';
     }
 }

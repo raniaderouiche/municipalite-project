@@ -1,5 +1,6 @@
 package org.fsb.municipalite.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fsb.municipalite.dao.impl.CompteDaoImpl;
@@ -44,12 +45,28 @@ public class CompteServiceImpl implements ICompteServices{
 	}
 
 	@Override
+	public Compte findOne(String paramName, Object paramValue){
+		return compteDao.findOne(paramName,paramValue);
+	}
+
+	@Override
 	public List<Compte> selectLike(String param, String value) {
 		return compteDao.selectLike(param, value);
 	}
+
 	@Override
 	public List<Compte> selectAllInColumn(String param) {
 		return compteDao.selectAllInColumn(param);
+	}
+
+	@Override
+	public List<String> selectAllInONEColumn(String param){
+		List<Compte> cpts = compteDao.selectAllInColumn(param);
+		List<String> resultat = new ArrayList<>();
+		for(int i=0 ; i< cpts.size() ;i++){
+			resultat.add(cpts.get(i) + "");
+		}
+		return resultat;
 	}
 
 }

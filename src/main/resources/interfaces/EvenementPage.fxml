@@ -18,7 +18,7 @@
          <children>
             <HBox minHeight="-Infinity" prefHeight="50.0">
                <children>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
+                  <Button mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -26,12 +26,12 @@
                         <Insets left="10.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
+                  <Button mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
                      <HBox.margin>
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
+                  <Button mnemonicParsing="false" onAction="#remove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -39,7 +39,7 @@
                         <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="Refresh" minHeight="-Infinity" mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
+                  <Button fx:id="Refresh" mnemonicParsing="false" onAction="#refresh" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -74,7 +74,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </TableView>
-            <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#selectAll" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+            <Button mnemonicParsing="false" onAction="#selectAll" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
                <font>
                   <Font size="18.0" />
                </font>
