@@ -1,8 +1,9 @@
 package org.fsb.municipalite.controllers;
 
-import javafx.fxml.FXML;
+import javafx.fxml.FXML; 
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
@@ -27,6 +28,11 @@ public class ComplaintAddController {
     RadioButton processed;
     @FXML
     Label msg;
+    @FXML
+    TextField cin;
+    @FXML
+    TextArea core;
+    
     
     @FXML
     public void addComplaint() {
@@ -34,6 +40,9 @@ public class ComplaintAddController {
 	        Complaint complaint = new Complaint();
 	        complaint.setNomCitoyen(name.getText());
 	        complaint.setSujet(subject.getText());
+	        complaint.setCin(Long.parseLong(cin.getText()));
+	        complaint.setCore(core.getText());
+	        
 	        if (processed.isSelected()) {
 	            complaint.setEtat(Complaint.Etat.processed);
 	        }
@@ -51,3 +60,4 @@ public class ComplaintAddController {
     }
   
 }
+

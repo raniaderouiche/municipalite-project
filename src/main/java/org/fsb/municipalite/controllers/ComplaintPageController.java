@@ -12,7 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import org.fsb.municipalite.entities.Complaint;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
@@ -25,8 +24,6 @@ import java.util.ResourceBundle;
 
 public class ComplaintPageController implements Initializable{
 
-	@FXML
-	private BorderPane container;
 	@FXML
     TextField searchBox;
     @FXML
@@ -43,16 +40,19 @@ public class ComplaintPageController implements Initializable{
     TableColumn<Complaint, String> Name;
     @FXML
     TableColumn<Complaint, String> subject;
-    
+    @FXML
+    TableColumn<Complaint, Long> cin; 
     public ObservableList<Complaint> data;
 
    @Override
    public void initialize(URL location, ResourceBundle resources) {
+	   System.out.println("complaint page controller");
         Id.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("id"));
         Version.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("version"));
         Date.setCellValueFactory(new PropertyValueFactory<Complaint,LocalDateTime>("createdAt"));
         Status.setCellValueFactory(new PropertyValueFactory<Complaint,Complaint.Etat>("etat"));
         Name.setCellValueFactory(new PropertyValueFactory<Complaint,String>("nomCitoyen"));
+        cin.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("cin"));
         subject.setCellValueFactory(new PropertyValueFactory<Complaint, String>("sujet"));
         System.out.println(22);
 
@@ -150,6 +150,7 @@ public class ComplaintPageController implements Initializable{
 					Complaint comp = new Complaint();
 					comp.setNomCitoyen(compc.name.getText());
 			        comp.setSujet(compc.subject.getText());
+			        comp.setCin(Long.parseLong(compc.cin.getText()));
 			        if (compc.processed.isSelected()) {
 			            comp.setEtat(Complaint.Etat.processed);
 			        }
@@ -188,7 +189,7 @@ public class ComplaintPageController implements Initializable{
 				muc.setComplaintDialogPane(test);
 				Dialog<ButtonType> d = new Dialog<>();
 				d.setDialogPane((DialogPane) complaintDialogPane);
-				d.setTitle("Update materiel");
+				d.setTitle("Update Complaint");
 				Optional<ButtonType> clickedButton = d.showAndWait();
 				if(clickedButton.get() == ButtonType.APPLY) {
 						
@@ -203,11 +204,8 @@ public class ComplaintPageController implements Initializable{
     		e.printStackTrace();
     	}
     }
-    
-    public void goBack(ActionEvent event) {
-    	BorderPane MainInterface = (BorderPane) container.getParent();
-		Pane view = CustomFxmlLoader.getPage("ServicesPage");
-		MainInterface.setCenter(view);
-    }
 
 }
+
+
+
