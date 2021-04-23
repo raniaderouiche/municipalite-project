@@ -62,7 +62,7 @@ public class AccountPageController implements Initializable{
     private TableColumn<Compte, String> answer;
 
     @FXML
-    private TableColumn<Compte, Long> empID;
+    private TableColumn<Compte, String> empID;
 
     @FXML
     private TableColumn<Compte, Integer> loginSessions;
@@ -83,7 +83,7 @@ public class AccountPageController implements Initializable{
 		creationdate.setCellValueFactory(new PropertyValueFactory<Compte, LocalDateTime>("CreatedAtValue"));
 		question.setCellValueFactory(new PropertyValueFactory<Compte, String>("question"));
 		answer.setCellValueFactory(new PropertyValueFactory<Compte, String>("answer"));
-		empID.setCellValueFactory(new PropertyValueFactory<Compte, Long>("EmpID"));
+		empID.setCellValueFactory(new PropertyValueFactory<Compte, String>("EmpValue"));
 		loginSessions.setCellValueFactory(new PropertyValueFactory<Compte, Integer>("loginSessions"));
 
 		CompteServiceImpl compteService = new CompteServiceImpl();

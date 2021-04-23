@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielDialogController">
+<DialogPane prefHeight="607.0" prefWidth="602.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielDialogController">
    <content>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="378.0" prefWidth="600.0">
         <columnConstraints>
@@ -26,6 +27,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -74,6 +77,9 @@
                   <String fx:value="choic" />
                   <String fx:value="customChoiceBox" />
                </styleClass>
+               <GridPane.margin>
+                  <Insets bottom="15.0" />
+               </GridPane.margin>
             </ChoiceBox>
             <Label styleClass="dialogLabels" text="Status :" GridPane.rowIndex="3">
                <font>
@@ -119,6 +125,48 @@
                </font>
                <GridPane.margin>
                   <Insets left="10.0" top="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="45.0" layoutY="258.0" styleClass="dialogLabels" text="From :" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="45.0" layoutY="276.0" styleClass="dialogLabels" text="To :" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Label>
+            <DatePicker fx:id="startDate" prefHeight="33.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </DatePicker>
+            <DatePicker fx:id="endDate" layoutX="253.0" layoutY="368.0" prefHeight="33.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </DatePicker>
+            <Label fx:id="inv_date1" layoutX="263.0" layoutY="81.0" text="Invalid date" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="60.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="inv_date2" layoutX="253.0" layoutY="405.0" text="*End date must be after start date" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="63.0" />
                </GridPane.margin>
             </Label>
          </children>

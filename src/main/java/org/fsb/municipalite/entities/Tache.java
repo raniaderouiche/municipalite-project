@@ -47,10 +47,10 @@ public class Tache extends BaseEntity{
         return employee;
     }
     
-    public Long getEmployeeId() {
+    public String getEmployeeId() {
     	if(this.employee != null)
-    		return employee.getId();
-    	return -1l;
+    		return employee.getId() + " - " + employee.getNom();
+    	return "-";
     }
 
     public void setEmployee(Employee employee) {

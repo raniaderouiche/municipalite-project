@@ -36,7 +36,7 @@ public class ProjectPageController implements Initializable {
     @FXML TableColumn<Projet,Integer> budget;
     @FXML TableColumn<Projet,Long> version ;
     @FXML TableColumn<Projet,String> place;
-    @FXML TableColumn<Projet, Long> teamColumn;
+    @FXML TableColumn<Projet, String> teamColumn;
 
     public ObservableList<Projet> data;
     @FXML
@@ -57,7 +57,7 @@ public class ProjectPageController implements Initializable {
         budget.setCellValueFactory(new PropertyValueFactory<Projet, Integer>("budget"));
         version.setCellValueFactory(new PropertyValueFactory<Projet,Long>("version"));
         place.setCellValueFactory(new PropertyValueFactory<Projet,String>("lieu"));
-        teamColumn.setCellValueFactory(new PropertyValueFactory<Projet,Long>("equipeValue"));
+        teamColumn.setCellValueFactory(new PropertyValueFactory<Projet,String>("equipeValue"));
         data  =  FXCollections.observableArrayList();
         ProjetServiceImpl projetService = new ProjetServiceImpl();
         List<Projet> list = projetService.selectAll();

@@ -3,7 +3,7 @@ package org.fsb.municipalite.entities;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
@@ -18,6 +18,9 @@ public class Materiel extends BaseEntity{
     private String reference;
     private String nom;
     private Etat etat;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     @ManyToOne
     @JoinColumn
@@ -65,15 +68,41 @@ public class Materiel extends BaseEntity{
         this.projet = projet;
     }
 
-    public Long getProjetValue() {
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getProjetValue() {
     	if(this.projet != null )
-    		return projet.getId();
-    	return -1l;
+    		return projet.getId() + " - " + projet.getName();
+    	return " - ";
     }
 
     public String getCreatedAtValue(){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
         return createdAt.format(format);
+    }
+
+    public String getStartDateValue(){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return startDate.format(format);
+    }
+
+    public String getEndDateAtValue(){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return endDate.format(format);
     }
 
     @Override

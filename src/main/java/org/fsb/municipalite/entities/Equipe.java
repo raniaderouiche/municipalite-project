@@ -34,9 +34,10 @@ public class Equipe extends BaseEntity{
     }
     
     
-    public Long getResponsableValue() {
-    	return Responsable.getId();
+    public String getResponsableValue() {
+    	return Responsable.getId() + " - " + Responsable.getNom();
     }
+
 
     /* public List<Employee> getEmployeeList() {
         return employeeList;

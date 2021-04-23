@@ -41,7 +41,7 @@ public class TachePageController implements Initializable {
     @FXML
     TableColumn<Tache, LocalDateTime> DueDate;
     @FXML
-    TableColumn<Tache, Employee> Employe;
+    TableColumn<Tache, String> Employe;
     @FXML
     TableColumn<Tache, Tache.Etat> Etat;
     
@@ -61,7 +61,7 @@ public class TachePageController implements Initializable {
         Id.setCellValueFactory(new PropertyValueFactory<Tache, Long>("id"));
         Name.setCellValueFactory(new PropertyValueFactory<Tache, String>("Name"));
         DueDate.setCellValueFactory(new PropertyValueFactory<Tache, LocalDateTime>("dueDate"));
-        Employe.setCellValueFactory(new PropertyValueFactory<Tache, Employee>("EmployeeId"));
+        Employe.setCellValueFactory(new PropertyValueFactory<Tache, String>("EmployeeId"));
         Etat.setCellValueFactory(new PropertyValueFactory<Tache, Tache.Etat>("etat"));
 
         TacheServiceImpl TacheService = new TacheServiceImpl();

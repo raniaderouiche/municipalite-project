@@ -76,8 +76,8 @@ public class Compte extends BaseEntity{
 		this.loginSessions = loginSessions;
 	}
 	
-	public Long getEmpID() {
-		return employee.getId();
+	public String getEmpValue() {
+		return employee.getId() + " - " + employee.getNom();
 	}
 	
 	public String getCreatedAtValue(){

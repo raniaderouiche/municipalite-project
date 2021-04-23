@@ -64,7 +64,7 @@ public class TSController implements Initializable {
 	@FXML
 	TableColumn<Equipe, String> name;
 	@FXML
-	TableColumn<Equipe, Long> leader;
+	TableColumn<Equipe, String> leader;
 
 	ObservableList<Equipe> teamdata;
 	
@@ -168,7 +168,7 @@ public class TSController implements Initializable {
 		teamTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		id_team.setCellValueFactory(new PropertyValueFactory<Equipe, Long>("id"));
 		name.setCellValueFactory(new PropertyValueFactory<Equipe, String>("nom"));
-		leader.setCellValueFactory(new PropertyValueFactory<Equipe, Long>("ResponsableValue"));
+		leader.setCellValueFactory(new PropertyValueFactory<Equipe, String>("ResponsableValue"));
 
 		EquipeServiceImpl equipeService = new EquipeServiceImpl();
 		List<Equipe> equipeList = equipeService.selectAll();
@@ -347,8 +347,14 @@ public class TSController implements Initializable {
 
 			//apply button binder
 			d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
-											edc.nom_field.getText().isEmpty() || edc.prenom_field.getText().isEmpty() || edc.cin_field.getText().isEmpty() || edc.dnPicker.getValue() == null || 
-											edc.cin_field.getText().length() != 8 || !isNumeric(edc.cin_field.getText()) || !isAlpha(edc.nom_field.getText()) || !isAlpha(edc.prenom_field.getText()) || edc.dnPicker.getValue().isAfter(LocalDate.now().minusYears(18)),
+											edc.nom_field.getText().isEmpty()
+													|| edc.prenom_field.getText().isEmpty()
+													|| edc.cin_field.getText().isEmpty()
+													|| edc.dnPicker.getValue() == null ||
+											edc.cin_field.getText().length() != 8
+													|| !isNumeric(edc.cin_field.getText())
+													|| !isAlpha(edc.nom_field.getText())
+													|| !isAlpha(edc.prenom_field.getText()) || edc.dnPicker.getValue().isAfter(LocalDate.now().minusYears(18)),
 											edc.nom_field.textProperty(), edc.prenom_field.textProperty(), edc.cin_field.textProperty(), edc.dnPicker.valueProperty()));
 			
 			Optional<ButtonType> clickedButton = d.showAndWait();
