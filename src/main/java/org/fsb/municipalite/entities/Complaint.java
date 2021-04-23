@@ -7,7 +7,7 @@ public class Complaint extends BaseEntity{
     private String nomCitoyen;
     private String sujet;
     private long cin;
-    private String core;
+    private String msg;
     
     public enum Etat {
         processed, unprocessed
@@ -48,12 +48,12 @@ public class Complaint extends BaseEntity{
     public void setCin(long cin) {
         this.cin= cin;
     }
-    public String getCore() {
-        return core;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setCore(String core) {
-        this.core = core;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
     
     @Override

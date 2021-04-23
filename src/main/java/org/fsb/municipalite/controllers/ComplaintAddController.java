@@ -41,7 +41,7 @@ public class ComplaintAddController {
 	        complaint.setNomCitoyen(name.getText());
 	        complaint.setSujet(subject.getText());
 	        complaint.setCin(Long.parseLong(cin.getText()));
-	        complaint.setCore(core.getText());
+	        complaint.setMsg(core.getText());
 	        
 	        if (processed.isSelected()) {
 	            complaint.setEtat(Complaint.Etat.processed);
