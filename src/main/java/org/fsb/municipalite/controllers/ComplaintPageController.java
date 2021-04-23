@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -17,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +27,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import org.fsb.municipalite.entities.Complaint;
+import org.fsb.municipalite.entities.Employee;
+import org.fsb.municipalite.entities.Tache;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
+import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
+import org.fsb.municipalite.services.impl.TacheServiceImpl;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -56,7 +62,7 @@ public class ComplaintPageController implements Initializable{
     
     
     
-	    ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
+	ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
     RadioButton selectedRadioButton;
     public ObservableList<Complaint> data;
     private double xOffset = 0;
@@ -123,7 +129,7 @@ public class ComplaintPageController implements Initializable{
 
     }
 		
-    @FXML
+    /*@FXML
     public void onClickEventRemove(ActionEvent event) {
     	//zidouna haka alert wjaw 
     	// w multiple select
@@ -132,10 +138,8 @@ public class ComplaintPageController implements Initializable{
             ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
             complaintService.remove(m.getId());
             monStock(event);
-    	}
-    	
-      
-    }
+    	} 
+    }*/
 
     //refraiche
     @FXML
@@ -317,6 +321,28 @@ public class ComplaintPageController implements Initializable{
     public boolean isAlpha(String name) {
 	    return name.matches("[a-zA-Z ]+");
 	}
+    
+    public void onClickEventRemove(ActionEvent event) {
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
+        	
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/assets/img/icon.png"));
+            alert.setTitle("Delete Complaint ?");
+			alert.setHeaderText(null);
+            alert.setContentText("Are you Sure You Want to Delete Selected Complaint(s) ?");
+            Optional <ButtonType> action = alert.showAndWait();
+            if(action.get() == ButtonType.OK) {
+                ObservableList<Complaint> selectedComplaintList = tableView.getSelectionModel().getSelectedItems();
+                for(Complaint c : selectedComplaintList) {
+                	ComplaintServiceImpl cService = new ComplaintServiceImpl();
+                	cService.remove(c.getId());
+                }
+                monStock(event);
+            }
+        }
+    }
+
 }
 
 
