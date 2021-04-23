@@ -97,9 +97,7 @@ public class MaterielDialogController implements Initializable {
     	else {
     		orderRB.setSelected(true);
     	}
-    	
 
     }
-
 
 }

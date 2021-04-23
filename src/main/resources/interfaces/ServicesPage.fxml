@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane fx:id="Container" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ServicesController">
    <center>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="684.0" spacing="10.0" stylesheets="@../assets/css/application.css">
@@ -27,7 +26,7 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </ImageView>
-                        <Label prefHeight="133.0" prefWidth="314.0" style="-fx-alignment: CENTER;" text="AUTORISATION">
+                        <Label prefHeight="133.0" prefWidth="337.0" style="-fx-alignment: CENTER;" text="AUTHORIZATION">
                            <font>
                               <Font name="☞Gilroy-Regular" size="30.0" />
                            </font>

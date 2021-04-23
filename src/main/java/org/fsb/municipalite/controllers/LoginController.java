@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -86,5 +87,22 @@ public class LoginController {
 				conditionText.setText("Account doesn't exist");
 			}
 		}
+	}
+	
+	@FXML
+	void forgotPassword(MouseEvent event) {
+		
+		stage =(Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/PasswordReset.fxml"));
+		try {
+			root = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		scene = new Scene(root);
+		stage.setScene(scene);
+
+		
 	}
 }

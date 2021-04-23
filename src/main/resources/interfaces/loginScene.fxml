@@ -26,7 +26,7 @@
             <Insets bottom="30.0" />
          </VBox.margin>
       </PasswordField>
-      <Label fx:id="fp" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="112.0" text="Forgot Password?" textAlignment="RIGHT" textFill="#eaff9d">
+      <Label alignment="CENTER_RIGHT" onMouseClicked="#forgotPassword" prefHeight="22.0" prefWidth="112.0" text="Forgot Password?" textAlignment="RIGHT" textFill="#eaff9d">
          <font>
             <Font size="14.0" />
          </font>
