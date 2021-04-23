@@ -54,7 +54,7 @@
                   <TableColumn fx:id="creationdate" prefWidth="167.0" text="Creation Date" />
                   <TableColumn fx:id="question" prefWidth="131.0" text="Question" />
                   <TableColumn fx:id="answer" prefWidth="107.0" text="Answer" />
-                  <TableColumn fx:id="empID" prefWidth="127.0" text="Employee ID" />
+                  <TableColumn fx:id="empID" prefWidth="127.0" text="Employee" />
                   <TableColumn fx:id="loginSessions" prefWidth="127.0" text="Login Sessions" />
               </columns>
                <columnResizePolicy>

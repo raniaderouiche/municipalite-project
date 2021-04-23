@@ -46,6 +46,7 @@ public class ProjectDialogController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         place.setItems(locationList);
         setChoiceBox();
+        team.setValue("No Team Selected");
     }
 
     public void setChoiceBox(){
@@ -54,10 +55,8 @@ public class ProjectDialogController implements Initializable {
         for(Equipe e : list){
             teams.add(e.getId() + ", " + e.getNom());
         }
+        teams.add("No Team Selected");
         team.setItems(teams);
-        team.setValue("Choose a Team");
-        
-
     }
 
     public void setCurrentProject(Projet projet) {
@@ -68,16 +67,21 @@ public class ProjectDialogController implements Initializable {
         projet.setDateFin(end.getValue());
         if(finished.isSelected()) { projet.setEtat(Projet.Etat.Finished); }
         if (unfinished.isSelected()) {projet.setEtat(Projet.Etat.Unfinished);}
-        EquipeServiceImpl equipeService = new EquipeServiceImpl();
-        Equipe e = equipeService.getById(Long.parseLong(team.getValue().toString().split(",")[0]));
-        projet.setEquipe(e);
+        if(team.getValue() != null && team.getValue() != "No Team Selected") {
+            EquipeServiceImpl equipeService = new EquipeServiceImpl();
+            Equipe e = equipeService.getById(Long.parseLong(team.getValue().toString().split(",")[0]));
+            projet.setEquipe(e);
+        }else{
+            projet.setEquipe(null);
+        }
     }
 
     public void setProjectDialogPane(Projet projet) {
-        //ken ma khedmetch ma tkhafouch dali tlaa incel
-        EquipeServiceImpl equipeService = new EquipeServiceImpl();
-        Equipe e = equipeService.getById(projet.getEquipe().getId());
-        team.setValue(e.getId() + ", " + e.getNom());
+        if(projet.getEquipeValue() != "-") {
+            EquipeServiceImpl equipeService = new EquipeServiceImpl();
+            Equipe e = equipeService.getById(projet.getEquipe().getId());
+            team.setValue(e.getId() + ", " + e.getNom());
+        }
         name.setText(projet.getName());
         budget.setText(projet.getBudget() +"");
         place.setValue(projet.getLieu());

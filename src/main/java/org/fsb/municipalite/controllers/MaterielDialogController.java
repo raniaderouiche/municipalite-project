@@ -3,16 +3,11 @@ package org.fsb.municipalite.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import org.fsb.municipalite.entities.Equipe;
+import javafx.scene.control.*;
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.entities.Materiel.Etat;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 
@@ -40,6 +35,16 @@ public class MaterielDialogController implements Initializable {
     RadioButton UnavailableRB;
     @FXML
     RadioButton orderRB;
+    @FXML
+	DatePicker startDate;
+	@FXML
+	DatePicker endDate;
+	@FXML
+	Label inv_date1;
+	@FXML
+	Label inv_date2;
+
+
 
     ObservableList projects = FXCollections.observableArrayList();
 
@@ -47,6 +52,7 @@ public class MaterielDialogController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setChoiceBox();
+		projectsChoice.setValue("No Project Selected");
 	}
 
 	public void setChoiceBox(){
@@ -55,6 +61,7 @@ public class MaterielDialogController implements Initializable {
 		for(Projet p : list){
 			projects.add(p.getId() + ", " + p.getName());
 		}
+		projects.add("No Project Selected");
 		projectsChoice.setItems(projects);
 	}
    
@@ -62,10 +69,12 @@ public class MaterielDialogController implements Initializable {
     public void setCurrentMateriel(Materiel m) {
     	m.setNom(nameField.getText());
     	m.setReference(refField.getText());
-		ProjetServiceImpl projetService = new ProjetServiceImpl();
-		if(projectsChoice.getValue() != null) {
+		if(projectsChoice.getValue() != null && projectsChoice.getValue() != "No Project Selected") {
+			ProjetServiceImpl projetService = new ProjetServiceImpl();
 			Projet p = projetService.getById(Long.parseLong(projectsChoice.getValue().toString().split(",")[0]));
 			m.setProjet(p);
+		}else{
+			m.setProjet(null);
 		}
 		
     	if(availableRB.isSelected()) {
@@ -77,28 +86,30 @@ public class MaterielDialogController implements Initializable {
     	if(orderRB.isSelected()) {
     		m.setEtat(Etat.enPanne);
     	}
+    	m.setStartDate(startDate.getValue());
+    	m.setEndDate(endDate.getValue());
     	
     }
     public void setMaterielDialogPane(Materiel m) {
     	nameField.setText(m.getNom());
     	refField.setText(m.getReference());
-    	if(m.getProjetValue() != -1l) {
+    	if(m.getProjetValue() != " - ") {
     		ProjetServiceImpl projetService = new ProjetServiceImpl();
     		Projet p = projetService.getById(m.getProjet().getId());
     		projectsChoice.setValue(p.getId() + ", " + p.getName());
     	}
 		
     	if(m.getEtat().equals(Etat.disponible)) {
-    		
     		availableRB.setSelected(true);
-    	}else if(m.getEtat().equals(Etat.occupe)){
+    	}
+    	else if(m.getEtat().equals(Etat.occupe)){
     		UnavailableRB.setSelected(true);
     	}
     	else {
     		orderRB.setSelected(true);
     	}
-    	
-
+		startDate.setValue(m.getStartDate());
+		endDate.setValue(m.getEndDate());
     }
 
 

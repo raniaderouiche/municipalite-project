@@ -2,7 +2,6 @@ package org.fsb.municipalite.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -82,9 +81,9 @@ public class Projet extends BaseEntity{
         return equipe;
     }
 
-    //allaho a3lam kifech te5dem
-    public Long getEquipeValue() {
-    	return equipe.getId();
+    public String getEquipeValue() {
+    	if(this.equipe != null){ return equipe.getId() + " - " + equipe.getNom();}
+    	return "-";
     }
     
     public void setEquipe(Equipe equipe) {

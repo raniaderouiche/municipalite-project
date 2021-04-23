@@ -50,6 +50,7 @@ public class TacheDialogController implements Initializable{
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setChoiceBox();
+		employeeChoice.setValue("No Employee Selected");
 		
 	}
     
@@ -59,17 +60,20 @@ public class TacheDialogController implements Initializable{
         for(Employee e : list){
             emps.add(e.getId() + ", " + e.getNom());
         }
+        emps.add("No Employee Selected");
         employeeChoice.setItems(emps);
     }
     
     
     public void setCurrentTache(Tache t) {
     	t.setName(name.getText());
-    	if(employeeChoice.getValue() != null) {
+    	if(employeeChoice.getValue() != null && employeeChoice.getValue() != "No Employee Selected") {
     		EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
             Employee emp = employeeService.getById(Long.parseLong(employeeChoice.getValue().toString().split(",")[0]));
         	t.setEmployee(emp);
-    	}
+    	}else{
+    	    t.setEmployee(null);
+        }
     	t.setDueDate(DD.getValue());
     	if(Done.isSelected()) {
     		t.setEtat(Tache.Etat.done);
@@ -82,9 +86,9 @@ public class TacheDialogController implements Initializable{
     
     public void setFields(Tache tache){
     	name.setText(tache.getName());
-    	if(tache.getEmployeeId() != -1l) {
+    	if(tache.getEmployeeId() != "-") {
     		EmployeeServiceImpl eService = new EmployeeServiceImpl();
-        	Employee e = eService.getById(tache.getEmployeeId());
+        	Employee e = eService.getById(tache.getEmployee().getId());
         	employeeChoice.setValue(e.getId() + ", " + e.getNom());
     	}
     	DD.setValue(tache.getDueDate());

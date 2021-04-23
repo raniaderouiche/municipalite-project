@@ -19,6 +19,7 @@ import javafx.stage.StageStyle;
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.services.impl.MaterielServiceImpl;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -44,7 +45,12 @@ public class MaterielPageController implements Initializable{
     @FXML
     TableColumn<Materiel, String> Reference;
     @FXML
-    TableColumn<Materiel, Long> Project;
+    TableColumn<Materiel, String> Project;
+    @FXML
+    TableColumn<Materiel, LocalDate> start;
+    @FXML
+    TableColumn<Materiel,LocalDate> end;
+
     
     
     //define dialog window offsets here
@@ -60,9 +66,11 @@ public class MaterielPageController implements Initializable{
         Date.setCellValueFactory(new PropertyValueFactory<Materiel,String>("CreatedAtValue"));
         Version.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("version"));
         Status.setCellValueFactory(new PropertyValueFactory<Materiel,Materiel.Etat>("etat"));
+        start.setCellValueFactory(new PropertyValueFactory<Materiel,LocalDate>("startDate"));
+        end.setCellValueFactory(new PropertyValueFactory<Materiel,LocalDate>("endDate"));
         Name.setCellValueFactory(new PropertyValueFactory<Materiel,String>("nom"));
         Reference.setCellValueFactory(new PropertyValueFactory<Materiel,String>("reference"));
-        Project.setCellValueFactory(new PropertyValueFactory<Materiel,Long>("ProjetValue"));
+        Project.setCellValueFactory(new PropertyValueFactory<Materiel,String>("ProjetValue"));
 
         MaterielServiceImpl materielService =new MaterielServiceImpl();
         List<Materiel> list = materielService.selectAll();
@@ -193,6 +201,62 @@ public class MaterielPageController implements Initializable{
                     mac.inv_ref.setVisible(false);
             });
 
+			mac.projectsChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue != "No Project Selected") {
+                    mac.orderRB.setDisable(true);
+                    mac.availableRB.setDisable(true);
+                    mac.UnavailableRB.setSelected(true);
+
+                }else {
+                    mac.availableRB.setSelected(true);
+                    mac.availableRB.setDisable(false);
+                    mac.orderRB.setDisable(false);
+                }
+            });
+
+            mac.startDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+                try{
+                    if(newValue != null) {
+                        if(newValue.isAfter(mac.endDate.getValue())) {
+                            mac.inv_date2.setVisible(true);
+                            mac.inv_date1.setVisible(false);
+                        }
+                        else if(mac.endDate.getValue().isBefore(LocalDate.now())){
+                            mac.inv_date1.setVisible(true);
+                            mac.inv_date2.setVisible(false);
+                        }
+                        else {
+                            mac.inv_date2.setVisible(false);
+                            mac.inv_date1.setVisible(false);
+                        }
+                    }
+                }catch(Exception e){
+                    System.out.println("start date picked");
+                }
+            });
+
+            mac.endDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+                try {
+                    if(newValue != null) {
+                        if(newValue.isBefore(mac.startDate.getValue())) {
+                            mac.inv_date2.setVisible(true);
+                            mac.inv_date1.setVisible(false);
+                        }
+                        else if(newValue.isBefore(LocalDate.now())){
+                            mac.inv_date1.setVisible(true);
+                            mac.inv_date2.setVisible(false);
+                        }
+                        else {
+                            mac.inv_date1.setVisible(false);
+                            mac.inv_date2.setVisible(false);
+                        }
+                    }
+                }catch(Exception e) {
+                    System.out.println("end date picked");
+                }
+
+            });
+
 
 			//to apply css on the dialog pane buttons
 			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
@@ -206,29 +270,19 @@ public class MaterielPageController implements Initializable{
                     mac.nameField.getText().isEmpty()
                             || mac.refField.getText().isEmpty()
                             ||!isAlpha(mac.nameField.getText())
+                            ||mac.startDate.getValue() == null
+                            ||mac.endDate.getValue() == null
+                            ||mac.startDate.getValue().isAfter(mac.endDate.getValue())
+                            ||mac.endDate.getValue().isBefore(LocalDate.now())
                             ||!Pattern.matches("[a-zA-Z0-9]+", mac.refField.getText()),
-                            
-			                mac.nameField.textProperty(),mac.refField.textProperty()));
+			                mac.nameField.textProperty(),mac.refField.textProperty(),
+                            mac.startDate.valueProperty(),mac.endDate.valueProperty()));
 			
 			Optional<ButtonType> clickedButton = d.showAndWait();
 			if(clickedButton.get() == ButtonType.APPLY) {
 
 			    Materiel mat = new Materiel();
-			    /*
-			    mat.setNom(mac.nameField.getText());
-			    mat.setReference(mac.refField.getText());
-			    if (mac.availableRB.isSelected()) {
-			        mat.setEtat(Materiel.Etat.disponible);
-			    }
-			    if (mac.UnavailableRB.isSelected()) {
-			        mat.setEtat(Materiel.Etat.occupe);
-			    }
-			    if (mac.orderRB.isSelected()) {
-			        mat.setEtat(Materiel.Etat.enPanne);
-			    }*/
-
                 mac.setCurrentMateriel(mat);
-
 			    MaterielServiceImpl materielService = new MaterielServiceImpl();
 			    materielService.create(mat);
 		        monStock(event);
@@ -301,6 +355,49 @@ public class MaterielPageController implements Initializable{
                        muc.inv_ref.setVisible(false);
                 });
 
+                muc.startDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    try{
+                        if(newValue != null) {
+                            if(newValue.isAfter(muc.endDate.getValue())) {
+                                muc.inv_date2.setVisible(true);
+                                muc.inv_date1.setVisible(false);
+                            }
+                            else if(muc.endDate.getValue().isBefore(LocalDate.now())){
+                                muc.inv_date1.setVisible(true);
+                                muc.inv_date2.setVisible(false);
+                            }
+                            else {
+                                muc.inv_date2.setVisible(false);
+                                muc.inv_date1.setVisible(false);
+                            }
+                        }
+                    }catch(Exception e){
+                        System.out.println("start date picked");
+                    }
+                });
+
+                muc.endDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    try {
+                        if(newValue != null) {
+                            if(newValue.isBefore(muc.startDate.getValue())) {
+                                muc.inv_date2.setVisible(true);
+                                muc.inv_date1.setVisible(false);
+                            }
+                            else if(newValue.isBefore(LocalDate.now())){
+                                muc.inv_date1.setVisible(true);
+                                muc.inv_date2.setVisible(false);
+                            }
+                            else {
+                                muc.inv_date1.setVisible(false);
+                                muc.inv_date2.setVisible(false);
+                            }
+                        }
+                    }catch(Exception e) {
+                        System.out.println("end date picked");
+                    }
+
+                });
+
                 //to apply css on the dialog pane buttons
     			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
     			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
@@ -313,7 +410,12 @@ public class MaterielPageController implements Initializable{
                                 muc.nameField.getText().isEmpty()
                                         || muc.refField.getText().isEmpty()
                                         ||!isAlpha(muc.nameField.getText())
+                                        ||muc.startDate.getValue() == null
+                                        ||muc.endDate.getValue() == null
+                                        ||muc.startDate.getValue().isAfter(muc.endDate.getValue())
+                                        ||muc.endDate.getValue().isBefore(LocalDate.now())
                                         ||!Pattern.matches("[a-zA-Z0-9]+", muc.refField.getText()),
+                                        muc.startDate.valueProperty(),muc.endDate.valueProperty(),
                                         muc.nameField.textProperty(),muc.refField.textProperty()));
 
 				Optional<ButtonType> clickedButton = d.showAndWait();
