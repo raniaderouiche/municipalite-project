@@ -28,9 +28,11 @@ import javafx.stage.StageStyle;
 
 import org.fsb.municipalite.entities.Complaint;
 import org.fsb.municipalite.entities.Employee;
+import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Tache;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
 import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
+import org.fsb.municipalite.services.impl.EquipeServiceImpl;
 import org.fsb.municipalite.services.impl.TacheServiceImpl;
 
 import java.net.URL;
@@ -200,114 +202,180 @@ public class ComplaintPageController implements Initializable{
 			//get the current controller and put it in edc
 			ComplaintDialogController edc = f.getController();
 			
-			Dialog<ButtonType> d = new Dialog<>();
-			//this is just for adding an icon to the dialog pane
-			
-			Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
-			stage.getIcons().add(new Image("/assets/img/icon.png"));
-			System.out.println("addComplaint clicked");
-			d.setDialogPane((DialogPane) compDialogPane);
-			d.setTitle("Add Complaint");
-			d.setResizable(false);
-			d.initStyle(StageStyle.UNDECORATED);
-			
-			//these two are for moving the window with the mouse
-			compDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-	           @Override
-	           public void handle(MouseEvent event) {
-	               xOffset = event.getSceneX();
-	               yOffset = event.getSceneY();
-	           }
-			});
-       
-            compDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-	           @Override
-	           public void handle(MouseEvent event) {
-	               d.setX(event.getScreenX() - xOffset);
-	               d.setY(event.getScreenY() - yOffset);
-	           }
-            });
+			if (tableView.getSelectionModel().getSelectedItem() != null) {
+				
+				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
+				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
+				Complaint complaint = complaintService.getById(c.getId());
 
-			//name field listener
-			edc.name.textProperty().addListener((observable, oldValue, newValue) -> {
-				if(!isAlpha(newValue)) {
-					edc.labName.setVisible(true);
-				}else
-					edc.labName.setVisible(false);
-			});
-
-			//cin field listener
-			edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
-				System.out.println("textfield changed from " + oldValue + " to " + newValue);
-				if(isNumeric(newValue) && newValue.length() == 8) {
-					edc.labCin.setVisible(false);
-				}else
-					edc.labCin.setVisible(true);
-			});
-			
-			//subject listener
-			edc.subject.textProperty().addListener((observable, oldValue, newValue) -> {
-				if(!isAlpha(newValue)) {
-					edc.labSubject.setVisible(true);
-				}else
-					edc.labSubject.setVisible(false);
-			});
-			//to apply css on the dialog pane buttons
-			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
-			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
-			
-			//make name field first to be selected
-
-			//apply button binder
-			d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
-											edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
-											edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
-											edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
-											edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
-											!isAlpha(edc.name.getText()),
-											edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
-											edc.msg.textProperty()));
-											
-			Optional<ButtonType> clickedButton = d.showAndWait();
-
-			//new Complaint creation and addition
-			if (clickedButton.get() == ButtonType.APPLY) {
-				Complaint complaint = new Complaint();
-				edc.setCurrentComplaint(complaint);				
-		        ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
-		        complaintService.create(complaint);
-		        System.out.println("complaint added");
-		        monStock(event);
-		        
+				edc.setComplaintDialogPane(complaint);
+				Dialog<ButtonType> d = new Dialog<>();
+				//this is just for adding an icon to the dialog pane
+				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+				stage.getIcons().add(new Image("/assets/img/icon.png"));
+				
+				System.out.println("addComplaint clicked");
+				d.setDialogPane((DialogPane) compDialogPane);
+				d.setTitle("Update Complaint");
+				d.setResizable(false);
+				d.initStyle(StageStyle.UNDECORATED);
+				
+				//these two are for moving the window with the mouse
+				compDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               xOffset = event.getSceneX();
+		               yOffset = event.getSceneY();
+		           }
+				});
+	            compDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               d.setX(event.getScreenX() - xOffset);
+		               d.setY(event.getScreenY() - yOffset);
+		           }
+	            });
+	
+				//name field listener
+				edc.name.textProperty().addListener((observable, oldValue, newValue) -> {
+					if(!isAlpha(newValue)) {
+						edc.labName.setVisible(true);
+					}else
+						edc.labName.setVisible(false);
+				});
+	
+				//cin field listener
+				edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
+					System.out.println("textfield changed from " + oldValue + " to " + newValue);
+					if(isNumeric(newValue) && newValue.length() == 8) {
+						edc.labCin.setVisible(false);
+					}else
+						edc.labCin.setVisible(true);
+				});
+				
+				//subject listener
+				edc.subject.textProperty().addListener((observable, oldValue, newValue) -> {
+					if(!isAlpha(newValue)) {
+						edc.labSubject.setVisible(true);
+					}else
+						edc.labSubject.setVisible(false);
+				});
+				//to apply css on the dialog pane buttons
+				d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+				
+				//make name field first to be selected
+	
+				//apply button binder
+				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
+												edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
+												edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
+												edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
+												edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
+												!isAlpha(edc.name.getText()),
+												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
+												edc.msg.textProperty()));
+												
+				Optional<ButtonType> clickedButton = d.showAndWait();
+	
+				//new Complaint creation and addition
+				if (clickedButton.get() == ButtonType.APPLY) {
+					edc.setCurrentComplaint(complaint);				
+			        complaintService.update(complaint);
+			        System.out.println("complaint added");
+			        monStock(event);    
+				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
 	}
 
 
 
+	/*
+	 * @FXML public void UpdateComplaint(ActionEvent event) { try { FXMLLoader f =
+	 * new FXMLLoader();
+	 * f.setLocation(getClass().getResource("/interfaces/ComplaintPageUpdate.fxml"))
+	 * ; Pane complaintDialogPane = f.load(); ComplaintUpdateController muc =
+	 * f.getController();
+	 * 
+	 * if(tableView.getSelectionModel().getSelectedItem() != null) {
+	 * ComplaintServiceImpl complaintService = new ComplaintServiceImpl(); Complaint
+	 * c = (Complaint) tableView.getSelectionModel().getSelectedItem(); Complaint
+	 * test = complaintService.getById(c.getId());
+	 * 
+	 * muc.setComplaintDialogPane(test); Dialog<ButtonType> d = new Dialog<>();
+	 * d.setDialogPane((DialogPane) complaintDialogPane);
+	 * d.setTitle("Update Complaint"); Optional<ButtonType> clickedButton =
+	 * d.showAndWait(); if(clickedButton.get() == ButtonType.APPLY) {
+	 * 
+	 * muc.getCurrentComplaint(test); System.out.println(test);
+	 * complaintService.update(test); monStock(event); } }
+	 * 
+	 * }catch(Exception e) { e.printStackTrace(); } }
+	 */    
+    public boolean isAlpha(String name) {
+	    return name.matches("[a-zA-Z ]+");
+	}
     @FXML
     public void UpdateComplaint(ActionEvent event) {
     	try {
 	    	FXMLLoader f = new FXMLLoader();
-			f.setLocation(getClass().getResource("/interfaces/ComplaintPageUpdate.fxml"));
+	    	f.setLocation(getClass().getResource("/interfaces/ComplaintAddPage.fxml"));
 			Pane complaintDialogPane = f.load();
-			ComplaintUpdateController muc = f.getController();
+			ComplaintDialogController edc = f.getController();
 	    	
 			if(tableView.getSelectionModel().getSelectedItem() != null) {
 				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
 				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
 		        Complaint test = complaintService.getById(c.getId());
 
-				muc.setComplaintDialogPane(test);
+				edc.setComplaintDialogPane(test);
 				Dialog<ButtonType> d = new Dialog<>();
+				
+				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+				stage.getIcons().add(new Image("/assets/img/icon.png"));
+				
 				d.setDialogPane((DialogPane) complaintDialogPane);
 				d.setTitle("Update Complaint");
+				d.setResizable(false);
+				d.initStyle(StageStyle.UNDECORATED);
+				
+				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			           @Override
+			           public void handle(MouseEvent event) {
+			               xOffset = event.getSceneX();
+			               yOffset = event.getSceneY();
+			           }
+					});
+				complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			           @Override
+			           public void handle(MouseEvent event) {
+			               d.setX(event.getScreenX() - xOffset);
+			               d.setY(event.getScreenY() - yOffset);
+			           }
+		            });
+				d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+				
+				//make name field first to be selected
+
+				//apply button binder
+				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
+												edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
+												edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
+												edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
+												edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
+												!isAlpha(edc.name.getText()),
+												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
+												edc.msg.textProperty()));
+
+				
 				Optional<ButtonType> clickedButton = d.showAndWait();
 				if(clickedButton.get() == ButtonType.APPLY) {
 						
-						muc.getCurrentComplaint(test);
+						edc.getCurrentComplaint(test);
 						System.out.println(test);
 				        complaintService.update(test);
 				        monStock(event);
@@ -318,9 +386,7 @@ public class ComplaintPageController implements Initializable{
     		e.printStackTrace();
     	}
     }
-    public boolean isAlpha(String name) {
-	    return name.matches("[a-zA-Z ]+");
-	}
+
     
     public void onClickEventRemove(ActionEvent event) {
         if (tableView.getSelectionModel().getSelectedItem() != null) {
@@ -342,6 +408,85 @@ public class ComplaintPageController implements Initializable{
             }
         }
     }
+   /* public void UpdateComplaint(ActionEvent event) {
+		try {
+			FXMLLoader f = new FXMLLoader();
+			f.setLocation(getClass().getResource("/interfaces/ComplaintPageUpdate.fxml"));
+			Pane complaintDialogPane = f.load();
+			ComplaintDialogController equc = f.getController();
+
+			if (tableView.getSelectionModel().getSelectedItem() != null) {
+
+				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
+				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
+				Complaint complaint = complaintService.getById(c.getId());
+
+				
+				equc.setEquipeDialogPane(complaint);
+				Dialog<ButtonType> d = new Dialog<>();
+				
+				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+				stage.getIcons().add(new Image("/assets/img/icon.png"));
+				
+				d.setDialogPane((DialogPane) complaintDialogPane);
+				d.setTitle("Update Employee");
+				d.setResizable(false);
+				d.initStyle(StageStyle.UNDECORATED);
+				
+				//these two are for moving the window with the mouse
+				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               xOffset = event.getSceneX();
+		               yOffset = event.getSceneY();
+		           }
+				});
+	       
+				complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		           @Override
+		           public void handle(MouseEvent event) {
+		               d.setX(event.getScreenX() - xOffset);
+		               d.setY(event.getScreenY() - yOffset);
+		           }
+	            });
+				//name field listener
+				equc.name.textProperty().addListener((observable, oldValue, newValue) -> {
+					if(!isAlpha(newValue)) {
+						equc.inv_name.setVisible(true);
+
+					}else
+						equc.inv_name.setVisible(false);
+				});
+				
+				//to apply css on the dialog pane buttons
+				d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+				
+				equc.name.requestFocus();
+
+				//apply button binder
+				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+								equc.name.getText().isEmpty()
+										|| !isAlpha(equc.name.getText())
+										|| equc.leader.getSelectionModel().isEmpty(),
+						equc.name.textProperty(),
+						equc.leader.valueProperty()));
+
+
+				Optional<ButtonType> clickedButton = d.showAndWait();
+
+				if (clickedButton.get() == ButtonType.APPLY) {
+					equc.setCurrentEquipe(complaint); //set updates
+					complaintService.update(complaint); //persist update in the db
+					refreshTeam();
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}*/
 
 }
 
