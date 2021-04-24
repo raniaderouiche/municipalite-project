@@ -340,3 +340,6 @@
     -fx-alignment : center;
 	-fx-font-size:40;
 }
+#msgLabel{
+	-fx-background-color : rgb(205, 231, 0);
+}

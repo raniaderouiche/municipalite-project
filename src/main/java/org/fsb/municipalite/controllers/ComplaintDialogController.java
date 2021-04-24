@@ -30,7 +30,8 @@ public class ComplaintDialogController {
 	    TextField cin; 
 	    @FXML
 	    TextArea msg;
-	   
+	    @FXML
+	    Label msgLabel;
 	    @FXML
 	    Label labName;
 	    @FXML
@@ -85,6 +86,9 @@ public class ComplaintDialogController {
 	    	if(unprocessed.isSelected()) {
 	    		c.setEtat(Etat.unprocessed);
 	    	}
+	    }
+	    public void setComplaintMsgDialogPane(Complaint c) {
+	    	msgLabel.setText(c.getMsg());
 	    }
 }
 

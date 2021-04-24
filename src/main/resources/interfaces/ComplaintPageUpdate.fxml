@@ -1,93 +1,4 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.control.DialogPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintUpdateController">
-   <content>
-      <VBox>
-         <children>
-            <Label style="-fx-alignment: center;" text="Update Complaint :" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="215.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="385.0" minWidth="10.0" prefWidth="385.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="177.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label prefHeight="17.0" prefWidth="103.0" text="Citizen Name :">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="subject : " GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label text="Status :" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <TextField fx:id="citizenNameField" prefHeight="31.0" prefWidth="328.0" promptText="Update Name" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets right="25.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField fx:id="subjectField" prefHeight="167.0" prefWidth="360.0" promptText="Update the subject ...." GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets right="25.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <RadioButton fx:id="unprocessedRB" mnemonicParsing="false" selected="true" text="Unprocessed">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="statusGroup" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="processedRB" mnemonicParsing="false" text="processed" toggleGroup="$statusGroup" />
-                     </children>
-                     <GridPane.margin>
-                        <Insets right="25.0" />
-                     </GridPane.margin>
-                  </HBox>
-               </children>
-            </GridPane>
-         </children>
-      </VBox>
-   </content>
-   <buttonTypes>
-      <ButtonType fx:constant="APPLY" />
-      <ButtonType fx:constant="CANCEL" />
-   </buttonTypes>
-</DialogPane>
- -->
- 
- 
- 
- 
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonType?>
@@ -229,6 +140,38 @@
                         <Insets top="250.0" />
                      </GridPane.margin>
                   </Label>
+                  <Label fx:id="labName" text="invalid name" textFill="#c90505" visible="false" GridPane.columnIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets top="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="labCin" text="invalid CIN" textFill="#c90505" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <padding>
+                        <Insets top="50.0" />
+                     </padding>
+                     <opaqueInsets>
+                        <Insets top="50.0" />
+                     </opaqueInsets>
+                  </Label>
+                  <Label fx:id="labSubject" text="invalid subject" textFill="#c90505" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets top="50.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="labMsg" text="invalid messagge" textFill="#c90505" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets top="250.0" />
+                     </GridPane.margin>
+                  </Label>
                </children>
             </GridPane>
          </children>
@@ -246,4 +189,3 @@
       </Label>
    </header>
 </DialogPane>
- 
