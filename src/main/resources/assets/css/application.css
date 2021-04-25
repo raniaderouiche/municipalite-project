@@ -403,7 +403,24 @@
 
 */
 
-
 #msgLabel{
 	-fx-background-color : rgb(205, 231, 0);
 }
+
+.muniTextFields{
+	-fx-background-color: transparent;
+	-fx-border-width: 1;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: rgba(38, 48, 75, 0.842);
+    -fx-border-radius:10;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 10;
+    -fx-font-size : 18;
+    -fx-text-fill: rgb(0, 0, 0);
+}
+.muniTextFields:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-width: 1;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: rgba(58, 162, 247, 0.842);
+    }

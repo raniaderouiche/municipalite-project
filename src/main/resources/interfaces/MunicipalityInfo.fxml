@@ -1,25 +1,260 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.control.DialogPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="691.0">
+<GridPane alignment="CENTER" prefHeight="450.0" prefWidth="837.0" style="-fx-background-color: white;" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MunicipalityInfoController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="385.0" minWidth="10.0" prefWidth="254.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="627.0" minWidth="10.0" prefWidth="531.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints vgrow="SOMETIMES" />
+    <RowConstraints vgrow="SOMETIMES" />
+    <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="Municipality Name :">
+         <font>
+            <Font name="☞Gilroy-Regular" size="22.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="45.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Number :" GridPane.rowIndex="1">
+         <font>
+            <Font name="☞Gilroy-Regular" size="22.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="45.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Email :" GridPane.rowIndex="2">
+         <font>
+            <Font name="☞Gilroy-Regular" size="22.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="45.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Address :" GridPane.rowIndex="3">
+         <font>
+            <Font name="☞Gilroy-Regular" size="22.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="45.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Website :" GridPane.rowIndex="4">
+         <font>
+            <Font name="☞Gilroy-Regular" size="22.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="45.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Work Hours : " GridPane.rowIndex="5">
+         <font>
+            <Font name="☞Gilroy-Regular" size="22.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="45.0" />
+         </GridPane.margin>
+      </Label>
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="110.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="382.0" minWidth="10.0" prefWidth="382.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Label layoutX="275.0" layoutY="163.0" prefHeight="143.0" prefWidth="279.0" text="Municipality Info">
+            <Label prefHeight="26.0" prefWidth="106.0" text="Everyday :">
                <font>
-                  <Font size="26.0" />
+                  <Font name="☞Gilroy-Regular" size="20.0" />
                </font>
             </Label>
+            <Label text="Friday :" GridPane.rowIndex="1">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="20.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1">
+               <children>
+                  <Label text="From">
+                     <font>
+                        <Font name="☞Gilroy-Regular" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="everydayF" prefHeight="26.0" prefWidth="55.0" styleClass="muniTextFields">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label prefHeight="24.0" prefWidth="45.0" text="Until">
+                     <font>
+                        <Font name="☞Gilroy-Regular" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="everydayU" prefHeight="26.0" prefWidth="55.0" styleClass="muniTextFields">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Label text="From">
+                     <font>
+                        <Font name="☞Gilroy-Regular" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="fridayF" prefHeight="26.0" prefWidth="55.0" styleClass="muniTextFields">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label prefHeight="24.0" prefWidth="45.0" text="Until">
+                     <font>
+                        <Font name="☞Gilroy-Regular" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="fridayU" prefHeight="26.0" prefWidth="55.0" styleClass="muniTextFields">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
          </children>
-      </Pane>
-   </content>
-   <buttonTypes>
-      <ButtonType fx:constant="APPLY" />
-      <ButtonType fx:constant="CANCEL" />
-   </buttonTypes>
-</DialogPane>
+      </GridPane>
+      <TextField fx:id="nameField" styleClass="muniTextFields" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets right="35.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="numberField" styleClass="muniTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="35.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="emailField" styleClass="muniTextFields" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="35.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="addressField" styleClass="muniTextFields" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="35.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="websiteField" styleClass="muniTextFields" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="35.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/img/flag.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../assets/img/phone.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+         <image>
+            <Image url="@../assets/img/email.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+         <image>
+            <Image url="@../assets/img/map.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
+         <image>
+            <Image url="@../assets/img/globe.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
+         <image>
+            <Image url="@../assets/img/clock.png" />
+         </image>
+      </ImageView>
+      <HBox alignment="BOTTOM_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <children>
+            <Button fx:id="cancelButton" alignment="CENTER" layoutX="364.0" layoutY="23.0" mnemonicParsing="false" onAction="#cancel" prefHeight="40.0" prefWidth="81.0" styleClass="CustomButtons" text="Cancel" visible="false">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="saveButton" alignment="CENTER" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="61.0" styleClass="CustomButtons" text="Save" visible="false">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="modifyButton" alignment="CENTER" mnemonicParsing="false" onAction="#modify" prefHeight="40.0" styleClass="selectAllButton" text="Modify">
+               <HBox.margin>
+                  <Insets right="35.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="30.0" top="20.0" />
+   </padding>
+</GridPane>

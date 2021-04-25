@@ -77,25 +77,9 @@ public class MainInterfaceController implements Initializable{
 
     @FXML
     void municipalityInfo(MouseEvent event) {
-    	try {
-			
-    		FXMLLoader f = new FXMLLoader();
-            f.setLocation(getClass().getResource("/interfaces/MunicipalityInfo.fxml"));
-            Pane settingsDialogPane = f.load();
-
-            Dialog<ButtonType> d = new Dialog<>();
-            
-            //this is just for adding an icon to the dialog pane
-    		Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
-    		stage.getIcons().add(new Image("/assets/img/icon.png"));
-    		
-            d.setDialogPane((DialogPane) settingsDialogPane);
-            d.setTitle("add project");
-            d.setResizable(false);
-            Optional<ButtonType> clickedButton = d.showAndWait();
-    		}catch(Exception e) {
-    			e.printStackTrace();
-    		}
+    	
+    	Pane view = CustomFxmlLoader.getPage("MunicipalityInfo");
+		contentBorderPane.setCenter(view);
     }
 
 	@FXML

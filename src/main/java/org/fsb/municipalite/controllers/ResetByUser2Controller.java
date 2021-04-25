@@ -23,8 +23,7 @@ public class ResetByUser2Controller implements Initializable{
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-
-	private Compte CurrentAccount;
+	private Compte compte;
     
 	@FXML
     private ChoiceBox choices;
@@ -38,13 +37,12 @@ public class ResetByUser2Controller implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		choices.setValue(CurrentAccount.getQuestion());
-		choices.setDisable(true);
+				choices.setDisable(true);
 	}
 
     @FXML
     void next(ActionEvent event) {
-    	if(answer.getText().equals(CurrentAccount.getAnswer())) {
+    	/*if(answer.getText().equals(CurrentAccount.getAnswer())) {
     		stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/PasswordResetFinal.fxml"));
         	try {
@@ -57,7 +55,7 @@ public class ResetByUser2Controller implements Initializable{
     	}else {
     		inv_answer.setVisible(true);
     	}
-    	
+    	*/
     }
     
     @FXML
@@ -73,13 +71,10 @@ public class ResetByUser2Controller implements Initializable{
     	stage.setScene(scene);
     }
     
-    public Compte getCurrentAccount() {
-		return CurrentAccount;
-	}
-
-	public void setCurrentAccount(Compte currentAccount) {
-		CurrentAccount = currentAccount;
-	}
-
+    
+    public void setCompte(Compte c) {
+    	compte = c;
+    	choices.setValue(this.compte.getUsername());
+    }
 
 }

@@ -44,36 +44,35 @@ public class ResetByUser1Controller {
 
     @FXML
     void next(ActionEvent event) {
-    	/*
+    	
     	CompteServiceImpl compteService = new CompteServiceImpl();
 		List<String> usernameList = compteService.selectAllInONEColumn("username");
+		try {
+			
 		
 		if(usernameList.contains(username.getText())) {
-			stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ResetByUsername2.fxml"));
+	    	root = loader.load();
+	    	
 	    	ResetByUser2Controller ruc = loader.getController();
-	    	System.out.println("hi");
-			//a3mlelna select by username
+			
+	    	//a3mlelna select by username
 	    	List<Compte> cList = compteService.selectAll();
 	    	for(Compte c : cList) {	
 	    		if(c.getUsername().equals(username.getText())) {
-	    	    	ruc.setCurrentAccount(c);
+	    	    	ruc.setCompte(c);
 	    	    	break;
 	    		}
 	    	}
-	    	//Fxml page loading
-	    	try {
-	    		root = loader.load();
-	    	} catch (IOException e) {
-	    		System.out.println("fxml not found");
-	    		e.printStackTrace();
-	    	}
+			stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
 	    	scene = new Scene(root);
 	    	stage.setScene(scene);
 		}else {
 			inv_username.setVisible(true);
 		}
-    	*/
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
     }
 
 }
