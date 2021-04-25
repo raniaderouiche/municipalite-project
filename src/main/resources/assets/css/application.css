@@ -403,3 +403,7 @@
 
 */
 
+
+#msgLabel{
+	-fx-background-color : rgb(205, 231, 0);
+}
