@@ -2,7 +2,6 @@ package org.fsb.municipalite.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -14,6 +13,7 @@ public class Employee extends BaseEntity {
     private String etatCivil;
     private String sexe;
     private LocalDate dateNaissance;
+    private String role;
 
 
     @ManyToOne
@@ -26,9 +26,6 @@ public class Employee extends BaseEntity {
     @OneToOne(mappedBy = "employee")
     private Compte compte;
 
-    @ManyToOne
-    @JoinColumn
-    private Role role;
     
     @OneToMany(mappedBy = "Responsable")
     private List<Equipe> equipeList;
@@ -101,8 +98,6 @@ public class Employee extends BaseEntity {
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
     }
-    
-    
 
     public List<Equipe> getEquipeList() {
 		return equipeList;
@@ -120,18 +115,27 @@ public class Employee extends BaseEntity {
         this.tacheList = tacheList;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
+                ", version=" + version +
                 ", createdAt=" + createdAt +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
@@ -139,8 +143,7 @@ public class Employee extends BaseEntity {
                 ", etatCivil='" + etatCivil + '\'' +
                 ", sexe='" + sexe + '\'' +
                 ", dateNaissance=" + dateNaissance +
-                ", equipe=" + equipe +
-                ", role=" + role +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
