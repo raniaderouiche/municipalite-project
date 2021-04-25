@@ -32,6 +32,9 @@ public class EmployeeDialogController implements Initializable{
     ChoiceBox<String> civilStatusBox;
 
     @FXML
+    ChoiceBox<String> roleChoiceBox;
+
+    @FXML
     ToggleGroup genderGroup;
     
     @FXML
@@ -51,27 +54,28 @@ public class EmployeeDialogController implements Initializable{
     @FXML
     Label titleLabel;
     ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
+    ObservableList<String> roleList = FXCollections.observableArrayList("Personnel", "Chef Personnel", "Agent De Service","Gestionnaire de Magasin","Administrateur de l'Application","Financier","Ingenieur d'Affaires","Secretaire General");
     RadioButton selectedRadioButton;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
     	civilStatusBox.setValue("Single");
     	civilStatusBox.setItems(civilStatusList);
-    	
+    	roleChoiceBox.setValue("Personnel");
+    	roleChoiceBox.setItems(roleList);
     }
     
     public void setCurrentEmployee(Employee e) {
-        // testie hne wzid kel label wzid listener
         e.setNom(nom_field.getText());
         e.setPrenom(prenom_field.getText());
         e.setCin(cin_field.getText());
         e.setEtatCivil(civilStatusBox.getSelectionModel().getSelectedItem());
         e.setSexe(((RadioButton)genderGroup.getSelectedToggle()).getText());
         e.setDateNaissance(dnPicker.getValue());
+        e.setRole(roleChoiceBox.getSelectionModel().getSelectedItem());
 
     }
     public void setEmpDialogPane(Employee e) {
     	selectedRadioButton = (RadioButton) genderGroup.getSelectedToggle();
-    	
     	nom_field.setText(e.getNom());
     	prenom_field.setText(e.getPrenom());
     	cin_field.setText(e.getCin());
@@ -82,6 +86,7 @@ public class EmployeeDialogController implements Initializable{
     		femaleRadioButton.setSelected(true);
     	}
     	dnPicker.setValue(e.getDateNaissance());
+    	roleChoiceBox.setValue(e.getRole());
     }
     
    

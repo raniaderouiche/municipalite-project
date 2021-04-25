@@ -51,6 +51,7 @@ public class TSController implements Initializable {
 	TableColumn<Employee, String> sexe;
 	@FXML
 	TableColumn<Employee, LocalDate> dateNaissance;
+	@FXML TableColumn<Employee,String> role;
 	@FXML
 	TextField empSearchField;
 
@@ -81,6 +82,7 @@ public class TSController implements Initializable {
 	private NumberAxis nAxe;
 	@FXML
     private Label empCount;
+
 
     @FXML
     private Label teamCount;
@@ -146,7 +148,7 @@ public class TSController implements Initializable {
 		etatCivil.setCellValueFactory(new PropertyValueFactory<Employee, String>("etatCivil"));
 		sexe.setCellValueFactory(new PropertyValueFactory<Employee, String>("sexe"));
 		dateNaissance.setCellValueFactory(new PropertyValueFactory<Employee, LocalDate>("dateNaissance"));
-
+		role.setCellValueFactory(new PropertyValueFactory<Employee, String>("role"));
 
 		EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 
