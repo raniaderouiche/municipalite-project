@@ -28,4 +28,5 @@ public interface IGenericDao<E> {
     
     public List<E> selectAllInColumn(String param);
 
+
 }

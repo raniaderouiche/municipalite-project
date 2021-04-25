@@ -76,6 +76,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
         E entity = em.find(type, id);
         return entity;
     }
+    
 
     @Override
     public void remove(Long id) {

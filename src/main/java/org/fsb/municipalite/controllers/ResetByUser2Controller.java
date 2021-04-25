@@ -1,10 +1,15 @@
 package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import org.fsb.municipalite.entities.Compte;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,11 +18,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ResetByUser2Controller {
+public class ResetByUser2Controller implements Initializable{
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+
+	private Compte CurrentAccount;
     
 	@FXML
     private ChoiceBox choices;
@@ -27,18 +34,30 @@ public class ResetByUser2Controller {
 
     @FXML
     private Label inv_answer;
+    
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		choices.setValue(CurrentAccount.getQuestion());
+		choices.setDisable(true);
+	}
 
     @FXML
     void next(ActionEvent event) {
-    	stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/PasswordResetFinal.fxml"));
-    	try {
-    		root = loader.load();
-    	} catch (IOException e) {
-    		e.printStackTrace();
+    	if(answer.getText().equals(CurrentAccount.getAnswer())) {
+    		stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/PasswordResetFinal.fxml"));
+        	try {
+        		root = loader.load();
+        	} catch (IOException e) {
+        		e.printStackTrace();
+        	}
+        	scene = new Scene(root);
+        	stage.setScene(scene);
+    	}else {
+    		inv_answer.setVisible(true);
     	}
-    	scene = new Scene(root);
-    	stage.setScene(scene);
+    	
     }
     
     @FXML
@@ -53,4 +72,14 @@ public class ResetByUser2Controller {
     	scene = new Scene(root);
     	stage.setScene(scene);
     }
+    
+    public Compte getCurrentAccount() {
+		return CurrentAccount;
+	}
+
+	public void setCurrentAccount(Compte currentAccount) {
+		CurrentAccount = currentAccount;
+	}
+
+
 }

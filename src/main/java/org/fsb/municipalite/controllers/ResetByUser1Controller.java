@@ -1,6 +1,10 @@
 package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
+import java.util.List;
+
+import org.fsb.municipalite.entities.Compte;
+import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,16 +44,36 @@ public class ResetByUser1Controller {
 
     @FXML
     void next(ActionEvent event) {
-
-    	stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ResetByUsername2.fxml"));
-    	try {
-    		root = loader.load();
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    	scene = new Scene(root);
-    	stage.setScene(scene);
+    	/*
+    	CompteServiceImpl compteService = new CompteServiceImpl();
+		List<String> usernameList = compteService.selectAllInONEColumn("username");
+		
+		if(usernameList.contains(username.getText())) {
+			stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
+	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ResetByUsername2.fxml"));
+	    	ResetByUser2Controller ruc = loader.getController();
+	    	System.out.println("hi");
+			//a3mlelna select by username
+	    	List<Compte> cList = compteService.selectAll();
+	    	for(Compte c : cList) {	
+	    		if(c.getUsername().equals(username.getText())) {
+	    	    	ruc.setCurrentAccount(c);
+	    	    	break;
+	    		}
+	    	}
+	    	//Fxml page loading
+	    	try {
+	    		root = loader.load();
+	    	} catch (IOException e) {
+	    		System.out.println("fxml not found");
+	    		e.printStackTrace();
+	    	}
+	    	scene = new Scene(root);
+	    	stage.setScene(scene);
+		}else {
+			inv_username.setVisible(true);
+		}
+    	*/
     }
 
 }

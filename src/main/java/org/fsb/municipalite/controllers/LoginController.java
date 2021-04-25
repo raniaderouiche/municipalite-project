@@ -38,8 +38,6 @@ public class LoginController {
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/mainInterface.fxml"));
 		root = loader.load();
-		MainInterfaceController m = loader.getController();
-		m.username_label.setText(usernameText.getText());
 		stage =(Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 

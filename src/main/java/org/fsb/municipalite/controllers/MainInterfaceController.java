@@ -2,15 +2,21 @@ package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -24,27 +30,74 @@ public class MainInterfaceController implements Initializable{
 	@FXML
 	BorderPane contentBorderPane;
 	
+
+    @FXML
+    private MenuButton profilMenu;
+	
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		servicesButton(null);
 		
 	}
+	@FXML
+	void settings(ActionEvent event) {
+		try {
+		FXMLLoader f = new FXMLLoader();
+        f.setLocation(getClass().getResource("/interfaces/Settings.fxml"));
+        Pane settingsDialogPane = f.load();
+
+        Dialog<ButtonType> d = new Dialog<>();
+        
+        //this is just for adding an icon to the dialog pane
+		Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image("/assets/img/icon.png"));
+		
+        d.setDialogPane((DialogPane) settingsDialogPane);
+        d.setTitle("Settings");
+        d.setResizable(false);
+        Optional<ButtonType> clickedButton = d.showAndWait();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@FXML
-	public void logoutButton(MouseEvent event) {
+	void logout(ActionEvent event) {	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/loginScene.fxml"));
 		try {
 			Scene scene = new Scene(loader.load());
-			Stage s = (Stage)((Label)event.getSource()).getScene().getWindow();
-			//bech thablni heudhiad
+			Stage s = (Stage)profilMenu.getScene().getWindow();
+			//bech thablni heudhia
 			s.setScene(scene);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-	
+
+    @FXML
+    void municipalityInfo(MouseEvent event) {
+    	try {
+			
+    		FXMLLoader f = new FXMLLoader();
+            f.setLocation(getClass().getResource("/interfaces/MunicipalityInfo.fxml"));
+            Pane settingsDialogPane = f.load();
+
+            Dialog<ButtonType> d = new Dialog<>();
+            
+            //this is just for adding an icon to the dialog pane
+    		Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+    		stage.getIcons().add(new Image("/assets/img/icon.png"));
+    		
+            d.setDialogPane((DialogPane) settingsDialogPane);
+            d.setTitle("add project");
+            d.setResizable(false);
+            Optional<ButtonType> clickedButton = d.showAndWait();
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    }
+
 	@FXML
 	public void dashboardButton(MouseEvent event) {
 		System.out.println("Dashboard Clicked");

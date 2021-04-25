@@ -16,10 +16,13 @@
       </Label>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="828.0" spacing="20.0">
          <children>
-            <TextField fx:id="username" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="557.0" promptText="username" />
+            <TextField fx:id="username" maxWidth="-Infinity" minWidth="-Infinity" onAction="#next" prefHeight="41.0" prefWidth="557.0" promptText="username" />
          </children>
       </HBox>
-      <Label fx:id="inv_username" text="Invalid username" textFill="#ff6464" visible="false" />
+      <Label fx:id="inv_username" text="Invalid username" textFill="#ff6464" visible="false">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="828.0" spacing="10.0">
          <children>
             <Button mnemonicParsing="false" onAction="#back" prefHeight="40.0" prefWidth="113.0" text="Back" />

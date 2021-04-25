@@ -118,7 +118,7 @@
         linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
         linear-gradient(#003483, #20354b),
         radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
-   -fx-background-radius:6em;
+   -fx-background-radius: 0 25 0 25;
    /*-fx-border-width: 1;
    -fx-border-style: solid solid solid solid;
    -fx-border-color:white;
@@ -338,5 +338,68 @@
 }
 #empCount, #teamCount{
     -fx-alignment : center;
-	-fx-font-size:40;
+	-fx-font-size: 40;
 }
+
+.menu-button{
+    -fx-background-color: transparent;
+}
+.menu-item{
+	-fx-background-radius:15;
+	-fx-pref-height:50;
+    -fx-background-color: transparent;
+}
+.menu-item:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.329);
+}
+.context-menu {
+    -fx-border-width: 0px;
+
+	-fx-background-radius:0 0 20 20;
+	-fx-pref-width:150;
+    -fx-text-fill: white;
+    -fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+   
+}
+
+.menu-item .label {
+	-fx-font: 16px "Gilroy-Regular"; 
+    -fx-text-fill: white;
+}
+/* 
+
+.menu-item:focused .label {
+    -fx-text-fill: blue;
+}
+.menu-item .label {
+    -fx-text-fill: yellow;
+}
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
+
+.context-menu .separator {
+    -fx-padding: 10;
+}
+.context-menu .container {
+    -fx-padding: 10;
+}
+.context-menu .scroll-arrow {
+    -fx-padding: 10;
+    -fx-background-color: #006699;
+}
+.context-menu .scroll-arrow:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: #006699;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+.context-menu:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+}
+
+*/
+
