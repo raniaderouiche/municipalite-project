@@ -111,26 +111,38 @@ public class MunicipalityInfoController implements Initializable{
     			websiteField.setStyle("-fx-border-color: red;");
     	});
     	everydayF.textProperty().addListener((observable, oldValue, newValue) -> {
-    		if(newValue.matches("[1-9]+") && newValue.length()<=2) {
-    			everydayF.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    		if(newValue.matches("[0-9]+") && newValue.length()<=2) {
+    			if(Integer.parseInt(newValue)>=0 && Integer.parseInt(newValue)<24)
+    				everydayF.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			else
+    				everydayF.setStyle("-fx-border-color: red;");
     		}else
     			everydayF.setStyle("-fx-border-color: red;");
     	});
     	everydayU.textProperty().addListener((observable, oldValue, newValue) -> {
     		if(newValue.matches("[1-9]+") && newValue.length()<=2) {
-    			everydayU.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			if(Integer.parseInt(newValue)>=0 && Integer.parseInt(newValue)<24)
+    				everydayU.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			else
+    				everydayU.setStyle("-fx-border-color: red;");
     		}else
     			everydayU.setStyle("-fx-border-color: red;");
     	});
     	fridayF.textProperty().addListener((observable, oldValue, newValue) -> {
     		if(newValue.matches("[1-9]+") && newValue.length()<=2) {
-    			fridayF.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			if(Integer.parseInt(newValue)>=0 && Integer.parseInt(newValue)<24)
+    				fridayF.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			else
+    				fridayF.setStyle("-fx-border-color: red;");
     		}else
     			fridayF.setStyle("-fx-border-color: red;");
     	});
     	fridayU.textProperty().addListener((observable, oldValue, newValue) -> {
     		if(newValue.matches("[1-9]+") && newValue.length()<=2) {
-    			fridayU.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			if(Integer.parseInt(newValue)>=0 && Integer.parseInt(newValue)<24)
+    				fridayU.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			else
+    				fridayU.setStyle("-fx-border-color: red;");
     		}else
     			fridayU.setStyle("-fx-border-color: red;");
     	});

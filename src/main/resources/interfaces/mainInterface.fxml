@@ -40,9 +40,9 @@
                               <Insets bottom="3.0" left="7.0" top="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <MenuButton fx:id="profilMenu" mnemonicParsing="false" prefHeight="59.0" prefWidth="159.0" text="Adminaa" textFill="WHITE">
+                        <MenuButton id="ProfilMenuButton" fx:id="profilMenu" mnemonicParsing="false" prefHeight="59.0" prefWidth="159.0" text="Adminaa" textFill="WHITE">
                           <items>
-                            <MenuItem mnemonicParsing="false" onAction="#settings" text="Settings">
+                            <MenuItem mnemonicParsing="false" onAction="#settings" styleClass="ProfilMenuItem" text="Settings">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="menuIcons">
                                        <image>
@@ -50,7 +50,7 @@
                                        </image>
                                     </ImageView>
                                  </graphic></MenuItem>
-                            <MenuItem mnemonicParsing="false" onAction="#logout" text="Log Out">
+                            <MenuItem mnemonicParsing="false" onAction="#logout" styleClass="ProfilMenuItem" text="Log Out">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="menuIcons">
                                        <image>
