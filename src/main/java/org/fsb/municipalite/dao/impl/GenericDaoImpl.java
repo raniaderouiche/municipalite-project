@@ -42,7 +42,6 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     public E update(E entity) {
         em.merge(entity);
         em.getTransaction().commit();
-        em.close();
         return entity;
     }
 

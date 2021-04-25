@@ -137,6 +137,7 @@ public class TSController implements Initializable {
     	statusBarChart.getData().add(series);
     	//statusBarChart.setData(FXCollections.observableArrayList(series));
     }
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//staff
@@ -187,7 +188,7 @@ public class TSController implements Initializable {
 			ListenerSearchTeam(newValue);
 		});
 	}
-	
+
 	public void refreshTeam() {
 		teamTable.getItems().clear();
 		EquipeServiceImpl equipeService = new EquipeServiceImpl();

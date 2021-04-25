@@ -40,7 +40,7 @@ public class LoginController {
 		root = loader.load();
 		stage =(Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
-
+		MainInterfaceController mic = loader.getController();
 		
 		
 		if(usernameText.getText().length()==0) {
@@ -74,6 +74,7 @@ public class LoginController {
 					logSess = c.getLoginSessions()+1;
 					c.setLoginSessions(logSess);
 					compteService.update(c);
+					mic.setUserAccount(c);
 					//open app
 					stage.setScene(scene);
 					stage.setMaximized(true);
