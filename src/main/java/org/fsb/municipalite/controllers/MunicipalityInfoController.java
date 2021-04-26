@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.fsb.municipalite.dao.impl.MunicipaliteDaoImpl;
@@ -53,14 +55,108 @@ public class MunicipalityInfoController implements Initializable{
     private Button modifyButton;
 
     Municipalite municipalite;
-
-
+    
+    //for testing
+    Boolean[] tests = new Boolean[9];
+    boolean check = true;
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setFieldsDisabled(true);
 		getMunicipalite();
+		listenersGo();
+		for(int i = 0; i < tests.length; i++)
+			tests[i] = true;
 	}
 
+	public void listenersGo() {
+		nameField.textProperty().addListener((observablSadme, oldValue, newValue) -> {
+            if(isAlpha(newValue)) {
+				nameField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+				tests[0] = true;
+            }else {
+            	nameField.setStyle("-fx-border-color: red;");
+            	tests[0] = false;
+            }
+        });
+    	
+    	numberField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.matches("[0-9]+") && (newValue.length() == 8) ) {
+            	numberField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+            	tests[1] = true;
+            }else {
+            	numberField.setStyle("-fx-border-color: red;");
+            	tests[1] = false;
+            }
+        });
+    	
+    	emailField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.matches("^(.+)@(.+)$")) {
+            	emailField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+            	tests[2] = true;
+            }else {
+            	emailField.setStyle("-fx-border-color: red;");
+            	tests[2] = false;
+            }
+        });
+    	
+    	addressField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.length() < 40) {
+            	addressField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+            	tests[3] = true;
+            }else {
+            	addressField.setStyle("-fx-border-color: red;");
+            	tests[3] = false;
+            }
+            	
+        });
+    	websiteField.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if(newValue.matches("w{3}\\.[a-z]+\\.?[a-z]{2,3}(|\\.[a-z]{2,3})")) {
+    			websiteField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+            	tests[4] = true;
+    		}else {
+    			websiteField.setStyle("-fx-border-color: red;");
+            	tests[4] = false;
+    		}
+    	});
+    	everydayF.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if(newValue.matches("^([0-1]?\\d|2[0-3])(?::([0-5]?\\d))?") ) {
+    			everydayF.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			tests[5] = true;
+    		}else {
+    			everydayF.setStyle("-fx-border-color: red;");
+    			tests[5] = false;
+    		}
+    	});
+    	everydayU.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if(newValue.matches("^([0-1]?\\d|2[0-3])(?::([0-5]?\\d))?")) {
+    			everydayU.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			tests[6] = true;
+    		}else {
+    			everydayU.setStyle("-fx-border-color: red;");
+    			tests[6] = false;
+    		}
+    	});
+    	fridayF.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if(newValue.matches("^([0-1]?\\d|2[0-3])(?::([0-5]?\\d))?")) {
+    			fridayF.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			tests[7] = true;
+    		}else {
+    			fridayF.setStyle("-fx-border-color: red;");
+    			tests[7] = false;
+    		}
+    			
+    	});
+    	fridayU.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if(newValue.matches("^([0-1]?\\d|2[0-3])(?::([0-5]?\\d))?")) {
+    			fridayU.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
+    			tests[8] = true;
+    		}else {
+    			fridayU.setStyle("-fx-border-color: red;");
+    			tests[8] = false;
+    		}
+    	});
+	}
 	public void getMunicipalite(){
 		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
 		List<Municipalite> list = municipaliteService.selectAll();
@@ -75,7 +171,17 @@ public class MunicipalityInfoController implements Initializable{
 			emailField.setText(municipalite.getEmail());
 			addressField.setText(municipalite.getAdresse());
 			websiteField.setText(municipalite.getWebsite());
-			//add work hours
+			
+			if(municipalite.getWorkHours() != null) {
+				String[] wHours = municipalite.getWorkHours().split(",");
+				everydayF.setText(wHours[0]);
+				everydayU.setText(wHours[1]);
+			    fridayF.setText(wHours[2]);
+			    fridayU.setText(wHours[3]);
+			}
+			
+			
+			
 		}
 
 	}
@@ -86,7 +192,8 @@ public class MunicipalityInfoController implements Initializable{
 		municipalite.setEmail(emailField.getText());
 		municipalite.setAdresse(addressField.getText());
 		municipalite.setWebsite(websiteField.getText());
-		//add work hours
+		municipalite.setWorkHours(everydayF.getText() + "," + everydayU.getText() + "," + 
+								  fridayF.getText() + "," + fridayU.getText());
 	}
 
     public void setFieldsDisabled(Boolean b) {
@@ -107,89 +214,33 @@ public class MunicipalityInfoController implements Initializable{
     	this.saveButton.setVisible(true);
     	this.cancelButton.setVisible(true);
     	this.modifyButton.setDisable(true);
-    	
-    	nameField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(isAlpha(newValue)) {
-				nameField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-            }else
-				nameField.setStyle("-fx-border-color: red;");
-        });
-    	
-    	numberField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.matches("[1-9]+") && newValue.length() <=8) {
-            	numberField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-            }else
-            	numberField.setStyle("-fx-border-color: red;");
-        });
-    	
-    	emailField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.matches("^(.+)@(.+)$")) {
-            	emailField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-            }else
-            	emailField.setStyle("-fx-border-color: red;");
-        });
-    	
-    	addressField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.length() < 40) {
-            	addressField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-            }else
-            	addressField.setStyle("-fx-border-color: red;");
-        });
-    	websiteField.textProperty().addListener((observable, oldValue, newValue) -> {
-    		if(newValue.matches("w{3}\\.[a-z]+\\.?[a-z]{2,3}(|\\.[a-z]{2,3})")) {
-    			websiteField.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-    		}else
-    			websiteField.setStyle("-fx-border-color: red;");
-    	});
-    	everydayF.textProperty().addListener((observable, oldValue, newValue) -> {
-    		if(newValue.matches("[0-9]+") && newValue.length()<=2) {
-    			if(Integer.parseInt(newValue)>=0 && Integer.parseInt(newValue)<24)
-    				everydayF.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-    			else
-    				everydayF.setStyle("-fx-border-color: red;");
-    		}else
-    			everydayF.setStyle("-fx-border-color: red;");
-    	});
-    	everydayU.textProperty().addListener((observable, oldValue, newValue) -> {
-    		if(newValue.matches("[1-9]+") && newValue.length()<=2) {
-    			if(Integer.parseInt(newValue)>=0 && Integer.parseInt(newValue)<24)
-    				everydayU.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-    			else
-    				everydayU.setStyle("-fx-border-color: red;");
-    		}else
-    			everydayU.setStyle("-fx-border-color: red;");
-    	});
-    	fridayF.textProperty().addListener((observable, oldValue, newValue) -> {
-    		if(newValue.matches("[1-9]+") && newValue.length()<=2) {
-    			if(Integer.parseInt(newValue)>=0 && Integer.parseInt(newValue)<24)
-    				fridayF.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-    			else
-    				fridayF.setStyle("-fx-border-color: red;");
-    		}else
-    			fridayF.setStyle("-fx-border-color: red;");
-    	});
-    	fridayU.textProperty().addListener((observable, oldValue, newValue) -> {
-    		if(newValue.matches("[1-9]+") && newValue.length()<=2) {
-    			if(Integer.parseInt(newValue)>=0 && Integer.parseInt(newValue)<24)
-    				fridayU.setStyle("-fx-border-color: rgba(58, 162, 247, 0.842);");
-    			else
-    				fridayU.setStyle("-fx-border-color: red;");
-    		}else
-    			fridayU.setStyle("-fx-border-color: red;");
-    	});
-
     }
     
     
     @FXML
     void save(ActionEvent event) {
-    	setFieldsDisabled(true);
-    	this.saveButton.setVisible(false);
-    	this.cancelButton.setVisible(false);
-    	this.modifyButton.setDisable(false);
-		setMunicipalite(municipalite);
-		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
-		municipaliteService.update(municipalite);
+    	for(int i = 0; i < tests.length ; i++) {
+    		check = check && tests[i];
+    		if(!check) break;
+    	}
+    	if(check) {
+    		setFieldsDisabled(true);
+        	this.saveButton.setVisible(false);
+        	this.cancelButton.setVisible(false);
+        	this.modifyButton.setDisable(false);
+    		setMunicipalite(municipalite);
+    		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
+    		municipaliteService.update(municipalite);
+    		
+    	}else {
+    		check = true;
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error Dialog");
+    		alert.setHeaderText(null);
+    		alert.setContentText("Ooops, there was an error!");
+    		alert.show();
+    	}
+    	
     }
 
     @FXML
@@ -203,4 +254,5 @@ public class MunicipalityInfoController implements Initializable{
     public boolean isAlpha(String name) {
         return name.matches("[a-zA-Z ]+");
     }
+    
 }

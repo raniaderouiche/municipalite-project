@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" prefHeight="450.0" prefWidth="837.0" style="-fx-background-color: white;" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MunicipalityInfoController">
+<GridPane alignment="CENTER" prefHeight="450.0" prefWidth="837.0" style="-fx-background-color: white;" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MunicipalityInfoController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="385.0" minWidth="10.0" prefWidth="254.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="627.0" minWidth="10.0" prefWidth="531.0" />
@@ -106,7 +106,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="everydayF" prefHeight="26.0" prefWidth="55.0" styleClass="muniTextFields">
+                  <TextField fx:id="everydayF" alignment="CENTER" prefHeight="30.0" prefWidth="68.0" promptText="00:00" styleClass="muniTextFields">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -114,7 +114,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label prefHeight="24.0" prefWidth="45.0" text="Until">
+                  <Label prefHeight="24.0" prefWidth="45.0" text="To">
                      <font>
                         <Font name="☞Gilroy-Regular" size="20.0" />
                      </font>
@@ -122,7 +122,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="everydayU" prefHeight="26.0" prefWidth="55.0" styleClass="muniTextFields">
+                  <TextField fx:id="everydayU" alignment="CENTER" prefHeight="30.0" prefWidth="68.0" promptText="00:00" styleClass="muniTextFields">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -139,7 +139,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="fridayF" prefHeight="26.0" prefWidth="55.0" styleClass="muniTextFields">
+                  <TextField fx:id="fridayF" alignment="CENTER" prefHeight="30.0" prefWidth="68.0" promptText="00:00" styleClass="muniTextFields">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -147,7 +147,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Label prefHeight="24.0" prefWidth="45.0" text="Until">
+                  <Label prefHeight="24.0" prefWidth="45.0" text="To">
                      <font>
                         <Font name="☞Gilroy-Regular" size="20.0" />
                      </font>
@@ -155,7 +155,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="fridayU" prefHeight="26.0" prefWidth="55.0" styleClass="muniTextFields">
+                  <TextField fx:id="fridayU" alignment="CENTER" prefHeight="30.0" prefWidth="68.0" promptText="00:00" styleClass="muniTextFields">
                      <font>
                         <Font size="15.0" />
                      </font>

@@ -429,11 +429,7 @@
     -fx-border-width: 1;
     -fx-border-style: solid solid solid solid;
     -fx-border-color: rgba(13, 13, 14, 0.842);
-    -fx-background-color: 
-        #090a0c,
-        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
-        linear-gradient(#003483, #20354b),
-        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+  
     -fx-background-radius:10;
 }
 .settingsLabels{
@@ -457,8 +453,8 @@
     -fx-border-radius: 14;
     -fx-border-width: 1;
     -fx-border-style: hidden hidden solid hidden;
-    -fx-border-color: rgba(0, 140, 255, 0.842);
-    -fx-background-color: rgba(255, 255, 255, 0.877);
+    -fx-border-color: rgba(0, 0, 0, 0.842);
+    -fx-background-color: rgba(160, 160, 160, 0.877);
 }
 .settingsTitle{
     -fx-background-color: 
@@ -467,5 +463,12 @@
         linear-gradient(#003483, #20354b),
         radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
         -fx-text-fill: rgb(247, 251, 255);
+
+}
+
+#muniInfoButton:hover{
+	   -fx-padding: 0px 0px 0px 15px;
+	   	-fx-font-size: 20;
+	   	-fx-text-fill: white;
 
 }
