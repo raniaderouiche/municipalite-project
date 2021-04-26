@@ -52,6 +52,9 @@ public class AccountPageController implements Initializable{
     @FXML
     private TableColumn<Compte, String> password;
 
+	@FXML
+	private TableColumn<Compte, String> email;
+
     @FXML
     private TableColumn<Compte, LocalDateTime> creationdate;
 
@@ -80,6 +83,7 @@ public class AccountPageController implements Initializable{
 		id.setCellValueFactory(new PropertyValueFactory<Compte, Long>("id"));
 		username.setCellValueFactory(new PropertyValueFactory<Compte, String>("username"));
 		password.setCellValueFactory(new PropertyValueFactory<Compte, String>("password"));
+		email.setCellValueFactory(new PropertyValueFactory<Compte, String>("email"));
 		creationdate.setCellValueFactory(new PropertyValueFactory<Compte, LocalDateTime>("CreatedAtValue"));
 		question.setCellValueFactory(new PropertyValueFactory<Compte, String>("question"));
 		answer.setCellValueFactory(new PropertyValueFactory<Compte, String>("answer"));
@@ -186,6 +190,14 @@ public class AccountPageController implements Initializable{
 					adc.getInv_password2().setVisible(false);
 			});
 
+			adc.getEmailField().textProperty().addListener((observable, oldValue, newValue) -> {
+				if(!newValue.matches("[a-zA-Z0-9.@_]+")) {
+					adc.getInv_email().setVisible(true);
+				}else
+					adc.getInv_email().setVisible(false);
+
+			});
+
 
 			//to apply css on the dialog pane buttons
 			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
@@ -198,16 +210,19 @@ public class AccountPageController implements Initializable{
 			d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
 											adc.getUsernameField().getText().isEmpty() 
 											|| adc.getPasswordField().getText().isEmpty() 
-											|| adc.getPasswordField2().getText().isEmpty() 
+											|| adc.getPasswordField2().getText().isEmpty()
+											|| adc.getEmailField().getText().isEmpty()
 											|| adc.getEmployeeBox().getSelectionModel().isEmpty()
 											|| !isAlphaNumericdotdashbel8(adc.getUsernameField().getText()) 
 											|| !isAlphaNumericdotdashbel8(adc.getPasswordField().getText()) 
 											|| !isAlphaNumericdotdashbel8(adc.getPasswordField2().getText())
+											|| !adc.getEmailField().getText().matches("[a-zA-Z0-9.@_]+")
 											|| !adc.getPasswordField().getText().equals(adc.getPasswordField2().getText())
 											|| usernameList.contains(adc.getUsernameField().getText()),
 											adc.getUsernameField().textProperty(), 
 											adc.getPasswordField().textProperty(), 
 											adc.getPasswordField2().textProperty(),
+											adc.getEmailField().textProperty(),
 											adc.getEmployeeBox().valueProperty()));
 			
 			Optional<ButtonType> clickedButton = d.showAndWait();
@@ -306,6 +321,14 @@ public class AccountPageController implements Initializable{
 						adc.getInv_password2().setVisible(false);
 				});
 
+				adc.getEmailField().textProperty().addListener((observable, oldValue, newValue) -> {
+					if(!newValue.matches("[a-zA-Z0-9.@_]+")) {
+						adc.getInv_email().setVisible(true);
+					}else
+						adc.getInv_email().setVisible(false);
+
+				});
+
 
 				//to apply css on the dialog pane buttons
 				d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
@@ -316,15 +339,18 @@ public class AccountPageController implements Initializable{
 
 				//apply button binder
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
-												adc.getUsernameField().getText().isEmpty() 
+												adc.getUsernameField().getText().isEmpty()
+												|| adc.getEmailField().getText().isEmpty()
 												|| adc.getPasswordField().getText().isEmpty() 
-												|| adc.getPasswordField2().getText().isEmpty() 
+												|| adc.getPasswordField2().getText().isEmpty()
 												|| !isAlphaNumericdotdashbel8(adc.getUsernameField().getText()) 
 												|| !isAlphaNumericdotdashbel8(adc.getPasswordField().getText()) 
 												|| !isAlphaNumericdotdashbel8(adc.getPasswordField2().getText())
+												|| !adc.getEmailField().getText().matches("[a-zA-Z0-9.@_]+")
 												|| !adc.getPasswordField().getText().equals(adc.getPasswordField2().getText())
 												|| (usernameList.contains(adc.getUsernameField().getText()) && !adc.getUsernameField().getText().equals(c.getUsername())),
-												adc.getUsernameField().textProperty(), 
+												adc.getUsernameField().textProperty(),
+						   						adc.getEmailField().textProperty(),
 												adc.getPasswordField().textProperty(), 
 												adc.getPasswordField2().textProperty()));
 				

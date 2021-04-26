@@ -30,6 +30,12 @@ public class AccountDialogController implements Initializable{
     private Label inv_username;
 
     @FXML
+	private Label inv_email;
+
+    @FXML
+	private TextField emailField;
+
+    @FXML
     private ChoiceBox employeeBox;
 
     @FXML
@@ -57,6 +63,7 @@ public class AccountDialogController implements Initializable{
     public void setCurrentAccount(Compte compte){
         compte.setUsername(usernameField.getText());
         compte.setPassword(passwordField.getText());
+        compte.setEmail(emailField.getText());
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         Employee emp = employeeService.getById(Long.parseLong(employeeBox.getValue().toString().split(",")[0]));
         compte.setEmployee(emp);
@@ -69,6 +76,7 @@ public class AccountDialogController implements Initializable{
         usernameField.setText(compte.getUsername());
         passwordField.setText(compte.getPassword());
         passwordField2.setText(compte.getPassword());
+		emailField.setText(compte.getEmail());
     }
 
 
@@ -85,7 +93,24 @@ public class AccountDialogController implements Initializable{
 		}
 		employeeBox.setItems(emps);
     }
-    public TextField getUsernameField() {
+
+	public Label getInv_email() {
+		return inv_email;
+	}
+
+	public void setInv_email(Label inv_email) {
+		this.inv_email = inv_email;
+	}
+
+	public TextField getEmailField() {
+		return emailField;
+	}
+
+	public void setEmailField(TextField emailField) {
+		this.emailField = emailField;
+	}
+
+	public TextField getUsernameField() {
 		return usernameField;
 	}
 

@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 public class Compte extends BaseEntity{
     private String username;
     private String password;
+    private String email;
     private String question;
 	private String answer;
     private int loginSessions;
@@ -42,6 +43,14 @@ public class Compte extends BaseEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Employee getEmployee() {

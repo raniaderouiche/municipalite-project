@@ -49,9 +49,10 @@
             <TableView fx:id="tableview">
               <columns>
                 <TableColumn fx:id="id" prefWidth="127.0" text="ID" />
+                  <TableColumn fx:id="creationdate" prefWidth="167.0" text="Creation Date" />
                 <TableColumn fx:id="username" prefWidth="146.0" text="Username" />
                   <TableColumn fx:id="password" prefWidth="75.0" text="Password" />
-                  <TableColumn fx:id="creationdate" prefWidth="167.0" text="Creation Date" />
+                  <TableColumn fx:id="email" prefWidth="75.0" text="Email" />
                   <TableColumn fx:id="question" prefWidth="131.0" text="Question" />
                   <TableColumn fx:id="answer" prefWidth="107.0" text="Answer" />
                   <TableColumn fx:id="empID" prefWidth="127.0" text="Employee" />
