@@ -84,16 +84,18 @@ public class Compte extends BaseEntity{
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
         return createdAt.format(format);
     }
+
     @Override
     public String toString() {
         return "Compte{" +
-                "createdAt=" + createdAt +
+                "id=" + id +
+                ", createdAt=" + createdAt +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", employee=" + employee + '\'' +
-                ", question=" + question + '\'' +
-                ", answer=" + answer + + '\'' +
-                ", loginSessions = " + loginSessions + '\'' +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", loginSessions=" + loginSessions +
+                ", employee=" + employee +
                 '}';
     }
 }

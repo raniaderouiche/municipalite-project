@@ -80,7 +80,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="nom_field" prefHeight="28.0" prefWidth="359.0" promptText="Alaa" styleClass="dialogTextFields" GridPane.columnIndex="1">
+            <TextField fx:id="prenom_field" prefHeight="28.0" prefWidth="359.0" promptText="Alaa" styleClass="dialogTextFields" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
@@ -112,7 +112,7 @@
                   <Font name="☞Gilroy-Regular" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="prenom_field" prefHeight="6.0" prefWidth="359.0" promptText="Dridi" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="nom_field" prefHeight="6.0" prefWidth="359.0" promptText="Dridi" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>

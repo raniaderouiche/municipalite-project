@@ -23,7 +23,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
         //create an entity manager
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
         em = entityManagerFactory.createEntityManager();
-
+        em.getTransaction().begin();
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class<E>) pt.getActualTypeArguments()[0];
@@ -31,10 +31,8 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E save(E entity) {
-        em.getTransaction().begin();
         em.persist(entity);
         em.getTransaction().commit();
-        em.close();
         return entity;
     }
 
@@ -47,17 +45,15 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public List<E> selectAll() {
-        em.getTransaction().begin();
+        //em.getTransaction().begin();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t");
         List<E> list = query.getResultList();
-        em.close();
         return list;
     }
 
     @Override
     public List<E> selectAll(String sortField, String sort) {
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t order by " + sortField + " " + sort);
-        em.close();
         return query.getResultList();
     }
 
@@ -65,13 +61,12 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     public List<E> selectBy(String param, String value) {
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+" = "+value);
         List<E> list = query.getResultList();
-        em.close();
         return list;
     }
 
     @Override
     public E getById(Long id) {
-        em.getTransaction().begin();
+        //em.getTransaction().begin();
         E entity = em.find(type, id);
         return entity;
     }
@@ -79,11 +74,10 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public void remove(Long id) {
-        em.getTransaction().begin();
+        //em.getTransaction().begin();
         E tab = em.getReference(type, id);
         em.remove(tab);
         em.getTransaction().commit();
-        em.close();
     }
 
     @Override
@@ -124,7 +118,6 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     public List<E> selectLike(String param, String value) {
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+" LIKE "+value);
         List<E> list = query.getResultList();
-        em.close();
         return list;
     }
     

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.fsb.municipalite.entities.Compte;
+import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
 import java.net.URL;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class SettingsController implements Initializable {
     @FXML
     Label inv_username;
 
-    private Compte c;
+    private Compte compte;
 
 
     @Override
@@ -48,8 +49,9 @@ public class SettingsController implements Initializable {
 
     }
 
-    public void setAccountInfos(Compte compte){
-        c= compte;
+    public void setAccountInfos(Compte c){
+        CompteServiceImpl cService = new CompteServiceImpl();
+        compte= cService.getById(c.getId());
         firstName.setText(compte.getEmployee().getPrenom());
         lastName.setText(compte.getEmployee().getNom());
         cin.setText(compte.getEmployee().getCin());
@@ -72,7 +74,7 @@ public class SettingsController implements Initializable {
         dialog.setContentText("Password :");
         dialog.setHeaderText(null);
         Optional<String> result = dialog.showAndWait();
-        if(result.get().matches(c.getPassword())){
+        if(result.get().matches(compte.getPassword())){
             username.setDisable(false);
         }
         else{
@@ -90,7 +92,7 @@ public class SettingsController implements Initializable {
         dialog.setContentText("Password :");
         dialog.setHeaderText(null);
         Optional<String> result = dialog.showAndWait();
-        if(result.get().matches(c.getPassword())){
+        if(result.get().matches(compte.getPassword())){
             password1.setDisable(false);
             password2.setDisable(false);
         }

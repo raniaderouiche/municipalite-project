@@ -1,6 +1,7 @@
 package org.fsb.municipalite.controllers;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -9,6 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.fsb.municipalite.dao.impl.MunicipaliteDaoImpl;
+import org.fsb.municipalite.entities.Municipalite;
+import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
 
 public class MunicipalityInfoController implements Initializable{
 
@@ -48,14 +52,41 @@ public class MunicipalityInfoController implements Initializable{
     @FXML
     private Button modifyButton;
 
+    Municipalite municipalite;
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setFieldsDisabled(true);
-		
-		
-		
+		getMunicipalite();
+	}
 
+	public void getMunicipalite(){
+		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
+		List<Municipalite> list = municipaliteService.selectAll();
+		if(list.isEmpty()){
+			Municipalite municipalite = new Municipalite();
+			municipaliteService.create(municipalite);
+		}
+		else{
+			municipalite = municipaliteService.getById(list.get(0).getId());
+			nameField.setText(municipalite.getNom());
+			numberField.setText(municipalite.getTel());
+			emailField.setText(municipalite.getEmail());
+			addressField.setText(municipalite.getAdresse());
+			websiteField.setText(municipalite.getWebsite());
+			//add work hours
+		}
+
+	}
+
+	public void setMunicipalite(Municipalite municipalite){
+		municipalite.setNom(nameField.getText());
+		municipalite.setTel(numberField.getText());
+		municipalite.setEmail(emailField.getText());
+		municipalite.setAdresse(addressField.getText());
+		municipalite.setWebsite(websiteField.getText());
+		//add work hours
 	}
 
     public void setFieldsDisabled(Boolean b) {
@@ -135,7 +166,6 @@ public class MunicipalityInfoController implements Initializable{
     			fridayU.setStyle("-fx-border-color: red;");
     	});
 
-
     }
     
     
@@ -145,6 +175,9 @@ public class MunicipalityInfoController implements Initializable{
     	this.saveButton.setVisible(false);
     	this.cancelButton.setVisible(false);
     	this.modifyButton.setDisable(false);
+		setMunicipalite(municipalite);
+		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
+		municipaliteService.update(municipalite);
     }
 
     @FXML

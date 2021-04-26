@@ -18,6 +18,7 @@ public class CustomFxmlLoader {
 			view = FXMLLoader.load(fileUrl);
 		}catch(Exception e) {
 			System.out.println("No page " + fileName + " please check FxmlLoader");
+			e.printStackTrace();
 		}
 		return view;
 	}

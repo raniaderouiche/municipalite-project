@@ -34,8 +34,8 @@
                               <TableView fx:id="staffTable">
                                 <columns>
                                     <TableColumn fx:id="id_emp" prefWidth="120.0" text="Id" />
-                                    <TableColumn fx:id="nom" prefWidth="158.0" text="First Name" />
-                                  <TableColumn fx:id="prenom" prefWidth="109.0" text="Last Name" />
+                                    <TableColumn fx:id="prenom" prefWidth="158.0" text="First Name" />
+                                  <TableColumn fx:id="nom" prefWidth="109.0" text="Last Name" />
                                   <TableColumn fx:id="cin" prefWidth="52.0" text="CIN" />
                                     <TableColumn fx:id="dateNaissance" minWidth="-Infinity" prefWidth="179.0" text="Date of Birth" />
                                     <TableColumn fx:id="sexe" minWidth="0.0" prefWidth="0.0" text="Gender" />
