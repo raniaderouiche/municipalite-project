@@ -1,5 +1,6 @@
 .root{
 	-fx-focus-color: transparent;
+    
 }
 
 .table-view {
@@ -341,20 +342,19 @@
 	-fx-font-size: 40;
 }
 
-.menu-button{
+#ProfilMenuButton{
     -fx-background-color: transparent;
 }
-.menu-item{
+.ProfilMenuItem{
 	-fx-background-radius:15;
 	-fx-pref-height:50;
     -fx-background-color: transparent;
 }
-.menu-item:focused {
+.ProfilMenuItem:focused {
     -fx-background-color: rgba(255, 255, 255, 0.329);
 }
 .context-menu {
     -fx-border-width: 0px;
-
 	-fx-background-radius:0 0 20 20;
 	-fx-pref-width:150;
     -fx-text-fill: white;
@@ -424,3 +424,48 @@
     -fx-border-style: hidden hidden solid hidden;
     -fx-border-color: rgba(58, 162, 247, 0.842);
     }
+.settingsGridPanes{
+    -fx-border-radius:10;
+    -fx-border-width: 1;
+    -fx-border-style: solid solid solid solid;
+    -fx-border-color: rgba(13, 13, 14, 0.842);
+    -fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius:10;
+}
+.settingsLabels{
+    -fx-text-fill: rgb(247, 251, 255);
+    
+}
+.settingsDialog{
+    -fx-background-color:rgba(221, 220, 220, 0.452);
+}
+.settingButtons{
+    -fx-background-color: rgba(255, 255, 255, 0.582);
+    -fx-border-radius:10;
+    -fx-background-radius:10;
+    -fx-cursor: hand;
+}
+.settingButtons:hover{
+    -fx-background-color: rgba(255, 255, 255, 0.76);
+}
+.settingsTextFields{
+    -fx-background-radius:15;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: rgba(0, 140, 255, 0.842);
+    -fx-background-color: rgba(255, 255, 255, 0.877);
+}
+.settingsTitle{
+    -fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+        linear-gradient(#003483, #20354b),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+        -fx-text-fill: rgb(247, 251, 255);
+
+}

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +24,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import org.fsb.municipalite.entities.Compte;
 import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
@@ -33,12 +36,14 @@ public class MainInterfaceController implements Initializable{
 	
 	@FXML
 	BorderPane contentBorderPane;
-	
 
     @FXML
     private MenuButton profilMenu;
 
     private Compte userAccount;
+    
+    private double xOffset = 0;
+    private double yOffset = 0;
 
 	public boolean isAlphaNumericdotdashbel8(String name) {
 		return name.matches("[a-zA-Z._0-9]+");
@@ -65,7 +70,24 @@ public class MainInterfaceController implements Initializable{
         d.setDialogPane((DialogPane) settingsDialogPane);
         d.setTitle("Settings");
         d.setResizable(false);
+        d.initStyle(StageStyle.UNDECORATED);
+        
+      //these two are for moving the window with the mouse
+        settingsDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
 
+        settingsDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                d.setX(event.getScreenX() - xOffset);
+                d.setY(event.getScreenY() - yOffset);
+            }
+        });
 
         CompteServiceImpl cService = new CompteServiceImpl();
         //fetch list of usernames
@@ -122,6 +144,10 @@ public class MainInterfaceController implements Initializable{
 					sc.password1.textProperty(),
 					sc.password2.textProperty()));
 
+
+			//to apply css on the dialog pane buttons
+			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
         Optional<ButtonType> clickedButton = d.showAndWait();
         if (clickedButton.get() == ButtonType.APPLY) {
