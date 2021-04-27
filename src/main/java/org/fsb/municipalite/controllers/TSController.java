@@ -365,14 +365,7 @@ public class TSController implements Initializable {
 			//new employee creation and addition
 			if (clickedButton.get() == ButtonType.APPLY) {
 				Employee emp = new Employee();
-				
-				emp.setNom(edc.nom_field.getText());
-				emp.setPrenom(edc.prenom_field.getText());
-				emp.setCin(edc.cin_field.getText());
-				emp.setEtatCivil(edc.civilStatusBox.getValue());
-				RadioButton selectedRadioButton = (RadioButton) edc.genderGroup.getSelectedToggle();
-				emp.setSexe(selectedRadioButton.getText());
-				emp.setDateNaissance(edc.dnPicker.getValue());
+				edc.setCurrentEmployee(emp);
 				EmployeeServiceImpl empService = new EmployeeServiceImpl();
 				empService.create(emp);
 				reloadEmp(event);

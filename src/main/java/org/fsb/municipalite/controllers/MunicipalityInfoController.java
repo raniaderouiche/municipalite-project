@@ -1,6 +1,7 @@
 package org.fsb.municipalite.controllers;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -157,6 +158,7 @@ public class MunicipalityInfoController implements Initializable{
     		}
     	});
 	}
+
 	public void getMunicipalite(){
 		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
 		List<Municipalite> list = municipaliteService.selectAll();
@@ -172,15 +174,14 @@ public class MunicipalityInfoController implements Initializable{
 			addressField.setText(municipalite.getAdresse());
 			websiteField.setText(municipalite.getWebsite());
 			
-			if(municipalite.getWorkHours() != null) {
-				String[] wHours = municipalite.getWorkHours().split(",");
-				everydayF.setText(wHours[0]);
-				everydayU.setText(wHours[1]);
-			    fridayF.setText(wHours[2]);
-			    fridayU.setText(wHours[3]);
+		    if(municipalite.getWorkHours() != null) {
+				List<String> wHours = Arrays.asList(municipalite.getWorkHours().split(",").clone());
+				System.out.println(wHours);
+				everydayF.setText(wHours.get(0));
+				everydayU.setText(wHours.get(1));
+			    fridayF.setText(wHours.get(2));
+			    fridayU.setText(wHours.get(3));
 			}
-			
-			
 			
 		}
 
@@ -228,16 +229,18 @@ public class MunicipalityInfoController implements Initializable{
         	this.saveButton.setVisible(false);
         	this.cancelButton.setVisible(false);
         	this.modifyButton.setDisable(false);
+			MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
+			List<Municipalite> list = municipaliteService.selectAll();
+			municipalite = municipaliteService.getById(list.get(0).getId());
     		setMunicipalite(municipalite);
-    		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
     		municipaliteService.update(municipalite);
     		
     	}else {
     		check = true;
     		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Error Dialog");
+    		alert.setTitle("Error");
     		alert.setHeaderText(null);
-    		alert.setContentText("Ooops, there was an error!");
+    		alert.setContentText("Check Fields");
     		alert.show();
     	}
     	

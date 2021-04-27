@@ -8,6 +8,7 @@ import org.fsb.municipalite.entities.Compte;
 import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
 import java.net.URL;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -74,16 +75,22 @@ public class SettingsController implements Initializable {
         dialog.setContentText("Password :");
         dialog.setHeaderText(null);
         Optional<String> result = dialog.showAndWait();
-        if(result.get().matches(compte.getPassword())){
-            username.setDisable(false);
+        try{
+            if(result.isPresent()) {
+                if (result.get().matches(compte.getPassword())) {
+                    username.setDisable(false);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Incorrect Password");
+                    alert.setContentText("The password you entered is incorrect");
+                    alert.setHeaderText(null);
+                    alert.show();
+                }
+            }
+        }catch(Exception e){
+            System.out.println("No Password Entered");
         }
-        else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Incorrect Password");
-            alert.setContentText("The password you entered is incorrect");
-            alert.setHeaderText(null);
-            alert.show();
-        }
+
     }
 
     public void editPassword(ActionEvent event) {
@@ -92,16 +99,22 @@ public class SettingsController implements Initializable {
         dialog.setContentText("Password :");
         dialog.setHeaderText(null);
         Optional<String> result = dialog.showAndWait();
-        if(result.get().matches(compte.getPassword())){
-            password1.setDisable(false);
-            password2.setDisable(false);
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Incorrect Password");
-            alert.setContentText("The password you entered is incorrect");
-            alert.setHeaderText(null);
-            alert.show();
-        }
+        result.ifPresent(value -> {
+            try {
+                if (result.get().matches(compte.getPassword())) {
+                    password1.setDisable(false);
+                    password2.setDisable(false);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Incorrect Password");
+                    alert.setContentText("The password you entered is incorrect");
+                    alert.setHeaderText(null);
+                    alert.show();
+                }
+            } catch (Exception e) {
+                System.out.println("No Password Entered");
+            }
+        });
+
     }
 }

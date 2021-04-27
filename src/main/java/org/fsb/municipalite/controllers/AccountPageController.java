@@ -230,7 +230,6 @@ public class AccountPageController implements Initializable{
 			//new employee creation and addition
 			if (clickedButton.get() == ButtonType.APPLY) {
 				Compte c = new Compte();
-				System.out.println(c);
 				adc.setCurrentAccount(c);
 				cService.create(c);
 				refresh(event);

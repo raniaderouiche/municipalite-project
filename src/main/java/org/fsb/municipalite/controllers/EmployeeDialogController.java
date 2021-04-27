@@ -71,7 +71,7 @@ public class EmployeeDialogController implements Initializable{
         e.setEtatCivil(civilStatusBox.getSelectionModel().getSelectedItem());
         e.setSexe(((RadioButton)genderGroup.getSelectedToggle()).getText());
         e.setDateNaissance(dnPicker.getValue());
-        e.setRole(roleChoiceBox.getSelectionModel().getSelectedItem());
+        e.setRole(roleChoiceBox.getValue());
 
     }
     public void setEmpDialogPane(Employee e) {
