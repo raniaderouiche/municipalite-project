@@ -1,5 +1,5 @@
 package org.fsb.municipalite.controllers;
-import javafx.beans.binding.Bindings; 
+import javafx.beans.binding.Bindings;   
 import javafx.collections.FXCollections;		
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,10 +17,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
+
 import org.fsb.municipalite.entities.Complaint;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
 import java.text.SimpleDateFormat;
@@ -242,12 +245,10 @@ public class ComplaintPageController implements Initializable{
     	}
     }
 
-
-
-
     public boolean isAlpha(String name) {
 	    return name.matches("[a-zA-Z ]+");
 	}
+    
     @FXML
     public void UpdateComplaint(ActionEvent event) {
     	try {
@@ -349,8 +350,7 @@ public class ComplaintPageController implements Initializable{
     		e.printStackTrace();
     	}
     }
-
-    
+  
     public void onClickEventRemove(ActionEvent event) {
         if (tableView.getSelectionModel().getSelectedItem() != null) {
         	
@@ -371,51 +371,101 @@ public class ComplaintPageController implements Initializable{
             }
         }
     }
-   public void message(ActionEvent event) {
-	   try {
-	    	FXMLLoader f = new FXMLLoader();
-	    	f.setLocation(getClass().getResource("/interfaces/ComplaintMsg.fxml"));
-			Pane complaintDialogPane = f.load();
-			ComplaintDialogController edc = f.getController();
-	    	
-			if(tableView.getSelectionModel().getSelectedItem() != null) {
-				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
-				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
-		        Complaint test = complaintService.getById(c.getId());
+    
 
-				edc.setComplaintMsgDialogPane(test);
-				Dialog<ButtonType> d = new Dialog<>();
-				
-				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
-				stage.getIcons().add(new Image("/assets/img/icon.png"));
-				
-				d.setDialogPane((DialogPane) complaintDialogPane);
-				d.setTitle("Update Complaint");
-				d.setResizable(false);
-				d.initStyle(StageStyle.UNDECORATED);
-				
-				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-			           @Override
-			           public void handle(MouseEvent event) {
-			               xOffset = event.getSceneX();
-			               yOffset = event.getSceneY();
-			           }
-					});
-				complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			           @Override
-			           public void handle(MouseEvent event) {
-			               d.setX(event.getScreenX() - xOffset);
-			               d.setY(event.getScreenY() - yOffset);
-			           }
-		            });
-				System.out.println("every thing is well done");
-			}
-	   }catch(Exception e) {
-		   e.printStackTrace();
-	   }
+    public void message1(MouseEvent event) {
+ 	   try {
+ 	    	FXMLLoader f = new FXMLLoader();
+ 	    	f.setLocation(getClass().getResource("/interfaces/ComplaintMsg.fxml"));
+ 			Pane complaintDialogPane = f.load();
+ 			ComplaintMsgController edc = f.getController();
+ 			
+ 			tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+ 			    @Override
+ 			    public void handle(MouseEvent mouseEvent) {
+ 			        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+ 			            if(mouseEvent.getClickCount() == 2){
+ 			            	if(tableView.getSelectionModel().getSelectedItem() != null) {
+ 			    				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
+ 			    				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
+ 			    		        Complaint test = complaintService.getById(c.getId());
 
-   }
+ 			    				edc.setComplaintMsgDialogPane(test);
+ 			    				Dialog<ButtonType> d = new Dialog<>();
+ 			    				
+ 			    				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+ 			    				stage.getIcons().add(new Image("/assets/img/icon.png"));
+ 			    				
+ 			    				d.setDialogPane((DialogPane) complaintDialogPane);
+ 			    				d.setTitle("Complaint message");
+ 			    				d.setResizable(false);
+ 			    				d.initStyle(StageStyle.UNDECORATED);
+ 			    				
+ 			    				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+ 			    			           @Override
+ 			    			           public void handle(MouseEvent event) {
+ 			    			               xOffset = event.getSceneX();
+ 			    			               yOffset = event.getSceneY();
+ 			    			           }
+ 			    					});
+ 			    				complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+ 			    			           @Override
+ 			    			           public void handle(MouseEvent event) {
+ 			    			               d.setX(event.getScreenX() - xOffset);
+ 			    			               d.setY(event.getScreenY() - yOffset);
+ 			    			           }
+ 			    		            });
+ 			    				d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
+ 			    				d.showAndWait();
+ 			    				Window    window = d.getDialogPane().getScene().getWindow();
+ 			    				window.setOnCloseRequest(event -> window.hide());
+ 			    				
+ 			            	}
+ 			            }
+ 			        }
+ 			    }
+ 			});
+ 			if(tableView.getSelectionModel().getSelectedItem() != null) {
+ 				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
+ 				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
+ 		        Complaint test = complaintService.getById(c.getId());
 
+ 				edc.setComplaintMsgDialogPane(test);
+ 				Dialog<ButtonType> d = new Dialog<>();
+ 				
+ 				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+ 				stage.getIcons().add(new Image("/assets/img/icon.png"));
+ 				
+ 				d.setDialogPane((DialogPane) complaintDialogPane);
+ 				d.setTitle("Complaint message");
+ 				d.setResizable(false);
+ 				d.initStyle(StageStyle.UNDECORATED);
+ 				
+ 				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+ 			           @Override
+ 			           public void handle(MouseEvent event) {
+ 			               xOffset = event.getSceneX();
+ 			               yOffset = event.getSceneY();
+ 			           }
+ 					});
+ 				complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+ 			           @Override
+ 			           public void handle(MouseEvent event) {
+ 			               d.setX(event.getScreenX() - xOffset);
+ 			               d.setY(event.getScreenY() - yOffset);
+ 			           }
+ 		            });
+ 				d.showAndWait();
+ 				System.out.println("everything is well done");
+ 				d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
+ 				
+ 			}
+ 			System.out.println("everything is well done");
+         	
+ 	   }catch(Exception e) {
+ 		   e.printStackTrace();
+ 	   }
+    }
 }
 
 

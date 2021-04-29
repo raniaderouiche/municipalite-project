@@ -87,8 +87,5 @@ public class ComplaintDialogController {
 	    		c.setEtat(Etat.unprocessed);
 	    	}
 	    }
-	    public void setComplaintMsgDialogPane(Complaint c) {
-	    	msgLabel.setText(c.getMsg());
-	    }
 }
 
