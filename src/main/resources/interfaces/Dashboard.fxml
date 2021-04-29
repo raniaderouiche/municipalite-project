@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedAreaChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="621.0" prefWidth="1019.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.DashboardController">
+   <top>
+      <Label prefHeight="25.0" prefWidth="326.0" styleClass="headers" text="Dashboard" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <center>
+   <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="114.0" prefWidth="979.0" spacing="10.0" stylesheets="@../assets/css/application.css">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="countersdiv" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label prefHeight="40.0" prefWidth="136.0" styleClass="dashboardLables" text="Total Employees" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="empCount" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="countersdiv" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label prefHeight="40.0" prefWidth="105.0" styleClass="dashboardLables" text="Total Teams" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="teamCount" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox prefHeight="161.0" prefWidth="979.0" styleClass="countersdiv">
+               <children>
+                  <Label styleClass="dashboardLables" text="Financals">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <StackedAreaChart prefHeight="130.0" prefWidth="979.0">
+                    <xAxis>
+                      <NumberAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </StackedAreaChart>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </VBox>
+            <HBox prefHeight="210.0" prefWidth="979.0" spacing="10.0">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+               <children>
+                  <VBox prefHeight="242.0" prefWidth="979.0" styleClass="countersdiv">
+                     <children>
+                        <Label styleClass="dashboardLables" text="Projects Status">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <PieChart fx:id="projectsChart" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="242.0" prefWidth="979.0" styleClass="countersdiv">
+                     <children>
+                        <Label styleClass="dashboardLables" text="Tasks Status">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <PieChart fx:id="tasksChart" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="242.0" prefWidth="979.0" styleClass="countersdiv">
+                     <children>
+                        <Label styleClass="dashboardLables" text="Tools Status">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <PieChart fx:id="toolsChart" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>

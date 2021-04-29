@@ -346,7 +346,7 @@ public class TSController implements Initializable {
 			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 			
 			//make name field first to be selected
-			edc.nom_field.requestFocus();
+			edc.prenom_field.requestFocus();
 
 			//apply button binder
 			d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
@@ -448,8 +448,7 @@ public class TSController implements Initializable {
 				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 				
 				//make name field first to be selected
-				edc.nom_field.requestFocus();
-				
+				edc.prenom_field.requestFocus();				
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
 												edc.nom_field.getText().isEmpty() || edc.prenom_field.getText().isEmpty() || edc.cin_field.getText().isEmpty() || edc.dnPicker.getValue() == null || 
 												edc.cin_field.getText().length() != 8 || !isNumeric(edc.cin_field.getText()) || !isAlpha(edc.nom_field.getText()) || !isAlpha(edc.prenom_field.getText()),

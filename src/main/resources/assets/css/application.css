@@ -472,3 +472,25 @@
 	   	-fx-text-fill: white;
 
 }
+
+.choice-box .context-menu {
+    -fx-border-width: 0px;
+	-fx-background-radius:20;
+	-fx-pref-width:250;
+    -fx-background-color: rgb(228, 228, 228);
+    -fx-mark-color: rgb(23, 70, 102);
+  }
+
+  .choice-box .context-menu .label{
+    -fx-text-fill: rgb(0, 0, 0);
+
+  }
+  .choice-box .menu-item{
+  	-fx-background-radius:20;
+  }
+  
+  .choice-box .menu-item:focused > .label {
+  	-fx-text-fill: white;
+  }
+  
+  .choice-box .menu-item:focused { -fx-background-color: #6586b8; }
