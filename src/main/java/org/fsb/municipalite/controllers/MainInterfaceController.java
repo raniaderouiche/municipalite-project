@@ -16,9 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -31,12 +29,9 @@ import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
 public class MainInterfaceController implements Initializable{
 
-	@FXML
-	Label username_label;
 	
 	@FXML
-	BorderPane contentBorderPane;
-
+	private BorderPane contentBorderPane;
     @FXML
     private MenuButton profilMenu;
 
@@ -51,8 +46,7 @@ public class MainInterfaceController implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		servicesButton(null);
-		
+		dashboardButton(null);	
 	}
 	@FXML
 	void settings(ActionEvent event) {
@@ -72,7 +66,7 @@ public class MainInterfaceController implements Initializable{
         d.setResizable(false);
         d.initStyle(StageStyle.UNDECORATED);
         
-      //these two are for moving the window with the mouse
+        //these two are for moving the window with the mouse
         settingsDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -184,7 +178,7 @@ public class MainInterfaceController implements Initializable{
 	public void dashboardButton(MouseEvent event) {
 		System.out.println("Dashboard Clicked");
 		
-		Pane view = CustomFxmlLoader.getPage("nothing");
+		Pane view = CustomFxmlLoader.getPage("Dashboard");
 		contentBorderPane.setCenter(view);
 
 	}
@@ -212,8 +206,8 @@ public class MainInterfaceController implements Initializable{
 	private void FinanceButton(MouseEvent event) {
 		
 		System.out.println("Finance Clicked");
-		Pane view = CustomFxmlLoader.getPage("nothing");
-		contentBorderPane.setCenter(view);
+		/*Pane view = CustomFxmlLoader.getPage("nothing");
+		contentBorderPane.setCenter(view);*/
 		
 	}
 	@FXML
@@ -247,6 +241,7 @@ public class MainInterfaceController implements Initializable{
 
 	public void setUserAccount(Compte userAccount) {
 		this.userAccount = userAccount;
+		profilMenu.setText(userAccount.getEmployee().getPrenom());
 	}
 }
 

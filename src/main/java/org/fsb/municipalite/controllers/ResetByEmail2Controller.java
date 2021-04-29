@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.fsb.municipalite.entities.Compte;
 
 public class ResetByEmail2Controller {
 
@@ -23,6 +24,9 @@ public class ResetByEmail2Controller {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+
+	private String resetCode;
+	private Compte userAccount;
 
     @FXML
     void back(ActionEvent event) {
@@ -40,16 +44,40 @@ public class ResetByEmail2Controller {
 
     @FXML
     void next(ActionEvent event) {
+    	if(code.getText().matches(resetCode)) {
 
-    	stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/PasswordResetFinal.fxml"));
-    	try {
-    		root = loader.load();
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    	scene = new Scene(root);
-    	stage.setScene(scene);
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/PasswordResetFinal.fxml"));
+			try {
+				root = loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			scene = new Scene(root);
+
+			PasswordResetFController passwordResetController = loader.getController();
+			passwordResetController.setUserAccount(userAccount);
+
+			stage.setScene(scene);
+
+
+		}else
+			incorrect.setVisible(true);
     }
 
+	public String getResetCode() {
+		return resetCode;
+	}
+
+	public void setResetCode(String resetCode) {
+		this.resetCode = resetCode;
+	}
+
+	public Compte getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(Compte userAccount) {
+		this.userAccount = userAccount;
+	}
 }
