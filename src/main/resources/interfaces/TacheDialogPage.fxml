@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="607.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.TacheDialogController">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="607.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.TacheDialogController">
     <content>
         <AnchorPane prefHeight="409.0" prefWidth="607.0">
             <children>
@@ -53,7 +53,7 @@
         <ButtonType fx:constant="CANCEL" />
     </buttonTypes>
    <header>
-          <Label prefHeight="61.0" prefWidth="607.0" styleClass="dialogheader" text="Add Task ">
+          <Label fx:id="titleLabel" prefHeight="61.0" prefWidth="607.0" styleClass="dialogheader" text="Add Task ">
               <font>
                   <Font name="System Bold" size="24.0" />
               </font>

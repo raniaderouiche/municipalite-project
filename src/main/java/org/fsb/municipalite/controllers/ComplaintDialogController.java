@@ -44,23 +44,19 @@ public class ComplaintDialogController {
 	    Label labStatus;	     
 	    @FXML
 	    Label titleLabel; 
-	
-	    RadioButton selectedRadioButton;
 	    
-	    @FXML
-	    private ToggleGroup statusGroup;
 	    public void setCurrentComplaint(Complaint complaint) {
-		       complaint.setNomCitoyen(name.getText());
-		       complaint.setSujet(subject.getText());
-		       complaint.setCin(Long.parseLong(cin.getText()));
-		       complaint.setMsg(msg.getText());
-		       
-		       if (processed.isSelected()) {
-		           complaint.setEtat(Complaint.Etat.processed);
-		       }
-	        if (unprocessed.isSelected()) {
-	            complaint.setEtat(Complaint.Etat.unprocessed);	
-	        }		    
+	    	complaint.setNomCitoyen(name.getText());
+	    	complaint.setSujet(subject.getText());
+	    	complaint.setCin(Long.parseLong(cin.getText()));
+	    	complaint.setMsg(msg.getText());
+
+	    	if (processed.isSelected()) {
+	    		complaint.setEtat(Complaint.Etat.processed);
+	    	}
+	    	if (unprocessed.isSelected()) {
+	    		complaint.setEtat(Complaint.Etat.unprocessed);	
+	    	}		    
 	    }
 	    public void setComplaintDialogPane(Complaint c) {
 	    	name.setText(c.getNomCitoyen());
@@ -68,7 +64,6 @@ public class ComplaintDialogController {
 	    	subject.setText(c.getSujet());
 	    	msg.setText(c.getMsg());
 	    	if(c.getEtat().equals(Etat.processed)) {
-	    		
 	    		processed.setSelected(true);
 	    	}else if(c.getEtat().equals(Etat.unprocessed)){
 	    		unprocessed.setSelected(true);

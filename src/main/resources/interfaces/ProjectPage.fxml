@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ProjectPageController">
+<BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ProjectPageController">
    <center>
       <VBox alignment="TOP_RIGHT">
          <children>
-            <HBox minHeight="-Infinity" prefHeight="50.0" prefWidth="1154.0">
+            <HBox minHeight="-Infinity" prefHeight="50.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#add" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" text="Add">
                      <HBox.margin>
@@ -46,7 +46,7 @@
                   </TextField>
                </children>
             </HBox>
-            <TableView fx:id="tableview">
+            <TableView fx:id="tableview" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="id" prefWidth="127.0" text="ID" />
                 <TableColumn fx:id="name" prefWidth="146.0" text="Name" />

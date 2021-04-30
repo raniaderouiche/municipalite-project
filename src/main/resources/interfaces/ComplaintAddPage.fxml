@@ -15,14 +15,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="509.0" prefWidth="553.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintDialogController">
+<DialogPane prefHeight="509.0" prefWidth="553.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintDialogController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="553.0">
          <children>
             <GridPane layoutY="5.0" prefHeight="490.0" prefWidth="553.0" vgap="5.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="152.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.0" minWidth="10.0" prefWidth="387.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="159.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.0" minWidth="10.0" prefWidth="394.20000000000005" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
@@ -32,7 +32,7 @@
                   <RowConstraints maxHeight="47.0" minHeight="0.0" prefHeight="42.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="name" prefHeight="21.0" prefWidth="374.0" promptText="Enter Name" GridPane.columnIndex="1">
+                  <TextField fx:id="name" prefHeight="21.0" prefWidth="374.0" promptText="Enter Name" styleClass="dialogTextFields" GridPane.columnIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -40,7 +40,7 @@
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="subject" prefHeight="28.0" prefWidth="359.0" promptText="Enter subject" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="subject" prefHeight="28.0" prefWidth="359.0" promptText="Enter subject" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -48,7 +48,7 @@
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label text="citizen's name :">
+                  <Label styleClass="dialogLabels" text="Citizen Name :">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -56,7 +56,7 @@
                         <Insets left="18.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Subject :" GridPane.rowIndex="2">
+                  <Label styleClass="dialogLabels" text="Subject :" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -64,7 +64,7 @@
                         <Insets left="18.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Status :" GridPane.rowIndex="4">
+                  <Label styleClass="dialogLabels" text="Status :" GridPane.rowIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -72,14 +72,14 @@
                         <Insets left="18.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="124.0" text="message :" GridPane.rowIndex="3">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="dialogLabels" text="Body :" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="18.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                 <TextField fx:id="cin" prefHeight="28.0" prefWidth="359.0" promptText="Enter the 8 numbers" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                 <TextField fx:id="cin" prefHeight="28.0" prefWidth="359.0" promptText="Enter the 8 numbers" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -87,7 +87,7 @@
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Label text="CIN :" GridPane.rowIndex="1">
+                  <Label styleClass="dialogLabels" text="CIN :" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -112,7 +112,7 @@
                         </RadioButton>
                      </children>
                   </HBox>
-                  <TextArea fx:id="msg" prefHeight="200.0" prefWidth="376.0" promptText="Enter the core of the complaint" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextArea fx:id="msg" prefHeight="200.0" prefWidth="376.0" promptText="Enter the core of the complaint" styleClass="dialogTextArea" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="15.0" right="18.0" />
                      </GridPane.margin>
@@ -150,7 +150,7 @@
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <header>
-      <Label alignment="CENTER" prefHeight="55.0" prefWidth="583.0" styleClass="dialogheader" text="Add Complaint" textFill="WHITE">
+      <Label fx:id="titleLabel" alignment="CENTER" prefHeight="55.0" prefWidth="583.0" styleClass="dialogheader" text="Add Complaint" textFill="WHITE">
          <font>
             <Font name="☞Gilroy-Regular" size="25.0" />
          </font>

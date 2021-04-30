@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="550.0" prefWidth="828.0" spacing="15.0" styleClass="loginBackground" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ResetByEmail2Controller">
+<VBox alignment="CENTER" prefHeight="550.0" prefWidth="828.0" spacing="15.0" styleClass="loginBackground" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ResetByEmail2Controller">
    <children>
       <Label prefHeight="49.0" prefWidth="223.0" text="Enter the reset code " textFill="#7eff7a">
          <font>
@@ -16,7 +16,7 @@
       </Label>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="828.0" spacing="20.0">
          <children>
-            <TextField fx:id="code" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="557.0" promptText="Code" />
+            <TextField fx:id="code" maxWidth="-Infinity" minWidth="-Infinity" onAction="#next" prefHeight="41.0" prefWidth="557.0" promptText="Code" />
          </children>
       </HBox>
       <Label fx:id="incorrect" prefHeight="29.0" prefWidth="119.0" text="Incorrect Code" textFill="#ff5a5a" visible="false">

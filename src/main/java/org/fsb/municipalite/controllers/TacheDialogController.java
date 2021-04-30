@@ -45,6 +45,9 @@ public class TacheDialogController implements Initializable{
     @FXML
     Label inv_date;
     
+    @FXML
+    Label titleLabel;
+    
     ObservableList emps =  FXCollections.observableArrayList();
     
     @Override

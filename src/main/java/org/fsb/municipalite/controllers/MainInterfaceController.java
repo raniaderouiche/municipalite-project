@@ -2,6 +2,7 @@ package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -46,7 +47,8 @@ public class MainInterfaceController implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		dashboardButton(null);	
+		dashboardButton(null);
+		
 	}
 	@FXML
 	void settings(ActionEvent event) {
@@ -239,9 +241,13 @@ public class MainInterfaceController implements Initializable{
 		return userAccount;
 	}
 
+	//lena yabda ejaw
+	
 	public void setUserAccount(Compte userAccount) {
 		this.userAccount = userAccount;
 		profilMenu.setText(userAccount.getEmployee().getPrenom());
+		
 	}
+	
 }
 

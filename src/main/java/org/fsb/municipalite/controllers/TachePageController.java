@@ -73,7 +73,6 @@ public class TachePageController implements Initializable {
         tableView.setItems(data);
         //adding the listener
         searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("textfield changed from " + oldValue + " to " + newValue);
             ListenerSearch(newValue);
         });
     }
@@ -223,8 +222,8 @@ public class TachePageController implements Initializable {
                 Tache t = (Tache) tableView.getSelectionModel().getSelectedItem();
                 Tache test = TacheService.getById(t.getId());
                 
-                System.out.println(t.getId()+t.getName()+t.getDueDate()+t.getEmployee()+t.getEtat());
                 tdc.setFields(test);
+                tdc.titleLabel.setText("Update Task");
                 Dialog<ButtonType> d = new Dialog<>();
 
                 //this is just for adding an icon to the dialog pane
@@ -253,9 +252,7 @@ public class TachePageController implements Initializable {
                     }
                 });
                 
-                
                 tdc.name.textProperty().addListener((observable, oldValue, newValue) -> {
-                    //System.out.println("textfield changed from " + oldValue + " to " + newValue);
 
                     if(!isAlpha(newValue)) {
                     	

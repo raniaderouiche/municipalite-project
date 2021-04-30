@@ -80,12 +80,6 @@ public class TSController implements Initializable {
 	private CategoryAxis catAxe;
 	@FXML
 	private NumberAxis nAxe;
-	@FXML
-    private Label empCount;
-
-
-    @FXML
-    private Label teamCount;
 
     //define dialog window offsets here
     private double xOffset = 0;
@@ -104,8 +98,6 @@ public class TSController implements Initializable {
 
     	int s = 0, m = 0, d = 0;
     	
-    	//for the staff and team counters charts
-    	int emp = 0, team = 0;
     	
     	
     	for(Employee e : list) {
@@ -118,11 +110,9 @@ public class TSController implements Initializable {
         	if(e.getEtatCivil().equals("Single")) s++;
         	if(e.getEtatCivil().equals("Married")) m++;
         	if(e.getEtatCivil().equals("Divorced")) d++;
-        	emp++;
+        	
     	}
-    	
-    	empCount.setText(emp + "");
-    	
+    	    	
     	pl.add(new PieChart.Data("Male", Mnumber));
     	pl.add(new PieChart.Data("Female", Fnumber));
     	GenderChart.setTitle("Gender Chart");

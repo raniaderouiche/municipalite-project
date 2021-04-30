@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 import org.fsb.municipalite.entities.Compte;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,27 +37,48 @@ public class ResetByUser2Controller implements Initializable{
     private Label inv_answer;
     
 
-	@Override
+    ObservableList<String> questionsList = FXCollections.observableArrayList("What was your childhood nickname?", "What is the name of your favorite childhood friend?", "In what city or town was your first job?", "In what city or town did your parents meet?");
+	
+    @Override
 	public void initialize(URL location, ResourceBundle resources) {
-				choices.setDisable(true);
+    	choices.setItems(questionsList);
+
 	}
 
     @FXML
     void next(ActionEvent event) {
-    	/*if(answer.getText().equals(CurrentAccount.getAnswer())) {
-    		stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/PasswordResetFinal.fxml"));
-        	try {
-        		root = loader.load();
-        	} catch (IOException e) {
-        		e.printStackTrace();
-        	}
-        	scene = new Scene(root);
-        	stage.setScene(scene);
-    	}else {
-    		inv_answer.setVisible(true);
+    	if(choices.getValue() != null)
+    		if(choices.getValue().toString().equals(compte.getQuestion()))
+    			if(answer.getText().equals(compte.getAnswer())) {
+    				stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
+    				FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/PasswordResetFinal.fxml"));
+    				try {
+    					root = loader.load();
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    				}
+    				scene = new Scene(root);
+    				System.out.println(compte);
+    				PasswordResetFController passwordResetController = loader.getController();
+    				passwordResetController.setUserAccount(compte);
+
+    				stage.setScene(scene);
+
+    			}else {
+    				inv_answer.setText("Verify your answer");
+    				inv_answer.setVisible(true);
+    			}
+    		else {
+				inv_answer.setText("Invalid");
+    			inv_answer.setVisible(true);
+    		}
+    	else {
+    		inv_answer.setText("please fill all required fields");
+			inv_answer.setVisible(true);
     	}
-    	*/
+    		
+    		
+
     }
     
     @FXML
@@ -74,7 +97,6 @@ public class ResetByUser2Controller implements Initializable{
     
     public void setCompte(Compte c) {
     	compte = c;
-    	choices.setValue(this.compte.getUsername());
     }
 
 }
