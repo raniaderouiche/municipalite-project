@@ -4,7 +4,7 @@ import java.util.List;
 import org.fsb.municipalite.entities.Autorisation;
 
 
-public interface IAutoristaionServices {
+public interface IAutorisationServices {
 
 	public Autorisation create(Autorisation autorisation);
 

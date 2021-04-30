@@ -26,7 +26,7 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </ImageView>
-                        <Label prefHeight="133.0" prefWidth="337.0" style="-fx-alignment: CENTER;" text="AUTHORIZATION">
+                        <Label prefHeight="133.0" prefWidth="337.0" style="-fx-alignment: CENTER;" text="Authorization">
                            <font>
                               <Font name="☞Gilroy-Regular" size="30.0" />
                            </font>

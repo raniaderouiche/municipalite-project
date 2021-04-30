@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.fsb.municipalite.dao.impl.AutorisationDaoImpl;
 import org.fsb.municipalite.entities.Autorisation;
-import org.fsb.municipalite.services.IAutoristaionServices;
+import org.fsb.municipalite.services.IAutorisationServices;
 
-public class AutorisationServiceImpl implements IAutoristaionServices{
+public class AutorisationServiceImpl implements IAutorisationServices{
 
 	private AutorisationDaoImpl autorisationDao;
 	
@@ -36,7 +36,6 @@ public class AutorisationServiceImpl implements IAutoristaionServices{
 
 	@Override
 	public List<Autorisation> selectAll() {
-		// TODO Auto-generated method stub
 		return autorisationDao.selectAll();
 	}
 	@Override
@@ -46,7 +45,7 @@ public class AutorisationServiceImpl implements IAutoristaionServices{
 
 	@Override
 	public List<Autorisation> selectLike(String param, String value) {
-		return autorisationDao.selectAll(param,value);
+		return autorisationDao.selectLike(param,value);
 	}
 
 

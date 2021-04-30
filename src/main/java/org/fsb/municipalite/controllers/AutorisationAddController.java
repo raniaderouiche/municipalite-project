@@ -41,7 +41,7 @@ public class AutorisationAddController {
 		        }
 		        AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
 		        autorisationService.create(autorisation);
-		        msg.setText("Autorisation ADDED !");
+		        msg.setText("Authorization ADDED !");
 		        name.clear();
 		        subject.clear();
 	        }catch(Exception e) {

@@ -1,15 +1,15 @@
 package org.fsb.municipalite.controllers;
 
+import org.fsb.municipalite.entities.Autorisation;
 
-import org.fsb.municipalite.entities.Complaint;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class ComplaintMsgController {
+public class AutorisationMsgController {
 	@FXML
     Label msgLabel;
-	public void setComplaintMsgDialogPane(Complaint c) {
+	public void setAutorisationMsgDialogPane(Autorisation c) {
     	msgLabel.setText(c.getMsg());
     }
 	
