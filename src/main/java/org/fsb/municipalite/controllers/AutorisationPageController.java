@@ -44,8 +44,6 @@ public class AutorisationPageController implements Initializable{
     @FXML
     TableColumn<Autorisation, Long> Id;
     @FXML
-    TableColumn<Autorisation, Long> Version;
-    @FXML
     TableColumn<Autorisation, LocalDateTime> Date;
     @FXML
     TableColumn<Autorisation, Autorisation.Etat> Status;
@@ -66,9 +64,8 @@ public class AutorisationPageController implements Initializable{
 
    @Override
    public void initialize(URL location, ResourceBundle resources) {
-	    System.out.println(" authorization page controller");
+	    System.out.println(" Authorization page controller");
 	    Id.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("id"));
-        Version.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("version"));
         Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime>("createdAt"));
         Status.setCellValueFactory(new PropertyValueFactory<Autorisation,Autorisation.Etat>("etat"));
         Name.setCellValueFactory(new PropertyValueFactory<Autorisation,String>("nomCitoyen"));
@@ -202,13 +199,10 @@ public class AutorisationPageController implements Initializable{
 				}else
 					edc.labMsg.setVisible(false);
 			});
-    		//to apply css on the dialog pane buttons
     		d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
     		d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
-    		//make name field first to be selected
-
-    		//apply button binder
+    		
     		d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
     		edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
     		edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
@@ -224,7 +218,7 @@ public class AutorisationPageController implements Initializable{
     		if (clickedButton.get() == ButtonType.APPLY) {
     			Autorisation c = new Autorisation();
     			c.setNomCitoyen(edc.name.getText());
-    			Autorisation.setCin(Long.parseLong(edc.cin.getText()));
+    			c.setCin(Long.parseLong(edc.cin.getText()));
     			c.setSujet(edc.subject.getText());
     			c.setMsg(edc.msg.getText());
     			if (edc.processed.isSelected()) {
@@ -373,7 +367,8 @@ public class AutorisationPageController implements Initializable{
     }
     
 
-    public void message1(MouseEvent event) {
+    @SuppressWarnings("unused")
+	public void message1(MouseEvent event) {
  	   try {
  	    	FXMLLoader f = new FXMLLoader();
  	    	f.setLocation(getClass().getResource("/interfaces/AutorisationMsg.fxml"));
@@ -381,7 +376,8 @@ public class AutorisationPageController implements Initializable{
  			AutorisationMsgController edc = f.getController();
  			
  			tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
- 			    @Override
+ 			    @SuppressWarnings("null")
+				@Override
  			    public void handle(MouseEvent mouseEvent) {
  			        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
  			            if(mouseEvent.getClickCount() == 2){
@@ -440,7 +436,7 @@ public class AutorisationPageController implements Initializable{
  				
  				
 				d.setDialogPane((DialogPane) autorisationDialogPane);
- 				d.setTitle("authorization message");
+ 				d.setTitle("Authorization message");
  				d.setResizable(false);
  				d.initStyle(StageStyle.UNDECORATED);
  				

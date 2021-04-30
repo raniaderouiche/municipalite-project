@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 public class Autorisation extends BaseEntity{
     private String nomCitoyen;
     private String sujet;
+    private long cin;
+    private String msg;
+    
     public enum Etat {
         processed, unprocessed
     }
@@ -38,6 +41,21 @@ public class Autorisation extends BaseEntity{
         this.etat = etat;
     }
 
+    public long getCin() {
+        return cin;
+    }
+
+    public void setCin(long cin) {
+      this.cin= cin;
+    }
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+    
     @Override
     public String toString() {
         return "Autorisation{" +
@@ -46,26 +64,13 @@ public class Autorisation extends BaseEntity{
                 ", nomCitoyen='" + nomCitoyen + '\'' +
                 ", sujet='" + sujet + '\'' +
                 ", etat=" + etat +
+                ", cin ="+cin+
                 '}';
     }
-
-	public static void setCin(long parseLong) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setMsg(String text) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public long getCin() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public String getMsg() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
+
+
+
+
+
+

@@ -65,7 +65,6 @@
                <columns>
                   <TableColumn fx:id="Id" prefWidth="75.0" text="Id" />
                   <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="Version" prefWidth="75.0" text="Version" />
                   <TableColumn fx:id="Status" prefWidth="75.0" text="Status" />
                   <TableColumn fx:id="Name" prefWidth="75.0" text="Name" />
                   <TableColumn fx:id="Cin" prefWidth="75.0" text="CIN" />

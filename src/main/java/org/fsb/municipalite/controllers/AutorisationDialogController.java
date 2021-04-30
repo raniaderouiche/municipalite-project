@@ -50,7 +50,7 @@ public class AutorisationDialogController {
 	    public void setCurrentAutorisation(Autorisation autorisation) {
 	    	autorisation.setNomCitoyen(name.getText());
 	    	autorisation.setSujet(subject.getText());
-	    	Autorisation.setCin(Long.parseLong(cin.getText()));
+	    	autorisation.setCin(Long.parseLong(cin.getText()));
 	    	autorisation.setMsg(msg.getText());
 		       
 		       if (processed.isSelected()) {
@@ -75,7 +75,7 @@ public class AutorisationDialogController {
 	    public void getCurrentAutorisation(Autorisation c) {
 	    	c.setNomCitoyen(name.getText());
 	    	c.setSujet(subject.getText());
-	    	Autorisation.setCin(Long.parseLong(cin.getText()));
+	    	c.setCin(Long.parseLong(cin.getText()));
 		    c.setMsg(msg.getText());
 	    	if(processed.isSelected()) {
 	    		c.setEtat(Etat.processed);
