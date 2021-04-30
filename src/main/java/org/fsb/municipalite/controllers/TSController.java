@@ -7,11 +7,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.entities.Equipe;
@@ -72,61 +67,11 @@ public class TSController implements Initializable {
 	@FXML
 	TextField teamSearchField;
 	
-	@FXML
-    private PieChart GenderChart;
-	@FXML
-	private BarChart<String, Number> statusBarChart;
-	@FXML
-	private CategoryAxis catAxe;
-	@FXML
-	private NumberAxis nAxe;
 
     //define dialog window offsets here
     private double xOffset = 0;
     private double yOffset = 0;
     
-    public void loadCharts(List<Employee> list) {
-    	
-    	
-    	//for the piechart
-    	ObservableList<PieChart.Data> pl = FXCollections.observableArrayList();
-    	int Mnumber = 0;
-    	int Fnumber = 0;
-    	   
-    	//for the bar chart
-    	XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-    	int s = 0, m = 0, d = 0;
-    	
-    	
-    	
-    	for(Employee e : list) {
-        	if(e.getSexe().equals("Male")){
-        		Mnumber++;
-        	}
-        	else if(e.getSexe().equals("Female")) {
-        		Fnumber++;
-        	}
-        	if(e.getEtatCivil().equals("Single")) s++;
-        	if(e.getEtatCivil().equals("Married")) m++;
-        	if(e.getEtatCivil().equals("Divorced")) d++;
-        	
-    	}
-    	    	
-    	pl.add(new PieChart.Data("Male", Mnumber));
-    	pl.add(new PieChart.Data("Female", Fnumber));
-    	GenderChart.setTitle("Gender Chart");
-    	GenderChart.setData(pl);
-    	
-    	series.getData().add(new XYChart.Data<>("Single", s));
-    	series.getData().add(new XYChart.Data<>("Married", m));
-    	series.getData().add(new XYChart.Data<>("Divorced", d));
-    	statusBarChart.setTitle("Civil Status Chart");
-    	
-    	statusBarChart.getData().clear();
-    	statusBarChart.getData().add(series);
-    	//statusBarChart.setData(FXCollections.observableArrayList(series));
-    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -144,7 +89,6 @@ public class TSController implements Initializable {
 		EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 
 		List<Employee> list = employeeService.selectAll();
-		loadCharts(list);
 		EmployeesData = FXCollections.observableArrayList();
 		for (Employee p : list) {
 			EmployeesData.add(p);
@@ -249,7 +193,6 @@ public class TSController implements Initializable {
 		staffTable.getItems().clear();
 		EmployeeServiceImpl empService = new EmployeeServiceImpl();
 		List<Employee> list = empService.selectAll();
-		loadCharts(list);
 		for (Employee p : list) {
 			EmployeesData.add(p);
 		}

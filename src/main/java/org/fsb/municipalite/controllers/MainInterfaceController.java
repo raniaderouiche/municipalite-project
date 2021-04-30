@@ -17,11 +17,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -35,20 +37,53 @@ public class MainInterfaceController implements Initializable{
 	private BorderPane contentBorderPane;
     @FXML
     private MenuButton profilMenu;
+    @FXML
+    private Label dashboard;
 
+    @FXML
+    private Label services;
+
+    @FXML
+    private Label tools;
+
+    @FXML
+    private Label ts;
+
+    @FXML
+    private Label finance;
+
+    @FXML
+    private Label tasks;
+
+    @FXML
+    private Label projects;
+
+    @FXML
+    private Label events;
+
+    @FXML
+    private Label accounts;
+
+    @FXML
+    private Label muniInfoButton;
+    
+    @FXML
+    private VBox mymenu;
+    
     private Compte userAccount;
     
     private double xOffset = 0;
     private double yOffset = 0;
 
+    
 	public boolean isAlphaNumericdotdashbel8(String name) {
 		return name.matches("[a-zA-Z._0-9]+");
 	}
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		mymenu.getChildren().removeAll(services, tools, ts, finance, tasks, projects, events, accounts);
 		dashboardButton(null);
-		
 	}
 	@FXML
 	void settings(ActionEvent event) {
@@ -155,7 +190,7 @@ public class MainInterfaceController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void logout(ActionEvent event) {	
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/loginScene.fxml"));
@@ -176,6 +211,7 @@ public class MainInterfaceController implements Initializable{
 		contentBorderPane.setCenter(view);
     }
 
+    //******** Menu Buttons ************
 	@FXML
 	public void dashboardButton(MouseEvent event) {
 		System.out.println("Dashboard Clicked");
@@ -236,17 +272,36 @@ public class MainInterfaceController implements Initializable{
 		Pane view = CustomFxmlLoader.getPage("AccountsPage");
 		contentBorderPane.setCenter(view);
 	}
-
+	// **********************************
 	public Compte getUserAccount() {
 		return userAccount;
 	}
 
-	//lena yabda ejaw
 	
 	public void setUserAccount(Compte userAccount) {
 		this.userAccount = userAccount;
 		profilMenu.setText(userAccount.getEmployee().getPrenom());
-		
+		setMenu();
+	}
+	
+	public void setMenu() {
+		String role = userAccount.getEmployee().getRole();
+		switch(role) {
+			case "Administrateur": mymenu.getChildren().addAll(services, tools, ts, finance, tasks, projects, events, accounts);
+				break;
+			case "Chef Personnel": mymenu.getChildren().add(ts);
+				break;
+			case "Agent De Service": mymenu.getChildren().add(services);
+				break;
+			case "Gestionnaire de Magasin": mymenu.getChildren().add(tools);
+				break;
+			case "Financier": mymenu.getChildren().add(finance);
+				break;
+			case "Ingenieur d'Affaires": mymenu.getChildren().add(projects);
+				break;
+			case "Secretaire General": mymenu.getChildren().add(events);
+				break;
+		}
 	}
 	
 }

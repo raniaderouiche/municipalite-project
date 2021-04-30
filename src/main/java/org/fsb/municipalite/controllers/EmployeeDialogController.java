@@ -54,7 +54,7 @@ public class EmployeeDialogController implements Initializable{
     @FXML
     Label titleLabel;
     ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
-    ObservableList<String> roleList = FXCollections.observableArrayList("Personnel", "Chef Personnel", "Agent De Service","Gestionnaire de Magasin","Administrateur de l'Application","Financier","Ingenieur d'Affaires","Secretaire General");
+    ObservableList<String> roleList = FXCollections.observableArrayList("Administrateur", "Chef Personnel", "Agent De Service","Gestionnaire de Magasin","Financier","Ingenieur d'Affaires","Secretaire General");
     RadioButton selectedRadioButton;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -72,8 +72,8 @@ public class EmployeeDialogController implements Initializable{
         e.setSexe(((RadioButton)genderGroup.getSelectedToggle()).getText());
         e.setDateNaissance(dnPicker.getValue());
         e.setRole(roleChoiceBox.getValue());
-
     }
+    
     public void setEmpDialogPane(Employee e) {
     	selectedRadioButton = (RadioButton) genderGroup.getSelectedToggle();
     	nom_field.setText(e.getNom());

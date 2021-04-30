@@ -72,7 +72,7 @@
             </VBox>
             <VBox fx:id="mymenu" prefHeight="469.0" prefWidth="221.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="l1" onMousePressed="#dashboardButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Dashboard" textFill="WHITE">
+                  <Label fx:id="dashboard" onMousePressed="#dashboardButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Dashboard" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -92,7 +92,7 @@
                            </image></ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l2" onMouseClicked="#servicesButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Services" textFill="WHITE">
+                  <Label fx:id="services" onMouseClicked="#servicesButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Services" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -112,7 +112,7 @@
                            </image></ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l3" onMouseClicked="#toolsButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Tools" textFill="WHITE">
+                  <Label fx:id="tools" onMouseClicked="#toolsButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Tools" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -133,7 +133,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l4" onMouseClicked="#TeamsStaffButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Teams &amp; Staff" textFill="WHITE">
+                  <Label fx:id="ts" onMouseClicked="#TeamsStaffButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Teams &amp; Staff" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -154,7 +154,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l5" onMouseClicked="#FinanceButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Finance" textFill="WHITE">
+                  <Label fx:id="finance" onMouseClicked="#FinanceButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Finance" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -175,7 +175,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Label fx:id="l6" onMousePressed="#tasksButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Tasks" textFill="WHITE">
+                  <Label fx:id="tasks" onMousePressed="#tasksButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Tasks" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -196,7 +196,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="l7" onMouseClicked="#projectsButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Projects" textFill="WHITE">
+                  <Label fx:id="projects" onMouseClicked="#projectsButton" prefHeight="56.0" prefWidth="229.0" styleClass="menuLabel" text="Projects" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -217,7 +217,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="l8" onMouseClicked="#eventsButton" prefHeight="56.0" prefWidth="222.0" styleClass="menuLabel" text="Events" textFill="WHITE">
+                  <Label fx:id="events" onMouseClicked="#eventsButton" prefHeight="56.0" prefWidth="222.0" styleClass="menuLabel" text="Events" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
@@ -238,7 +238,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label layoutX="10.0" layoutY="341.0" onMouseClicked="#accountButton" prefHeight="56.0" prefWidth="222.0" styleClass="menuLabel" text="Accounts" textFill="WHITE">
+                  <Label fx:id="accounts" layoutX="10.0" layoutY="341.0" onMouseClicked="#accountButton" prefHeight="56.0" prefWidth="222.0" styleClass="menuLabel" text="Accounts" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="20.0" />
                      </font>
