@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintPageController">
+<BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintPageController">
    <center>
-      <VBox prefHeight="521.0" prefWidth="897.0">
+      <VBox alignment="TOP_RIGHT">
          <children>
-            <HBox prefHeight="47.0">
+            <HBox minHeight="-Infinity" prefHeight="50.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#onClickEventAdd" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Add">
                      <font>
@@ -28,7 +28,7 @@
                   </Button>
                   <Button mnemonicParsing="false" onAction="#UpdateComplaint" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Update">
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#onClickEventRemove" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Remove">
@@ -44,11 +44,11 @@
                         <Font size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Pane prefHeight="47.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <TextField fx:id="searchBox" prefHeight="34.0" prefWidth="239.0" promptText="Search.." styleClass="searchField">
+                  <Pane prefHeight="55.0" prefWidth="145.0" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="searchBox" minHeight="-Infinity" prefHeight="37.0" prefWidth="270.0" promptText="Search.." styleClass="searchField">
                      <HBox.margin>
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
@@ -58,7 +58,7 @@
                   </TextField>
                </children>
             </HBox>
-            <TableView fx:id="tableView" editable="true" onMouseClicked="#message1">
+            <TableView fx:id="tableView" editable="true" onMouseClicked="#message1" VBox.vgrow="ALWAYS">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
@@ -75,14 +75,25 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </TableView>
+            <Button mnemonicParsing="false" onAction="#selectAll" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </center>
    <top>
-      <Label prefHeight="21.0" prefWidth="131.0" styleClass="headers" text="Complaint" BorderPane.alignment="CENTER">
+      <Label prefHeight="25.0" prefWidth="326.0" styleClass="headers" text="Complaints" BorderPane.alignment="CENTER">
          <font>
             <Font name="Calibri Light" size="22.0" />
          </font>
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin>
       </Label>
    </top>
 </BorderPane>

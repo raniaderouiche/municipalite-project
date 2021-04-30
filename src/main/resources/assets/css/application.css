@@ -259,7 +259,7 @@
 .dialogTextFields{
 	-fx-background-radius:20;
 	-fx-font-family:Gilroy-Regular;
-	-fx-font-size : 18;
+	-fx-font-size : 17;
 	
 }
 .dialogShadow{
@@ -403,9 +403,6 @@
 
 */
 
-#msgLabel{
-	-fx-background-color : rgb(205, 231, 0);
-}
 
 .muniTextFields{
 	-fx-background-color: transparent;
@@ -493,4 +490,15 @@
   	-fx-text-fill: white;
   }
   
-  .choice-box .menu-item:focused { -fx-background-color: #6586b8; }
+  .choice-box .menu-item:focused {
+	-fx-background-color: #6586b8; 
+}
+  
+.textarea {
+    -fx-font-family:Gilroy-Regular;
+	-fx-font-size : 17;
+}
+
+.resetChoice .context-menu{
+		-fx-pref-width:500;
+}

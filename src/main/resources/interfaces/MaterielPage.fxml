@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielPageController">
+<BorderPane stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.MaterielPageController">
    <center>
       <VBox alignment="TOP_RIGHT">
          <children>
@@ -58,7 +58,7 @@
                   </TextField>
                </children>
             </HBox>
-            <TableView fx:id="tableView" editable="true">
+            <TableView fx:id="tableView" editable="true" VBox.vgrow="ALWAYS">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>

@@ -46,27 +46,26 @@ public class ResetByUser1Controller {
     void next(ActionEvent event) {
     	
     	CompteServiceImpl compteService = new CompteServiceImpl();
-		List<String> usernameList = compteService.selectAllInONEColumn("username");
-		try {
-			
-		
-		if(usernameList.contains(username.getText())) {
-	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ResetByUsername2.fxml"));
-	    	root = loader.load();
-	    	
-	    	ResetByUser2Controller ruc = loader.getController();
-			
-	    	//a3mlelna select by username
-	    	List<Compte> cList = compteService.selectAll();
-	    	for(Compte c : cList) {	
-	    		if(c.getUsername().equals(username.getText())) {
-	    	    	ruc.setCompte(c);
-	    	    	break;
-	    		}
-	    	}
-			stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
-	    	scene = new Scene(root);
-	    	stage.setScene(scene);
+    	List<String> usernameList = compteService.selectAllInONEColumn("username");
+    	try {
+
+    		if(usernameList.contains(username.getText())) {
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ResetByUsername2.fxml"));
+    			root = loader.load();
+
+    			ResetByUser2Controller ruc = loader.getController();
+
+    			//a3mlelna select by username
+    			List<Compte> cList = compteService.selectAll();
+    			for(Compte c : cList) {	
+    				if(c.getUsername().equals(username.getText())) {
+    					ruc.setCompte(c);
+    					break;
+    				}
+    			}
+    			stage =(Stage)((Node)event.getSource()).getScene().getWindow();		
+    			scene = new Scene(root);
+    			stage.setScene(scene);
 		}else {
 			inv_username.setVisible(true);
 		}

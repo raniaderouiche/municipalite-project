@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,8 +26,6 @@ import javafx.stage.Window;
 
 import org.fsb.municipalite.entities.Complaint;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -55,39 +53,34 @@ public class ComplaintPageController implements Initializable{
     TableColumn<Complaint, String> Subject;
     @FXML
     TableColumn<Complaint, Long> Cin; 
-    
-    
-    
-	ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
-    RadioButton selectedRadioButton;
+  
     public ObservableList<Complaint> data;
+    
     private double xOffset = 0;
     private double yOffset = 0;
 
-   @Override
-   public void initialize(URL location, ResourceBundle resources) {
-	    System.out.println("complaint page controller");
-	    Id.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("id"));
-        Version.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("version"));
-        Date.setCellValueFactory(new PropertyValueFactory<Complaint,LocalDateTime>("createdAt"));
-        Status.setCellValueFactory(new PropertyValueFactory<Complaint,Complaint.Etat>("etat"));
-        Name.setCellValueFactory(new PropertyValueFactory<Complaint,String>("nomCitoyen"));
-        Cin.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("cin"));
-        Subject.setCellValueFactory(new PropertyValueFactory<Complaint, String>("sujet"));
-        System.out.println(22);
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    	tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    	Id.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("id"));
+    	Version.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("version"));
+    	Date.setCellValueFactory(new PropertyValueFactory<Complaint,LocalDateTime>("createdAt"));
+    	Status.setCellValueFactory(new PropertyValueFactory<Complaint,Complaint.Etat>("etat"));
+    	Name.setCellValueFactory(new PropertyValueFactory<Complaint,String>("nomCitoyen"));
+    	Cin.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("cin"));
+    	Subject.setCellValueFactory(new PropertyValueFactory<Complaint, String>("sujet"));
 
-        ComplaintServiceImpl complaintService =new ComplaintServiceImpl();
-        List<Complaint> list = complaintService.selectAll();
-        data  =  FXCollections.observableArrayList();
-        for (Complaint c : list) {
-            data.addAll(c);
-        }
-        tableView.setItems(data);
-       searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
-           System.out.println("textfield changed from " + oldValue + " to " + newValue);
-           ListenerSearch(newValue);
-       });
-   	}
+    	ComplaintServiceImpl complaintService =new ComplaintServiceImpl();
+    	List<Complaint> list = complaintService.selectAll();
+    	data  =  FXCollections.observableArrayList();
+    	for (Complaint c : list) {
+    		data.addAll(c);
+    	}
+    	tableView.setItems(data);
+    	searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+    		ListenerSearch(newValue);
+    	});
+    }
 
     public boolean isNumeric(String str) {
         try {
@@ -150,7 +143,6 @@ public class ComplaintPageController implements Initializable{
     		Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
     		stage.getIcons().add(new Image("/assets/img/icon.png"));
 
-    		System.out.println("addComplaint clicked");
     		d.setDialogPane((DialogPane) compDialogPane);
     		d.setTitle("Add Complaint");
     		d.setResizable(false);
@@ -256,13 +248,14 @@ public class ComplaintPageController implements Initializable{
 	    	f.setLocation(getClass().getResource("/interfaces/ComplaintAddPage.fxml"));
 			Pane complaintDialogPane = f.load();
 			ComplaintDialogController edc = f.getController();
-	    	
+
 			if(tableView.getSelectionModel().getSelectedItem() != null) {
 				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
 				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
 		        Complaint test = complaintService.getById(c.getId());
 
 				edc.setComplaintDialogPane(test);
+				edc.titleLabel.setText("Update Complaint");
 				Dialog<ButtonType> d = new Dialog<>();
 				
 				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
@@ -273,6 +266,7 @@ public class ComplaintPageController implements Initializable{
 				d.setResizable(false);
 				d.initStyle(StageStyle.UNDECORATED);
 				
+				
 				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			           @Override
 			           public void handle(MouseEvent event) {
@@ -280,6 +274,7 @@ public class ComplaintPageController implements Initializable{
 			               yOffset = event.getSceneY();
 			           }
 					});
+				
 				complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			           @Override
 			           public void handle(MouseEvent event) {
@@ -324,7 +319,7 @@ public class ComplaintPageController implements Initializable{
 				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 				
 				//make name field first to be selected
-
+				
 				//apply button binder
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
 												edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
@@ -335,12 +330,11 @@ public class ComplaintPageController implements Initializable{
 												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
 												edc.msg.textProperty()));
 
-				
+
 				Optional<ButtonType> clickedButton = d.showAndWait();
 				if(clickedButton.get() == ButtonType.APPLY) {
 						
 						edc.getCurrentComplaint(test);
-						System.out.println(test);
 				        complaintService.update(test);
 				        monStock(event);
 				}
@@ -372,7 +366,6 @@ public class ComplaintPageController implements Initializable{
         }
     }
     
-
     public void message1(MouseEvent event) {
  	   try {
  	    	FXMLLoader f = new FXMLLoader();
@@ -466,6 +459,12 @@ public class ComplaintPageController implements Initializable{
  		   e.printStackTrace();
  	   }
     }
+    
+    @FXML
+	void selectAll(ActionEvent event) {
+		this.tableView.getSelectionModel().selectAll();
+	}
+    
 }
 
 
