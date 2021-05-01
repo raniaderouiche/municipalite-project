@@ -502,3 +502,12 @@
 .resetChoice .context-menu{
 		-fx-pref-width:500;
 }
+
+.msgLabelProperties{
+	-fx-background-radius:15;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-color: rgba(0, 0, 0, 0.842);
+    -fx-background-color: rgb(#F3F3F3);
+}

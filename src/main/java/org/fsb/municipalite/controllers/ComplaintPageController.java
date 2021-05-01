@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
@@ -36,6 +37,7 @@ import com.itextpdf.text.Header;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -92,15 +94,6 @@ public class ComplaintPageController implements Initializable{
     	});
     }
 
-    public boolean isNumeric(String str) {
-        try {
-            Long.parseLong(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
-
     public void ListenerSearch(String n){
         ComplaintServiceImpl complaintService =new ComplaintServiceImpl();
         data = FXCollections.observableArrayList();
@@ -127,7 +120,7 @@ public class ComplaintPageController implements Initializable{
         }
 
     }
-		
+
     @FXML
     public void monStock(ActionEvent event){
         tableView.getItems().clear();
@@ -181,7 +174,7 @@ public class ComplaintPageController implements Initializable{
     			}else
     				edc.labName.setVisible(false);
     		});
-
+    		
     		//cin field listener
     		edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
     			System.out.println("textfield changed from " + oldValue + " to " + newValue);
@@ -192,14 +185,15 @@ public class ComplaintPageController implements Initializable{
     		});
 
     		//subject listener
-    		edc.subject.textProperty().addListener((observable, oldValue, newValue) -> {
+    		edc.subject.textProperty().addListener((observable, oldValue, newValue) -> {    			
     			if(!isAlpha(newValue)) {
     				edc.labSubject.setVisible(true);
     			}else
-    				edc.labSubject.setVisible(false);
+    				edc.labSubject.setVisible(false);    				
     		});
     		edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
-				if(!isAlpha(newValue)) {
+    			edc.msgLength.setText(Integer.toString(edc.msg.getText().length())+"/3000");
+    			if(!isAlphaE(newValue)) {
 					edc.labMsg.setVisible(true);
 				}else
 					edc.labMsg.setVisible(false);
@@ -212,16 +206,16 @@ public class ComplaintPageController implements Initializable{
 
     		//apply button binder
     		d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
-    		edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
-    		edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
-    		edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
-    		edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
-    		!isAlpha(edc.name.getText()),
-    		edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
-    		edc.msg.textProperty()));
+	    		edc.name.getText().isEmpty() || !isAlpha(edc.name.getText())||
+				edc.cin.getText().isEmpty()||edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||				
+				edc.subject.getText().length() >60|| edc.subject.getText().isEmpty()||!isAlpha(edc.subject.getText())||
+				edc.msg.getText().length()>3000 ||edc.msg.getText().isEmpty()||!isAlphaE(edc.msg.getText()),												
+				edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
+				edc.msg.textProperty()));
+
 
     		Optional<ButtonType> clickedButton = d.showAndWait();
-
+    		System.out.println("COMPLAINT ABOUT TO BE ADDED !");
     		//new Complaint creation and addition
     		if (clickedButton.get() == ButtonType.APPLY) {
     			Complaint c = new Complaint();
@@ -246,10 +240,6 @@ public class ComplaintPageController implements Initializable{
     		e.printStackTrace();	
     	}
     }
-
-    public boolean isAlpha(String name) {
-	    return name.matches("[a-zA-Z ]+");
-	}
     
     @FXML
     public void UpdateComplaint(ActionEvent event) {
@@ -318,7 +308,7 @@ public class ComplaintPageController implements Initializable{
 				
 				//message Listener
 				edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
-					if(!isAlpha(newValue)) {
+					if(!isAlphaE(newValue)) {
 						edc.labMsg.setVisible(true);
 					}else
 						edc.labMsg.setVisible(false);
@@ -332,11 +322,10 @@ public class ComplaintPageController implements Initializable{
 				
 				//apply button binder
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
-												edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
-												edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
-												edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
-												edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
-												!isAlpha(edc.name.getText()),
+												edc.name.getText().isEmpty() || !isAlpha(edc.name.getText())||
+												edc.cin.getText().isEmpty()||edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||				
+												edc.subject.getText().length() >60|| edc.subject.getText().isEmpty()||!isAlpha(edc.subject.getText())||
+												edc.msg.getText().length()>3000 ||edc.msg.getText().isEmpty()||!isAlphaE(edc.msg.getText()),												
 												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
 												edc.msg.textProperty()));
 
@@ -376,7 +365,8 @@ public class ComplaintPageController implements Initializable{
         }
     }
     
-    public void message1(MouseEvent event) {
+    
+    public void message(MouseEvent event) {
  	   try {
  	    	FXMLLoader f = new FXMLLoader();
  	    	f.setLocation(getClass().getResource("/interfaces/ComplaintMsg.fxml"));
@@ -419,51 +409,18 @@ public class ComplaintPageController implements Initializable{
  			    			           }
  			    		            });
  			    				d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
- 			    				d.showAndWait();
- 			    				Window    window = d.getDialogPane().getScene().getWindow();
- 			    				window.setOnCloseRequest(event -> window.hide());
- 			    				
+ 			    				Optional<ButtonType> clickedButton = d.showAndWait();
+
+ 			    	    		//new Complaint creation and addition
+ 			    	    		if (clickedButton.get() == ButtonType.CLOSE) {
+ 			    	    			stage.close();
+ 			    	    		}
+ 			    	 			System.out.println("everything is well done");   				
  			            	}
  			            }
  			        }
  			    }
  			});
- 			if(tableView.getSelectionModel().getSelectedItem() != null) {
- 				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
- 				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
- 		        Complaint test = complaintService.getById(c.getId());
-
- 				edc.setComplaintMsgDialogPane(test);
- 				Dialog<ButtonType> d = new Dialog<>();
- 				
- 				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
- 				stage.getIcons().add(new Image("/assets/img/icon.png"));
- 				
- 				d.setDialogPane((DialogPane) complaintDialogPane);
- 				d.setTitle("Complaint message");
- 				d.setResizable(false);
- 				d.initStyle(StageStyle.UNDECORATED);
- 				
- 				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
- 			           @Override
- 			           public void handle(MouseEvent event) {
- 			               xOffset = event.getSceneX();
- 			               yOffset = event.getSceneY();
- 			           }
- 					});
- 				complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
- 			           @Override
- 			           public void handle(MouseEvent event) {
- 			               d.setX(event.getScreenX() - xOffset);
- 			               d.setY(event.getScreenY() - yOffset);
- 			           }
- 		            });
- 				d.showAndWait();
- 				System.out.println("everything is well done");
- 				d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
- 				
- 			}
- 			System.out.println("everything is well done");
          	
  	   }catch(Exception e) {
  		   e.printStackTrace();
@@ -483,64 +440,91 @@ public class ComplaintPageController implements Initializable{
 			Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
 	        Complaint test = complaintService.getById(c.getId());
 	        try {
-				Document document = new Document();
-				PdfWriter.getInstance(document, new FileOutputStream("C:/municipalityPrintedDocuments/"+Long.toString(test.getId())+".pdf"));
-				document.open();
-				//Image image = new Image.getInstance("/municipalite/src/main/resources/assets/img/Bizerte.jpg");
-				
-				Paragraph p1 = new Paragraph();
-				Paragraph p2 = new Paragraph();
-				Paragraph p3 = new Paragraph();
-				Paragraph p4 = new Paragraph();
-				Paragraph p5 = new Paragraph();
-				
-				Font municipalityName=new Font();
-				municipalityName.setStyle(Font.BOLD);
-				municipalityName.setSize(18);
-				
-				Font documentType=new Font();
-				documentType.setSize(14);
-				documentType.setStyle(Font.UNDERLINE);
-				
-				Font documentFooter=new Font();
-				
-				p1.add(m.getNom()+"\n");
-				p1.setAlignment(Element.ALIGN_CENTER);
-				p1.setFont(municipalityName);
-				document.add(p1);
-				
-				p2.add("Complaint");
-				p2.setAlignment(Element.ALIGN_CENTER);
-				p2.setFont(documentType);
-				document.add(p2);
-				
-				p3.add("Complaint Number : "+test.getId()+"\n");
-				p3.add("Date : "+test.getCreatedAt()+"\n");
-				p3.add("Citizen's name : "+test.getNomCitoyen()+"\n");
-				p3.add("Citizen's CIN: "+test.getCin()+"\n");
-				p3.add("Subject : "+test.getSujet()+"\n");
-				p3.add("\nBody :\n "+test.getMsg());
-				document.add(p3);
-				
-				p4.add(test.getMsg());
-				document.add(p4);
-				
-				p5.add("\nContact : \n");
-				p5.add("   number : "+m.getTel()+"\n");
-				p5.add("   email : "+m.getEmail()+"\n");
-				p5.add("   adress : "+m.getAdresse()+"\n");
-				p5.add("   web site : "+m.getWebsite()+"\n");
-				p5.setAlignment(Element.ALIGN_BOTTOM);
-				
-				document.add(p5);
-				document.close();
-				
+				DirectoryChooser dirChooser = new DirectoryChooser();
+			    dirChooser.setTitle("Select a folder");
+			    
+			    Window primaryStage = null;
+				File selectedDir = dirChooser.showDialog(primaryStage);
+				if(selectedDir != null){     
+					Document document = new Document();					
+					PdfWriter.getInstance(document, new FileOutputStream(selectedDir.getAbsolutePath()+"/Complaint"+Long.toString(test.getId())+".pdf"));
+					document.open();
+					
+					Paragraph p1 = new Paragraph();
+					Paragraph p2 = new Paragraph();
+					Paragraph p3 = new Paragraph();
+					Paragraph p4 = new Paragraph();
+					Paragraph p5 = new Paragraph();
+					
+					Font municipalityName=new Font();
+					municipalityName.setStyle(Font.BOLD);
+					municipalityName.setSize(18);
+					
+					Font documentType=new Font();
+					documentType.setSize(14);
+					documentType.setStyle(Font.UNDERLINE);
+					
+					Font documentFooter=new Font();
+					
+					p1.add(m.getNom()+"\n");
+					p1.setAlignment(Element.ALIGN_CENTER);
+					p1.setFont(municipalityName);
+					document.add(p1);
+					
+					p2.add("Complaint");
+					p2.setAlignment(Element.ALIGN_CENTER);
+					p2.setFont(documentType);
+					document.add(p2);
+					
+					p3.add("Complaint Number : "+test.getId()+"\n");
+					p3.add("Date : "+test.getCreatedAt()+"\n");
+					p3.add("Citizen's name : "+test.getNomCitoyen()+"\n");
+					p3.add("Citizen's CIN: "+test.getCin()+"\n");
+					p3.add("Subject : "+test.getSujet()+"\n");
+					p3.add("\nBody :\n "+test.getMsg());
+					document.add(p3);
+					
+					p4.add(test.getMsg());
+					document.add(p4);
+					
+					p5.add("\nContact : \n");
+					p5.add("   number : "+m.getTel()+"\n");
+					p5.add("   email : "+m.getEmail()+"\n");
+					p5.add("   adress : "+m.getAdresse()+"\n");
+					p5.add("   web site : "+m.getWebsite()+"\n");
+					p5.setAlignment(Element.ALIGN_BOTTOM);
+					document.add(p5);
+					
+					document.close();
+			
+				}
+						
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
 			System.out.println("itext PDF program executed");
     	}
     }
+
+    //the String contain just numbers
+    public boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+    
+    //the string should contain just character for a to z and A to Z
+    public boolean isAlpha(String name) {
+	    return name.matches("[a-zA-Z ]+");
+	}
+    
+    //you can write a string with a alphabetic \n character and numbers
+    public boolean isAlphaE(String name) {
+	    return name.matches("[a-zA-Z 0-9]+[a-zA-Z .',0-9\n]*");
+	}
 }
 
 

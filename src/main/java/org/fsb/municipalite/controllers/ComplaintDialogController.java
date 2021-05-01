@@ -40,7 +40,9 @@ public class ComplaintDialogController {
 	    @FXML
 	    Label labStatus;	     
 	    @FXML
-	    Label titleLabel; 
+	    Label titleLabel;
+	    @FXML
+	    Label msgLength;
 
 	    public void setComplaintDialogPane(Complaint c) {
 	    	name.setText(c.getNomCitoyen());

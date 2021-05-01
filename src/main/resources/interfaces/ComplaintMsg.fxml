@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="509.0" prefWidth="553.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintMsgController">
+<DialogPane prefHeight="509.0" prefWidth="553.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ComplaintMsgController">
    <content>
       <GridPane prefHeight="406.0" prefWidth="471.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="103.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="428.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
@@ -29,12 +29,15 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="msgLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="336.0" prefWidth="218.0" text="None" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="msgLabel" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="336.0" prefWidth="428.0" styleClass="msgLabelProperties" text="None" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets />
+                  <Insets bottom="10.0" top="10.0" />
                </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </Label>
-            <Label prefHeight="37.0" prefWidth="101.0" styleClass="dialogLabels" text="Body :" GridPane.rowIndex="1">
+            <Label alignment="TOP_LEFT" prefHeight="319.0" prefWidth="83.0" styleClass="dialogLabels" text="Body :" GridPane.rowIndex="1">
                <font>
                   <Font size="25.0" />
                </font>
@@ -42,7 +45,13 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="None" GridPane.columnIndex="1" />
+            <Label fx:id="subjectLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="msgLabelProperties" text="None" wrapText="true" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets left="5.0" />
+               </padding></Label>
          </children>
       </GridPane>
    </content>
