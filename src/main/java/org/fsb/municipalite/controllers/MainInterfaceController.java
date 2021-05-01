@@ -2,7 +2,6 @@ package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -82,7 +81,7 @@ public class MainInterfaceController implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//	mymenu.getChildren().removeAll(services, tools, ts, finance, tasks, projects, events, accounts);
+		mymenu.getChildren().removeAll(services, tools, ts, finance, tasks, projects, events, accounts);
 		dashboardButton(null);
 	}
 	@FXML

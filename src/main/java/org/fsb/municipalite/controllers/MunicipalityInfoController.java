@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.fsb.municipalite.dao.impl.MunicipaliteDaoImpl;
 import org.fsb.municipalite.entities.Municipalite;
 import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
 

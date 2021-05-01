@@ -484,7 +484,7 @@ public class ComplaintPageController implements Initializable{
 	        Complaint test = complaintService.getById(c.getId());
 	        try {
 				Document document = new Document();
-				PdfWriter.getInstance(document, new FileOutputStream("C:/Users/dre/Desktop/municipalityPrintedDocuments/"+Long.toString(test.getId())+".pdf"));
+				PdfWriter.getInstance(document, new FileOutputStream("C:/municipalityPrintedDocuments/"+Long.toString(test.getId())+".pdf"));
 				document.open();
 				//Image image = new Image.getInstance("/municipalite/src/main/resources/assets/img/Bizerte.jpg");
 				

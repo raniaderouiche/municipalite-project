@@ -1,10 +1,7 @@
 package org.fsb.municipalite.controllers;
 
 import org.fsb.municipalite.entities.Complaint;
-import org.fsb.municipalite.entities.Employee;
-import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Complaint.Etat;
-import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -44,20 +41,7 @@ public class ComplaintDialogController {
 	    Label labStatus;	     
 	    @FXML
 	    Label titleLabel; 
-	    
-	    public void setCurrentComplaint(Complaint complaint) {
-	    	complaint.setNomCitoyen(name.getText());
-	    	complaint.setSujet(subject.getText());
-	    	complaint.setCin(Long.parseLong(cin.getText()));
-	    	complaint.setMsg(msg.getText());
 
-	    	if (processed.isSelected()) {
-	    		complaint.setEtat(Complaint.Etat.processed);
-	    	}
-	    	if (unprocessed.isSelected()) {
-	    		complaint.setEtat(Complaint.Etat.unprocessed);	
-	    	}		    
-	    }
 	    public void setComplaintDialogPane(Complaint c) {
 	    	name.setText(c.getNomCitoyen());
 	    	cin.setText(Long.toString(c.getCin()));

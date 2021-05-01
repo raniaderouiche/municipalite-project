@@ -8,7 +8,6 @@ import org.fsb.municipalite.entities.Compte;
 import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
 import java.net.URL;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 

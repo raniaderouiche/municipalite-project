@@ -100,7 +100,4 @@ public class TacheDialogController implements Initializable{
     		
     }
 
-	
-
-
 }
