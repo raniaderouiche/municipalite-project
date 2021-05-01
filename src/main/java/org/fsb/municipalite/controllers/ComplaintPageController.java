@@ -1,5 +1,5 @@
 package org.fsb.municipalite.controllers;
-import javafx.beans.binding.Bindings;   
+import javafx.beans.binding.Bindings;    
 import javafx.collections.FXCollections;		
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,8 +25,18 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 import org.fsb.municipalite.entities.Complaint;
+import org.fsb.municipalite.entities.Municipalite;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
+import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Header;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -465,6 +475,72 @@ public class ComplaintPageController implements Initializable{
 		this.tableView.getSelectionModel().selectAll();
 	}
     
+    public void print() {
+    	MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();
+    	Municipalite m = mc.getById(Long.parseLong("47"));
+    	if (tableView.getSelectionModel().getSelectedItem() != null) {
+    		ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
+			Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
+	        Complaint test = complaintService.getById(c.getId());
+	        try {
+				Document document = new Document();
+				PdfWriter.getInstance(document, new FileOutputStream("C:/Users/dre/Desktop/municipalityPrintedDocuments/"+Long.toString(test.getId())+".pdf"));
+				document.open();
+				//Image image = new Image.getInstance("/municipalite/src/main/resources/assets/img/Bizerte.jpg");
+				
+				Paragraph p1 = new Paragraph();
+				Paragraph p2 = new Paragraph();
+				Paragraph p3 = new Paragraph();
+				Paragraph p4 = new Paragraph();
+				Paragraph p5 = new Paragraph();
+				
+				Font municipalityName=new Font();
+				municipalityName.setStyle(Font.BOLD);
+				municipalityName.setSize(18);
+				
+				Font documentType=new Font();
+				documentType.setSize(14);
+				documentType.setStyle(Font.UNDERLINE);
+				
+				Font documentFooter=new Font();
+				
+				p1.add(m.getNom()+"\n");
+				p1.setAlignment(Element.ALIGN_CENTER);
+				p1.setFont(municipalityName);
+				document.add(p1);
+				
+				p2.add("Complaint");
+				p2.setAlignment(Element.ALIGN_CENTER);
+				p2.setFont(documentType);
+				document.add(p2);
+				
+				p3.add("Complaint Number : "+test.getId()+"\n");
+				p3.add("Date : "+test.getCreatedAt()+"\n");
+				p3.add("Citizen's name : "+test.getNomCitoyen()+"\n");
+				p3.add("Citizen's CIN: "+test.getCin()+"\n");
+				p3.add("Subject : "+test.getSujet()+"\n");
+				p3.add("\nBody :\n "+test.getMsg());
+				document.add(p3);
+				
+				p4.add(test.getMsg());
+				document.add(p4);
+				
+				p5.add("\nContact : \n");
+				p5.add("   number : "+m.getTel()+"\n");
+				p5.add("   email : "+m.getEmail()+"\n");
+				p5.add("   adress : "+m.getAdresse()+"\n");
+				p5.add("   web site : "+m.getWebsite()+"\n");
+				p5.setAlignment(Element.ALIGN_BOTTOM);
+				
+				document.add(p5);
+				document.close();
+				
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+			System.out.println("itext PDF program executed");
+    	}
+    }
 }
 
 

@@ -82,7 +82,7 @@ public class MainInterfaceController implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		mymenu.getChildren().removeAll(services, tools, ts, finance, tasks, projects, events, accounts);
+		//	mymenu.getChildren().removeAll(services, tools, ts, finance, tasks, projects, events, accounts);
 		dashboardButton(null);
 	}
 	@FXML
