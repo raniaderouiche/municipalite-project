@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class playerController implements Initializable {
+public class PlayerController implements Initializable {
     @FXML
     WebView player;
 

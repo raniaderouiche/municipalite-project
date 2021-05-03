@@ -498,7 +498,7 @@ public class ComplaintPageController implements Initializable{
 			for(int i=0 ; i<5 ; i++) {
 				Desktop.getDesktop().browse(new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ").toURI());
 				Runtime runtime = Runtime.getRuntime();
-				TimeUnit.SECONDS.sleep(5);
+				TimeUnit.SECONDS.sleep(2);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
