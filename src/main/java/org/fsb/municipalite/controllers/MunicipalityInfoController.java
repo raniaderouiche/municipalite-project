@@ -174,7 +174,6 @@ public class MunicipalityInfoController implements Initializable{
 			
 		    if(municipalite.getWorkHours() != null) {
 				List<String> wHours = Arrays.asList(municipalite.getWorkHours().split(",").clone());
-				System.out.println(wHours);
 				everydayF.setText(wHours.get(0));
 				everydayU.setText(wHours.get(1));
 			    fridayF.setText(wHours.get(2));

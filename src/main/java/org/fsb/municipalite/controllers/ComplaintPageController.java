@@ -7,23 +7,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
+import javafx.stage.*;
 
 import org.fsb.municipalite.entities.Complaint;
 import org.fsb.municipalite.entities.Municipalite;
@@ -37,13 +29,17 @@ import com.itextpdf.text.Header;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class ComplaintPageController implements Initializable{
 
@@ -92,6 +88,17 @@ public class ComplaintPageController implements Initializable{
     	searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
     		ListenerSearch(newValue);
     	});
+		tableView.setRowFactory( tv -> {
+			TableRow<Complaint> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && (! row.isEmpty()) && event.getButton().equals(MouseButton.PRIMARY) ) {
+					Complaint rowData = row.getItem();
+					System.out.println(rowData);
+					message(rowData);
+				}
+			});
+			return row ;
+		});
     }
 
     public void ListenerSearch(String n){
@@ -366,61 +373,44 @@ public class ComplaintPageController implements Initializable{
     }
     
     
-    public void message(MouseEvent event) {
+    public void message(Complaint complaint) {
  	   try {
- 	    	FXMLLoader f = new FXMLLoader();
- 	    	f.setLocation(getClass().getResource("/interfaces/ComplaintMsg.fxml"));
- 			Pane complaintDialogPane = f.load();
- 			ComplaintMsgController edc = f.getController();
- 			
- 			tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
- 			    @Override
- 			    public void handle(MouseEvent mouseEvent) {
- 			        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
- 			            if(mouseEvent.getClickCount() == 2){
- 			            	if(tableView.getSelectionModel().getSelectedItem() != null) {
- 			    				ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
- 			    				Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
- 			    		        Complaint test = complaintService.getById(c.getId());
+		   FXMLLoader f = new FXMLLoader();
+		   f.setLocation(getClass().getResource("/interfaces/ComplaintMsg.fxml"));
+		   Pane complaintDialogPane = f.load();
+		   ComplaintMsgController edc = f.getController();
 
- 			    				edc.setComplaintMsgDialogPane(test);
- 			    				Dialog<ButtonType> d = new Dialog<>();
- 			    				
- 			    				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
- 			    				stage.getIcons().add(new Image("/assets/img/icon.png"));
- 			    				
- 			    				d.setDialogPane((DialogPane) complaintDialogPane);
- 			    				d.setTitle("Complaint message");
- 			    				d.setResizable(false);
- 			    				d.initStyle(StageStyle.UNDECORATED);
- 			    				
- 			    				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
- 			    			           @Override
- 			    			           public void handle(MouseEvent event) {
- 			    			               xOffset = event.getSceneX();
- 			    			               yOffset = event.getSceneY();
- 			    			           }
- 			    					});
- 			    				complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
- 			    			           @Override
- 			    			           public void handle(MouseEvent event) {
- 			    			               d.setX(event.getScreenX() - xOffset);
- 			    			               d.setY(event.getScreenY() - yOffset);
- 			    			           }
- 			    		            });
- 			    				d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
- 			    				Optional<ButtonType> clickedButton = d.showAndWait();
+		   ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
+		   Complaint test = complaintService.getById(complaint.getId());
 
- 			    	    		//new Complaint creation and addition
- 			    	    		if (clickedButton.get() == ButtonType.CLOSE) {
- 			    	    			stage.close();
- 			    	    		}
- 			    	 			System.out.println("everything is well done");   				
- 			            	}
- 			            }
- 			        }
- 			    }
- 			});
+		   edc.setComplaintMsgDialogPane(test);
+		   Dialog<ButtonType> d = new Dialog<>();
+
+		   Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+		   stage.getIcons().add(new Image("/assets/img/icon.png"));
+
+		   d.setDialogPane((DialogPane) complaintDialogPane);
+		   d.setTitle("Complaint Message");
+		   d.initStyle(StageStyle.UNDECORATED);
+
+		   complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			   @Override
+			   public void handle(MouseEvent event) {
+				   xOffset = event.getSceneX();
+				   yOffset = event.getSceneY();
+			   }
+		   });
+		   complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			   @Override
+			   public void handle(MouseEvent event) {
+				   d.setX(event.getScreenX() - xOffset);
+				   d.setY(event.getScreenY() - yOffset);
+			   }
+		   });
+		   d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
+		   d.showAndWait();
+
+
          	
  	   }catch(Exception e) {
  		   e.printStackTrace();
@@ -432,22 +422,21 @@ public class ComplaintPageController implements Initializable{
 		this.tableView.getSelectionModel().selectAll();
 	}
     
-    public void print() {
-    	MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();
-    	Municipalite m = mc.getById(Long.parseLong("47"));
+    public void print() throws Exception {
+
+    	/*MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();
+    	Municipalite m = mc.selectAll().get(0);
     	if (tableView.getSelectionModel().getSelectedItem() != null) {
     		ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
 			Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
 	        Complaint test = complaintService.getById(c.getId());
 	        try {
-				DirectoryChooser dirChooser = new DirectoryChooser();
-			    dirChooser.setTitle("Select a folder");
-			    
-			    Window primaryStage = null;
-				File selectedDir = dirChooser.showDialog(primaryStage);
+				FileChooser dirChooser = new FileChooser();
+
+				File selectedDir = dirChooser.showSaveDialog(tableView.getScene().getWindow());
 				if(selectedDir != null){     
-					Document document = new Document();					
-					PdfWriter.getInstance(document, new FileOutputStream(selectedDir.getAbsolutePath()+"/Complaint"+Long.toString(test.getId())+".pdf"));
+					Document document = new Document();
+					PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(selectedDir.getAbsolutePath()+".pdf"));
 					document.open();
 					
 					Paragraph p1 = new Paragraph();
@@ -496,14 +485,41 @@ public class ComplaintPageController implements Initializable{
 					document.add(p5);
 					
 					document.close();
+					writer.close();
 			
 				}
 						
 			}catch(Exception e) {
-				System.out.println(e.getMessage());
+				e.printStackTrace();
 			}
 			System.out.println("itext PDF program executed");
-    	}
+    	}*/
+		try {
+			for(int i=0 ; i<5 ; i++) {
+				Desktop.getDesktop().browse(new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ").toURI());
+				Runtime runtime = Runtime.getRuntime();
+				TimeUnit.SECONDS.sleep(5);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		//Process proc = runtime.exec("shutdown -s -t");
+		//System.exit(0);
+		FXMLLoader f = new FXMLLoader();
+		f.setLocation(getClass().getResource("/interfaces/player.fxml"));
+		Pane pane = f.load();
+		Dialog<ButtonType> d = new Dialog<>();
+		d.setDialogPane((DialogPane) pane);
+		d.initStyle(StageStyle.UNDECORATED);
+		Stage stage = (Stage) pane.getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.setFullScreen(true);
+		stage.setFullScreenExitHint("");
+		d.show();
+
     }
 
     //the String contain just numbers

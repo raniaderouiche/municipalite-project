@@ -1,4 +1,4 @@
-package org.fsb.municipalite.emailApi;
+package org.fsb.municipalite.APIs;
 
 
 import javax.mail.*;
@@ -11,7 +11,7 @@ public class SendMail {
     public static void sendRecupCode(String recipient,String code) {
 
         // Sender's email ID needs to be mentioned
-        String from = "achref.torjman@gmail.com";
+        String from = "bizerteMunicipality@gmail.com";
 
         // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";

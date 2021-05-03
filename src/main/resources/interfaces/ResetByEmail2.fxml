@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="550.0" prefWidth="828.0" spacing="15.0" styleClass="loginBackground" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ResetByEmail2Controller">
+<VBox alignment="CENTER" prefHeight="550.0" prefWidth="828.0" spacing="15.0" styleClass="loginBackground" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ResetByEmail2Controller">
    <children>
       <Label prefHeight="49.0" prefWidth="223.0" text="Enter the reset code " textFill="#7eff7a">
          <font>
