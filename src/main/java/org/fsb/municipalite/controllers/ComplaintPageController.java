@@ -7,39 +7,31 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.*;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import org.fsb.municipalite.entities.Complaint;
-import org.fsb.municipalite.entities.Municipalite;
 import org.fsb.municipalite.services.impl.ComplaintServiceImpl;
-import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Header;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-
-import java.awt.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 public class ComplaintPageController implements Initializable{
 
@@ -93,9 +85,11 @@ public class ComplaintPageController implements Initializable{
 			row.setOnMouseClicked(event -> {
 				if (event.getClickCount() == 2 && (! row.isEmpty()) && event.getButton().equals(MouseButton.PRIMARY) ) {
 					Complaint rowData = row.getItem();
-					System.out.println(rowData);
 					message(rowData);
 				}
+				if ((row.isEmpty()) && event.getButton().equals(MouseButton.PRIMARY) ) 
+					this.tableView.getSelectionModel().clearSelection();
+					
 			});
 			return row ;
 		});
@@ -422,105 +416,6 @@ public class ComplaintPageController implements Initializable{
 		this.tableView.getSelectionModel().selectAll();
 	}
     
-    public void print() throws Exception {
-
-    	/*MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();
-    	Municipalite m = mc.selectAll().get(0);
-    	if (tableView.getSelectionModel().getSelectedItem() != null) {
-    		ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
-			Complaint c = (Complaint) tableView.getSelectionModel().getSelectedItem();
-	        Complaint test = complaintService.getById(c.getId());
-	        try {
-				FileChooser dirChooser = new FileChooser();
-
-				File selectedDir = dirChooser.showSaveDialog(tableView.getScene().getWindow());
-				if(selectedDir != null){     
-					Document document = new Document();
-					PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(selectedDir.getAbsolutePath()+".pdf"));
-					document.open();
-					
-					Paragraph p1 = new Paragraph();
-					Paragraph p2 = new Paragraph();
-					Paragraph p3 = new Paragraph();
-					Paragraph p4 = new Paragraph();
-					Paragraph p5 = new Paragraph();
-					
-					Font municipalityName=new Font();
-					municipalityName.setStyle(Font.BOLD);
-					municipalityName.setSize(18);
-					
-					Font documentType=new Font();
-					documentType.setSize(14);
-					documentType.setStyle(Font.UNDERLINE);
-					
-					Font documentFooter=new Font();
-					
-					p1.add(m.getNom()+"\n");
-					p1.setAlignment(Element.ALIGN_CENTER);
-					p1.setFont(municipalityName);
-					document.add(p1);
-					
-					p2.add("Complaint");
-					p2.setAlignment(Element.ALIGN_CENTER);
-					p2.setFont(documentType);
-					document.add(p2);
-					
-					p3.add("Complaint Number : "+test.getId()+"\n");
-					p3.add("Date : "+test.getCreatedAt()+"\n");
-					p3.add("Citizen's name : "+test.getNomCitoyen()+"\n");
-					p3.add("Citizen's CIN: "+test.getCin()+"\n");
-					p3.add("Subject : "+test.getSujet()+"\n");
-					p3.add("\nBody :\n "+test.getMsg());
-					document.add(p3);
-					
-					p4.add(test.getMsg());
-					document.add(p4);
-					
-					p5.add("\nContact : \n");
-					p5.add("   number : "+m.getTel()+"\n");
-					p5.add("   email : "+m.getEmail()+"\n");
-					p5.add("   adress : "+m.getAdresse()+"\n");
-					p5.add("   web site : "+m.getWebsite()+"\n");
-					p5.setAlignment(Element.ALIGN_BOTTOM);
-					document.add(p5);
-					
-					document.close();
-					writer.close();
-			
-				}
-						
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-			System.out.println("itext PDF program executed");
-    	}*/
-		try {
-			for(int i=0 ; i<5 ; i++) {
-				Desktop.getDesktop().browse(new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ").toURI());
-				Runtime runtime = Runtime.getRuntime();
-				TimeUnit.SECONDS.sleep(2);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-
-		//Process proc = runtime.exec("shutdown -s -t");
-		//System.exit(0);
-		FXMLLoader f = new FXMLLoader();
-		f.setLocation(getClass().getResource("/interfaces/player.fxml"));
-		Pane pane = f.load();
-		Dialog<ButtonType> d = new Dialog<>();
-		d.setDialogPane((DialogPane) pane);
-		d.initStyle(StageStyle.UNDECORATED);
-		Stage stage = (Stage) pane.getScene().getWindow();
-		stage.setAlwaysOnTop(true);
-		stage.setFullScreen(true);
-		stage.setFullScreenExitHint("");
-		d.show();
-
-    }
 
     //the String contain just numbers
     public boolean isNumeric(String str) {

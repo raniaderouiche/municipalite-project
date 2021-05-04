@@ -7,23 +7,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
 
 import org.fsb.municipalite.entities.Autorisation;
 import org.fsb.municipalite.services.impl.AutorisationServiceImpl;
@@ -54,46 +51,34 @@ public class AutorisationPageController implements Initializable{
     @FXML
     TableColumn<Autorisation, Long> Cin; 
     
-    
-    
-	ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
-    RadioButton selectedRadioButton;
     public ObservableList<Autorisation> data;
     private double xOffset = 0;
     private double yOffset = 0;
 
    @Override
    public void initialize(URL location, ResourceBundle resources) {
-	    System.out.println(" Authorization page controller");
-	    Id.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("id"));
-        Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime>("createdAt"));
+	   tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+	   Id.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("id"));
+	   Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime>("createdAt"));
         Status.setCellValueFactory(new PropertyValueFactory<Autorisation,Autorisation.Etat>("etat"));
         Name.setCellValueFactory(new PropertyValueFactory<Autorisation,String>("nomCitoyen"));
         Cin.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("cin"));
         Subject.setCellValueFactory(new PropertyValueFactory<Autorisation, String>("sujet"));
-        System.out.println(22);
 
         AutorisationServiceImpl autorisationService =new AutorisationServiceImpl();
         List<Autorisation> list = autorisationService.selectAll();
         data  =  FXCollections.observableArrayList();
         for (Autorisation c : list) {
-            data.addAll(c);
+        	data.addAll(c);
         }
         tableView.setItems(data);
-       searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
-           System.out.println("textfield changed from " + oldValue + " to " + newValue);
-           ListenerSearch(newValue);
-       });
-   	}
+        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+        	ListenerSearch(newValue);
+        });
+        
+        
 
-    public boolean isNumeric(String str) {
-        try {
-            Long.parseLong(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
+   }
 
     public void ListenerSearch(String n){
     	AutorisationServiceImpl autorisationService =new AutorisationServiceImpl();
@@ -146,8 +131,7 @@ public class AutorisationPageController implements Initializable{
     		//this is just for adding an icon to the dialog pane
     		Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
     		stage.getIcons().add(new Image("/assets/img/icon.png"));
-
-    		System.out.println("add Authorization clicked");
+    		
     		d.setDialogPane((DialogPane) compDialogPane);
     		d.setTitle("Add Authorization");
     		d.setResizable(false);
@@ -179,7 +163,6 @@ public class AutorisationPageController implements Initializable{
 
     		//cin field listener
     		edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
-    			System.out.println("textfield changed from " + oldValue + " to " + newValue);
     			if(isNumeric(newValue) && newValue.length() == 8) {
     				edc.labCin.setVisible(false);
     			}else
@@ -238,10 +221,6 @@ public class AutorisationPageController implements Initializable{
     		e.printStackTrace();	
     	}
     }
-
-    public boolean isAlpha(String name) {
-	    return name.matches("[a-zA-Z ]+");
-	}
     
     @FXML
     public void UpdateAutorisation(ActionEvent event) {
@@ -366,105 +345,26 @@ public class AutorisationPageController implements Initializable{
         }
     }
     
+    
+    @FXML
+  	void selectAll(ActionEvent event) {
+  		this.tableView.getSelectionModel().selectAll();
+  	}
+    
 
-    @SuppressWarnings("unused")
-	public void message1(MouseEvent event) {
- 	   try {
- 	    	FXMLLoader f = new FXMLLoader();
- 	    	f.setLocation(getClass().getResource("/interfaces/AutorisationMsg.fxml"));
- 			Pane autorisationDialogPane = f.load();
- 			AutorisationMsgController edc = f.getController();
- 			
- 			tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
- 			    @SuppressWarnings("null")
-				@Override
- 			    public void handle(MouseEvent mouseEvent) {
- 			        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
- 			            if(mouseEvent.getClickCount() == 2){
- 			            	if(tableView.getSelectionModel().getSelectedItem() != null) {
- 			            		AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
- 			    				Autorisation c = (Autorisation) tableView.getSelectionModel().getSelectedItem();
- 			    				Autorisation test = autorisationService.getById(c.getId());
-
- 			    				edc.setAutorisationMsgDialogPane(test);
- 			    				Dialog<ButtonType> d = new Dialog<>();
- 			    				
- 			    				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
- 			    				stage.getIcons().add(new Image("/assets/img/icon.png"));
- 			    				
- 			    				d.setDialogPane((DialogPane) autorisationDialogPane);
- 			    				d.setTitle("Authorization message");
- 			    				d.setResizable(false);
- 			    				d.initStyle(StageStyle.UNDECORATED);
- 			    				
- 			    				Node autorisationDialogPane = null;
-								autorisationDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
- 			    			           @Override
- 			    			           public void handle(MouseEvent event) {
- 			    			               xOffset = event.getSceneX();
- 			    			               yOffset = event.getSceneY();
- 			    			           }
- 			    					});
- 			    				autorisationDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
- 			    			           @Override
- 			    			           public void handle(MouseEvent event) {
- 			    			               d.setX(event.getScreenX() - xOffset);
- 			    			               d.setY(event.getScreenY() - yOffset);
- 			    			           }
- 			    		            });
- 			    				d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
- 			    				d.showAndWait();
- 			    				Window    window = d.getDialogPane().getScene().getWindow();
- 			    				window.setOnCloseRequest(event -> window.hide());
- 			    				
- 			            	}
- 			            }
- 			        }
- 			    }
- 			});
- 			if(tableView.getSelectionModel().getSelectedItem() != null) {
- 				AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
- 				Autorisation c = (Autorisation) tableView.getSelectionModel().getSelectedItem();
- 				AutorisationServiceImpl autorisationService1 = new AutorisationServiceImpl();
-				Autorisation test = autorisationService1.getById(c.getId());
-
- 				edc.setAutorisationMsgDialogPane(test);
- 				Dialog<ButtonType> d = new Dialog<>();
- 				
- 				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
- 				stage.getIcons().add(new Image("/assets/img/icon.png"));
- 				
- 				
-				d.setDialogPane((DialogPane) autorisationDialogPane);
- 				d.setTitle("Authorization message");
- 				d.setResizable(false);
- 				d.initStyle(StageStyle.UNDECORATED);
- 				
- 				autorisationDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
- 			           @Override
- 			           public void handle(MouseEvent event) {
- 			               xOffset = event.getSceneX();
- 			               yOffset = event.getSceneY();
- 			           }
- 					});
- 				autorisationDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
- 			           @Override
- 			           public void handle(MouseEvent event) {
- 			               d.setX(event.getScreenX() - xOffset);
- 			               d.setY(event.getScreenY() - yOffset);
- 			           }
- 		            });
- 				d.showAndWait();
- 				System.out.println("everything is well done");
- 				d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
- 				
- 			}
- 			System.out.println("everything is well done");
-         	
- 	   }catch(Exception e) {
- 		   e.printStackTrace();
- 	   }
+    public boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
+
+    public boolean isAlpha(String name) {
+	    return name.matches("[a-zA-Z ]+");
+	}
+      
 }
 
 
