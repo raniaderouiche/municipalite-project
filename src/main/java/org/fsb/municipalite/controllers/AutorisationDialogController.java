@@ -3,7 +3,6 @@ package org.fsb.municipalite.controllers;
 import org.fsb.municipalite.entities.Autorisation;
 import org.fsb.municipalite.entities.Autorisation.Etat;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -41,47 +40,32 @@ public class AutorisationDialogController {
 	    @FXML
 	    Label labStatus;	     
 	    @FXML
-	    Label titleLabel; 
-	
-	    RadioButton selectedRadioButton;
-	    
+	    Label titleLabel;
 	    @FXML
-	    private ToggleGroup statusGroup;
-	    public void setCurrentAutorisation(Autorisation autorisation) {
-	    	autorisation.setNomCitoyen(name.getText());
-	    	autorisation.setSujet(subject.getText());
-	    	autorisation.setCin(Long.parseLong(cin.getText()));
-	    	autorisation.setMsg(msg.getText());
-		       
-		       if (processed.isSelected()) {
-		    	   autorisation.setEtat(Autorisation.Etat.processed);
-		       }
-	        if (unprocessed.isSelected()) {
-	        	autorisation.setEtat(Autorisation.Etat.unprocessed);	
-	        }		    
-	    }
-	    public void setAutorisationDialogPane(Autorisation c) {
-	    	name.setText(c.getNomCitoyen());
-	    	cin.setText(Long.toString(c.getCin()));
-	    	subject.setText(c.getSujet());
-	    	msg.setText(c.getMsg());
-	    	if(c.getEtat().equals(Etat.processed)) {
-	    		
+	    Label msgLength;
+
+	    public void setAutorisationDialogPane(Autorisation a) {
+	    	name.setText(a.getNomCitoyen());
+	    	cin.setText(Long.toString(a.getCin()));
+	    	subject.setText(a.getSujet());
+	    	msg.setText(a.getMsg());
+	    	if(a.getEtat().equals(Etat.processed)) {
 	    		processed.setSelected(true);
-	    	}else if(c.getEtat().equals(Etat.unprocessed)){
+	    	}else if(a.getEtat().equals(Etat.unprocessed)){
 	    		unprocessed.setSelected(true);
 	    	}
 	    }
-	    public void getCurrentAutorisation(Autorisation c) {
-	    	c.setNomCitoyen(name.getText());
-	    	c.setSujet(subject.getText());
-	    	c.setCin(Long.parseLong(cin.getText()));
-		    c.setMsg(msg.getText());
+	    public void getCurrentAutorisation(Autorisation a) {
+	    	// testie hne wzid kel label wzid listener
+	    	a.setNomCitoyen(name.getText());
+	    	a.setSujet(subject.getText());
+	    	a.setCin(Long.parseLong(cin.getText()));
+		    a.setMsg(msg.getText());
 	    	if(processed.isSelected()) {
-	    		c.setEtat(Etat.processed);
+	    		a.setEtat(Etat.processed);
 	    	}
 	    	if(unprocessed.isSelected()) {
-	    		c.setEtat(Etat.unprocessed);
+	    		a.setEtat(Etat.unprocessed);
 	    	}
 	    }
 }

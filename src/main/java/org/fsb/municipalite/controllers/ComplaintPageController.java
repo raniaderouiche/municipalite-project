@@ -42,8 +42,6 @@ public class ComplaintPageController implements Initializable{
     @FXML
     TableColumn<Complaint, Long> Id;
     @FXML
-    TableColumn<Complaint, Long> Version;
-    @FXML
     TableColumn<Complaint, LocalDateTime> Date;
     @FXML
     TableColumn<Complaint, Complaint.Etat> Status;
@@ -63,7 +61,6 @@ public class ComplaintPageController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
     	tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	Id.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("id"));
-    	Version.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("version"));
     	Date.setCellValueFactory(new PropertyValueFactory<Complaint,LocalDateTime>("createdAt"));
     	Status.setCellValueFactory(new PropertyValueFactory<Complaint,Complaint.Etat>("etat"));
     	Name.setCellValueFactory(new PropertyValueFactory<Complaint,String>("nomCitoyen"));
@@ -429,12 +426,12 @@ public class ComplaintPageController implements Initializable{
     
     //the string should contain just character for a to z and A to Z
     public boolean isAlpha(String name) {
-	    return name.matches("[a-zA-Z ]+");
+	    return name.matches("[a-zA-Z' ' ]+");
 	}
     
     //you can write a string with a alphabetic \n character and numbers
     public boolean isAlphaE(String name) {
-	    return name.matches("[a-zA-Z 0-9]+[a-zA-Z .',0-9\n]*");
+	    return name.matches("[a-zA-Z 0-9]+[a-zA-Z .',0-9\n' ']*");
 	}
 }
 

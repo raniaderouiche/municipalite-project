@@ -13,10 +13,12 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -25,8 +27,8 @@ import javafx.stage.StageStyle;
 import org.fsb.municipalite.entities.Autorisation;
 import org.fsb.municipalite.services.impl.AutorisationServiceImpl;
 
-
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -68,14 +70,26 @@ public class AutorisationPageController implements Initializable{
         AutorisationServiceImpl autorisationService =new AutorisationServiceImpl();
         List<Autorisation> list = autorisationService.selectAll();
         data  =  FXCollections.observableArrayList();
-        for (Autorisation c : list) {
-        	data.addAll(c);
+        for (Autorisation a : list) {
+        	data.addAll(a);
         }
         tableView.setItems(data);
         searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
         	ListenerSearch(newValue);
         });
-        
+        tableView.setRowFactory( tv -> {
+			TableRow<Autorisation> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && (! row.isEmpty()) && event.getButton().equals(MouseButton.PRIMARY) ) {
+					Autorisation rowData = row.getItem();
+					message(rowData);
+				}
+				if ((row.isEmpty()) && event.getButton().equals(MouseButton.PRIMARY) ) 
+					this.tableView.getSelectionModel().clearSelection();
+					
+			});
+			return row ;
+		});
         
 
    }
@@ -124,7 +138,7 @@ public class AutorisationPageController implements Initializable{
     	try {
     		FXMLLoader f = new FXMLLoader();
     		f.setLocation(getClass().getResource("/interfaces/AutorisationAddPage.fxml"));
-    		Pane compDialogPane = f.load();
+    		Pane autoDialogPane = f.load();
     		AutorisationDialogController edc = f.getController();
 
     		Dialog<ButtonType> d = new Dialog<>();
@@ -132,20 +146,20 @@ public class AutorisationPageController implements Initializable{
     		Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
     		stage.getIcons().add(new Image("/assets/img/icon.png"));
     		
-    		d.setDialogPane((DialogPane) compDialogPane);
+    		d.setDialogPane((DialogPane) autoDialogPane);
     		d.setTitle("Add Authorization");
     		d.setResizable(false);
     		d.initStyle(StageStyle.UNDECORATED);
 
     		//these two are for moving the window with the mouse
-    		compDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+    		autoDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
     			@Override
     			public void handle(MouseEvent event) {
     				xOffset = event.getSceneX();
     				yOffset = event.getSceneY();
     			}
     		});
-    		compDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+    		autoDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
     			@Override
     			public void handle(MouseEvent event) {
     				d.setX(event.getScreenX() - xOffset);
@@ -168,6 +182,13 @@ public class AutorisationPageController implements Initializable{
     			}else
     				edc.labCin.setVisible(true);
     		});
+    		edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
+    			edc.msgLength.setText(Integer.toString(edc.msg.getText().length())+"/255");
+    			if(!isAlphaE(newValue)) {
+					edc.labMsg.setVisible(true);
+				}else
+					edc.labMsg.setVisible(false);
+			});
 
     		//subject listener
     		edc.subject.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -190,7 +211,7 @@ public class AutorisationPageController implements Initializable{
     		edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
     		edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
     		edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
-    		edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
+    		edc.msg.getText().length()>255 || edc.subject.getText().isEmpty()||
     		!isAlpha(edc.name.getText()),
     		edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
     		edc.msg.textProperty()));
@@ -199,20 +220,20 @@ public class AutorisationPageController implements Initializable{
 
     		//new Autorisation creation and addition
     		if (clickedButton.get() == ButtonType.APPLY) {
-    			Autorisation c = new Autorisation();
-    			c.setNomCitoyen(edc.name.getText());
-    			c.setCin(Long.parseLong(edc.cin.getText()));
-    			c.setSujet(edc.subject.getText());
-    			c.setMsg(edc.msg.getText());
+    			Autorisation a = new Autorisation();
+    			a.setNomCitoyen(edc.name.getText());
+    			a.setCin(Long.parseLong(edc.cin.getText()));
+    			a.setSujet(edc.subject.getText());
+    			a.setMsg(edc.msg.getText());
     			if (edc.processed.isSelected()) {
-    				c.setEtat(Autorisation.Etat.processed);
+    				a.setEtat(Autorisation.Etat.processed);
     			}
     			if (edc.unprocessed.isSelected()) {
-    				c.setEtat(Autorisation.Etat.unprocessed);
+    				a.setEtat(Autorisation.Etat.unprocessed);
     			}
 
     			AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
-    			autorisationService.create(c);
+    			autorisationService.create(a);
     			System.out.println("Authorization ADDED !");
     			monStock(event);
     		}
@@ -303,7 +324,7 @@ public class AutorisationPageController implements Initializable{
 												edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
 												edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
 												edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
-												edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
+												edc.msg.getText().length()>255 || edc.subject.getText().isEmpty()||
 												!isAlpha(edc.name.getText()),
 												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
 												edc.msg.textProperty()));
@@ -346,24 +367,75 @@ public class AutorisationPageController implements Initializable{
     }
     
     
-    @FXML
-  	void selectAll(ActionEvent event) {
-  		this.tableView.getSelectionModel().selectAll();
-  	}
-    
+    public void message(Autorisation autorisation) {
+  	   try {
+ 		   FXMLLoader f = new FXMLLoader();
+ 		   f.setLocation(getClass().getResource("/interfaces/AutorisationMsg.fxml"));
+ 		   Pane AutorisationDialogPane = f.load();
+ 		  AutorisationMsgController edc = f.getController();
 
-    public boolean isNumeric(String str) {
-        try {
-            Long.parseLong(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
+ 		 AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
+ 		  Autorisation test = autorisationService.getById(autorisation.getId());
 
-    public boolean isAlpha(String name) {
-	    return name.matches("[a-zA-Z ]+");
-	}
+ 		   edc.setAutorisationMsgDialogPane(test);
+ 		   Dialog<ButtonType> d = new Dialog<>();
+
+ 		   Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+ 		   stage.getIcons().add(new Image("/assets/img/icon.png"));
+
+ 		   d.setDialogPane((DialogPane) AutorisationDialogPane);
+ 		   d.setTitle("Authorization Message");
+ 		   d.initStyle(StageStyle.UNDECORATED);
+
+ 		  AutorisationDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+ 			   @Override
+ 			   public void handle(MouseEvent event) {
+ 				   xOffset = event.getSceneX();
+ 				   yOffset = event.getSceneY();
+ 			   }
+ 		   });
+ 		 AutorisationDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+ 			   @Override
+ 			   public void handle(MouseEvent event) {
+ 				   d.setX(event.getScreenX() - xOffset);
+ 				   d.setY(event.getScreenY() - yOffset);
+ 			   }
+ 		   });
+ 		   d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
+ 		   d.showAndWait();
+
+
+          	
+  	   }catch(Exception e) {
+  		   e.printStackTrace();
+  	   }
+     }
+     
+     @FXML
+ 	void selectAll(ActionEvent event) {
+ 		this.tableView.getSelectionModel().selectAll();
+ 	}
+     
+
+     //the String contain just numbers
+     public boolean isNumeric(String str) {
+         try {
+             Long.parseLong(str);
+             return true;
+         } catch(NumberFormatException e){
+             return false;
+         }
+     }
+     
+     //the string should contain just character for a to z and A to Z
+     public boolean isAlpha(String name) {
+ 	    return name.matches("[a-zA-Z' ']+");
+ 	}
+     
+     //you can write a string with a alphabetic \n character and numbers
+     public boolean isAlphaE(String name) {
+ 	    return name.matches("[a-zA-Z 0-9]+[a-zA-Z .',0-9\n' ']*");
+ 	}
       
 }
 

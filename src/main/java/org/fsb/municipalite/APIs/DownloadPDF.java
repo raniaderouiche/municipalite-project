@@ -35,7 +35,7 @@ public class DownloadPDF {
                 Paragraph p2 = new Paragraph();
                 Paragraph p3 = new Paragraph();
                 Paragraph p4 = new Paragraph();
-                Paragraph p5 = new Paragraph();
+                
 
                 Font municipalityName=new Font();
                 municipalityName.setStyle(Font.BOLD);
@@ -52,29 +52,27 @@ public class DownloadPDF {
                 p1.setFont(municipalityName);
                 document.add(p1);
 
-                p2.add("Complaint");
+                p2.add("Complaint\n\n==================================================");
                 p2.setAlignment(Element.ALIGN_CENTER);
                 p2.setFont(documentType);
                 document.add(p2);
 
                 p3.add("Complaint Number : "+complaint.getId()+"\n");
-                p3.add("Date : "+complaint.getCreatedAt()+"\n");
                 p3.add("Citizen's name : "+complaint.getNomCitoyen()+"\n");
                 p3.add("Citizen's CIN: "+complaint.getCin()+"\n");
-                p3.add("Subject : "+complaint.getSujet()+"\n");
+                p3.add("\n\n\nSubject : "+complaint.getSujet()+"\n");
                 p3.add("\nBody :\n "+complaint.getMsg());
                 document.add(p3);
 
-                p4.add(complaint.getMsg());
+                p4.add("\nContact : \n");
+                p4.add("   number : "+m.getTel()+"\n");
+                p4.add("   email : "+m.getEmail()+"\n");
+                p4.add("   adress : "+m.getAdresse()+"\n");
+                p4.add("   web site : "+m.getWebsite()+"\n");
+                p4.add("\nDate : "+complaint.getCreatedAt().getDayOfMonth()+'/'+complaint.getCreatedAt().getMonthValue()+'/'+complaint.getCreatedAt().getYear()+"\n");
+                p4.add("\nSignature \n");
+                p4.setAlignment(Element.ALIGN_BOTTOM);
                 document.add(p4);
-
-                p5.add("\nContact : \n");
-                p5.add("   number : "+m.getTel()+"\n");
-                p5.add("   email : "+m.getEmail()+"\n");
-                p5.add("   adress : "+m.getAdresse()+"\n");
-                p5.add("   web site : "+m.getWebsite()+"\n");
-                p5.setAlignment(Element.ALIGN_BOTTOM);
-                document.add(p5);
 
                 document.close();
                 writer.close();
