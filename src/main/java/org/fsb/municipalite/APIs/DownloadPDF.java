@@ -5,6 +5,8 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.fsb.municipalite.entities.Complaint;
@@ -30,47 +32,42 @@ public class DownloadPDF {
                 Document document = new Document();
                 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(selectedDir.getAbsolutePath()+".pdf"));
                 document.open();
-
-                Paragraph p1 = new Paragraph();
-                Paragraph p2 = new Paragraph();
-                Paragraph p3 = new Paragraph();
-                Paragraph p4 = new Paragraph();
                 
+                Font documentType=new Font();
+                documentType.setSize(14);
 
                 Font municipalityName=new Font();
                 municipalityName.setStyle(Font.BOLD);
                 municipalityName.setSize(18);
-
-                Font documentType=new Font();
-                documentType.setSize(14);
-                documentType.setStyle(Font.UNDERLINE);
-
+                
                 Font documentFooter=new Font();
+                documentFooter.setSize(10);
+                
+                Paragraph p1 = new Paragraph(m.getNom()+"\n",municipalityName);
+                Paragraph p2 = new Paragraph("Complaint\n=========================================\n",documentType);
+                Paragraph p3 = new Paragraph();
+                Paragraph p4 = new Paragraph("\nContact : "+"   number : "+m.getTel()+"\n"+
+                		"   email : "+m.getEmail()+"\n"+"   adress : "+m.getAdresse()+"\n"+
+                		"   web site : "+m.getWebsite()+"\n"+
+                		"\nDate : "+complaint.getCreatedAt().getDayOfMonth()+'/'+complaint.getCreatedAt().getMonthValue()+'/'+complaint.getCreatedAt().getYear()+"\n"+
+                		"\nSignature \n",documentFooter);
+                
+                
 
-                p1.add(m.getNom()+"\n");
                 p1.setAlignment(Element.ALIGN_CENTER);
-                p1.setFont(municipalityName);
                 document.add(p1);
 
-                p2.add("Complaint\n\n==================================================");
                 p2.setAlignment(Element.ALIGN_CENTER);
-                p2.setFont(documentType);
                 document.add(p2);
-
+                
                 p3.add("Complaint Number : "+complaint.getId()+"\n");
                 p3.add("Citizen's name : "+complaint.getNomCitoyen()+"\n");
                 p3.add("Citizen's CIN: "+complaint.getCin()+"\n");
                 p3.add("\n\n\nSubject : "+complaint.getSujet()+"\n");
-                p3.add("\nBody :\n "+complaint.getMsg());
+                p3.add("\nBody :\n "+complaint.getMsg()+"\n\n");
                 document.add(p3);
-
-                p4.add("\nContact : \n");
-                p4.add("   number : "+m.getTel()+"\n");
-                p4.add("   email : "+m.getEmail()+"\n");
-                p4.add("   adress : "+m.getAdresse()+"\n");
-                p4.add("   web site : "+m.getWebsite()+"\n");
-                p4.add("\nDate : "+complaint.getCreatedAt().getDayOfMonth()+'/'+complaint.getCreatedAt().getMonthValue()+'/'+complaint.getCreatedAt().getYear()+"\n");
-                p4.add("\nSignature \n");
+                
+                document.add(new LineSeparator());
                 p4.setAlignment(Element.ALIGN_BOTTOM);
                 document.add(p4);
 
