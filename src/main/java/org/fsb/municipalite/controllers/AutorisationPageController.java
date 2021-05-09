@@ -29,6 +29,7 @@ import org.fsb.municipalite.services.impl.AutorisationServiceImpl;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -61,11 +62,11 @@ public class AutorisationPageController implements Initializable{
    public void initialize(URL location, ResourceBundle resources) {
 	   tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	   Id.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("id"));
-	   Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime>("createdAt"));
-        Status.setCellValueFactory(new PropertyValueFactory<Autorisation,Autorisation.Etat>("etat"));
-        Name.setCellValueFactory(new PropertyValueFactory<Autorisation,String>("nomCitoyen"));
-        Cin.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("cin"));
-        Subject.setCellValueFactory(new PropertyValueFactory<Autorisation, String>("sujet"));
+	   Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime >("createdAt"));
+       Status.setCellValueFactory(new PropertyValueFactory<Autorisation,Autorisation.Etat>("etat"));
+       Name.setCellValueFactory(new PropertyValueFactory<Autorisation,String>("nomCitoyen"));
+       Cin.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("cin"));
+       Subject.setCellValueFactory(new PropertyValueFactory<Autorisation, String>("sujet"));
 
         AutorisationServiceImpl autorisationService =new AutorisationServiceImpl();
         List<Autorisation> list = autorisationService.selectAll();

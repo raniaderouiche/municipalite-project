@@ -1,7 +1,5 @@
 package org.fsb.municipalite.controllers;
 
-
-
 import org.fsb.municipalite.entities.Autorisation;
 
 import org.fsb.municipalite.entities.Municipalite;
@@ -14,8 +12,10 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.ElementListener;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import java.io.File;
 
@@ -29,9 +29,11 @@ import javafx.fxml.FXML;
 	import javafx.scene.control.RadioButton;
 	import javafx.scene.control.TextField;
 	import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+
 
 public class AutorisationPrintController {
 
@@ -63,58 +65,53 @@ public class AutorisationPrintController {
 	                Document document = new Document();
 	                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(selectedDir.getAbsolutePath()+".pdf"));
 	                document.open();
-	                /*
-	                com.itextpdf.text.Image img=com.itextpdf.text.Image.getInstance("..\resources\\assets\\img\\bizertecover.png");
-					img.setAlignment(com.itextpdf.text.Image.ALIGN_RIGHT);
-					document.add(img);*/
+	                Font documentType=new Font();
+	                FontFactory.getFont(FontFactory.TIMES_ROMAN,14,Font.NORMAL,BaseColor.BLACK);
+	                documentType.setSize(14);
 	                
-	                Paragraph p1 = new Paragraph();
-	                Paragraph p2 = new Paragraph();
-	                Paragraph p3 = new Paragraph();
-	                Paragraph p4 = new Paragraph();
-
 	                Font municipalityName=new Font();
 	                municipalityName.setStyle(Font.BOLD);
 	                municipalityName.setStyle(Font.UNDERLINE);
 	                municipalityName.setSize(18);
-
-	                Font documentType=new Font();
-	                documentType.setSize(14);
-	                documentType.setStyle(Font.UNDERLINE);
-	                FontFactory.getFont(FontFactory.TIMES_ROMAN,14,Font.NORMAL,BaseColor.BLACK);					
-					
-					Font documentFooter=new Font();
-					
-	                p1.add(m.getNom()+"\n");
+	                
+	                Font documentFooter=new Font();
+	                documentFooter.setSize(10);
+	                Paragraph p0 = new Paragraph();
+	                Paragraph p1 = new Paragraph(null, FontFactory.getFont(FontFactory.HELVETICA, 10));
+	                Paragraph p2 = new Paragraph();
+	                Paragraph p3 = new Paragraph();
+	                Paragraph p4 = new Paragraph(null, FontFactory.getFont(FontFactory.HELVETICA, 10));
+	                	                
+	                
+	                p1.add("Tunisian republic\n"+m.getNom());
 	                p1.setAlignment(Element.ALIGN_CENTER);
 	                p1.setFont(municipalityName);
-	                FontFactory.getFont(FontFactory.TIMES_ROMAN,14,Font.NORMAL,BaseColor.BLACK);
-	                document.add(p1);
+	                             
 
-	                p2.add("Authorization\n \t\t\t\t\t==================================================");
+	                p2.add("\nAuthorization\n ======================================================");
 	                p2.setAlignment(Element.ALIGN_CENTER);
 	                p2.setFont(documentType);
-	                FontFactory.getFont(FontFactory.TIMES_ROMAN,14,Font.NORMAL,BaseColor.BLACK);
-	                document.add(p2);
 
 	                p3.add("\nAuthorization Number : "+auto.getId()+"\n");
 	                p3.add("Citizen's name : "+auto.getNomCitoyen()+"\n");
 	                p3.add("Citizen's CIN: "+auto.getCin()+"\n");
 	                p3.add("\nSubject :\n \t I hereby grant this authorization to "+auto.getSujet()+"\n");
-	                p3.add("\n\nBody :\n \t"+auto.getMsg());
-	                document.add(p3);
+	                p3.add("\n\nBody :\n \t"+auto.getMsg()+"\n\n");
+	                
 
-	                p4.add("\n \nContact : \n");
+	                p4.add("\nContact : \n");
 	                p4.add("   number : "+m.getTel()+"\n");
 	                p4.add("   email : "+m.getEmail()+"\n");
 	                p4.add("   adress : "+m.getAdresse()+"\n");
 	                p4.add("   web site : "+m.getWebsite()+"\n");
 	                p4.add("\nDate : "+auto.getCreatedAt().getDayOfMonth()+'/'+auto.getCreatedAt().getMonthValue()+'/'+auto.getCreatedAt().getYear()+"\n");
 	                p4.add("\nSignature \n");
-	                p4.setAlignment(Element.ALIGN_BOTTOM);
-	                FontFactory.getFont(FontFactory.TIMES_ROMAN,14,Font.NORMAL,BaseColor.BLACK);
-	                document.add(p4);
 	                
+	                document.add(p1);
+	                document.add(p2);
+	                document.add(p3);
+	                document.add(new LineSeparator());
+	                document.add(p4);
 	                document.close();
 	                writer.close();
 
