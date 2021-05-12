@@ -24,25 +24,22 @@
          </rowConstraints>
          <children>
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="61.0" prefWidth="79.0" styleClass="dialogLabels" text="Subject :">
-               <font>
-                  <Font size="25.0" />
-               </font>
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="msgLabel" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="379.0" prefWidth="469.0" styleClass="msgLabelProperties" text="None" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="msgLabel" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="379.0" prefWidth="469.0" styleClass="msgLabelProperties" text="None" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" top="10.0" />
                </GridPane.margin>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Label>
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="399.0" prefWidth="74.0" styleClass="dialogLabels" text="Body :" GridPane.rowIndex="1">
-               <font>
-                  <Font size="25.0" />
-               </font>
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -53,8 +50,11 @@
                </GridPane.margin>
                <padding>
                   <Insets left="5.0" />
-               </padding></Label>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#download" style="-fx-font-size: 15;" styleClass="CustomButtons" text="Download PDF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#download" prefHeight="38.0" prefWidth="227.0" style="-fx-font-size: 15;" styleClass="CustomButtons" text="Download PDF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </content>
@@ -63,7 +63,7 @@
    </buttonTypes>
    
    <header>
-      <Label alignment="CENTER" prefHeight="55.0" styleClass="dialogheader" text="Complaint's Content" textFill="WHITE">
+      <Label alignment="CENTER" prefHeight="55.0" styleClass="dialogheader" text="Print Complaint" textFill="WHITE">
          <font>
             <Font name="☞Gilroy-Regular" size="25.0" />
          </font>

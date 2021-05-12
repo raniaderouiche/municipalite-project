@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
@@ -9,31 +10,51 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="509.0" prefWidth="553.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.AutorisationMsgController">
+<DialogPane prefHeight="734.0" prefWidth="726.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.AutorisationMsgController">
    <content>
-      <GridPane prefHeight="600.0" prefWidth="600.0">
+      <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="620.0" prefWidth="500.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="103.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="428.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="399.0" minHeight="10.0" prefHeight="357.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="399.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="459.0" minHeight="10.0" prefHeight="459.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="399.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Message :">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="61.0" prefWidth="79.0" styleClass="dialogLabels" text="Subject :">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <Label fx:id="msgLabel" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="379.0" prefWidth="469.0" styleClass="msgLabelProperties" text="None" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
                <font>
-                  <Font size="25.0" />
+                  <Font size="18.0" />
                </font>
+            </Label>
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="399.0" prefWidth="74.0" styleClass="dialogLabels" text="Body :" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="18.0" />
+                  <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="msgLabel" prefHeight="348.0" prefWidth="490.0" text="Label" GridPane.rowIndex="1">
+            <Label fx:id="subjectLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="msgLabelProperties" text="None" wrapText="true" GridPane.columnIndex="1">
                <GridPane.margin>
-                  <Insets left="25.0" right="18.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </GridPane.margin>
-            </Label>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#download" prefHeight="38.0" prefWidth="227.0" style="-fx-font-size: 15;" styleClass="CustomButtons" text="Download PDF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </content>
@@ -42,7 +63,7 @@
    </buttonTypes>
    
    <header>
-      <Label alignment="CENTER" prefHeight="55.0" styleClass="dialogheader" text="Authorization Message" textFill="WHITE">
+      <Label alignment="CENTER" prefHeight="55.0" styleClass="dialogheader" text="Print Authorization" textFill="WHITE">
          <font>
             <Font name="☞Gilroy-Regular" size="25.0" />
          </font>

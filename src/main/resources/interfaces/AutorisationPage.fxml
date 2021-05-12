@@ -59,6 +59,7 @@
                </children>
             </HBox>
             <TableView fx:id="tableView" editable="true" VBox.vgrow="ALWAYS">
+            
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
