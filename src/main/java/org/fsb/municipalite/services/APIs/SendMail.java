@@ -1,4 +1,4 @@
-package org.fsb.municipalite.APIs;
+package org.fsb.municipalite.services.APIs;
 
 
 import javax.mail.*;

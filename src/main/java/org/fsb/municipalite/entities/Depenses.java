@@ -13,21 +13,29 @@ public class Depenses extends BaseEntity{
     public Depenses() {
     }
 
-    public String getSecteurDep() {
-        return secteur_dep;
-    }
-
-    public void setSecteurDep(String secteur_dep) {
+    public void setSecteur_dep(String secteur_dep) {
         this.secteur_dep = secteur_dep;
     }
 
-    public LocalDate getDateDep() { return date_dep; }
+    public void setDate_dep(LocalDate date_dep) {
+        this.date_dep = date_dep;
+    }
 
-    public void setDateDep(LocalDate date_dep) { this.date_dep = date_dep; }
+    public void setSomme_dep(long somme_dep) {
+        this.somme_dep = somme_dep;
+    }
 
-    public long getSommeDep() { return somme_dep; }
+    public String getSecteur_dep() {
+        return secteur_dep;
+    }
 
-    public void setSommeDep(long somme_dep) { this.somme_dep = somme_dep; }
+    public LocalDate getDate_dep() {
+        return date_dep;
+    }
+
+    public long getSomme_dep() {
+        return somme_dep;
+    }
 
     @Override
     public String toString() {

@@ -2,7 +2,7 @@ package org.fsb.municipalite.controllers;
 
 
 import javafx.event.ActionEvent;
-import org.fsb.municipalite.APIs.DownloadPDF;
+import org.fsb.municipalite.services.APIs.DownloadPDF;
 import org.fsb.municipalite.entities.Complaint;
 
 import javafx.fxml.FXML;

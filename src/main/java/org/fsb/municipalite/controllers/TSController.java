@@ -260,7 +260,6 @@ public class TSController implements Initializable {
 			edc.prenom_field.textProperty().addListener((observable, oldValue, newValue) -> {
 				if(!isAlpha(newValue)) {
 					edc.inv_last.setVisible(true);
-					System.out.println(edc.nom_field.getText());
 				}else
 					edc.inv_last.setVisible(false);
 			});

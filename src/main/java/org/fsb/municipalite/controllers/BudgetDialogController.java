@@ -9,30 +9,32 @@ import org.fsb.municipalite.entities.Budget;
 
 public class BudgetDialogController  {
 
-    @FXML Label titleLabel;
-    @FXML TextField secteur;
-    @FXML TextField budget;
-    @FXML TextField source;
+    @FXML
+    Label titleLabel;
+    @FXML
+    TextField secteur;
+    @FXML
+    TextField budget;
+    @FXML
+    TextField year;
 
-    @FXML TextField year;
-    @FXML Label inv_sec;
-    @FXML Label inv_budget;
-    @FXML Label inv_budgetdate;
-
-
+    @FXML
+    Label inv_sec;
+    @FXML
+    Label inv_budget;
+    @FXML
+    Label inv_budgetdate;
 
 
     public void setCurrentBudget(Budget b){
         b.setSecteur(secteur.getText());
         b.setBudget(Long.parseLong(budget.getText()));
-        b.setSource(source.getText());
         b.setYear(year.getText());
     }
 
     public void setBudgetDialogPane(Budget b){
         secteur.setText(b.getSecteur());
         budget.setText(b.getBudget() +"");
-        source.setText(b.getSource());
         year.setText(b.getYear());
     }
 

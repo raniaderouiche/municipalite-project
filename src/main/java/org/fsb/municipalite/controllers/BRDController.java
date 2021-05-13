@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.fsb.municipalite.entities.Budget;
 import org.fsb.municipalite.entities.Depenses;
 import org.fsb.municipalite.entities.Revenus;
@@ -67,16 +68,15 @@ public class BRDController implements Initializable {
     @FXML
     TextField depSearchField;
     @FXML
-    TableView<Depenses> depTable;
+    TableView<Depenses> depensesTable;
     @FXML
     TableColumn<Depenses, Long> id_dep;
     @FXML
     TableColumn<Depenses, Long> somme_dep;
     @FXML
-    TableColumn<Depenses, LocalDateTime> date_dep;
+    TableColumn<Depenses, LocalDate> date_dep;
     @FXML
     TableColumn<Depenses, String> secteur_dep;
-
 
     public ObservableList<Depenses> DepData;
 
@@ -84,16 +84,14 @@ public class BRDController implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //load revenus
         revenusTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         id_revenus.setCellValueFactory(new PropertyValueFactory<Revenus, Long>("id"));
-        source_rev.setCellValueFactory(new PropertyValueFactory<Revenus, String>("secteur"));
-        date_rev.setCellValueFactory(new PropertyValueFactory<Revenus, String>("date"));
-        somme_rev.setCellValueFactory(new PropertyValueFactory<Revenus, Long>("somme"));
-
+        source_rev.setCellValueFactory(new PropertyValueFactory<Revenus, String>("source_rev"));
+        date_rev.setCellValueFactory(new PropertyValueFactory<Revenus, String>("date_rev"));
+        somme_rev.setCellValueFactory(new PropertyValueFactory<Revenus, Long>("somme_rev"));
 
         RevenusServiceImpl revenusService = new RevenusServiceImpl();
         List<Revenus> revenuslist = revenusService.selectAll();
@@ -134,22 +132,16 @@ public class BRDController implements Initializable {
 
         //search listener budgets
         budSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("textfield changed from " + oldValue + " to " + newValue);
             ListenerSearchBudgets(newValue);
         });
 
 
-        //search listener depenses
-        depSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("textfield changed from " + oldValue + " to " + newValue);
-            DepListenerSearch(newValue);
-        });
         //load depenses
-        depTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        depensesTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         id_dep.setCellValueFactory(new PropertyValueFactory<Depenses,Long>("id"));
-        secteur_dep.setCellValueFactory(new PropertyValueFactory<Depenses,String>("secteur"));
-        date_dep.setCellValueFactory(new PropertyValueFactory<Depenses, LocalDateTime>("date"));
-        somme_dep.setCellValueFactory(new PropertyValueFactory<Depenses,Long>("somme"));
+        secteur_dep.setCellValueFactory(new PropertyValueFactory<Depenses,String>("secteur_dep"));
+        date_dep.setCellValueFactory(new PropertyValueFactory<Depenses, LocalDate>("date_dep"));
+        somme_dep.setCellValueFactory(new PropertyValueFactory<Depenses,Long>("somme_dep"));
 
 
         DepensesServiceImpl depensesService = new DepensesServiceImpl();
@@ -160,24 +152,14 @@ public class BRDController implements Initializable {
             DepData.add(e);
         }
 
-        depTable.setItems(DepData);
+        //search listener depenses
+        depSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            DepListenerSearch(newValue);
+        });
+
+        depensesTable.setItems(DepData);
     }
 
-
-    public void refreshRev(ActionEvent event) {
-        revSearchField.clear();
-        revenusTable.getItems().clear();
-        RevenusServiceImpl revenusService = new RevenusServiceImpl();
-        List<Revenus> listR = revenusService.selectAll();
-        RevenusData = FXCollections.observableArrayList();
-
-        for(Revenus e : listR){
-            RevenusData.add(e);
-        }
-
-        revenusTable.setItems(RevenusData);
-
-    }
     private void ListenerSearchRevenus(String newValue) {
         RevenusServiceImpl revenusService = new RevenusServiceImpl();
         RevenusData = FXCollections.observableArrayList();
@@ -185,10 +167,10 @@ public class BRDController implements Initializable {
         if(!(newValue.equals(""))){
             if(isAlpha(newValue)){
                 //Source search
-                list = revenusService.selectLike("source","'"+newValue+"%'");
+                list = revenusService.selectLike("SOURCE_REV","'"+newValue+"%'");
                 //Date search
                 if (list.isEmpty()){
-                    list = revenusService.selectLike("date","'"+newValue+"%'");
+                    list = revenusService.selectLike("DATE_REV","'"+newValue+"%'");
                     for(Revenus e : list){
                         RevenusData.add(e);
                     }
@@ -206,8 +188,49 @@ public class BRDController implements Initializable {
             }
             revenusTable.setItems(RevenusData);
         }
+        else{
+            list = revenusService.selectAll();
+            for(Revenus r : list){
+                RevenusData.add(r);
+            }
+            revenusTable.setItems(RevenusData);
+        }
     }
-
+    private void DepListenerSearch(String newValue) {
+        DepensesServiceImpl depensesService = new DepensesServiceImpl();
+        DepData = FXCollections.observableArrayList();
+        List<Depenses> list;
+        if(!(newValue.equals(""))){
+            if(isAlpha(newValue)){
+                //secteur search
+                list = depensesService.selectLike("SECTEUR_DEP","'"+newValue+"%'");
+                //year search
+                if (list.isEmpty()){
+                    list = depensesService.selectLike("DATE_DEP","'"+newValue+"%'");
+                    for(Depenses e : list){
+                        DepData.add(e);
+                    }
+                }
+                for(Depenses e : list){
+                    DepData.add(e);
+                }
+            }
+            //id search
+            else {
+                list = depensesService.selectLike("id", newValue);
+                for(Depenses e : list){
+                    DepData.add(e);
+                }
+            }
+            depensesTable.setItems(DepData);
+        }else{
+            list = depensesService.selectAll();
+            for(Depenses d : list){
+                DepData.add(d);
+            }
+            depensesTable.setItems(DepData);
+        }
+    }
     private void ListenerSearchBudgets(String newValue) {
         BudgetServiceImpl budgetService = new BudgetServiceImpl();
         BudgetsData = FXCollections.observableArrayList();
@@ -236,10 +259,29 @@ public class BRDController implements Initializable {
             }
             budgetTable.setItems(BudgetsData);
         }
+        else{
+            list = budgetService.selectAll();
+            for(Budget e : list){
+                BudgetsData.add(e);
+            }
+            budgetTable.setItems(BudgetsData);
+        }
     }
 
+    public void refreshRev(ActionEvent event) {
+        revSearchField.clear();
+        revenusTable.getItems().clear();
+        RevenusServiceImpl revenusService = new RevenusServiceImpl();
+        List<Revenus> listR = revenusService.selectAll();
+        RevenusData = FXCollections.observableArrayList();
 
-    @FXML
+        for(Revenus e : listR){
+            RevenusData.add(e);
+        }
+
+        revenusTable.setItems(RevenusData);
+
+    }
     public void refreshBud(ActionEvent event) {
         budSearchField.clear();
         budgetTable.getItems().clear();
@@ -254,39 +296,9 @@ public class BRDController implements Initializable {
         budgetTable.setItems(BudgetsData);
 
     }
-    private void DepListenerSearch(String newValue) {
-        DepensesServiceImpl depensesService = new DepensesServiceImpl();
-        DepData = FXCollections.observableArrayList();
-        List<Depenses> list;
-        if(!(newValue.equals(""))){
-            if(isAlpha(newValue)){
-                //secteur search
-                list = depensesService.selectLike("secteur","'"+newValue+"%'");
-                //year search
-                if (list.isEmpty()){
-                    list = depensesService.selectLike("date","'"+newValue+"%'");
-                    for(Depenses e : list){
-                        DepData.add(e);
-                    }
-                }
-                for(Depenses e : list){
-                    DepData.add(e);
-                }
-            }
-            //id search
-            else {
-                list = depensesService.selectLike("id", newValue);
-                for(Depenses e : list){
-                    DepData.add(e);
-                }
-            }
-            depTable.setItems(DepData);
-        }
-    }
-
     public void refreshDep(ActionEvent event) {
         depSearchField.clear();
-        depTable.getItems().clear();
+        depensesTable.getItems().clear();
         DepensesServiceImpl depensesService = new DepensesServiceImpl();
         List<Depenses> list = depensesService.selectAll();
         DepData = FXCollections.observableArrayList();
@@ -294,225 +306,9 @@ public class BRDController implements Initializable {
         for(Depenses e : list){
             DepData.add(e);
         }
-        depTable.setItems(DepData);
+        depensesTable.setItems(DepData);
 
     }
-
-    public void addRev(ActionEvent event) {
-        try{
-            FXMLLoader f = new FXMLLoader();
-            f.setLocation(getClass().getResource("/interfaces/RevenusDialog.fxml"));
-            Pane revDialogPane = f.load();
-            RevenusDialogController edc = f.getController();
-
-            Dialog<ButtonType> d = new Dialog<>();
-
-
-            d.setDialogPane((DialogPane) revDialogPane);
-            d.setTitle("Add revenu");
-            d.setResizable(false);
-            d.initStyle(StageStyle.UNDECORATED);
-
-            revDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    xOffset = event.getSceneX();
-                    yOffset = event.getSceneY();
-                }
-            });
-
-            revDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    d.setX(event.getScreenX() - xOffset);
-                    d.setY(event.getScreenY() - yOffset);
-                }
-            });
-
-            //listeners
-            edc.source_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isAlpha(newValue)) {
-                    edc.inv_source.setVisible(true);
-                }else
-                    edc.inv_source.setVisible(false);
-            });
-
-
-            edc.somme_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isNumeric(newValue)) {
-                    edc.inv_somme.setVisible(false);
-                }else
-                    edc.inv_somme.setVisible(true);
-            });
-
-            edc.date_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isNumeric(newValue) ) {
-                    edc.inv_revdate.setVisible(false);
-                }else
-                    edc.inv_revdate.setVisible(true);
-
-            });
-
-
-            //to apply css on the dialog pane buttons
-            d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
-            d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
-
-            //make date field first to be selected
-            edc.date_rev.requestFocus();
-            //apply button binder
-            d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getText() == null ||
-                                    !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || !isNumeric(edc.date_rev.getText()),
-                    edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.textProperty()));
-
-
-            Optional<ButtonType> clickedButton = d.showAndWait();
-            //new revenu creation and addition
-            if (clickedButton.get() == ButtonType.APPLY){
-                RevenusServiceImpl revenusService = new RevenusServiceImpl();
-                Revenus revenus = new Revenus();
-                edc.setCurrentRevenus(revenus);
-
-                revenusService.create(revenus);
-                refreshRev(event);
-            }
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void updateRev(ActionEvent event) {
-        try{
-            FXMLLoader f = new FXMLLoader();
-            f.setLocation(getClass().getResource("/interfaces/RevenusDialog.fxml"));
-            Pane RevDialogPane = f.load();
-            RevenusDialogController edc = f.getController();
-
-            if(revenusTable.getSelectionModel().getSelectedItem() != null){
-                RevenusServiceImpl revenusService = new RevenusServiceImpl();
-                Revenus selectedRevenus = (Revenus) revenusTable.getSelectionModel().getSelectedItem();
-                Revenus revenus = revenusService.getById(selectedRevenus.getId());
-
-                edc.setRevenusDialogPane(revenus);
-                edc.titleLabel.setText("Update revenus");
-
-                Dialog<ButtonType> d = new Dialog<>();
-
-                d.setDialogPane((DialogPane) RevDialogPane);
-                d.setTitle("Add revenus");
-                d.setResizable(false);
-                d.initStyle(StageStyle.UNDECORATED);
-
-                RevDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        xOffset = event.getSceneX();
-                        yOffset = event.getSceneY();
-                    }
-                });
-
-                RevDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        d.setX(event.getScreenX() - xOffset);
-                        d.setY(event.getScreenY() - yOffset);
-                    }
-                });
-
-                edc.source_rev.requestFocus();
-
-                //to apply css on the dialog pane buttons
-                d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
-                d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
-
-                //listeners
-                edc.source_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isAlpha(newValue)) {
-                        edc.inv_source.setVisible(true);
-                    }else
-                        edc.inv_source.setVisible(false);
-                });
-
-                edc.somme_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isNumeric(newValue)) {
-                        edc.inv_somme.setVisible(false);
-                    }else
-                        edc.inv_somme.setVisible(true);
-                });
-
-                edc.date_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(newValue != null) {
-                        if(!isNumeric(newValue)) {
-                            edc.inv_revdate.setVisible(true);
-                        }
-                        else {
-                            edc.inv_revdate.setVisible(false);
-                        }
-                    }
-                });
-
-                //apply button binder
-                d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                                edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getText() == null ||
-                                        !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || !isNumeric(edc.date_rev.getText()),
-                        edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.textProperty()));
-
-
-                Optional<ButtonType> clickedButton = d.showAndWait();
-
-                if (clickedButton.get() == ButtonType.APPLY){
-                    edc.setCurrentRevenus(revenus);
-                    revenusService.update(revenus);
-                    refreshRev(event);
-                }
-            }
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteRev(ActionEvent event) {
-        if(revenusTable.getSelectionModel().getSelectedItem() != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-            alert.setTitle("Delete revenus?");
-            alert.setHeaderText(null);
-            alert.setContentText("Are you Sure You Want to Delete Selected revenu(s) ?");
-            Optional <ButtonType> action = alert.showAndWait();
-            if(action.get() == ButtonType.OK) {
-                RevenusData = revenusTable.getSelectionModel().getSelectedItems();
-                for(Revenus e : RevenusData){
-                    RevenusServiceImpl revenusService = new RevenusServiceImpl();
-                    revenusService.remove(e.getId());
-                }
-                refreshRev(event);
-            }
-        }
-    }
-
-
-//*******
-    public boolean isNumeric(String str) {
-        try {
-            Long.parseLong(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
-    public boolean isAlpha(String name) {
-        return name.matches("[a-zA-Z ]+");
-    }
-//*********
-
-
-
-
-
-
 
     public void addBud(ActionEvent event) {
         try{
@@ -553,7 +349,7 @@ public class BRDController implements Initializable {
 
             //listeners
             edc.secteur.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isAlpha(newValue)) {
+                if(!isAlpha(newValue)) {
                     edc.inv_sec.setVisible(true);
                 }else
                     edc.inv_sec.setVisible(false);
@@ -561,28 +357,26 @@ public class BRDController implements Initializable {
 
 
             edc.budget.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isNumeric(newValue)) {
-                    edc.inv_budget.setVisible(false);
-                }else
+                if(!isNumeric(newValue)) {
                     edc.inv_budget.setVisible(true);
+                }else
+                    edc.inv_budget.setVisible(false);
             });
 
             edc.year.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isNumeric(newValue) || newValue.length()!=4) {
-                    edc.inv_budgetdate.setVisible(false);
-                }else
+                if(!isNumeric(newValue) && newValue.length()!=4) {
                     edc.inv_budgetdate.setVisible(true);
-
+                }else
+                    edc.inv_budgetdate.setVisible(false);
             });
 
 
 
             //apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            edc.secteur.getText().isEmpty() || edc.budget.getText().isEmpty() || edc.year.getText() == null ||
+                            edc.secteur.getText().isEmpty() || edc.budget.getText().isEmpty() || edc.year.getText().isEmpty() ||
                                     !isNumeric(edc.budget.getText()) || !isAlpha(edc.secteur.getText()) || !isNumeric(edc.year.getText()),
                     edc.secteur.textProperty(),  edc.budget.textProperty(), edc.year.textProperty()));
-
 
             Optional<ButtonType> clickedButton = d.showAndWait();
 
@@ -590,7 +384,6 @@ public class BRDController implements Initializable {
                 BudgetServiceImpl budgetService = new BudgetServiceImpl();
                 Budget budget = new Budget();
                 edc.setCurrentBudget(budget);
-
                 budgetService.create(budget);
                 refreshBud(event);
             }
@@ -599,7 +392,6 @@ public class BRDController implements Initializable {
             e.printStackTrace();
         }
     }
-
     public void updateBud(ActionEvent event) {
         try{
             FXMLLoader f = new FXMLLoader();
@@ -690,7 +482,6 @@ public class BRDController implements Initializable {
             e.printStackTrace();
         }
     }
-
     public void deleteBud(ActionEvent event) {
         if(budgetTable.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -712,6 +503,198 @@ public class BRDController implements Initializable {
         }
     }
 
+    public void addRev(ActionEvent event) {
+        try{
+            FXMLLoader f = new FXMLLoader();
+            f.setLocation(getClass().getResource("/interfaces/RevenusDialog.fxml"));
+            Pane revDialogPane = f.load();
+            RevenusDialogController edc = f.getController();
+
+            Dialog<ButtonType> d = new Dialog<>();
+
+
+            d.setDialogPane((DialogPane) revDialogPane);
+            d.setTitle("Add revenu");
+            d.setResizable(false);
+            d.initStyle(StageStyle.UNDECORATED);
+
+            revDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    xOffset = event.getSceneX();
+                    yOffset = event.getSceneY();
+                }
+            });
+
+            revDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    d.setX(event.getScreenX() - xOffset);
+                    d.setY(event.getScreenY() - yOffset);
+                }
+            });
+
+            //listeners
+            edc.source_rev.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(!isAlpha(newValue)) {
+                    edc.inv_source.setVisible(true);
+                }else
+                    edc.inv_source.setVisible(false);
+            });
+
+
+            edc.somme_rev.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(isNumeric(newValue)) {
+                    edc.inv_somme.setVisible(false);
+                }else
+                    edc.inv_somme.setVisible(true);
+            });
+
+            edc.date_rev.textProperty().addListener((observable, oldValue, newValue) -> {
+                if(isNumeric(newValue) ) {
+                    edc.inv_revdate.setVisible(false);
+                }else
+                    edc.inv_revdate.setVisible(true);
+
+            });
+
+
+            //to apply css on the dialog pane buttons
+            d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+            d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+
+            //make date field first to be selected
+            edc.source_rev.requestFocus();
+            //apply button binder
+            d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+                            edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getText() == null ||
+                                    !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || !isNumeric(edc.date_rev.getText()),
+                    edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.textProperty()));
+
+
+            Optional<ButtonType> clickedButton = d.showAndWait();
+            //new revenu creation and addition
+            if (clickedButton.get() == ButtonType.APPLY){
+                RevenusServiceImpl revenusService = new RevenusServiceImpl();
+                Revenus revenus = new Revenus();
+                edc.setCurrentRevenus(revenus);
+                System.out.println(revenus);
+                revenusService.create(revenus);
+                refreshRev(event);
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void updateRev(ActionEvent event) {
+        try{
+            FXMLLoader f = new FXMLLoader();
+            f.setLocation(getClass().getResource("/interfaces/RevenusDialog.fxml"));
+            Pane RevDialogPane = f.load();
+            RevenusDialogController edc = f.getController();
+
+            if(revenusTable.getSelectionModel().getSelectedItem() != null){
+                RevenusServiceImpl revenusService = new RevenusServiceImpl();
+                Revenus selectedRevenus = (Revenus) revenusTable.getSelectionModel().getSelectedItem();
+                Revenus revenus = revenusService.getById(selectedRevenus.getId());
+
+                edc.setRevenusDialogPane(revenus);
+                edc.titleLabel.setText("Update revenus");
+
+                Dialog<ButtonType> d = new Dialog<>();
+
+                d.setDialogPane((DialogPane) RevDialogPane);
+                d.setTitle("Add revenus");
+                d.setResizable(false);
+                d.initStyle(StageStyle.UNDECORATED);
+
+                RevDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        xOffset = event.getSceneX();
+                        yOffset = event.getSceneY();
+                    }
+                });
+
+                RevDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        d.setX(event.getScreenX() - xOffset);
+                        d.setY(event.getScreenY() - yOffset);
+                    }
+                });
+
+                edc.source_rev.requestFocus();
+
+                //to apply css on the dialog pane buttons
+                d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
+                d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
+
+                //listeners
+                edc.source_rev.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if(!isAlpha(newValue)) {
+                        edc.inv_source.setVisible(true);
+                    }else
+                        edc.inv_source.setVisible(false);
+                });
+
+                edc.somme_rev.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if(!isNumeric(newValue)) {
+                        edc.inv_somme.setVisible(false);
+                    }else
+                        edc.inv_somme.setVisible(true);
+                });
+
+                edc.date_rev.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue != null) {
+                        if(!isNumeric(newValue)) {
+                            edc.inv_revdate.setVisible(true);
+                        }
+                        else {
+                            edc.inv_revdate.setVisible(false);
+                        }
+                    }
+                });
+
+                //apply button binder
+                d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+                                edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getText() == null ||
+                                        !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || !isNumeric(edc.date_rev.getText()),
+                        edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.textProperty()));
+
+
+                Optional<ButtonType> clickedButton = d.showAndWait();
+
+                if (clickedButton.get() == ButtonType.APPLY){
+                    edc.setCurrentRevenus(revenus);
+                    revenusService.update(revenus);
+                    refreshRev(event);
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void deleteRev(ActionEvent event) {
+        if(revenusTable.getSelectionModel().getSelectedItem() != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alert.setTitle("Delete revenus?");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you Sure You Want to Delete Selected revenu(s) ?");
+            Optional <ButtonType> action = alert.showAndWait();
+            if(action.get() == ButtonType.OK) {
+                RevenusData = revenusTable.getSelectionModel().getSelectedItems();
+                for(Revenus e : RevenusData){
+                    RevenusServiceImpl revenusService = new RevenusServiceImpl();
+                    revenusService.remove(e.getId());
+                }
+                refreshRev(event);
+            }
+        }
+    }
 
     public void addDep(ActionEvent event) {
         try{
@@ -752,7 +735,7 @@ public class BRDController implements Initializable {
 
             //listeners
             edc.secteur_dep.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isAlpha(newValue)) {
+                if(!isAlpha(newValue)) {
                     edc.inv_depsec.setVisible(true);
                 }else
                     edc.inv_depsec.setVisible(false);
@@ -760,29 +743,28 @@ public class BRDController implements Initializable {
 
 
             edc.somme_dep.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isNumeric(newValue)) {
-                    edc.inv_depsomme.setVisible(false);
-                }else
+                if(!isNumeric(newValue)) {
                     edc.inv_depsomme.setVisible(true);
+                }else
+                    edc.inv_depsomme.setVisible(false);
             });
 
             edc.date_dep.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue != null) {
                     if(newValue.isBefore(LocalDate.now())) {
-                        edc.inv_depdate.setVisible(false);}
+                        edc.inv_depdate.setVisible(true);
+                    }
                     else{
-                        edc.inv_depdate.setVisible(true);}
+                        edc.inv_depdate.setVisible(false);
+                    }
 
                 }});
-
-
 
             //apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
                             edc.secteur_dep.getText().isEmpty() || edc.somme_dep.getText().isEmpty() || edc.date_dep.getValue() == null ||
-                                    !isNumeric(edc.somme_dep.getText()) || !isAlpha(edc.secteur_dep.getText()) || edc.date_dep.getValue().isBefore(LocalDate.now()),
+                                    !isNumeric(edc.somme_dep.getText()) || !isAlpha(edc.secteur_dep.getText()) || edc.date_dep.getValue().isBefore(LocalDate.now()) ,
                     edc.secteur_dep.textProperty(),  edc.somme_dep.textProperty(), edc.date_dep.valueProperty()));
-
 
             Optional<ButtonType> clickedButton = d.showAndWait();
 
@@ -799,7 +781,6 @@ public class BRDController implements Initializable {
             e.printStackTrace();
         }
     }
-
     public void updateDep(ActionEvent event) {
         try{
             FXMLLoader f = new FXMLLoader();
@@ -807,9 +788,9 @@ public class BRDController implements Initializable {
             Pane depDialogPane = f.load();
             DepensesDialogController edc = f.getController();
 
-            if(depTable.getSelectionModel().getSelectedItem() != null){
+            if(depensesTable.getSelectionModel().getSelectedItem() != null){
                 DepensesServiceImpl depensesService = new DepensesServiceImpl();
-                Depenses selectedEvent = (Depenses) depTable.getSelectionModel().getSelectedItem();
+                Depenses selectedEvent = (Depenses) depensesTable.getSelectionModel().getSelectedItem();
                 Depenses depenses = depensesService.getById(selectedEvent.getId());
 
                 edc.setDepensesDialogPane(depenses);
@@ -890,9 +871,8 @@ public class BRDController implements Initializable {
             e.printStackTrace();
         }
     }
-
     public void removeDep(ActionEvent event) {
-        if(depTable.getSelectionModel().getSelectedItem() != null) {
+        if(depensesTable.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             //this is just for adding an icon to the dialog pane
@@ -902,7 +882,7 @@ public class BRDController implements Initializable {
             alert.setContentText("Are you Sure You Want to Delete Selected Depenses ?");
             Optional <ButtonType> action = alert.showAndWait();
             if(action.get() == ButtonType.OK) {
-                DepData = depTable.getSelectionModel().getSelectedItems();
+                DepData = depensesTable.getSelectionModel().getSelectedItems();
                 for(Depenses e : DepData){
                     DepensesServiceImpl depenseService = new DepensesServiceImpl();
                     depenseService.remove(e.getId());
@@ -911,6 +891,23 @@ public class BRDController implements Initializable {
             }
         }
     }
+
+
+    //*******
+    public boolean isNumeric(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+    public boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z ]+");
+    }
+//*********
+
+
 }
 
 

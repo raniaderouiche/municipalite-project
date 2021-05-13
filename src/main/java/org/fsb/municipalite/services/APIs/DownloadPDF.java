@@ -1,4 +1,4 @@
-package org.fsb.municipalite.APIs;
+package org.fsb.municipalite.services.APIs;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -15,8 +15,6 @@ import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 
 public class DownloadPDF {

@@ -29,9 +29,9 @@
                                         <TableView fx:id="budgetTable" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                             <columns>
                                                 <TableColumn fx:id="id_budget" prefWidth="120.0" text="Id" />
-                                                <TableColumn fx:id="year" prefWidth="158.0" text="Year" />
-                                                <TableColumn fx:id="budget" prefWidth="52.0" text="Budget" />
                                                 <TableColumn fx:id="secteur" minWidth="-Infinity" prefWidth="179.0" text="Secteur" />
+                                                <TableColumn fx:id="budget" prefWidth="52.0" text="Budget" />
+                                                <TableColumn fx:id="year" prefWidth="158.0" text="Year" />
                                             </columns>
                                             <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -110,8 +110,8 @@
                                         <TableView fx:id="revenusTable" VBox.vgrow="ALWAYS">
                                             <columns>
                                                 <TableColumn fx:id="id_revenus" prefWidth="75.0" text="Id" />
-                                                <TableColumn fx:id="date_rev" prefWidth="103.0" text="Date" />
                                                 <TableColumn fx:id="source_rev" minWidth="0.0" prefWidth="0.0" text="Source" />
+                                                <TableColumn fx:id="date_rev" prefWidth="103.0" text="Date" />
                                                 <TableColumn fx:id="somme_rev" prefWidth="665.0" text="Sum" />
                                             </columns>
                                             <columnResizePolicy>
@@ -201,6 +201,7 @@
                                         <TableView fx:id="depensesTable" prefHeight="625.0" prefWidth="999.0" VBox.vgrow="ALWAYS">
                                             <columns>
                                                 <TableColumn fx:id="id_dep" prefWidth="103.0" text="Id" />
+                                    <TableColumn fx:id="somme_dep" prefWidth="109.0" text="Somme" />
                                                 <TableColumn fx:id="date_dep" prefWidth="109.0" text="Date" />
                                                 <TableColumn fx:id="secteur_dep" prefWidth="52.0" text="Secteur" />
                                             </columns>
