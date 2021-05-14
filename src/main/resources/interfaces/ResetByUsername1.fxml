@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="550.0" prefWidth="828.0" spacing="20.0" styleClass="loginBackground" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ResetByUser1Controller">
+<VBox alignment="CENTER" prefHeight="550.0" prefWidth="828.0" spacing="15.0" styleClass="loginBackground" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ResetByUser1Controller">
    <children>
-      <Label prefHeight="49.0" prefWidth="200.0" text="Enter your username" textFill="#7eff7a">
+      <Label prefHeight="49.0" prefWidth="213.0" text="Enter your username" textFill="#7eff7a">
          <font>
-            <Font name="☞Gilroy-Regular" size="21.0" />
+            <Font name="☞Gilroy-Regular" size="22.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="828.0" spacing="20.0">
          <children>
-            <TextField fx:id="username" maxWidth="-Infinity" minWidth="-Infinity" onAction="#next" prefHeight="41.0" prefWidth="557.0" promptText="username" />
+            <JFXTextField fx:id="username" focusColor="#75b7f8" onAction="#next" prefHeight="43.0" prefWidth="412.0" promptText="username" unFocusColor="#2989ff">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="18.0" />
+               </font>
+            </JFXTextField>
          </children>
       </HBox>
       <Label fx:id="inv_username" text="Invalid username" textFill="#ff6464" visible="false">
@@ -25,8 +29,8 @@
          </font></Label>
       <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="828.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#back" prefHeight="40.0" prefWidth="113.0" text="Back" />
-            <Button mnemonicParsing="false" onAction="#next" prefHeight="40.0" prefWidth="113.0" text="Next" />
+            <JFXButton onAction="#back" prefHeight="41.0" prefWidth="83.0" styleClass="resetButtons" text="Back" />
+            <JFXButton onAction="#next" prefHeight="41.0" prefWidth="83.0" ripplerFill="#90ff50" styleClass="resetButtons" text="Next" />
          </children>
       </HBox>
    </children>

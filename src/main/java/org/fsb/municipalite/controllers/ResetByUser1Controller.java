@@ -3,6 +3,7 @@ package org.fsb.municipalite.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import com.jfoenix.controls.JFXTextField;
 import org.fsb.municipalite.entities.Compte;
 import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
@@ -13,7 +14,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ResetByUser1Controller {
@@ -23,7 +23,7 @@ public class ResetByUser1Controller {
 	private Parent root;
 	
     @FXML
-    private TextField username;
+    private JFXTextField username;
 
     @FXML
     private Label inv_username;

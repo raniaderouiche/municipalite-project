@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class SendMail {
 
-    public static void sendRecupCode(String recipient,String code) {
+    public static void sendRecupCode(String recipient,String code) throws Exception{
 
         // Sender's email ID needs to be mentioned
         String from = "bizerteMunicipality@gmail.com";
@@ -39,30 +39,28 @@ public class SendMail {
         // Used to debug SMTP issues
         session.setDebug(true);
 
-        try {
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
 
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
+        // Create a default MimeMessage object.
+        MimeMessage message = new MimeMessage(session);
 
-            // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+        // Set From: header field of the header.
+        message.setFrom(new InternetAddress(from));
 
-            // Set Subject: header field
-            message.setSubject("Account Verification");
+        // Set To: header field of the header.
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 
-            // Now set the actual message
-            message.setText("Your Verification Code : " + code);
+        // Set Subject: header field
+        message.setSubject("Account Verification");
 
-            System.out.println("sending...");
-            // Send message
-            Transport.send(message);
-            System.out.println("Sent message successfully....");
+        // Now set the actual message
+        message.setText("Your Verification Code : " + code);
 
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-        }
+        System.out.println("sending...");
+        // Send message
+        Transport.send(message);
+        System.out.println("Sent message successfully....");
+
+
     }
 
 }

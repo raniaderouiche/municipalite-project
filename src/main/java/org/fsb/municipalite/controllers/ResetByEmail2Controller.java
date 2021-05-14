@@ -2,6 +2,7 @@ package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,14 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.fsb.municipalite.entities.Compte;
 
 public class ResetByEmail2Controller {
 
     @FXML
-    private TextField code;
+    private JFXTextField code;
 
     @FXML
     private Label incorrect;
