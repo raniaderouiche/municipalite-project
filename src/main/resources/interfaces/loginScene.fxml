@@ -42,7 +42,7 @@
             </PasswordField>
             <MaterialDesignIconView fill="#ffffffc6" glyphName="ACCOUNT" size="45" wrappingWidth="15.0" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <GridPane.margin>
-                  <Insets right="50.0" top="20.0" />
+                  <Insets right="50.0" top="15.0" />
                </GridPane.margin>
             </MaterialDesignIconView>
             <MaterialDesignIconView fill="#ffffffc6" glyphName="LOCK" size="45" wrappingWidth="15.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">

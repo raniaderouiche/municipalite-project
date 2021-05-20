@@ -21,7 +21,8 @@ public class App extends Application {
         Image icon = new Image("/assets/img/icon.png");
         stage.setScene(scene);
         stage.getIcons().add(icon);
-		stage.setTitle("Bizerte Municipality");
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Bizerte Municipality");
         stage.show();
     }
 

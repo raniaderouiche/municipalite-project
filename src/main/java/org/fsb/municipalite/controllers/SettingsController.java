@@ -93,6 +93,7 @@ public class SettingsController implements Initializable {
     }
 
     public void editPassword(ActionEvent event) {
+
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Enter Password");
         dialog.setContentText("Password :");

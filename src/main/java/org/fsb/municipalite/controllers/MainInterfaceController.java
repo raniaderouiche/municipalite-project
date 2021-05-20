@@ -37,8 +37,9 @@ public class MainInterfaceController implements Initializable{
     @FXML
     private MenuButton profilMenu;
     @FXML
+	private Label currentPageTitle;
+    @FXML
     private Label dashboard;
-
     @FXML
     private Label services;
 
@@ -213,63 +214,65 @@ public class MainInterfaceController implements Initializable{
     //******** Menu Buttons ************
 	@FXML
 	public void dashboardButton(MouseEvent event) {
-		System.out.println("Dashboard Clicked");
-		
 		Pane view = CustomFxmlLoader.getPage("Dashboard");
 		contentBorderPane.setCenter(view);
-
+		currentPageTitle.setText("Dashboard");
 	}
 	@FXML
 	private void servicesButton(MouseEvent event) {
-		System.out.println("Services Clicked");
 		Pane view = CustomFxmlLoader.getPage("ServicesPage");
 		contentBorderPane.setCenter(view);
+		currentPageTitle.setText("Services");
+
 	}
 	@FXML
 	private void toolsButton(MouseEvent event) {
-		System.out.println("Tools Button Clicked");
 		Pane view = CustomFxmlLoader.getPage("MaterielPage");
 		contentBorderPane.setCenter(view);
+		currentPageTitle.setText("Tools");
+
 	}
 	@FXML
 	private void TeamsStaffButton(MouseEvent event) {
-		
-		System.out.println("TS Clicked");
 		Pane view = CustomFxmlLoader.getPage("TeamsStaffPage");
-		
 		contentBorderPane.setCenter(view);
+		currentPageTitle.setText("Teams and Staff");
+
 	}
 	@FXML
 	private void FinanceButton(MouseEvent event) {
-		
-		System.out.println("Finance Clicked");
 		Pane view = CustomFxmlLoader.getPage("BudRevDepPage");
 		contentBorderPane.setCenter(view);
-		
+		currentPageTitle.setText("Finance");
+
 	}
 	@FXML
 	public void projectsButton(MouseEvent mouseEvent) {
-		System.out.println("Tools Button Clicked");
 		Pane view = CustomFxmlLoader.getPage("ProjectPage");
 		contentBorderPane.setCenter(view);
+		currentPageTitle.setText("Projects");
+
 	}
 	@FXML
 	public void tasksButton(MouseEvent mouseEvent) {
-		System.out.println("tasks Button Clicked");
 		Pane view = CustomFxmlLoader.getPage("TachePage");
 		contentBorderPane.setCenter(view);
+		currentPageTitle.setText("Tasks");
+
 	}
 	@FXML
 	public void eventsButton(MouseEvent mouseEvent) {
-		System.out.println("events Button Clicked");
 		Pane view = CustomFxmlLoader.getPage("EvenementPage");
 		contentBorderPane.setCenter(view);
+		currentPageTitle.setText("Events");
+
 	}
 	@FXML
 	public void accountButton(MouseEvent mouseEvent) {
 		System.out.println("events Button Clicked");
 		Pane view = CustomFxmlLoader.getPage("AccountsPage");
 		contentBorderPane.setCenter(view);
+		currentPageTitle.setText("Accounts");
 	}
 	// **********************************
 	public Compte getUserAccount() {
