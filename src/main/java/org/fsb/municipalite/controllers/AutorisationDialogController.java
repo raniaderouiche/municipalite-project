@@ -49,6 +49,7 @@ public class AutorisationDialogController {
 	    	cin.setText(Long.toString(a.getCin()));
 	    	subject.setText(a.getSujet());
 	    	msg.setText(a.getMsg());
+	    	msgLength.setText(msg.getText().length()+"/3000");
 	    	if(a.getEtat().equals(Etat.processed)) {
 	    		processed.setSelected(true);
 	    	}else if(a.getEtat().equals(Etat.unprocessed)){

@@ -1,8 +1,15 @@
 .root{
 	-fx-focus-color: transparent;
-    
 }
 
+.windowUpperBar{
+    -fx-background-color:
+            #090a0c,
+            linear-gradient(#38424b 0%, #C8A97E 20%, #61596E 100%),
+            linear-gradient(#003483, #20354b),
+            radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+
+}
 .table-view {
     -fx-background-color: transparent;
 }
@@ -351,16 +358,15 @@
 
 .countersdiv{
     -fx-background-radius: 15;
-    -fx-background-color : rgb(205, 231, 252);
+    -fx-background-color : #FFFFFF;
 
 }
 .countersdiv:hover{
-    -fx-background-color : rgb(177, 221, 255);
+    -fx-background-color : #EBF7FF;
 
 }
 .dashboardLables{
-    -fx-font: 18px "Nirmala UI Semilight"; 
-
+    -fx-font: 20px "Nirmala UI Semilight";
 }
 #empCount, #teamCount{
     -fx-alignment : center;

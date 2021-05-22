@@ -61,7 +61,7 @@ public class ComplaintPageController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
     	tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	Id.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("id"));
-    	Date.setCellValueFactory(new PropertyValueFactory<Complaint,LocalDateTime>("createdAt"));
+    	Date.setCellValueFactory(new PropertyValueFactory<Complaint,LocalDateTime>("DateComplaint"));
     	Status.setCellValueFactory(new PropertyValueFactory<Complaint,Complaint.Etat>("etat"));
     	Name.setCellValueFactory(new PropertyValueFactory<Complaint,String>("nomCitoyen"));
     	Cin.setCellValueFactory(new PropertyValueFactory<Complaint,Long>("cin"));
@@ -175,7 +175,6 @@ public class ComplaintPageController implements Initializable{
     		
     		//cin field listener
     		edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
-    			System.out.println("textfield changed from " + oldValue + " to " + newValue);
     			if(isNumeric(newValue) && newValue.length() == 8) {
     				edc.labCin.setVisible(false);
     			}else
@@ -213,7 +212,6 @@ public class ComplaintPageController implements Initializable{
 
 
     		Optional<ButtonType> clickedButton = d.showAndWait();
-    		System.out.println("COMPLAINT ABOUT TO BE ADDED !");
     		//new Complaint creation and addition
     		if (clickedButton.get() == ButtonType.APPLY) {
     			Complaint c = new Complaint();
@@ -306,6 +304,7 @@ public class ComplaintPageController implements Initializable{
 				
 				//message Listener
 				edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
+					edc.msgLength.setText(newValue.length()+"/3000");
 					if(!isAlphaE(newValue)) {
 						edc.labMsg.setVisible(true);
 					}else
@@ -317,7 +316,7 @@ public class ComplaintPageController implements Initializable{
 				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 				
 				//make name field first to be selected
-				
+
 				//apply button binder
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
 												edc.name.getText().isEmpty() || !isAlpha(edc.name.getText())||
@@ -326,7 +325,6 @@ public class ComplaintPageController implements Initializable{
 												edc.msg.getText().length()>3000 ||edc.msg.getText().isEmpty()||!isAlphaE(edc.msg.getText()),												
 												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
 												edc.msg.textProperty()));
-
 
 				Optional<ButtonType> clickedButton = d.showAndWait();
 				if(clickedButton.get() == ButtonType.APPLY) {

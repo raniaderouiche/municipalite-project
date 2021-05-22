@@ -8,7 +8,7 @@ import org.fsb.municipalite.services.IComplaintServices;
 
 public class ComplaintServiceImpl implements IComplaintServices{
 
-	private ComplaintDaoImpl complaintDao;
+	 ComplaintDaoImpl complaintDao;
 	
 	public ComplaintServiceImpl() {
 		this.complaintDao = new ComplaintDaoImpl();

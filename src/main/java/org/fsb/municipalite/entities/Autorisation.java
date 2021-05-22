@@ -1,5 +1,6 @@
 package org.fsb.municipalite.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
@@ -7,6 +8,7 @@ public class Autorisation extends BaseEntity{
     private String nomCitoyen;
     private String sujet;
     private long cin;
+    @Column(columnDefinition = "CLOB")
     private String msg;
     
     public enum Etat {

@@ -47,7 +47,7 @@
                               <Insets bottom="3.0" left="7.0" top="5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <MenuButton id="ProfilMenuButton" fx:id="profilMenu" mnemonicParsing="false" prefHeight="57.0" prefWidth="178.0" text="Adminaa" textFill="WHITE">
+                        <MenuButton id="ProfilMenuButton" fx:id="profilMenu" mnemonicParsing="false" prefHeight="57.0" prefWidth="199.0" text="Adminaa" textFill="WHITE">
                           <items>
                             <MenuItem mnemonicParsing="false" onAction="#settings" styleClass="ProfilMenuItem" text="Settings">
                                  <graphic>
@@ -70,7 +70,7 @@
                               <Font name="☞Gilroy-Regular" size="17.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="-25.0" />
+                              <Insets left="-30.0" />
                            </HBox.margin>
                            <padding>
                               <Insets left="20.0" />

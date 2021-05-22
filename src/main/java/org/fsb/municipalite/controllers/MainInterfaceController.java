@@ -269,7 +269,6 @@ public class MainInterfaceController implements Initializable{
 	}
 	@FXML
 	public void accountButton(MouseEvent mouseEvent) {
-		System.out.println("events Button Clicked");
 		Pane view = CustomFxmlLoader.getPage("AccountsPage");
 		contentBorderPane.setCenter(view);
 		currentPageTitle.setText("Accounts");

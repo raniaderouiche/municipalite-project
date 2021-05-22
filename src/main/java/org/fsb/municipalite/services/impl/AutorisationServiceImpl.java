@@ -8,7 +8,7 @@ import org.fsb.municipalite.services.IAutorisationServices;
 
 public class AutorisationServiceImpl implements IAutorisationServices{
 
-	private AutorisationDaoImpl autorisationDao;
+	 AutorisationDaoImpl autorisationDao;
 	
 	public AutorisationServiceImpl() {
 		this.autorisationDao = new AutorisationDaoImpl();

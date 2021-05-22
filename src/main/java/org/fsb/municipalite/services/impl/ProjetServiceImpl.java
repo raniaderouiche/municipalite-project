@@ -9,7 +9,7 @@ import org.fsb.municipalite.services.IProjetService;
 import java.util.List;
 
 public class ProjetServiceImpl implements IProjetService {
-    private IProjetDao projetDao;
+     IProjetDao projetDao;
 
     public ProjetServiceImpl() {
         this.projetDao = new ProjetDaoImpl();

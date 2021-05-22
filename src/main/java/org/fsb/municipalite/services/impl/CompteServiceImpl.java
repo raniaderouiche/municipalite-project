@@ -9,7 +9,7 @@ import org.fsb.municipalite.services.ICompteServices;
 
 public class CompteServiceImpl implements ICompteServices{
 
-	private CompteDaoImpl compteDao;
+	CompteDaoImpl compteDao;
 	
 	public CompteServiceImpl() {
 		this.compteDao = new CompteDaoImpl();

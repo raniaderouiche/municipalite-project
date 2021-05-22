@@ -184,7 +184,7 @@ public class AutorisationPageController implements Initializable{
     				edc.labCin.setVisible(true);
     		});
     		edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
-    			edc.msgLength.setText(Integer.toString(edc.msg.getText().length())+"/255");
+    			edc.msgLength.setText(Integer.toString(edc.msg.getText().length())+"/3000");
     			if(!isAlphaE(newValue)) {
 					edc.labMsg.setVisible(true);
 				}else
@@ -308,6 +308,7 @@ public class AutorisationPageController implements Initializable{
 				
 				//message Listener
 				edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
+					edc.msgLength.setText(newValue.length()+"/3000");
 					if(!isAlpha(newValue)) {
 						edc.labMsg.setVisible(true);
 					}else
