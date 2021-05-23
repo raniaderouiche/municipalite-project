@@ -83,7 +83,6 @@ public class MainInterfaceController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		mymenu.getChildren().removeAll(services, tools, ts, finance, tasks, projects, events, accounts);
-		dashboardButton(null);
 	}
 	@FXML
 	void settings(ActionEvent event) {
@@ -214,9 +213,27 @@ public class MainInterfaceController implements Initializable{
     //******** Menu Buttons ************
 	@FXML
 	public void dashboardButton(MouseEvent event) {
-		Pane view = CustomFxmlLoader.getPage("Dashboard");
-		contentBorderPane.setCenter(view);
-		currentPageTitle.setText("Dashboard");
+		String role = userAccount.getEmployee().getRole();
+        String dashboard = "";
+        switch(role) {
+            case "Administrateur": dashboard = "Dashboard";
+                break;
+            case "Chef Personnel": dashboard = "DashboardTS";
+                break;
+            case "Agent De Service": dashboard = "DashboardAS";
+                break;
+            case "Gestionnaire de Magasin": dashboard = "DashboardG";
+                break;
+            case "Financier": dashboard = "DashboardF";
+                break;
+            case "Ingenieur d'Affaires": dashboard = "DashboardT";
+                break;
+            case "Secretaire General": dashboard = "DashboardSG";
+                break;
+        }
+        Pane view = CustomFxmlLoader.getPage(dashboard);
+        contentBorderPane.setCenter(view);
+        currentPageTitle.setText("Dashboard");
 	}
 	@FXML
 	private void servicesButton(MouseEvent event) {
@@ -303,6 +320,7 @@ public class MainInterfaceController implements Initializable{
 			case "Secretaire General": mymenu.getChildren().add(events);
 				break;
 		}
+		dashboardButton(null);
 	}
 	
 }

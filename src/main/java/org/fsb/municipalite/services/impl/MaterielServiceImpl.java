@@ -1,6 +1,6 @@
 package org.fsb.municipalite.services.impl;
 
-import org.fsb.municipalite.dao.IMaterielDao;
+import org.fsb.municipalite.dao.IMaterielDao; 
 import org.fsb.municipalite.dao.impl.MaterielDaoImpl;
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.services.IMaterielService;
