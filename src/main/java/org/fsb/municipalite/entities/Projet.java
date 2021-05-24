@@ -11,6 +11,7 @@ public class Projet extends BaseEntity{
     private LocalDate dateFin;
     private String Lieu;
     private int budget;
+    private String description;
 
     public enum Etat {
         Finished, Unfinished;
@@ -96,6 +97,14 @@ public class Projet extends BaseEntity{
 
     public void setMaterielList(List<Materiel> materielList) {
         this.materielList = materielList;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

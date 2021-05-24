@@ -62,7 +62,7 @@ public class AutorisationPageController implements Initializable{
    public void initialize(URL location, ResourceBundle resources) {
 	   tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	   Id.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("id"));
-	   Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime >("createdAt"));
+	   Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime >("DateAutorisation"));
        Status.setCellValueFactory(new PropertyValueFactory<Autorisation,Autorisation.Etat>("etat"));
        Name.setCellValueFactory(new PropertyValueFactory<Autorisation,String>("nomCitoyen"));
        Cin.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("cin"));

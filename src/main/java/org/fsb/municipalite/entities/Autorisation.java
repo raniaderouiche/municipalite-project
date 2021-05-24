@@ -2,6 +2,7 @@ package org.fsb.municipalite.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Autorisation extends BaseEntity{
@@ -56,6 +57,11 @@ public class Autorisation extends BaseEntity{
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getDateAutorisation(){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
+        return this.createdAt.format(format);
     }
     
     @Override

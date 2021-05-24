@@ -47,15 +47,15 @@
             </HBox>
             <TableView fx:id="tableview" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="id" prefWidth="127.0" text="ID" />
-                <TableColumn fx:id="name" prefWidth="146.0" text="Name" />
-                  <TableColumn fx:id="status" prefWidth="75.0" text="Status" />
-                  <TableColumn fx:id="startDate" prefWidth="167.0" text="Start Date" />
-                  <TableColumn fx:id="dueDate" prefWidth="169.0" text="Due Date" />
-                  <TableColumn fx:id="budget" prefWidth="131.0" text="Budget" />
-                  <TableColumn fx:id="version" prefWidth="107.0" text="Version" />
-                  <TableColumn fx:id="place" prefWidth="95.0" text="Location" />
-                  <TableColumn fx:id="teamColumn" prefWidth="75.0" text="Team" />
+                <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="name" prefWidth="116.0" text="Name" />
+                  <TableColumn fx:id="status" prefWidth="101.0" text="Status" />
+                  <TableColumn fx:id="startDate" prefWidth="125.0" text="Start Date" />
+                  <TableColumn fx:id="dueDate" prefWidth="132.0" text="Due Date" />
+                  <TableColumn fx:id="budget" prefWidth="106.0" text="Budget" />
+                  <TableColumn fx:id="place" prefWidth="113.0" text="Location" />
+                  <TableColumn fx:id="teamColumn" prefWidth="97.0" text="Team" />
+                  <TableColumn fx:id="desc" prefWidth="227.0" text="Description" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -67,7 +67,7 @@
                   <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
                   <TableColumn fx:id="Place" prefWidth="75.0" text="Location" />
                   <TableColumn fx:id="Budget" prefWidth="75.0" text="Budget" />
-                  <TableColumn fx:id="Version" prefWidth="75.0" text="Version" />
+                  <TableColumn fx:id="desc" prefWidth="75.0" text="Description" />
                </columns>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />

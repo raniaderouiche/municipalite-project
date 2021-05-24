@@ -47,7 +47,7 @@ public class EvenementController implements Initializable {
     @FXML
     TableColumn<Evenement,Long> Budget;
     @FXML
-    TableColumn<Evenement,Long> Version;
+    TableColumn<Evenement,String> desc;
 
     ObservableList<Evenement> data;
 
@@ -71,7 +71,7 @@ public class EvenementController implements Initializable {
         Date.setCellValueFactory(new PropertyValueFactory<Evenement, LocalDate>("dateEvenement"));
         Place.setCellValueFactory(new PropertyValueFactory<Evenement,String>("lieu"));
         Budget.setCellValueFactory(new PropertyValueFactory<Evenement,Long>("budget"));
-        Version.setCellValueFactory(new PropertyValueFactory<Evenement,Long>("version"));
+        desc.setCellValueFactory(new PropertyValueFactory<Evenement,String>("description"));
 
         EvenementServiceImpl evenementService = new EvenementServiceImpl();
         List<Evenement> list = evenementService.selectAll();
@@ -213,8 +213,8 @@ public class EvenementController implements Initializable {
             //apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
                             edc.name.getText().isEmpty() || edc.budget.getText().isEmpty() || edc.eventDate.getValue() == null ||
-                                     !isNumeric(edc.budget.getText()) || !isAlpha(edc.name.getText()) || edc.eventDate.getValue().isBefore(LocalDate.now()),
-                    edc.name.textProperty(),  edc.budget.textProperty(), edc.eventDate.valueProperty()));
+                                     !isNumeric(edc.budget.getText()) || edc.description.getText().isEmpty() || !isAlpha(edc.name.getText()) || edc.eventDate.getValue().isBefore(LocalDate.now()),
+                    edc.name.textProperty(),edc.description.textProperty(),  edc.budget.textProperty(), edc.eventDate.valueProperty()));
 
 
             Optional<ButtonType> clickedButton = d.showAndWait();
@@ -309,8 +309,8 @@ public class EvenementController implements Initializable {
                 //apply button binder
                 d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
                                 edc.name.getText().isEmpty() || edc.budget.getText().isEmpty() || edc.eventDate.getValue() == null ||
-                                        !isNumeric(edc.budget.getText()) || !isAlpha(edc.name.getText()) || edc.eventDate.getValue().isBefore(LocalDate.now()),
-                        edc.name.textProperty(),  edc.budget.textProperty(), edc.eventDate.valueProperty()));
+                                        !isNumeric(edc.budget.getText()) || edc.description.getText().isEmpty() || !isAlpha(edc.name.getText()) || edc.eventDate.getValue().isBefore(LocalDate.now()),
+                        edc.name.textProperty(),edc.description.textProperty(),  edc.budget.textProperty(), edc.eventDate.valueProperty()));
 
 
                 Optional<ButtonType> clickedButton = d.showAndWait();

@@ -20,7 +20,7 @@ public class Complaint extends BaseEntity{
     }
 
     public String getDateComplaint(){
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
         return this.createdAt.format(format);
     }
 

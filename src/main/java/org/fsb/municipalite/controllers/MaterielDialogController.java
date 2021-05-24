@@ -86,11 +86,23 @@ public class MaterielDialogController implements Initializable {
     	if(orderRB.isSelected()) {
     		m.setEtat(Etat.enPanne);
     	}
-    	m.setStartDate(startDate.getValue());
-    	m.setEndDate(endDate.getValue());
+    	if (startDate.getEditor().getText().isEmpty()){
+			m.setStartDate(null);
+		}
+    	else{
+			m.setStartDate(startDate.getValue());
+		}
+    	if(endDate.getEditor().getText().isEmpty()){
+			m.setEndDate(null);
+		}
+    	else{
+			m.setEndDate(endDate.getValue());
+		}
     	
     }
     public void setMaterielDialogPane(Materiel m) {
+		startDate.setDisable(false);
+		endDate.setDisable(false);
     	nameField.setText(m.getNom());
     	refField.setText(m.getReference());
     	if(m.getProjetValue() != " - ") {

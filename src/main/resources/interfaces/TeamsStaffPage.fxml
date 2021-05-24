@@ -39,6 +39,7 @@
                                     <TableColumn fx:id="sexe" minWidth="0.0" prefWidth="0.0" text="Gender" />
                                     <TableColumn fx:id="etatCivil" prefWidth="81.0" text="Civil Status" />
                                     <TableColumn fx:id="role" prefWidth="75.0" text="Role" />
+                                    <TableColumn fx:id="team" prefWidth="75.0" text="Team" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -143,6 +144,7 @@
                                     <TableColumn fx:id="id_team" prefWidth="103.0" text="Id" />
                                     <TableColumn fx:id="leader" prefWidth="109.0" text="Team Leader" />
                                     <TableColumn fx:id="name" prefWidth="52.0" text="Name" />
+                                    <TableColumn fx:id="members" prefWidth="52.0" text="Members" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
