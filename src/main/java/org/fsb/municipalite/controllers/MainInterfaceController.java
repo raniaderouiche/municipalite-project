@@ -308,6 +308,7 @@ public class MainInterfaceController implements Initializable{
 			case "Administrateur": mymenu.getChildren().addAll(services, tools, ts, finance, tasks, projects, events, accounts);
 				break;
 			case "Chef Personnel": mymenu.getChildren().add(ts);
+							       mymenu.getChildren().add(tasks);
 				break;
 			case "Agent De Service": mymenu.getChildren().add(services);
 				break;
