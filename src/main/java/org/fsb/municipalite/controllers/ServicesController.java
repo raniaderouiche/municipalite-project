@@ -15,7 +15,6 @@ public class ServicesController {
     private Pane compPane;
     @FXML
     void autoButton(MouseEvent event) {
-    	System.out.println("Authorization clicked");
     	BorderPane MainInterface = (BorderPane) Container.getParent();
 		Pane view = CustomFxmlLoader.getPage("AutorisationPage");
 		MainInterface.setCenter(view);
@@ -23,8 +22,6 @@ public class ServicesController {
 
     @FXML
     void compButton(MouseEvent event) {
-    	System.out.println("complaints clicked");
-    	
     	BorderPane MainInterface = (BorderPane) Container.getParent();
 		Pane view = CustomFxmlLoader.getPage("ComplaintPage");
 		MainInterface.setCenter(view);

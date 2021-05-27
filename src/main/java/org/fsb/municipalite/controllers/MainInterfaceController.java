@@ -21,6 +21,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -203,12 +204,6 @@ public class MainInterfaceController implements Initializable{
 		}
 	}
 
-    @FXML
-    void municipalityInfo(MouseEvent event) {
-    	
-    	Pane view = CustomFxmlLoader.getPage("MunicipalityInfo");
-		contentBorderPane.setCenter(view);
-    }
 
     //******** Menu Buttons ************
 	@FXML
@@ -290,7 +285,21 @@ public class MainInterfaceController implements Initializable{
 		contentBorderPane.setCenter(view);
 		currentPageTitle.setText("Accounts");
 	}
-	// **********************************
+	@FXML
+	void municipalityInfo(MouseEvent event) throws IOException {
+		//send user between pages
+		FXMLLoader f = new FXMLLoader();
+		f.setLocation(getClass().getResource("/interfaces/MunicipalityInfo.fxml"));
+		GridPane g = f.load();
+		MunicipalityInfoController muniController = f.getController();
+		muniController.setCurrentAccount(userAccount);
+
+		contentBorderPane.setCenter(g);
+		currentPageTitle.setText("Municipality Informations");
+
+	}
+	/* ********************************** */
+
 	public Compte getUserAccount() {
 		return userAccount;
 	}
