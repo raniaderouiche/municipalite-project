@@ -30,10 +30,10 @@ public class App extends Application {
 
     public static void main(String[] args) {
         //create entity manager instance and run it for a first time to migrate changes
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
+        /*EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
-        em.close();
+        em.close();*/
 
         //launch app window
         launch();

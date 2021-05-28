@@ -19,7 +19,6 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     }
 
     public GenericDaoImpl() {
-
         //create an entity manager
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
         em = entityManagerFactory.createEntityManager();
@@ -45,7 +44,6 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public List<E> selectAll() {
-        //em.getTransaction().begin();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t");
         List<E> list = query.getResultList();
         return list;
