@@ -37,7 +37,7 @@ public class BRDController implements Initializable {
     @FXML
     TableColumn<Budget, Long> id_budget;
     @FXML
-    TableColumn<Budget, String> year;
+    TableColumn<Budget, LocalDate> year;
 
     @FXML
     TableColumn<Budget, Long> budget;
@@ -58,7 +58,7 @@ public class BRDController implements Initializable {
     @FXML
     TableColumn<Revenus, Long> somme_rev;
     @FXML
-    TableColumn<Revenus, String> date_rev;
+    TableColumn<Revenus, LocalDate> date_rev;
     @FXML
     TextField revSearchField;
 
@@ -90,7 +90,7 @@ public class BRDController implements Initializable {
         revenusTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         id_revenus.setCellValueFactory(new PropertyValueFactory<Revenus, Long>("id"));
         source_rev.setCellValueFactory(new PropertyValueFactory<Revenus, String>("source_rev"));
-        date_rev.setCellValueFactory(new PropertyValueFactory<Revenus, String>("date_rev"));
+        date_rev.setCellValueFactory(new PropertyValueFactory<Revenus, LocalDate>("date_rev"));
         somme_rev.setCellValueFactory(new PropertyValueFactory<Revenus, Long>("somme_rev"));
 
         RevenusServiceImpl revenusService = new RevenusServiceImpl();
@@ -104,9 +104,7 @@ public class BRDController implements Initializable {
         revenusTable.setItems(RevenusData);
 
         //search listener revenus
-        revSearchField.textProperty().
-
-                addListener((observable, oldValue, newValue) -> {
+        revSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
                     System.out.println("textfield changed from " + oldValue + " to " + newValue);
                     ListenerSearchRevenus(newValue);
                 });
@@ -116,7 +114,7 @@ public class BRDController implements Initializable {
         budgetTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         id_budget.setCellValueFactory(new PropertyValueFactory<Budget, Long>("id"));
         secteur.setCellValueFactory(new PropertyValueFactory<Budget, String>("secteur"));
-        year.setCellValueFactory(new PropertyValueFactory<Budget, String>("year"));
+        year.setCellValueFactory(new PropertyValueFactory<Budget, LocalDate>("year"));
         budget.setCellValueFactory(new PropertyValueFactory<Budget, Long>("budget"));
 
 
@@ -363,20 +361,23 @@ public class BRDController implements Initializable {
                     edc.inv_budget.setVisible(false);
             });
 
-            edc.year.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isNumeric(newValue) && newValue.length()!=4) {
-                    edc.inv_budgetdate.setVisible(true);
-                }else
-                    edc.inv_budgetdate.setVisible(false);
+            edc.year.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue != null) {
+                    if (newValue.isBefore(LocalDate.now())) {
+                        edc.inv_budgetdate.setVisible(true);
+                    } else {
+                        edc.inv_budgetdate.setVisible(false);
+                    }
+                }
             });
 
 
 
             //apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            edc.secteur.getText().isEmpty() || edc.budget.getText().isEmpty() || edc.year.getText().isEmpty() ||
-                                    !isNumeric(edc.budget.getText()) || !isAlpha(edc.secteur.getText()) || !isNumeric(edc.year.getText()),
-                    edc.secteur.textProperty(),  edc.budget.textProperty(), edc.year.textProperty()));
+                            edc.secteur.getText().isEmpty() || edc.budget.getText().isEmpty() || edc.year.getValue()==null ||
+                                    !isNumeric(edc.budget.getText()) || !isAlpha(edc.secteur.getText()) || edc.year.getValue().isBefore(LocalDate.now()),
+                    edc.secteur.textProperty(),  edc.budget.textProperty(), edc.year.valueProperty()));
 
             Optional<ButtonType> clickedButton = d.showAndWait();
 
@@ -393,13 +394,13 @@ public class BRDController implements Initializable {
         }
     }
     public void updateBud(ActionEvent event) {
-        try{
+        try {
             FXMLLoader f = new FXMLLoader();
             f.setLocation(getClass().getResource("/interfaces/BudgetDialog.fxml"));
-            Pane eventDialogPane = f.load();
+            Pane budgetDialogPane = f.load();
             BudgetDialogController bud = f.getController();
 
-            if(budgetTable.getSelectionModel().getSelectedItem() != null){
+            if (budgetTable.getSelectionModel().getSelectedItem() != null) {
                 BudgetServiceImpl budgetService = new BudgetServiceImpl();
                 Budget selectedEvent = (Budget) budgetTable.getSelectionModel().getSelectedItem();
                 Budget budget = budgetService.getById(selectedEvent.getId());
@@ -409,12 +410,12 @@ public class BRDController implements Initializable {
 
                 Dialog<ButtonType> d = new Dialog<>();
 
-                d.setDialogPane((DialogPane) eventDialogPane);
+                d.setDialogPane((DialogPane) budgetDialogPane);
                 d.setTitle("Add budget");
                 d.setResizable(false);
                 d.initStyle(StageStyle.UNDECORATED);
 
-                eventDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                budgetDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         xOffset = event.getSceneX();
@@ -422,7 +423,7 @@ public class BRDController implements Initializable {
                     }
                 });
 
-                eventDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                budgetDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         d.setX(event.getScreenX() - xOffset);
@@ -438,50 +439,55 @@ public class BRDController implements Initializable {
 
                 //listeners
                 bud.secteur.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isAlpha(newValue)) {
+                    if (!isAlpha(newValue)) {
                         bud.inv_sec.setVisible(true);
-                    }else
+                    } else
                         bud.inv_sec.setVisible(false);
                 });
 
                 bud.budget.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isNumeric(newValue)) {
+                    if (!isNumeric(newValue)) {
                         bud.inv_budget.setVisible(false);
-                    }else
+                    } else
                         bud.inv_budget.setVisible(true);
                 });
 
-                bud.year.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(newValue != null) {
-                        if(!isNumeric(newValue)|| newValue.length()!=4) {
-                            bud.inv_budgetdate.setVisible(true);
-                        }
-                        else {
-                            bud.inv_budgetdate.setVisible(false);
-                        }
+                bud.year.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                            if (newValue.isBefore(LocalDate.now())) {
+                                bud.inv_budgetdate.setVisible(true);
+                            }
+                            else {
+                                bud.inv_budgetdate.setVisible(false);
+                            }
                     }
                 });
 
-                //apply button binder
-                d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                                bud.secteur.getText().isEmpty() || bud.budget.getText().isEmpty() || bud.year.getText() == null ||
-                                        !isNumeric(bud.budget.getText()) || !isAlpha(bud.secteur.getText()) || !isNumeric(bud.year.getText()),
-                        bud.secteur.textProperty(),  bud.budget.textProperty(), bud.year.textProperty()));
+
+                    //apply button binder
+                    d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+                                    bud.secteur.getText().isEmpty() || bud.budget.getText().isEmpty()
+                                            || bud.year.getValue() == null
+                                            || !isAlpha(bud.secteur.getText())
+                                            || !isAlpha(bud.budget.getText())
+                                            || bud.year.getValue().isBefore(LocalDate.now()),
+                            bud.secteur.textProperty(), bud.budget.textProperty(), bud.year.valueProperty()));
 
 
-                Optional<ButtonType> clickedButton = d.showAndWait();
+                    Optional<ButtonType> clickedButton = d.showAndWait();
 
-                if (clickedButton.get() == ButtonType.APPLY){
-                    bud.setCurrentBudget(budget);
-                    budgetService.update(budget);
-                    refreshBud(event);
+                    if (clickedButton.get() == ButtonType.APPLY) {
+                        bud.setCurrentBudget(budget);
+                        budgetService.update(budget);
+                        refreshBud(event);
+                    }
                 }
-            }
 
-        }catch(Exception e){
-            e.printStackTrace();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
-    }
+
     public void deleteBud(ActionEvent event) {
         if(budgetTable.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -550,9 +556,11 @@ public class BRDController implements Initializable {
                     edc.inv_somme.setVisible(true);
             });
 
-            edc.date_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isNumeric(newValue) ) {
-                    edc.inv_revdate.setVisible(false);
+            edc.date_rev.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue != null) {
+                    if(newValue.isBefore(LocalDate.now())) {
+                        edc.inv_revdate.setVisible(false);
+                    }
                 }else
                     edc.inv_revdate.setVisible(true);
 
@@ -567,9 +575,9 @@ public class BRDController implements Initializable {
             edc.source_rev.requestFocus();
             //apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getText() == null ||
-                                    !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || !isNumeric(edc.date_rev.getText()),
-                    edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.textProperty()));
+                            edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getValue() == null ||
+                                    !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || edc.date_rev.getValue().isBefore(LocalDate.now()),
+                    edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.valueProperty()));
 
 
             Optional<ButtonType> clickedButton = d.showAndWait();
@@ -646,9 +654,9 @@ public class BRDController implements Initializable {
                         edc.inv_somme.setVisible(true);
                 });
 
-                edc.date_rev.textProperty().addListener((observable, oldValue, newValue) -> {
+                edc.date_rev.valueProperty().addListener((observable, oldValue, newValue) -> {
                     if(newValue != null) {
-                        if(!isNumeric(newValue)) {
+                            if(newValue.isBefore(LocalDate.now())) {
                             edc.inv_revdate.setVisible(true);
                         }
                         else {
@@ -659,9 +667,9 @@ public class BRDController implements Initializable {
 
                 //apply button binder
                 d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                                edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getText() == null ||
-                                        !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || !isNumeric(edc.date_rev.getText()),
-                        edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.textProperty()));
+                                edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getValue() == null ||
+                                        !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || edc.date_rev.getValue().isBefore(LocalDate.now()),
+                        edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.valueProperty()));
 
 
                 Optional<ButtonType> clickedButton = d.showAndWait();
@@ -681,6 +689,7 @@ public class BRDController implements Initializable {
         if(revenusTable.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/assets/img/icon.png"));
             alert.setTitle("Delete revenus?");
             alert.setHeaderText(null);
             alert.setContentText("Are you Sure You Want to Delete Selected revenu(s) ?");
@@ -906,6 +915,19 @@ public class BRDController implements Initializable {
         return name.matches("[a-zA-Z ]+");
     }
 //*********
+          @FXML
+          void selectAllB(ActionEvent event) {
+           this.budgetTable.getSelectionModel().selectAll();
+}
+        @FXML
+        void selectAllD(ActionEvent event) {
+        this.depensesTable.getSelectionModel().selectAll();
+    }
+
+         @FXML
+         void selectAllR(ActionEvent event) {
+        this.revenusTable.getSelectionModel().selectAll();
+    }
 
 
 }

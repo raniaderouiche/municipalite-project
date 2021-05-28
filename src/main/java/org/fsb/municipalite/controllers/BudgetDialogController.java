@@ -1,6 +1,7 @@
 package org.fsb.municipalite.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.fsb.municipalite.entities.Budget;
@@ -16,7 +17,7 @@ public class BudgetDialogController  {
     @FXML
     TextField budget;
     @FXML
-    TextField year;
+    DatePicker year;
 
     @FXML
     Label inv_sec;
@@ -29,13 +30,13 @@ public class BudgetDialogController  {
     public void setCurrentBudget(Budget b){
         b.setSecteur(secteur.getText());
         b.setBudget(Long.parseLong(budget.getText()));
-        b.setYear(year.getText());
+        b.setYear(year.getValue());
     }
 
     public void setBudgetDialogPane(Budget b){
         secteur.setText(b.getSecteur());
         budget.setText(b.getBudget() +"");
-        year.setText(b.getYear());
+        year.setValue(b.getYear());
     }
 
 

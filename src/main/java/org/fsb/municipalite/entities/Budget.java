@@ -1,11 +1,12 @@
 package org.fsb.municipalite.entities;
 
 import javax.persistence.Entity;
+import java.time.LocalDate;
 
 @Entity
 public class Budget extends BaseEntity{
     private String secteur;
-    private String year;
+    private LocalDate year;
     private String source;
     private long budget;
 
@@ -21,11 +22,11 @@ public class Budget extends BaseEntity{
         this.secteur = secteur;
     }
 
-    public String getYear() {
+    public LocalDate getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(LocalDate year) {
         this.year = year;
     }
 

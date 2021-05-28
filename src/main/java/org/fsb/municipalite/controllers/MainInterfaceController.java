@@ -243,7 +243,7 @@ public class MainInterfaceController implements Initializable{
 	private void FinanceButton(MouseEvent event) {
 		
 		System.out.println("Finance Clicked");
-		Pane view = CustomFxmlLoader.getPage("BudRevDepPage");
+		Pane view = CustomFxmlLoader.getPage("FinancePage");
 		contentBorderPane.setCenter(view);
 		
 	}

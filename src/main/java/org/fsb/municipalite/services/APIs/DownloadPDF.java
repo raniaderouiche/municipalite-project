@@ -1,20 +1,23 @@
 package org.fsb.municipalite.services.APIs;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.fsb.municipalite.entities.Complaint;
+import org.fsb.municipalite.entities.Depenses;
 import org.fsb.municipalite.entities.Municipalite;
+import org.fsb.municipalite.entities.Revenus;
 import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
+import org.fsb.municipalite.services.impl.RevenusServiceImpl;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 
 public class DownloadPDF {
@@ -69,6 +72,81 @@ public class DownloadPDF {
                 p4.setAlignment(Element.ALIGN_BOTTOM);
                 document.add(p4);
 
+                document.close();
+                writer.close();
+
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("itext PDF program executed");
+    }
+
+    //activity reports
+    public static void downloadPDF(Revenus rev, Depenses dep, Window window){
+        try {
+            MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();
+            Municipalite m = mc.selectAll().get(0);
+            FileChooser dirChooser = new FileChooser();
+            File selectedDir = dirChooser.showSaveDialog(window);
+            if(selectedDir != null){
+                Document document = new Document();
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(selectedDir.getAbsolutePath()+".pdf"));
+                document.open();
+                Font documentType=new Font();
+                FontFactory.getFont(FontFactory.TIMES_ROMAN,14,Font.NORMAL, BaseColor.BLACK);
+                documentType.setSize(14);
+
+                Font municipalityName=new Font();
+                municipalityName.setStyle(Font.BOLD);
+                municipalityName.setStyle(Font.UNDERLINE);
+                municipalityName.setSize(18);
+
+                Font documentFooter=new Font();
+                documentFooter.setSize(10);
+                Paragraph p0 = new Paragraph();
+                Paragraph p1 = new Paragraph(null, FontFactory.getFont(FontFactory.HELVETICA, 10));
+                Paragraph p2 = new Paragraph();
+                Paragraph p4 = new Paragraph(null, FontFactory.getFont(FontFactory.HELVETICA, 10));
+
+
+                p1.add("Tunisian republic\n"+m.getNom());
+                p1.setAlignment(Element.ALIGN_CENTER);
+                p1.setFont(municipalityName);
+
+
+                p2.add("\nRapport D'activité \n ======================================================");
+                p2.setAlignment(Element.ALIGN_CENTER);
+                p2.setFont(documentType);
+                // Creating a table
+                /*float [] ColumnWidth = {150F, 150F, 150F};*/
+                //header
+                PdfPTable table = new PdfPTable(2);
+                PdfPCell cell = new PdfPCell(new Phrase("Depenses"));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                PdfPCell cell1 = new PdfPCell(new Phrase("Revenus"));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell1);
+
+
+
+
+
+
+
+                p4.add("\nContact : \n");
+                p4.add("   number : "+m.getTel()+"\n");
+                p4.add("   email : "+m.getEmail()+"\n");
+                p4.add("   adress : "+m.getAdresse()+"\n");
+                p4.add("   web site : "+m.getWebsite()+"\n");
+                p4.add("\nSignature \n");
+
+                document.add(p1);
+                document.add(p2);
+                document.add(new LineSeparator());
+                document.add(p4);
                 document.close();
                 writer.close();
 

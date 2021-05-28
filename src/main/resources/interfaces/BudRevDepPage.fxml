@@ -37,7 +37,7 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                             </columnResizePolicy>
                                         </TableView>
-                                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+                                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#selectAllB" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
                                             <font>
                                                 <Font size="18.0" />
                                             </font>
@@ -118,7 +118,7 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                             </columnResizePolicy>
                                         </TableView>
-                                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+                                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#selectAllR" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
                                             <font>
                                                 <Font size="18.0" />
                                             </font>
@@ -209,7 +209,7 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                             </columnResizePolicy>
                                         </TableView>
-                                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
+                                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#selectAllD" prefHeight="29.0" prefWidth="104.0" styleClass="selectAllButton" text="Select All">
                                             <font>
                                                 <Font size="18.0" />
                                             </font>

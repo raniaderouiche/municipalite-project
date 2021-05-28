@@ -3,6 +3,7 @@ package org.fsb.municipalite.controllers;
 import org.fsb.municipalite.entities.Autorisation;
 
 import org.fsb.municipalite.entities.Municipalite;
+import org.fsb.municipalite.entities.Revenus;
 import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
 
 import com.itextpdf.text.BaseColor;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javafx.fxml.FXML;
 	import javafx.scene.control.RadioButton;
@@ -33,6 +35,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import org.fsb.municipalite.services.impl.RevenusServiceImpl;
 
 
 public class AutorisationPrintController {
@@ -55,7 +58,7 @@ public class AutorisationPrintController {
 	    @FXML
 	    private RadioButton selectedRadioButton;
 	    @SuppressWarnings("unused")
-		public static void downloadPDF(Autorisation auto, Window window){
+		public static void downloadPDF(  Autorisation auto, Window window){
 	        try {
 	            MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();
 	            Municipalite m = mc.selectAll().get(0);
