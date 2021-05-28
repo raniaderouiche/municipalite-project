@@ -24,12 +24,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="secteur" prefHeight="38.0" prefWidth="375.0" promptText="Secteur" styleClass="dialogTextFields" GridPane.columnIndex="1">
+                <TextField fx:id="secteur" prefHeight="38.0" prefWidth="375.0" promptText="Sector" styleClass="dialogTextFields" GridPane.columnIndex="1">
                     <GridPane.margin>
                         <Insets right="30.0" />
                     </GridPane.margin>
                 </TextField>
-                <Label styleClass="dialogLabels" text="Secteur :">
+                <Label styleClass="dialogLabels" text="Sector :">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -45,7 +45,7 @@
                         <Insets left="5.0" top="65.0" />
                     </GridPane.margin>
                 </Label>
-
+      
                 <Label styleClass="dialogLabels" text="Budget :" GridPane.rowIndex="1">
                     <font>
                         <Font size="16.0" />
@@ -54,7 +54,7 @@
                         <Insets left="30.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="budget" prefHeight="37.0" prefWidth="375.0" promptText="Budget" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <TextField fx:id="budget" prefHeight="37.0" prefWidth="375.0" promptText="1000" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets right="30.0" />
                     </GridPane.margin>
@@ -67,7 +67,7 @@
                         <Insets left="30.0" />
                     </GridPane.margin>
                 </Label>
-
+      
                 <Label fx:id="inv_budget" style="-fx-font-size: 16;" styleClass="dialogLabels" text="Invalid budget" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <font>
                         <Font size="14.0" />
@@ -85,7 +85,7 @@
                     </GridPane.margin>
                 </Label>
             <DatePicker fx:id="year" prefHeight="35.0" prefWidth="386.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
+      
             </children>
         </GridPane>
     </content>

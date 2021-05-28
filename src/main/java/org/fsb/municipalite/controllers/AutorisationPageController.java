@@ -367,51 +367,43 @@ public class AutorisationPageController implements Initializable{
             }
         }
     }
-    
-    
-    public void message(Autorisation autorisation) {
-  	   try {
- 		   FXMLLoader f = new FXMLLoader();
- 		   f.setLocation(getClass().getResource("/interfaces/AutorisationMsg.fxml"));
- 		   Pane AutorisationDialogPane = f.load();
- 		  AutorisationMsgController edc = f.getController();
-
- 		 AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
- 		  Autorisation test = autorisationService.getById(autorisation.getId());
-
- 		   edc.setAutorisationMsgDialogPane(test);
- 		   Dialog<ButtonType> d = new Dialog<>();
-
- 		   Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
- 		   stage.getIcons().add(new Image("/assets/img/icon.png"));
-
- 		   d.setDialogPane((DialogPane) AutorisationDialogPane);
- 		   d.setTitle("Authorization Message");
- 		   d.initStyle(StageStyle.UNDECORATED);
-
- 		  AutorisationDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
- 			   @Override
- 			   public void handle(MouseEvent event) {
- 				   xOffset = event.getSceneX();
- 				   yOffset = event.getSceneY();
- 			   }
- 		   });
- 		 AutorisationDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
- 			   @Override
- 			   public void handle(MouseEvent event) {
- 				   d.setX(event.getScreenX() - xOffset);
- 				   d.setY(event.getScreenY() - yOffset);
- 			   }
- 		   });
- 		   d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
- 		   d.showAndWait();
 
 
-          	
-  	   }catch(Exception e) {
-  		   e.printStackTrace();
-  	   }
-     }
+	public void message(Autorisation autorisation) {
+		try {
+			FXMLLoader f = new FXMLLoader();
+			f.setLocation(getClass().getResource("/interfaces/AutorisationMsg.fxml"));
+			Pane AutorisationDialogPane = f.load();
+			AutorisationMsgController edc = f.getController();
+
+			AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
+			Autorisation auto = autorisationService.getById(autorisation.getId());
+			edc.title.setText(edc.title.getText()+" "+ auto.getId());
+			edc.setAutorisationMsgDialogPane(auto);
+			Dialog<ButtonType> d = new Dialog<>();
+
+			Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
+			stage.getIcons().add(new Image("/assets/img/icon.png"));
+
+			d.setDialogPane((DialogPane) AutorisationDialogPane);
+			d.setTitle("Authorization");
+			d.initStyle(StageStyle.UNDECORATED);
+
+			AutorisationDialogPane.setOnMousePressed(event -> {
+				xOffset = event.getSceneX();
+				yOffset = event.getSceneY();
+			});
+			AutorisationDialogPane.setOnMouseDragged(event -> {
+				d.setX(event.getScreenX() - xOffset);
+				d.setY(event.getScreenY() - yOffset);
+			});
+			d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
+			d.showAndWait();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
      
      @FXML
  	void selectAll(ActionEvent event) {

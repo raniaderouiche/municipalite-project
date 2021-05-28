@@ -46,7 +46,7 @@
                     </GridPane.margin>
                 </Label>
 
-                <Label styleClass="dialogLabels" text="Somme" GridPane.rowIndex="1">
+                <Label styleClass="dialogLabels" text="Sum :" GridPane.rowIndex="1">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -54,7 +54,7 @@
                         <Insets left="30.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="somme_rev" prefHeight="40.0" promptText="Somme" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <TextField fx:id="somme_rev" prefHeight="40.0" promptText="1000" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets right="30.0" />
                     </GridPane.margin>
@@ -94,7 +94,7 @@
         <ButtonType fx:constant="CANCEL" />
     </buttonTypes>
     <header>
-        <Label fx:id="titleLabel" prefHeight="74.0" prefWidth="640.0" styleClass="dialogheader" text="Add Revenus ">
+        <Label fx:id="titleLabel" prefHeight="74.0" prefWidth="640.0" styleClass="dialogheader" text="Add Incomes">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>

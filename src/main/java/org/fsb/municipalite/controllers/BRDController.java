@@ -108,8 +108,6 @@ public class BRDController implements Initializable {
                     System.out.println("textfield changed from " + oldValue + " to " + newValue);
                     ListenerSearchRevenus(newValue);
                 });
-
-
         //Budgets
         budgetTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         id_budget.setCellValueFactory(new PropertyValueFactory<Budget, Long>("id"));
@@ -447,9 +445,9 @@ public class BRDController implements Initializable {
 
                 bud.budget.textProperty().addListener((observable, oldValue, newValue) -> {
                     if (!isNumeric(newValue)) {
-                        bud.inv_budget.setVisible(false);
-                    } else
                         bud.inv_budget.setVisible(true);
+                    } else
+                        bud.inv_budget.setVisible(false);
                 });
 
                 bud.year.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -469,7 +467,7 @@ public class BRDController implements Initializable {
                                     bud.secteur.getText().isEmpty() || bud.budget.getText().isEmpty()
                                             || bud.year.getValue() == null
                                             || !isAlpha(bud.secteur.getText())
-                                            || !isAlpha(bud.budget.getText())
+                                            || !isNumeric(bud.budget.getText())
                                             || bud.year.getValue().isBefore(LocalDate.now()),
                             bud.secteur.textProperty(), bud.budget.textProperty(), bud.year.valueProperty()));
 
@@ -550,20 +548,20 @@ public class BRDController implements Initializable {
 
 
             edc.somme_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(isNumeric(newValue)) {
-                    edc.inv_somme.setVisible(false);
-                }else
+                if(!isNumeric(newValue)) {
                     edc.inv_somme.setVisible(true);
+                }else
+                    edc.inv_somme.setVisible(false);
             });
 
             edc.date_rev.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue != null) {
                     if(newValue.isBefore(LocalDate.now())) {
-                        edc.inv_revdate.setVisible(false);
+                        edc.inv_revdate.setVisible(true);
                     }
-                }else
-                    edc.inv_revdate.setVisible(true);
-
+                else
+                    edc.inv_revdate.setVisible(false);
+                }
             });
 
 
@@ -649,9 +647,9 @@ public class BRDController implements Initializable {
 
                 edc.somme_rev.textProperty().addListener((observable, oldValue, newValue) -> {
                     if(!isNumeric(newValue)) {
-                        edc.inv_somme.setVisible(false);
-                    }else
                         edc.inv_somme.setVisible(true);
+                    }else
+                        edc.inv_somme.setVisible(false);
                 });
 
                 edc.date_rev.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -844,9 +842,9 @@ public class BRDController implements Initializable {
 
                 edc.somme_dep.textProperty().addListener((observable, oldValue, newValue) -> {
                     if(!isNumeric(newValue)) {
-                        edc.inv_depsomme.setVisible(false);
-                    }else
                         edc.inv_depsomme.setVisible(true);
+                    }else
+                        edc.inv_depsomme.setVisible(false);
                 });
 
                 edc.date_dep.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -914,18 +912,18 @@ public class BRDController implements Initializable {
     public boolean isAlpha(String name) {
         return name.matches("[a-zA-Z ]+");
     }
-//*********
-          @FXML
-          void selectAllB(ActionEvent event) {
-           this.budgetTable.getSelectionModel().selectAll();
+    //*********
+    @FXML
+    void selectAllB(ActionEvent event) {
+        this.budgetTable.getSelectionModel().selectAll();
 }
-        @FXML
-        void selectAllD(ActionEvent event) {
+    @FXML
+    void selectAllD(ActionEvent event) {
         this.depensesTable.getSelectionModel().selectAll();
     }
 
-         @FXML
-         void selectAllR(ActionEvent event) {
+    @FXML
+    void selectAllR(ActionEvent event) {
         this.revenusTable.getSelectionModel().selectAll();
     }
 

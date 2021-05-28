@@ -197,7 +197,7 @@ public class MainInterfaceController implements Initializable{
 		try {
 			Scene scene = new Scene(loader.load());
 			Stage s = (Stage)profilMenu.getScene().getWindow();
-			//bech thablni heudhia
+			s.setMaximized(false);
 			s.setScene(scene);
 		} catch (IOException e) {
 			e.printStackTrace();

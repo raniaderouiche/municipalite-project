@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import org.fsb.municipalite.entities.Complaint;
 import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
@@ -124,6 +126,19 @@ public class TSController implements Initializable {
 		teamSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
 			System.out.println("textfield changed from " + oldValue + " to " + newValue);
 			ListenerSearchTeam(newValue);
+		});
+
+		teamTable.setRowFactory( tv -> {
+			TableRow<Equipe> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && (! row.isEmpty()) && event.getButton().equals(MouseButton.PRIMARY) ) {
+					this.updateTeam(null);
+				}
+				if ((row.isEmpty()) && event.getButton().equals(MouseButton.PRIMARY) )
+					this.teamTable.getSelectionModel().clearSelection();
+
+			});
+			return row ;
 		});
 	}
 

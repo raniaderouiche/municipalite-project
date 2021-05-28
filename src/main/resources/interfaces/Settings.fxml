@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="717.0" prefWidth="686.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.SettingsController">
+<DialogPane prefHeight="717.0" prefWidth="686.0" style="-fx-background-color: white;" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.SettingsController">
    <content>
       <VBox prefHeight="652.0" prefWidth="697.0" spacing="20.0">
          <children>

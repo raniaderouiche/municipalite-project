@@ -24,12 +24,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="secteur_dep" prefHeight="38.0" prefWidth="375.0" promptText="Secteur" styleClass="dialogTextFields" GridPane.columnIndex="1">
+                <TextField fx:id="secteur_dep" prefHeight="38.0" prefWidth="375.0" promptText="Sector" styleClass="dialogTextFields" GridPane.columnIndex="1">
                     <GridPane.margin>
                         <Insets right="30.0" />
                     </GridPane.margin>
                 </TextField>
-                <Label styleClass="dialogLabels" text="Secteur :">
+                <Label styleClass="dialogLabels" text="Sector :">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -46,7 +46,7 @@
                     </GridPane.margin>
                 </Label>
 
-                <Label styleClass="dialogLabels" text="Somme :" GridPane.rowIndex="1">
+                <Label styleClass="dialogLabels" text="Sum :" GridPane.rowIndex="1">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -54,7 +54,7 @@
                         <Insets left="30.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="somme_dep" prefHeight="37.0" prefWidth="375.0" promptText="Somme" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <TextField fx:id="somme_dep" prefHeight="37.0" prefWidth="375.0" promptText="Sum" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets right="30.0" />
                     </GridPane.margin>
@@ -76,7 +76,7 @@
                         <Insets left="5.0" top="65.0" />
                     </GridPane.margin>
                 </Label>
-                <DatePicker fx:id="date_dep" promptText=".. / .. / ...." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <DatePicker fx:id="date_dep" prefHeight="31.0" prefWidth="378.0" promptText=".. / .. / ...." GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="inv_depdate" layoutX="189.0" layoutY="243.0" style="-fx-font-size: 16;" styleClass="dialogLabels" text="Invalid Date" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
@@ -94,7 +94,7 @@
         <ButtonType fx:constant="CANCEL" />
     </buttonTypes>
     <header>
-        <Label fx:id="titleLabel" prefHeight="74.0" prefWidth="640.0" styleClass="dialogheader" text="Add Depenses">
+        <Label fx:id="titleLabel" prefHeight="74.0" prefWidth="640.0" styleClass="dialogheader" text="Add Expense">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>

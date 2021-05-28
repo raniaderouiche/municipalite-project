@@ -155,6 +155,7 @@ public class Employee extends BaseEntity {
     }*/
     @Override
     public String toString() {
-        return "Employee = " + id + " | Nom : " + nom + " | Prenom : " + prenom + " | Role : " + role;
+        return prenom +' '+ nom;
+        // return "Employee = " + id + " | Nom : " + nom + " | Prenom : " + prenom + " | Role : " + role;
     }
 }

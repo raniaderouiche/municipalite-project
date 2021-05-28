@@ -1,6 +1,5 @@
 package org.fsb.municipalite.controllers;
 
-
 import javafx.event.ActionEvent;
 import org.fsb.municipalite.services.APIs.DownloadPDF;
 import org.fsb.municipalite.entities.Complaint;
@@ -14,8 +13,10 @@ public class ComplaintMsgController {
     Label msgLabel;
 	@FXML
     Label subjectLabel;
+    @FXML
+    Label title;
 
-	Complaint complaint;
+    Complaint complaint;
 	
 	public void setComplaintMsgDialogPane(Complaint c) {
     	msgLabel.setText(c.getMsg());
