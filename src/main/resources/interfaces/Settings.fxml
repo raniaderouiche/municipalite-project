@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="717.0" prefWidth="686.0" style="-fx-background-color: white;" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.SettingsController">
+<DialogPane maxHeight="-Infinity" prefHeight="825.0" prefWidth="686.0" style="-fx-background-color: white;" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.SettingsController">
    <content>
       <VBox prefHeight="652.0" prefWidth="697.0" spacing="20.0">
          <children>
@@ -26,7 +26,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <GridPane prefHeight="295.0" prefWidth="753.0" styleClass="settingsGridPanes">
+            <GridPane prefHeight="414.0" prefWidth="644.0" styleClass="settingsGridPanes">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="388.0" minWidth="10.0" prefWidth="252.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="586.0" minWidth="10.0" prefWidth="426.0" />
@@ -148,16 +148,16 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <GridPane prefHeight="191.0" prefWidth="677.0" styleClass="settingsGridPanes">
+            <GridPane prefHeight="268.0" prefWidth="644.0" styleClass="settingsGridPanes">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.20001220703125" minWidth="10.0" prefWidth="249.6000244140625" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.00001220703126" minWidth="10.0" prefWidth="261.5999755859375" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.79998779296875" minWidth="10.0" prefWidth="167.79998779296875" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="80.0" minHeight="65.0" prefHeight="65.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="89.0" minHeight="55.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="99.1999755859375" minHeight="58.0" prefHeight="58.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="96.0" minHeight="65.0" prefHeight="85.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="110.0" minHeight="55.0" prefHeight="98.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="99.1999755859375" minHeight="58.0" prefHeight="87.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="Username :">
@@ -173,7 +173,7 @@
                         <Insets right="50.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#editUsername" prefHeight="29.0" prefWidth="66.0" styleClass="settingButtons" text="Edit" GridPane.columnIndex="2">
+                  <Button fx:id="edit_username" mnemonicParsing="false" onAction="#editUsername" prefHeight="29.0" prefWidth="66.0" styleClass="settingButtons" text="Edit" GridPane.columnIndex="2">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -188,7 +188,7 @@
                         <Insets right="50.0" />
                      </GridPane.margin>
                   </PasswordField>
-                  <Button mnemonicParsing="false" onAction="#editPassword" prefHeight="33.0" prefWidth="68.0" styleClass="settingButtons" text="Edit" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button fx:id="edit_password" mnemonicParsing="false" onAction="#editPassword" prefHeight="33.0" prefWidth="68.0" styleClass="settingButtons" text="Edit" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -228,6 +228,9 @@
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
             </GridPane>
          </children>
       </VBox>

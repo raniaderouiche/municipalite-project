@@ -6,82 +6,90 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="ContainerF" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.FinancesController">
+<BorderPane fx:id="ContainerF" prefHeight="582.0" prefWidth="1001.0" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.FinancesController">
     <center>
-        <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="424.0" prefWidth="682.0" spacing="40.0" stylesheets="@../assets/css/application.css">
+        <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="325.0" prefWidth="733.0" spacing="60.0" stylesheets="@../assets/css/application.css" BorderPane.alignment="CENTER_LEFT">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
             <BorderPane.margin>
-                <Insets left="35.0" right="35.0" top="20.0" />
+                <Insets />
             </BorderPane.margin>
          <children>
-            <Pane fx:id="actPane" onMouseClicked="#actButton" prefHeight="425.0" prefWidth="500.0" styleClass="paneButtonIcons" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" onMouseClicked="#actButton" styleClass="paneButtonIcons">
                <children>
-                  <VBox>
-                     <children>
-                        <ImageView fitHeight="287.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/img/auto.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="40.0" prefWidth="180.0" style="-fx-alignment: CENTER;" text="Activity">
-                           <font>
-                              <Font name="☞Gilroy-Regular" size="30.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="40.0" prefWidth="180.0" style="-fx-alignment: CENTER;" text="Reports">
-                           <font>
-                              <Font name="☞Gilroy-Regular" size="30.0" />
-                           </font>
-                        </Label>
-                     </children></VBox>
+                  <ImageView fitHeight="287.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Data%20Analytic.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="92.0" prefWidth="180.0" style="-fx-alignment: CENTER;" text="Activity">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="34.0" prefWidth="180.0" style="-fx-alignment: CENTER;" text="Reports">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
                </children>
-            </Pane>
-            <Pane fx:id="financePane" onMouseClicked="#financeButton" prefHeight="425.0" prefWidth="500.0" styleClass="paneButtonIcons" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#financeButton" styleClass="paneButtonIcons">
                <children>
-                  <VBox>
-                     <children>
-                        <ImageView fitHeight="199.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/img/auto.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="64.0" prefWidth="163.0" style="-fx-alignment: CENTER;" text="Reports">
-                           <font>
-                              <Font name="☞Gilroy-Regular" size="30.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="53.0" prefWidth="162.0" style="-fx-alignment: CENTER;" text="Financial">
-                           <font>
-                              <Font name="☞Gilroy-Regular" size="30.0" />
-                           </font>
-                        </Label>
-                     </children></VBox>
+                  <ImageView fitHeight="199.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Valuations.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="64.0" prefWidth="163.0" style="-fx-alignment: CENTER;" text="Financial ">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="53.0" prefWidth="162.0" style="-fx-alignment: CENTER;" text="Reports">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
                </children>
-            </Pane>
-            <Pane fx:id="statsPane" onMouseClicked="#statsButton" prefHeight="425.0" prefWidth="500.0" styleClass="paneButtonIcons" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#statsButton" styleClass="paneButtonIcons">
                <children>
-                  <VBox>
-                     <children>
-                        <ImageView fitHeight="216.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/img/auto.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="133.0" prefWidth="195.0" style="-fx-alignment: CENTER;" text="Management">
-                           <font>
-                              <Font name="☞Gilroy-Regular" size="30.0" />
-                           </font>
-                        </Label>
-                     </children></VBox>
+                  <ImageView fitHeight="216.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Budget.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="133.0" prefWidth="195.0" style="-fx-alignment: CENTER;" text="Management">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
                </children>
-            </Pane>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
          </children>
         </HBox>
     </center>
+   <padding>
+      <Insets left="500.0" />
+   </padding>
 </BorderPane>

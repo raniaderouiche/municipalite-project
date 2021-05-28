@@ -471,6 +471,7 @@
 .settingButtons{
     -fx-background-color: rgba(255, 255, 255, 0.582);
     -fx-border-radius:10;
+    -fx-border-color: #0D0D0ED6;
     -fx-background-radius:10;
     -fx-cursor: hand;
 }
