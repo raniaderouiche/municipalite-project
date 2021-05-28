@@ -68,7 +68,8 @@ public class TSController implements Initializable {
 	
 	@FXML
 	TextField teamSearchField;
-	
+
+	EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 
     //define dialog window offsets here
     private double xOffset = 0;
@@ -658,6 +659,15 @@ public class TSController implements Initializable {
 				ObservableList<Equipe> selectedItems = teamTable.getSelectionModel().getSelectedItems();
 				for (Equipe e : selectedItems) {
 					try {
+						List<Employee> employeeList = employeeService.selectBy("equipe",e.getId()+"");
+						for (Employee emp : employeeList){
+							if (emp.getEquipe() != null){
+								emp.setEquipe(null);
+								employeeService.update(emp);
+							}
+						}
+
+						//delete team
 						EquipeServiceImpl equipeService = new EquipeServiceImpl();
 						equipeService.remove(e.getId());
 					}catch(Exception ex) {
