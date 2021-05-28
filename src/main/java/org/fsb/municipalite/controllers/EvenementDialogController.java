@@ -20,6 +20,7 @@ public class EvenementDialogController implements Initializable {
     @FXML Label inv_name;
     @FXML Label inv_budget;
     @FXML Label inv_eventdate;
+    @FXML TextArea description;
 
 
     ObservableList<String> locationList = FXCollections.observableArrayList("Bizerte Nord", "Bizerte Sud", "Djoumine","El Alia","Ghar El Melh","Ghezala","Mateur","Menzel Bourguiba","Menzel Jemil","Ras Jabel","Tinja","Utique","Zarzouna");
@@ -36,6 +37,7 @@ public class EvenementDialogController implements Initializable {
         evenement.setBudget(Long.parseLong(budget.getText()));
         evenement.setLieu(place.getValue().toString());
         evenement.setDateEvenement(eventDate.getValue());
+        evenement.setDescription(description.getText());
     }
 
     public void setEventDialogPane(Evenement evenement){
@@ -43,5 +45,6 @@ public class EvenementDialogController implements Initializable {
         budget.setText(evenement.getBudget() +"");
         place.setValue(evenement.getLieu());
         eventDate.setValue(evenement.getDateEvenement());
+        description.setText(evenement.getDescription());
     }
 }

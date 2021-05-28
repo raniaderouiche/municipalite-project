@@ -140,7 +140,7 @@
                         <Insets top="250.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="msgLength" text="0/255" textFill="#5b5959" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label fx:id="msgLength" text="0/3000" textFill="#5b5959" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

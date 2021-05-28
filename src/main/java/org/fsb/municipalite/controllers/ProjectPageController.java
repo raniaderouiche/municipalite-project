@@ -34,7 +34,7 @@ public class ProjectPageController implements Initializable {
     @FXML TableColumn<Projet,LocalDate> startDate;
     @FXML TableColumn<Projet,LocalDate> dueDate;
     @FXML TableColumn<Projet,Integer> budget;
-    @FXML TableColumn<Projet,Long> version ;
+    @FXML TableColumn<Projet,String> desc ;
     @FXML TableColumn<Projet,String> place;
     @FXML TableColumn<Projet, String> teamColumn;
 
@@ -55,7 +55,7 @@ public class ProjectPageController implements Initializable {
         startDate.setCellValueFactory(new PropertyValueFactory<Projet, LocalDate>("dateDebut"));
         dueDate.setCellValueFactory(new PropertyValueFactory<Projet,LocalDate>("dateFin"));
         budget.setCellValueFactory(new PropertyValueFactory<Projet, Integer>("budget"));
-        version.setCellValueFactory(new PropertyValueFactory<Projet,Long>("version"));
+        desc.setCellValueFactory(new PropertyValueFactory<Projet,String>("description"));
         place.setCellValueFactory(new PropertyValueFactory<Projet,String>("lieu"));
         teamColumn.setCellValueFactory(new PropertyValueFactory<Projet,String>("equipeValue"));
         data  =  FXCollections.observableArrayList();
@@ -218,6 +218,7 @@ public class ProjectPageController implements Initializable {
                                     || pac.budget.getText().isEmpty()
                                     ||!isAlpha(pac.name.getText())
                                     ||!isNumeric(pac.budget.getText())
+                                    ||pac.description.getText().isEmpty()
                                     || pac.start.getValue() == null
                                     || pac.end.getValue() == null
                                     || pac.start.getValue().isAfter(pac.end.getValue())
@@ -226,6 +227,7 @@ public class ProjectPageController implements Initializable {
                                     pac.budget.textProperty(),
                                     pac.start.valueProperty(),
                                     pac.end.valueProperty(),
+            						pac.description.textProperty(),
             						pac.team.valueProperty()));
 
 
@@ -370,10 +372,12 @@ public class ProjectPageController implements Initializable {
                                         ||!isNumeric(puc.budget.getText())
                                         || puc.start.getValue() == null
                                         || puc.end.getValue() == null
+                                        ||puc.description.getText().isEmpty()
                                         ||puc.start.getValue().isAfter(puc.end.getValue()),
                         puc.name.textProperty(),
                         puc.budget.textProperty(),
                         puc.start.valueProperty(),
+                        puc.description.textProperty(),
                         puc.end.valueProperty()));
 
                 Optional<ButtonType> clickedButton = d.showAndWait();

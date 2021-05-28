@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXTextField;
 import org.fsb.municipalite.entities.Compte;
 
 import javafx.collections.FXCollections;
@@ -31,7 +32,7 @@ public class ResetByUser2Controller implements Initializable{
     private ChoiceBox choices;
 
     @FXML
-    private TextField answer;
+    private JFXTextField answer;
 
     @FXML
     private Label inv_answer;
@@ -69,7 +70,7 @@ public class ResetByUser2Controller implements Initializable{
     				inv_answer.setVisible(true);
     			}
     		else {
-				inv_answer.setText("Invalid");
+				inv_answer.setText("Invalid!");
     			inv_answer.setVisible(true);
     		}
     	else {

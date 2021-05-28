@@ -10,6 +10,7 @@ public class Evenement extends BaseEntity{
     private LocalDate dateEvenement;
     private String lieu;
     private Long budget;
+    private String description;
 
     public Evenement() {
     }
@@ -44,6 +45,14 @@ public class Evenement extends BaseEntity{
 
     public void setBudget(Long budget) {
         this.budget = budget;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

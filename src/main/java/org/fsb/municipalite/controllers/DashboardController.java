@@ -1,6 +1,6 @@
 package org.fsb.municipalite.controllers;
 
-import java.net.URL;
+import java.net.URL; 
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -39,7 +39,7 @@ public class DashboardController implements Initializable{
 
     @FXML
     private PieChart toolsChart;
-
+   
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

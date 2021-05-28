@@ -65,7 +65,4 @@
          </BorderPane.margin>
       </HBox>
    </center>
-   <top>
-      <Label prefHeight="25.0" prefWidth="326.0" styleClass="headers" text="Services" BorderPane.alignment="CENTER" />
-   </top>
 </BorderPane>

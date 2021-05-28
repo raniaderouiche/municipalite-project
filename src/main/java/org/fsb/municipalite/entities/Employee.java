@@ -131,7 +131,14 @@ public class Employee extends BaseEntity {
         this.compte = compte;
     }
 
-    @Override
+    public String getTeamID(){
+        if (equipe != null){
+            return equipe.getId() + "-" + equipe.getNom();
+        }
+        return "-";
+    }
+
+    /*@Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
@@ -145,5 +152,9 @@ public class Employee extends BaseEntity {
                 ", dateNaissance=" + dateNaissance +
                 ", role='" + role + '\'' +
                 '}';
+    }*/
+    @Override
+    public String toString() {
+        return "Employee = " + id + " | Nom : " + nom + " | Prenom : " + prenom + " | Role : " + role;
     }
 }

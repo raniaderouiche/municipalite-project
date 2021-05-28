@@ -143,12 +143,12 @@
                   <Insets left="25.0" />
                </GridPane.margin>
             </Label>
-            <DatePicker fx:id="startDate" prefHeight="33.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <DatePicker fx:id="startDate" disable="true" prefHeight="33.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
             </DatePicker>
-            <DatePicker fx:id="endDate" layoutX="253.0" layoutY="368.0" prefHeight="33.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <DatePicker fx:id="endDate" disable="true" layoutX="253.0" layoutY="368.0" prefHeight="33.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>

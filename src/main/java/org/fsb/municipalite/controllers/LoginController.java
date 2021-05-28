@@ -1,9 +1,14 @@
 package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXSpinner;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.VBox;
 import org.fsb.municipalite.entities.Compte;
 import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
@@ -35,19 +40,19 @@ public class LoginController {
 	private TextField passwordText;
 	@FXML
 	private Label conditionText;
-	@FXML
-	private Button Login_Button;
+
+
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	int logSess;
-	
+
 	private double xOffset = 0;
     private double yOffset = 0;
-	
-	
+
+
 	public void login(ActionEvent event) throws IOException {
-		
+
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/mainInterface.fxml"));
 		root = loader.load();
 		stage =(Stage)((Node)event.getSource()).getScene().getWindow();
@@ -199,4 +204,6 @@ public class LoginController {
 		}
 
 	}
+
+
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DepensesServiceImpl implements IDepensesServices{
 
-    private DepensesDaoImpl depensesDao;
+    DepensesDaoImpl depensesDao;
 
     public DepensesServiceImpl() { this.depensesDao = new DepensesDaoImpl(); }
 

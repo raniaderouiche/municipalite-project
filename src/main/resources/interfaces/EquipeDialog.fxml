@@ -1,55 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="396.0" prefWidth="548.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.EquipeDialogController">
+<DialogPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="892.0" styleClass="dialogShadow" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.EquipeDialogController">
    <content>
-      <AnchorPane prefHeight="319.0" prefWidth="548.0">
+      <GridPane prefHeight="568.0" prefWidth="905.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="185.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="721.0" minWidth="10.0" prefWidth="685.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="186.0" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="292.0" minHeight="10.0" prefHeight="107.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="275.0" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="244.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="181.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <TextField fx:id="id" disable="true" layoutX="166.0" layoutY="57.0" prefHeight="41.0" prefWidth="301.0" styleClass="searchField">
+            <Label prefHeight="21.0" prefWidth="40.0" text="ID :">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Name :" GridPane.rowIndex="1">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="86.0" text="Leader :" GridPane.rowIndex="2">
+               <font>
+                  <Font name="☞Gilroy-Regular" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+            <ChoiceBox fx:id="leader" prefHeight="35.0" prefWidth="375.0" styleClass="customChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="name" prefHeight="41.0" prefWidth="301.0" promptText="Name" styleClass="searchField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
             </TextField>
-            <TextField fx:id="name" layoutX="166.0" layoutY="125.0" prefHeight="41.0" prefWidth="301.0" promptText="Name" styleClass="searchField">
+            <TextField fx:id="id" disable="true" prefHeight="41.0" prefWidth="381.0" styleClass="searchField" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
             </TextField>
-            <Label fx:id="inv_name" layoutX="138.0" layoutY="261.0" text="Invalid name" textFill="#e43131" visible="false">
+            <Label fx:id="inv_name" text="Invalid name" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="20.0" top="70.0" />
+               </GridPane.margin>
             </Label>
-            <ChoiceBox fx:id="leader" layoutX="166.0" layoutY="200.0" prefHeight="35.0" prefWidth="301.0" styleClass="customChoiceBox" />
-            <Label fx:id="inv_name1" layoutX="138.0" layoutY="261.0" text="Invalid name" textFill="#e43131" visible="false">
+            <Label fx:id="inv_name1" text="Invalid name" textFill="#e43131" visible="false" GridPane.columnIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="30.0" top="70.0" />
+               </GridPane.margin>
             </Label>
-            <Label layoutX="63.0" layoutY="67.0" prefHeight="21.0" prefWidth="40.0" text="ID :">
+            <Label layoutX="40.0" layoutY="278.0" prefHeight="30.0" prefWidth="115.0" text="Members :" GridPane.rowIndex="4">
                <font>
                   <Font name="☞Gilroy-Regular" size="20.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
             </Label>
-            <Label layoutX="61.0" layoutY="135.0" text="Name :">
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="258.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="132.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="295.0" />
+              </columnConstraints>
+               <children>
+                  <ListView fx:id="members" prefHeight="179.0" prefWidth="294.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </ListView>
+                  <ListView fx:id="availMembers" prefHeight="179.0" prefWidth="258.0" GridPane.rowIndex="3">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </ListView>
+                  <Button mnemonicParsing="false" onAction="#addMember" prefHeight="31.0" prefWidth="62.0" styleClass="dialogButtons" text="-&gt;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="50.0" left="30.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#deleteMember" prefHeight="31.0" prefWidth="68.0" styleClass="dialogButtons" text="&lt;-" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="30.0" top="25.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+            <Label layoutX="50.0" layoutY="372.0" prefHeight="35.0" prefWidth="214.0" text="Available Members :" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="☞Gilroy-Regular" size="20.0" />
                </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Label>
-            <Label layoutX="61.0" layoutY="203.0" prefHeight="30.0" prefWidth="86.0" text="Leader :">
+            <Label layoutX="205.0" layoutY="338.0" prefHeight="35.0" prefWidth="214.0" text="Current Members :" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="☞Gilroy-Regular" size="20.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="400.0" />
+               </GridPane.margin>
             </Label>
          </children>
-      </AnchorPane>
+      </GridPane>
    </content>
    <buttonTypes>
       <ButtonType fx:constant="APPLY" />

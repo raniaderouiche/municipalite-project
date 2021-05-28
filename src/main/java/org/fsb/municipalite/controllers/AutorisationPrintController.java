@@ -70,15 +70,12 @@ public class AutorisationPrintController {
 	                document.open();
 	                Font documentType=new Font();
 	                FontFactory.getFont(FontFactory.TIMES_ROMAN,14,Font.NORMAL,BaseColor.BLACK);
-	                documentType.setSize(14);
-	                
+
 	                Font municipalityName=new Font();
 	                municipalityName.setStyle(Font.BOLD);
 	                municipalityName.setStyle(Font.UNDERLINE);
 	                municipalityName.setSize(18);
-	                
-	                Font documentFooter=new Font();
-	                documentFooter.setSize(10);
+
 	                Paragraph p0 = new Paragraph();
 	                Paragraph p1 = new Paragraph(null, FontFactory.getFont(FontFactory.HELVETICA, 10));
 	                Paragraph p2 = new Paragraph();
@@ -89,24 +86,23 @@ public class AutorisationPrintController {
 	                p1.add("Tunisian republic\n"+m.getNom());
 	                p1.setAlignment(Element.ALIGN_CENTER);
 	                p1.setFont(municipalityName);
-	                             
 
-	                p2.add("\nAuthorization\n ======================================================");
+	                p2.add("\nAuthorization\n");
+
 	                p2.setAlignment(Element.ALIGN_CENTER);
 	                p2.setFont(documentType);
 
 	                p3.add("\nAuthorization Number : "+auto.getId()+"\n");
 	                p3.add("Citizen's name : "+auto.getNomCitoyen()+"\n");
 	                p3.add("Citizen's CIN: "+auto.getCin()+"\n");
-	                p3.add("\nSubject :\n \t I hereby grant this authorization to "+auto.getSujet()+"\n");
+	                p3.add("\nSubject :\n \t"+auto.getSujet()+"\n");
 	                p3.add("\n\nBody :\n \t"+auto.getMsg()+"\n\n");
 	                
-
 	                p4.add("\nContact : \n");
-	                p4.add("   number : "+m.getTel()+"\n");
-	                p4.add("   email : "+m.getEmail()+"\n");
-	                p4.add("   adress : "+m.getAdresse()+"\n");
-	                p4.add("   web site : "+m.getWebsite()+"\n");
+	                p4.add("\tNumber : "+m.getTel()+"\n");
+	                p4.add("\tEmail : "+m.getEmail()+"\n");
+	                p4.add("\tAdress : "+m.getAdresse()+"\n");
+	                p4.add("\tWeb site : "+m.getWebsite()+"\n");
 	                p4.add("\nDate : "+auto.getCreatedAt().getDayOfMonth()+'/'+auto.getCreatedAt().getMonthValue()+'/'+auto.getCreatedAt().getYear()+"\n");
 	                p4.add("\nSignature \n");
 	                

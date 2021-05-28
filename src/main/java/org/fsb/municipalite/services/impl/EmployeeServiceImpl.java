@@ -10,7 +10,7 @@ import org.fsb.municipalite.services.IEmployeeService;
 
 public class EmployeeServiceImpl implements IEmployeeService {
 
-    private IEmployeeDao employeeDao;
+     IEmployeeDao employeeDao;
 
     public EmployeeServiceImpl() {
         employeeDao = new EmployeeDaoImpl();

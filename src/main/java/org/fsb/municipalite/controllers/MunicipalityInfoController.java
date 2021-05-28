@@ -12,11 +12,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import org.fsb.municipalite.entities.Compte;
 import org.fsb.municipalite.entities.Municipalite;
 import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
 
 public class MunicipalityInfoController implements Initializable{
-
+	@FXML
+	GridPane grid;
     @FXML
     private TextField everydayF;
 
@@ -54,13 +58,23 @@ public class MunicipalityInfoController implements Initializable{
     private Button modifyButton;
 
     Municipalite municipalite;
-    
-    //for testing
+
+	private Compte currentAccount;
+
+	public void setCurrentAccount(Compte currentAccount) {
+		this.currentAccount = currentAccount;
+		if((this.currentAccount.getEmployee().getRole().equals("Administrateur"))){
+			modifyButton.setVisible(true);
+		}
+	}
+
+	//for testing
     Boolean[] tests = new Boolean[9];
     boolean check = true;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		modifyButton.setVisible(false);
 		setFieldsDisabled(true);
 		getMunicipalite();
 		listenersGo();
@@ -190,7 +204,7 @@ public class MunicipalityInfoController implements Initializable{
 		municipalite.setEmail(emailField.getText());
 		municipalite.setAdresse(addressField.getText());
 		municipalite.setWebsite(websiteField.getText());
-		municipalite.setWorkHours(everydayF.getText() + "," + everydayU.getText() + "," + 
+		municipalite.setWorkHours(everydayF.getText() + "," + everydayU.getText() + "," +
 								  fridayF.getText() + "," + fridayU.getText());
 	}
 

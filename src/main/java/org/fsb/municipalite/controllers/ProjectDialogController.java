@@ -38,6 +38,8 @@ public class ProjectDialogController implements Initializable {
     @FXML RadioButton finished;
     @FXML RadioButton unfinished;
 
+    @FXML TextArea description;
+
     ObservableList teams =  FXCollections.observableArrayList();
 
     ObservableList<String> locationList = FXCollections.observableArrayList("Bizerte Nord", "Bizerte Sud", "Djoumine","El Alia","Ghar El Melh","Ghezala","Mateur","Menzel Bourguiba","Menzel Jemil","Ras Jabel","Tinja","Utique","Zarzouna");
@@ -65,6 +67,7 @@ public class ProjectDialogController implements Initializable {
         projet.setLieu(place.getValue());
         projet.setDateDebut(start.getValue());
         projet.setDateFin(end.getValue());
+        projet.setDescription(description.getText());
         if(finished.isSelected()) { projet.setEtat(Projet.Etat.Finished); }
         if (unfinished.isSelected()) {projet.setEtat(Projet.Etat.Unfinished);}
         if(team.getValue() != null && team.getValue() != "No Team Selected") {
@@ -87,6 +90,7 @@ public class ProjectDialogController implements Initializable {
         place.setValue(projet.getLieu());
         start.setValue(projet.getDateDebut());
         end.setValue(projet.getDateFin());
+        description.setText(projet.getDescription());
         if(projet.getEtat() == Projet.Etat.Finished){
             finished.setSelected(true);
         }

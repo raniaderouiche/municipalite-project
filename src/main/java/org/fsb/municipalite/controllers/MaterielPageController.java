@@ -206,11 +206,17 @@ public class MaterielPageController implements Initializable{
                     mac.orderRB.setDisable(true);
                     mac.availableRB.setDisable(true);
                     mac.UnavailableRB.setSelected(true);
+                    mac.startDate.setDisable(false);
+                    mac.endDate.setDisable(false);
 
                 }else {
                     mac.availableRB.setSelected(true);
                     mac.availableRB.setDisable(false);
                     mac.orderRB.setDisable(false);
+                    mac.startDate.setDisable(true);
+                    mac.endDate.setDisable(true);
+                    mac.startDate.getEditor().clear();
+                    mac.endDate.getEditor().clear();
                 }
             });
 
@@ -269,11 +275,12 @@ public class MaterielPageController implements Initializable{
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
                     mac.nameField.getText().isEmpty()
                             || mac.refField.getText().isEmpty()
+                            || !mac.refField.getText().matches("[a-zA-Z0-9]+")
                             ||!isAlpha(mac.nameField.getText())
                             ||mac.startDate.getValue() == null
                             ||mac.endDate.getValue() == null
-                            ||mac.startDate.getValue().isAfter(mac.endDate.getValue())
-                            ||mac.endDate.getValue().isBefore(LocalDate.now())
+                            ||(mac.startDate.getValue().isAfter(mac.endDate.getValue()))
+                            ||(mac.endDate.getValue().isBefore(LocalDate.now()))
                             ||!Pattern.matches("[a-zA-Z0-9]+", mac.refField.getText()),
 			                mac.nameField.textProperty(),mac.refField.textProperty(),
                             mac.startDate.valueProperty(),mac.endDate.valueProperty()));
@@ -398,6 +405,25 @@ public class MaterielPageController implements Initializable{
 
                 });
 
+                muc.projectsChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
+                    if(newValue != "No Project Selected") {
+                        muc.orderRB.setDisable(true);
+                        muc.availableRB.setDisable(true);
+                        muc.UnavailableRB.setSelected(true);
+                        muc.startDate.setDisable(false);
+                        muc.endDate.setDisable(false);
+
+                    }else {
+                        muc.availableRB.setSelected(true);
+                        muc.availableRB.setDisable(false);
+                        muc.orderRB.setDisable(false);
+                        muc.startDate.setDisable(true);
+                        muc.endDate.setDisable(true);
+                        muc.startDate.getEditor().clear();
+                        muc.endDate.getEditor().clear();
+                    }
+                });
+
                 //to apply css on the dialog pane buttons
     			d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
     			d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
@@ -409,14 +435,18 @@ public class MaterielPageController implements Initializable{
                 d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
                                 muc.nameField.getText().isEmpty()
                                         || muc.refField.getText().isEmpty()
+                                        || !muc.refField.getText().matches("[a-zA-Z0-9]+")
                                         ||!isAlpha(muc.nameField.getText())
-                                        ||muc.startDate.getValue() == null
-                                        ||muc.endDate.getValue() == null
+                                        ||(muc.startDate.getValue() == null&& muc.projectsChoice.getValue() != "No Project Selected")
+                                        ||(muc.endDate.getValue() == null&& muc.projectsChoice.getValue() != "No Project Selected")
                                         ||muc.startDate.getValue().isAfter(muc.endDate.getValue())
                                         ||muc.endDate.getValue().isBefore(LocalDate.now())
                                         ||!Pattern.matches("[a-zA-Z0-9]+", muc.refField.getText()),
-                                        muc.startDate.valueProperty(),muc.endDate.valueProperty(),
-                                        muc.nameField.textProperty(),muc.refField.textProperty()));
+                                        muc.nameField.textProperty(),
+                                        muc.refField.textProperty(),
+                                        muc.startDate.valueProperty(),
+                                        muc.endDate.valueProperty()
+                                        ));
 
 				Optional<ButtonType> clickedButton = d.showAndWait();
 				if(clickedButton.get() == ButtonType.APPLY) {

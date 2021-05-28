@@ -1,6 +1,6 @@
 package org.fsb.municipalite.services.impl;
 
-import org.fsb.municipalite.dao.IMaterielDao;
+import org.fsb.municipalite.dao.IMaterielDao; 
 import org.fsb.municipalite.dao.impl.MaterielDaoImpl;
 import org.fsb.municipalite.entities.Materiel;
 import org.fsb.municipalite.services.IMaterielService;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MaterielServiceImpl implements IMaterielService {
 
-    private MaterielDaoImpl materielDao;
+     MaterielDaoImpl materielDao;
 
     public MaterielServiceImpl() {
         this.materielDao = new MaterielDaoImpl();

@@ -45,6 +45,8 @@ public class TSController implements Initializable {
 	@FXML
 	TableColumn<Employee, String> sexe;
 	@FXML
+	TableColumn<Employee, String> team;
+	@FXML
 	TableColumn<Employee, LocalDate> dateNaissance;
 	@FXML TableColumn<Employee,String> role;
 	@FXML
@@ -66,7 +68,8 @@ public class TSController implements Initializable {
 	
 	@FXML
 	TextField teamSearchField;
-	
+
+	EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 
     //define dialog window offsets here
     private double xOffset = 0;
@@ -85,6 +88,7 @@ public class TSController implements Initializable {
 		sexe.setCellValueFactory(new PropertyValueFactory<Employee, String>("sexe"));
 		dateNaissance.setCellValueFactory(new PropertyValueFactory<Employee, LocalDate>("dateNaissance"));
 		role.setCellValueFactory(new PropertyValueFactory<Employee, String>("role"));
+		team.setCellValueFactory(new PropertyValueFactory<Employee, String>("TeamID"));
 
 		EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 
@@ -513,14 +517,27 @@ public class TSController implements Initializable {
 
 			if (clickedButton.get() == ButtonType.APPLY) {
 				Equipe equipe = new Equipe();
-				equipe.setNom(eqac.name.getText());
-				EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
-				Employee emp = employeeService.getById(Long.parseLong(eqac.leader.getValue().toString().split(",")[0]));
-				equipe.setResponsable(emp);
 
+				eqac.setCurrentEquipe(equipe);
 				EquipeServiceImpl equipeService = new EquipeServiceImpl();
 				equipeService.create(equipe);
+				//add members
+				EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+				for(Employee e: eqac.selected){
+					if (e.getEquipe() == null){
+						e.setEquipe(equipe);
+						employeeService.update(e);
+					}
+				}
+				for(Employee e: eqac.deleteList){
+					if (e.getEquipe() != null){
+						e.setEquipe(null);
+						employeeService.update(e);
+					}
+				}
 				refreshTeam();
+				reloadEmp(event);
+
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -598,7 +615,26 @@ public class TSController implements Initializable {
 				if (clickedButton.get() == ButtonType.APPLY) {
 					equc.setCurrentEquipe(equipe); //set updates
 					equipeService.update(equipe); //persist update in the db
+
+					//add members
+					for(Employee emp: equc.selected){
+						EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+						if (emp.getEquipe() == null){
+							emp.setEquipe(equipe);
+							employeeService.update(emp);
+						}
+					}
+					//delete members
+					for(Employee emp: equc.deleteList){
+						EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+						if (emp.getEquipe() != null){
+							emp.setEquipe(null);
+							employeeService.update(emp);
+						}
+					}
+
 					refreshTeam();
+					reloadEmp(event);
 				}
 			}
 
@@ -623,6 +659,15 @@ public class TSController implements Initializable {
 				ObservableList<Equipe> selectedItems = teamTable.getSelectionModel().getSelectedItems();
 				for (Equipe e : selectedItems) {
 					try {
+						List<Employee> employeeList = employeeService.selectBy("equipe",e.getId()+"");
+						for (Employee emp : employeeList){
+							if (emp.getEquipe() != null){
+								emp.setEquipe(null);
+								employeeService.update(emp);
+							}
+						}
+
+						//delete team
 						EquipeServiceImpl equipeService = new EquipeServiceImpl();
 						equipeService.remove(e.getId());
 					}catch(Exception ex) {

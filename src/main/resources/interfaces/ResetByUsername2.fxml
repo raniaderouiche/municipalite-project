@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="550.0" prefWidth="828.0" spacing="20.0" styleClass="loginBackground" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ResetByUser2Controller">
+<VBox alignment="CENTER" prefHeight="550.0" prefWidth="828.0" spacing="25.0" styleClass="loginBackground" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ResetByUser2Controller">
    <children>
       <Label prefHeight="47.0" prefWidth="485.0" text="Please choose and answer your security question" textFill="#7eff7a">
          <font>
             <Font name="☞Gilroy-Regular" size="21.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="choices" prefHeight="41.0" prefWidth="558.0" styleClass="resetChoice" />
-      <TextField fx:id="answer" maxWidth="-Infinity" minWidth="-Infinity" onAction="#next" prefHeight="41.0" prefWidth="557.0" promptText="Your Answer" />
+      <ChoiceBox fx:id="choices" prefHeight="41.0" prefWidth="558.0" styleClass="resetChoice">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></ChoiceBox>
+      <JFXTextField fx:id="answer" focusColor="#75b7f8" labelFloat="true" maxWidth="-Infinity" minWidth="-Infinity" onAction="#next" prefHeight="41.0" prefWidth="559.0" promptText="Your Answer" unFocusColor="#2989ff">
+         <font>
+            <Font name="☞Gilroy-Regular" size="15.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </JFXTextField>
       <Label fx:id="inv_answer" alignment="CENTER" prefHeight="25.0" prefWidth="339.0" text="Invalid Q&amp;A" textFill="#ff6464" visible="false">
          <font>
             <Font size="16.0" />
@@ -24,8 +35,8 @@
       </Label>
       <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="828.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#back" prefHeight="40.0" prefWidth="113.0" text="Back" />
-            <Button mnemonicParsing="false" onAction="#next" prefHeight="40.0" prefWidth="113.0" text="Next" />
+            <JFXButton onAction="#back" prefHeight="41.0" prefWidth="83.0" styleClass="resetButtons" text="Back" />
+            <JFXButton layoutX="392.0" layoutY="10.0" onAction="#next" prefHeight="41.0" prefWidth="83.0" styleClass="resetButtons" text="Next" />
          </children>
       </HBox>
    </children>

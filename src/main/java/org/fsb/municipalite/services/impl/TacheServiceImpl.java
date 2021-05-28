@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TacheServiceImpl implements ITacheService {
 
-    private ITacheDao tacheDao;
+    ITacheDao tacheDao;
 
     public TacheServiceImpl() {
         this.tacheDao = new TacheDaoImpl();

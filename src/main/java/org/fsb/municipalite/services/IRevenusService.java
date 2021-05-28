@@ -1,6 +1,6 @@
 package org.fsb.municipalite.services;
 
-;
+
 import org.fsb.municipalite.entities.Revenus;
 
 import java.util.List;

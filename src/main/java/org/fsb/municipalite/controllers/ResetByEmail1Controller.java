@@ -1,16 +1,23 @@
 package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import org.fsb.municipalite.services.APIs.SendMail;
 import org.fsb.municipalite.entities.Compte;
@@ -23,7 +30,7 @@ public class ResetByEmail1Controller {
 	private Parent root;
 	
     @FXML
-    private TextField emailField;
+    private JFXTextField emailField;
 
     @FXML
     private Label checkEmail;
@@ -42,14 +49,47 @@ public class ResetByEmail1Controller {
 
 		CompteServiceImpl compteService = new CompteServiceImpl();
 		List<String> emails = compteService.selectAllInONEColumn("email");
-		System.out.println(emails);
 
 		if(emails.contains(emailField.getText())) {
 
 			String code = generateCode(6);
 			System.out.println(code);
 
-			SendMail.sendRecupCode(emailField.getText(), code);
+			try {
+				SendMail.sendRecupCode(emailField.getText(), code);
+			} catch (Exception e) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Code Error");
+				alert.setHeaderText("Could not connect!");
+				alert.setContentText("Error while sending the code! Check your internet connection or antivirus.");
+
+				// Create expandable Exception.
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				e.printStackTrace(pw);
+				String exceptionText = sw.toString();
+
+				Label label = new Label("The exception stacktrace was:");
+
+				TextArea textArea = new TextArea(exceptionText);
+				textArea.setEditable(false);
+				textArea.setWrapText(true);
+
+				textArea.setMaxWidth(Double.MAX_VALUE);
+				textArea.setMaxHeight(Double.MAX_VALUE);
+				GridPane.setVgrow(textArea, Priority.ALWAYS);
+				GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+				GridPane expContent = new GridPane();
+				expContent.setMaxWidth(Double.MAX_VALUE);
+				expContent.add(label, 0, 0);
+				expContent.add(textArea, 0, 1);
+
+				// Set expandable Exception into the dialog pane.
+				alert.getDialogPane().setExpandableContent(expContent);
+
+				alert.showAndWait();
+			}
 
 			ResetByEmail2Controller REcontroller = loader.getController();
 			REcontroller.setResetCode(code);
@@ -60,7 +100,7 @@ public class ResetByEmail1Controller {
 
 		}else{
 			checkEmail.setText("Incorrect Email");
-			checkEmail.setStyle("-fx-text-fill: RED");
+			checkEmail.setStyle("-fx-text-fill: rgba(229, 87, 87, 1)");
 			checkEmail.setVisible(true);
 		}
 

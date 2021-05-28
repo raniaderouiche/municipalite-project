@@ -49,7 +49,8 @@ public class ComplaintDialogController {
 	    	cin.setText(Long.toString(c.getCin()));
 	    	subject.setText(c.getSujet());
 	    	msg.setText(c.getMsg());
-	    	if(c.getEtat().equals(Etat.processed)) {
+			msgLength.setText(msg.getText().length()+"/3000");
+			if(c.getEtat().equals(Etat.processed)) {
 	    		processed.setSelected(true);
 	    	}else if(c.getEtat().equals(Etat.unprocessed)){
 	    		unprocessed.setSelected(true);

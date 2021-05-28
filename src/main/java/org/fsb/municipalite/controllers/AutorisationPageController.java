@@ -62,7 +62,7 @@ public class AutorisationPageController implements Initializable{
    public void initialize(URL location, ResourceBundle resources) {
 	   tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	   Id.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("id"));
-	   Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime >("createdAt"));
+	   Date.setCellValueFactory(new PropertyValueFactory<Autorisation,LocalDateTime >("DateAutorisation"));
        Status.setCellValueFactory(new PropertyValueFactory<Autorisation,Autorisation.Etat>("etat"));
        Name.setCellValueFactory(new PropertyValueFactory<Autorisation,String>("nomCitoyen"));
        Cin.setCellValueFactory(new PropertyValueFactory<Autorisation,Long>("cin"));
@@ -184,7 +184,7 @@ public class AutorisationPageController implements Initializable{
     				edc.labCin.setVisible(true);
     		});
     		edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
-    			edc.msgLength.setText(Integer.toString(edc.msg.getText().length())+"/255");
+    			edc.msgLength.setText(Integer.toString(edc.msg.getText().length())+"/3000");
     			if(!isAlphaE(newValue)) {
 					edc.labMsg.setVisible(true);
 				}else
@@ -308,6 +308,7 @@ public class AutorisationPageController implements Initializable{
 				
 				//message Listener
 				edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
+					edc.msgLength.setText(newValue.length()+"/3000");
 					if(!isAlpha(newValue)) {
 						edc.labMsg.setVisible(true);
 					}else
