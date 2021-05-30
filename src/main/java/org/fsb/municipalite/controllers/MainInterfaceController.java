@@ -221,6 +221,7 @@ public class MainInterfaceController implements Initializable{
                 //done
             case "Gestionnaire de Magasin": dashboard = "DashboardG";
                 break;
+                //done
             case "Financier": dashboard = "DashboardF";
                 break;
                 //hanine is gonna do it
