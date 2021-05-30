@@ -213,16 +213,20 @@ public class MainInterfaceController implements Initializable{
         switch(role) {
             case "Administrateur": dashboard = "Dashboard";
                 break;
-            case "Chef Personnel": dashboard = "DashboardTS";
+            case "Chef Personnel": dashboard = "DashboardCF";
                 break;
+                //done
             case "Agent De Service": dashboard = "DashboardAS";
                 break;
+                //done
             case "Gestionnaire de Magasin": dashboard = "DashboardG";
                 break;
             case "Financier": dashboard = "DashboardF";
                 break;
+                //hanine is gonna do it
             case "Ingenieur d'Affaires": dashboard = "DashboardT";
                 break;
+                //needs to be modified
             case "Secretaire General": dashboard = "DashboardSG";
                 break;
         }
