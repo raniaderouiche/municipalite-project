@@ -213,6 +213,7 @@ public class MainInterfaceController implements Initializable{
         switch(role) {
             case "Administrateur": dashboard = "Dashboard";
                 break;
+                //dali did it
             case "Chef Personnel": dashboard = "DashboardCF";
                 break;
                 //done
@@ -227,9 +228,10 @@ public class MainInterfaceController implements Initializable{
                 //hanine is gonna do it
             case "Ingenieur d'Affaires": dashboard = "DashboardT";
                 break;
-                //needs to be modified
+                //done
             case "Secretaire General": dashboard = "DashboardSG";
                 break;
+                //done
         }
         Pane view = CustomFxmlLoader.getPage(dashboard);
         contentBorderPane.setCenter(view);
