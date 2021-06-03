@@ -27,7 +27,7 @@ public class FinancesController {
         System.out.println("Financial Reports clicked");
 
         BorderPane MainInterface = (BorderPane) ContainerF.getParent();
-        Pane view = CustomFxmlLoader.getPage("");
+        Pane view = CustomFxmlLoader.getPage("FinanceReportMsg");
         MainInterface.setCenter(view);
     }
     @FXML

@@ -62,13 +62,13 @@ public class ActivityReportsMsgController implements Initializable {
                     System.out.println(revsum);
                 }
             }
-        }
-
-
-
         }*/
+
+
+
+        }
     }
-}
+
 
 
 /*tf=datelabel.getValue();

@@ -123,7 +123,7 @@ public class BRDController implements Initializable {
         BudgetsData = FXCollections.observableArrayList();
 
         for (Budget e : budgetlist) {
-            BudgetsData.addAll(e);
+            BudgetsData.add(e);
         }
 
         budgetTable.setItems(BudgetsData);

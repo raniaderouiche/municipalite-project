@@ -7,7 +7,6 @@ import java.time.LocalDate;
 public class Budget extends BaseEntity{
     private String secteur;
     private LocalDate year;
-    private String source;
     private long budget;
 
 
@@ -30,13 +29,7 @@ public class Budget extends BaseEntity{
         this.year = year;
     }
 
-    public String getSource() {
-        return source;
-    }
 
-    public void setSource(String source) {
-        this.source = source;
-    }
 
     public Long getBudget() {
         return budget;
@@ -48,11 +41,10 @@ public class Budget extends BaseEntity{
 
     @Override
     public String toString() {
-        return "Evenement{" +
+        return "Budget{" +
                 "id=" + id +
-                ", nom='" + secteur + '\'' +
+                ", secteur='" + secteur + '\'' +
                 ", year=" + year +
-                ", lieu='" + source + '\'' +
                 ", budget=" + budget +
                 '}';
     }
