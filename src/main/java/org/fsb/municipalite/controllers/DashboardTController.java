@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.fsb.municipalite.entities.Employee;
+import org.fsb.municipalite.entities.Equipe;
+import org.fsb.municipalite.entities.Projet;
 import org.fsb.municipalite.entities.Tache;
 import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
+import org.fsb.municipalite.services.impl.EquipeServiceImpl;
+import org.fsb.municipalite.services.impl.ProjetServiceImpl;
 import org.fsb.municipalite.services.impl.TacheServiceImpl;
 
 import javafx.collections.FXCollections;
@@ -18,62 +22,61 @@ import javafx.scene.control.Label;
 
 public class DashboardTController implements Initializable{
 	@FXML
-	private Label taskCount;
+	private Label projectCount;
 	@FXML
-	private Label employeeCount;
+	private Label teamCount;
 	@FXML
-	private PieChart taskChart;
+	private PieChart projectChart;
 	@FXML 
-	private PieChart t_e_Chart;
+	private PieChart projectTeamChart;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		TacheServiceImpl tacheService = new TacheServiceImpl();
-		EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+		EquipeServiceImpl equipeService = new EquipeServiceImpl();
+		ProjetServiceImpl ProjetService = new ProjetServiceImpl();
 
 
-		//a3melelna methoud bel count fel bd traj3lna int fel emp wel equipe
-		List<Tache> listT = tacheService.selectAll();
-		List<Employee> listE = employeeService.selectAll();
+		List<Equipe> listE = equipeService.selectAll();
+		List<Projet> listP = ProjetService.selectAll();
 		
-		taskCount.setText(listT.size()+"");
-		employeeCount.setText(listE.size()+"");
-		taskLoad(listT);
-		e_t_Load(listT);
+		projectCount.setText(listP.size()+"");
+		teamCount.setText(listE.size()+"");
+		projectLoad(listP);
+		e_t_Load(listP);
 	}
 	
-	public void taskLoad(List<Tache> list) {
+	public void projectLoad(List<Projet> list) {
 		
 		ObservableList<PieChart.Data> pie = FXCollections.observableArrayList();
 		
     	int done_count = 0;
     	int in_progress_count = 0;
     	
-    	for(Tache t : list) {
-    		if(t.getEtat().equals(Tache.Etat.done)) done_count++;
-    		if(t.getEtat().equals(Tache.Etat.inProgress)) in_progress_count++;
+    	for(Projet p : list) {
+    		if(p.getEtat().equals(Projet.Etat.Finished)) done_count++;
+    		if(p.getEtat().equals(Projet.Etat.Unfinished)) in_progress_count++;
     	}
     	
     	pie.add(new PieChart.Data("done", done_count));
     	pie.add(new PieChart.Data("inProgress", in_progress_count));
-    	taskChart.setData(pie);
+    	projectChart.setData(pie);
 	}
 	
-	public void e_t_Load(List<Tache> list) {
+	public void e_t_Load(List<Projet> list) {
 		ObservableList<PieChart.Data> pie = FXCollections.observableArrayList();
 		
-		int withEmployee = 0;
-    	int withoutEmployee = 0;
+		int withTeam = 0;
+    	int withoutTeam = 0;
 		
-    	for(Tache t : list) {
-    		if(t.getEmployeeId()!=null) withEmployee++;
-    		if(t.getEmployeeId()==null) withoutEmployee++;
+    	for(Projet p : list) {
+    		if(p.getEquipe()!=null) withTeam++;
+    		if(p.getEquipe()==null) withoutTeam++;
     	}
     	
-    	pie.add(new PieChart.Data("affeted to an employee", withEmployee));
-    	pie.add(new PieChart.Data("not affected to an employee", withoutEmployee));
-    	t_e_Chart.setData(pie);   	
+    	pie.add(new PieChart.Data("affeted to a Team", withTeam));
+    	pie.add(new PieChart.Data("not affected to a Team", withoutTeam));
+    	projectTeamChart.setData(pie);   	
 	}
 	
 }

@@ -370,9 +370,10 @@ public class ComplaintPageController implements Initializable{
 		   ComplaintMsgController edc = f.getController();
 
 		   ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
-		   Complaint test = complaintService.getById(complaint.getId());
+		   Complaint comp = complaintService.getById(complaint.getId());
 
-		   edc.setComplaintMsgDialogPane(test);
+		   edc.title.setText(edc.title.getText()+" "+ comp.getId());
+		   edc.setComplaintMsgDialogPane(comp);
 		   Dialog<ButtonType> d = new Dialog<>();
 
 		   Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
@@ -382,20 +383,15 @@ public class ComplaintPageController implements Initializable{
 		   d.setTitle("Complaint Message");
 		   d.initStyle(StageStyle.UNDECORATED);
 
-		   complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-			   @Override
-			   public void handle(MouseEvent event) {
-				   xOffset = event.getSceneX();
-				   yOffset = event.getSceneY();
-			   }
+		   complaintDialogPane.setOnMousePressed(event -> {
+			   xOffset = event.getSceneX();
+			   yOffset = event.getSceneY();
 		   });
-		   complaintDialogPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			   @Override
-			   public void handle(MouseEvent event) {
-				   d.setX(event.getScreenX() - xOffset);
-				   d.setY(event.getScreenY() - yOffset);
-			   }
+		   complaintDialogPane.setOnMouseDragged(event -> {
+			   d.setX(event.getScreenX() - xOffset);
+			   d.setY(event.getScreenY() - yOffset);
 		   });
+
 		   d.getDialogPane().lookupButton(ButtonType.CLOSE).getStyleClass().add("dialogButtons");
 		   d.showAndWait();
 

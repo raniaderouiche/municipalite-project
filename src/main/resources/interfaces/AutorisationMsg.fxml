@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DialogPane?>
@@ -54,7 +56,18 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#download" prefHeight="38.0" prefWidth="227.0" style="-fx-font-size: 15;" styleClass="CustomButtons" text="Download PDF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#download" prefHeight="38.0" prefWidth="227.0" style="-fx-font-size: 17;" styleClass="CustomButtons" text="Download PDF" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <graphic>
+                  <MaterialDesignIconView fill="#015183" glyphName="DOWNLOAD" size="24" />
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <MaterialDesignIconView fx:id="check" fill="#00b50f" glyphName="CHECK" size="30" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="240.0" />
+               </GridPane.margin>
+            </MaterialDesignIconView>
          </children>
       </GridPane>
    </content>
@@ -63,7 +76,7 @@
    </buttonTypes>
    
    <header>
-      <Label alignment="CENTER" prefHeight="55.0" styleClass="dialogheader" text="Print Authorization" textFill="WHITE">
+      <Label fx:id="title" alignment="CENTER" prefHeight="55.0" styleClass="dialogheader" text="Authorization" textFill="WHITE">
          <font>
             <Font name="☞Gilroy-Regular" size="25.0" />
          </font>

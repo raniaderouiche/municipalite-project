@@ -93,14 +93,14 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <GridPane prefHeight="178.0" prefWidth="667.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="258.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="132.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="295.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.0" minWidth="10.0" prefWidth="297.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="62.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="323.0" />
               </columnConstraints>
                <children>
-                  <ListView fx:id="members" prefHeight="179.0" prefWidth="294.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <ListView fx:id="members" prefHeight="178.0" prefWidth="313.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
@@ -108,22 +108,28 @@
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <ListView fx:id="availMembers" prefHeight="179.0" prefWidth="258.0" GridPane.rowIndex="3">
+                  <ListView fx:id="availMembers" prefHeight="178.0" prefWidth="286.0" GridPane.rowIndex="3">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </ListView>
-                  <Button mnemonicParsing="false" onAction="#addMember" prefHeight="31.0" prefWidth="62.0" styleClass="dialogButtons" text="-&gt;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Button mnemonicParsing="false" onAction="#addMember" prefHeight="31.0" prefWidth="60.0" styleClass="dialogButtons" text="-&gt;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
-                        <Insets bottom="50.0" left="30.0" />
+                        <Insets bottom="50.0" left="5.0" right="5.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deleteMember" prefHeight="31.0" prefWidth="68.0" styleClass="dialogButtons" text="&lt;-" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Button mnemonicParsing="false" onAction="#deleteMember" prefHeight="31.0" prefWidth="60.0" styleClass="dialogButtons" text="&lt;-" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
-                        <Insets left="30.0" top="25.0" />
+                        <Insets left="5.0" right="5.0" top="25.0" />
                      </GridPane.margin>
                   </Button>
                </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
             </GridPane>
             <Label layoutX="50.0" layoutY="372.0" prefHeight="35.0" prefWidth="214.0" text="Available Members :" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>

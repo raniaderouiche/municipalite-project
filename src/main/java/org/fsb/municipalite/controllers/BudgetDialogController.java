@@ -1,5 +1,6 @@
 package org.fsb.municipalite.controllers;
 
+import com.jfoenix.controls.JFXDatePicker;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;

@@ -61,11 +61,10 @@
 }
 .menuLabel:hover{
 	-fx-background-color:rgba(255, 255, 255, 0.336);
-    -fx-font-color:rgb(47, 44, 87);
 	-fx-label-padding: 0 0 0 5;
 }
 .menuLabel:pressed{
-	-fx-background-color:rgba(131, 174, 255, 0.753);
+	-fx-background-color: rgba(255, 255, 255, 0.47);
     
 }
 #fp:hover{
@@ -472,6 +471,7 @@
 .settingButtons{
     -fx-background-color: rgba(255, 255, 255, 0.582);
     -fx-border-radius:10;
+    -fx-border-color: #0D0D0ED6;
     -fx-background-radius:10;
     -fx-cursor: hand;
 }

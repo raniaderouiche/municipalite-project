@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="621.0" prefWidth="1019.0" style="-fx-background-color: #ECECEC;" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.DashboardGController">
+   <center>
+   <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <HBox spacing="10.0" stylesheets="@../assets/css/application.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="countersdiv" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 15 15 0 0;" styleClass="dashboardLables" text="Total Tools" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="toolsCount" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" style="-fx-font-size: 70; -fx-background-color: transparent;" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+               <children>
+                  <VBox prefHeight="242.0" prefWidth="979.0" styleClass="countersdiv">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" prefHeight="59.0" prefWidth="320.0" style="-fx-background-color: transparent; -fx-background-radius: 15 15 0 0;" styleClass="dashboardLables" text="Tools status" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                        <PieChart fx:id="toolsChart" prefHeight="190.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="242.0" prefWidth="979.0" styleClass="countersdiv">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 15 15 0 0;" styleClass="dashboardLables" text="Tools &amp; Projects" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                        <PieChart fx:id="toolsProjectsChart" prefHeight="190.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <padding>
+      <Insets top="20.0" />
+   </padding>
+</BorderPane>
