@@ -76,12 +76,12 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
                <columns>
-                  <TableColumn fx:id="Id" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="Name" prefWidth="75.0" text="Name" />
-                  <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="Place" prefWidth="75.0" text="Location" />
-                  <TableColumn fx:id="Budget" prefWidth="75.0" text="Budget" />
-                  <TableColumn fx:id="desc" prefWidth="75.0" text="Description" />
+                  <TableColumn fx:id="Id" maxWidth="100.0" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="Name" maxWidth="350.0" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="Date" maxWidth="350.0" prefWidth="75.0" text="Date" />
+                  <TableColumn fx:id="Place" maxWidth="350.0" prefWidth="75.0" text="Location" />
+                  <TableColumn fx:id="Budget" maxWidth="350.0" prefWidth="75.0" text="Budget" />
+                  <TableColumn fx:id="desc" maxWidth="750.0" minWidth="-Infinity" prefWidth="400.0" text="Description" />
                </columns>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />

@@ -1,14 +1,10 @@
 package org.fsb.municipalite.controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXSpinner;
-import javafx.fxml.Initializable;
-import javafx.scene.layout.VBox;
 import org.fsb.municipalite.entities.Compte;
 import org.fsb.municipalite.services.impl.CompteServiceImpl;
 
@@ -20,7 +16,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -40,7 +35,8 @@ public class LoginController {
 	private TextField passwordText;
 	@FXML
 	private Label conditionText;
-
+	@FXML
+	private JFXSpinner spino;
 
 	private Stage stage;
 	private Scene scene;
@@ -51,7 +47,6 @@ public class LoginController {
 
 
 	public void login(ActionEvent event) throws IOException {
-
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/mainInterface.fxml"));
 		root = loader.load();

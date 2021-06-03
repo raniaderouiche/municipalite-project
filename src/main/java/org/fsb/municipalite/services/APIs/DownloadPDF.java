@@ -19,7 +19,6 @@ import java.util.List;
 
 public class DownloadPDF {
 
-
     public static void downloadPDF(Complaint complaint, Window window){
         try {
             MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();

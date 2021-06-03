@@ -181,15 +181,30 @@
     -fx-border-width: 0;
     -fx-background-radius: 40;
     -fx-background-color: rgba(0, 0, 0,0.1);
-
     -fx-text-fill: #015183;
 }
 .CustomButtons:hover{
-	-fx-background-color: rgba(1, 81, 131,0.4);
+	-fx-background-color: rgba(13, 64, 120, 0.5);
     -fx-text-fill: white;
 }
 .CustomButtons:pressed {
-    -fx-background-color: rgba(1, 81, 131,1);
+    -fx-background-color: rgba(13, 64, 120, 0.8);
+    -fx-text-fill: white;
+}
+.loginButton{
+    -fx-font-size : 18;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 10;
+    -fx-background-color: rgba(0, 0, 0,0.1);
+    -fx-text-fill: white;
+}
+.loginButton:hover{
+    -fx-background-color: rgba(0, 0, 0,0.2);
+    -fx-text-fill: white;
+}
+.loginButton:pressed {
+    -fx-background-color: rgba(0, 0, 0,0.3);
     -fx-text-fill: white;
 }
 
