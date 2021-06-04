@@ -39,7 +39,7 @@ public class EquipeDialogController implements Initializable {
     List<Employee> deleteList = new ArrayList<Employee>();
 
 
-    private EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+    //private EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,12 +49,13 @@ public class EquipeDialogController implements Initializable {
     
     public void setCurrentEquipe(Equipe equipe){
         equipe.setNom(name.getText());
-        //EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         Employee emp = employeeService.getById(Long.parseLong(leader.getValue().toString().split(",")[0]));
         equipe.setResponsable(emp);
     }
 
     public void setEquipeDialogPane(Equipe equipe){
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         Employee e = employeeService.getById(equipe.getResponsable().getId());
         leader.setValue(e.getId() + ", " + e.getNom());
         id.setText(equipe.getId() + "");
@@ -63,6 +64,7 @@ public class EquipeDialogController implements Initializable {
     }
 
     public void setMembers(Equipe equipe){
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         List<Employee> list = employeeService.selectBy("equipe",equipe.getId()+"");
         for(Employee emp : list){
             selected.add(emp);
@@ -71,6 +73,7 @@ public class EquipeDialogController implements Initializable {
     }
 
     public void setAvailMembers(){
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         List<Employee> employeeList = employeeService.selectAll();
         for (Employee e : employeeList){
             if(e.getEquipe() == null){
@@ -81,6 +84,7 @@ public class EquipeDialogController implements Initializable {
     }
 
     public void setChoiceBox(){
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         List<Employee> list = employeeService.selectAll();
         for(Employee e : list){
             emps.add(e.getId() + ", " + e.getNom());

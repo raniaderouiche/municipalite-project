@@ -6,24 +6,25 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
             <property name="javax.persistence.jdbc.user" value="MUNICIPALITE" />
             <property name="javax.persistence.jdbc.password" value="12345" />
 
+
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
 
+
+            <property name="hibernate.connection.autocommit" value="true"/>
+            <property name="hibernate.connection.release_mode" value="after_statement"/>
+            
+            <property name="hibernate.connection.pool_size" value="3"/>
+            <property name="hibernate.current_session_context_class" value="thread"/>
+
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
-            <property name="hibernate.transaction.auto_close_session" value="true"/>
-            <property name="hibernate.cache.use_query_cache" value="false"/>
-            <property name="hibernate.connection.pool_size" value="100"/>
-            <property name="hibernate.c3p0.max_size" value="30"/>
-            <property name="hibernate.c3p0.timeout" value="100"/>
-            <property name="hibernate.c3p0.acquire_increment" value="1"/>
-            <property name="hibernate.c3p0.idle_test_period" value="100"/>
-            <property name="hibernate.c3p0.max_statements" value="0"/>
-            <property name="hibernate.c3p0.min_size" value="10"/>
+
+
         </properties>
     </persistence-unit>
 </persistence>
