@@ -45,7 +45,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-         </children></HBox>
+         </children>
+      </HBox>
       <HBox alignment="CENTER" prefHeight="127.0" prefWidth="501.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <children>
             <Label alignment="CENTER" text="Activity Reports">
