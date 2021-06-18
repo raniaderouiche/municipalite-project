@@ -25,9 +25,9 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.0" minWidth="10.0" prefWidth="394.20000000000005" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="62.0" minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="108.0" minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="163.0" minHeight="10.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="268.0" minHeight="10.0" prefHeight="260.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="47.0" minHeight="0.0" prefHeight="42.0" vgrow="SOMETIMES" />
               </rowConstraints>
@@ -130,7 +130,7 @@
                         <Insets top="50.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="labSubject" prefWidth="80.0" text="invalid subject" textFill="#c90505" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="labSubject" text="invalid subject" textFill="#c90505" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <padding>
                         <Insets top="50.0" />
                      </padding>

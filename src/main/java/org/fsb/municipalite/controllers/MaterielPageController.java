@@ -187,7 +187,7 @@ public class MaterielPageController implements Initializable{
 			
 			//name field listener
 			mac.nameField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isAlpha(newValue)) {
+                if(!Pattern.matches("[a-zA-Z ]+", newValue)) {
                     mac.inv_name.setVisible(true);
                 }else
                     mac.inv_name.setVisible(false);
@@ -195,7 +195,7 @@ public class MaterielPageController implements Initializable{
 
 			//ref field listener
 			mac.refField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!Pattern.matches("[a-zA-Z0-9]+", newValue)) {
+                if(!Pattern.matches("[-a-zA-Z0-9]+", newValue)) {
                     mac.inv_ref.setVisible(true);
                 }else
                     mac.inv_ref.setVisible(false);
@@ -293,13 +293,10 @@ public class MaterielPageController implements Initializable{
 			    MaterielServiceImpl materielService = new MaterielServiceImpl();
 			    materielService.create(mat);
 		        monStock(event);
-
-				
 			}
 			
-			
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }
@@ -323,7 +320,7 @@ public class MaterielPageController implements Initializable{
 				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
 				stage.getIcons().add(new Image("/assets/img/icon.png"));
 				d.setDialogPane((DialogPane) materielDialogPane);
-				d.setTitle("Update Materiel Item");
+				d.setTitle("Update Item " + test.getId());
 				d.setResizable(false);
 				d.initStyle(StageStyle.UNDECORATED);
 				d.setDialogPane((DialogPane) materielDialogPane);
@@ -345,10 +342,10 @@ public class MaterielPageController implements Initializable{
 		               d.setY(event.getScreenY() - yOffset);
 		           }
 	            });
-				
+
                 //name field listener
                 muc.nameField.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isAlpha(newValue)) {
+                    if(!Pattern.matches("[a-zA-Z ]+", newValue)) {
                         muc.inv_name.setVisible(true);
                     }else
                         muc.inv_name.setVisible(false);
@@ -356,10 +353,10 @@ public class MaterielPageController implements Initializable{
 
                 //ref field listener
                 muc.refField.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!Pattern.matches("[a-zA-Z0-9]+", newValue)) {
+                    if(!Pattern.matches("[-a-zA-Z0-9]+", newValue)) {
                         muc.inv_ref.setVisible(true);
                     }else
-                       muc.inv_ref.setVisible(false);
+                        muc.inv_ref.setVisible(false);
                 });
 
                 muc.startDate.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -379,7 +376,7 @@ public class MaterielPageController implements Initializable{
                             }
                         }
                     }catch(Exception e){
-                        System.out.println("start date picked");
+                        System.out.println(e.getMessage());
                     }
                 });
 
@@ -474,6 +471,7 @@ public class MaterielPageController implements Initializable{
 
     //Test if String is alphabetical
     public boolean isAlpha(String name) {
+
         return name.matches("[a-zA-Z ]+");
     }
     @FXML

@@ -30,8 +30,7 @@ public class App extends Application {
 
     public static SessionFactory getCurrentSessionFromJPA() {
         // JPA and Hibernate SessionFactory example
-        EntityManagerFactory emf =
-                Persistence.createEntityManagerFactory("todo");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("todo");
         EntityManager entityManager = emf.createEntityManager();
         // Get the Hibernate Session from the EntityManager in JPA
         Session session = entityManager.unwrap(org.hibernate.Session.class);

@@ -142,9 +142,8 @@
                               <TableView fx:id="teamTable" VBox.vgrow="ALWAYS">
                                  <columns>
                                     <TableColumn fx:id="id_team" prefWidth="103.0" text="Id" />
-                                    <TableColumn fx:id="leader" prefWidth="109.0" text="Team Leader" />
                                     <TableColumn fx:id="name" prefWidth="52.0" text="Name" />
-                                    <TableColumn fx:id="members" prefWidth="52.0" text="Members" />
+                                    <TableColumn fx:id="leader" prefWidth="109.0" text="Team Leader" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

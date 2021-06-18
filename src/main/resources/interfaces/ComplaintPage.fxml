@@ -50,7 +50,7 @@
                         <MaterialDesignIconView fill="#153368" glyphName="DELETE" size="20" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#monStock" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
+                  <Button mnemonicParsing="false" onAction="#reload" prefHeight="35.0" prefWidth="135.0" styleClass="CustomButtons" stylesheets="@../assets/css/application.css" text="Refresh">
                      <font>
                         <Font size="14.0" />
                      </font>

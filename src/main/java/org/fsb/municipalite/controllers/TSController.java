@@ -50,7 +50,8 @@ public class TSController implements Initializable {
 	TableColumn<Employee, String> team;
 	@FXML
 	TableColumn<Employee, LocalDate> dateNaissance;
-	@FXML TableColumn<Employee,String> role;
+	@FXML
+	TableColumn<Employee,String> role;
 	@FXML
 	TextField empSearchField;
 

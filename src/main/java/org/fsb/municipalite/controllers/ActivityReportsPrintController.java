@@ -26,8 +26,8 @@ public class ActivityReportsPrintController {
 
 
     public  static void downloadPDF( String sec, LocalDate tf, Window window){
-        Long revsum=0L;
-        Long depsum=0L;
+        double revsum=0L;
+        double depsum=0L;
         try {
             MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();
             Municipalite m = mc.selectAll().get(0);
@@ -80,24 +80,19 @@ public class ActivityReportsPrintController {
                 List<String> listr = new ArrayList<String>();
                 List<String> listdep = new ArrayList<String>();
                 /*------authorisation----------*/
-                if(sec.matches("Authorisation")) {
-
-
-
-                        List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Authorisation'");
+                if(sec.matches("Authorization")) {
+                        List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Authorization'");
                         for (Depenses d : deplist) {
                             if (d.getDate_dep().getMonthValue() == tf.getMonthValue()) {
-                                listdep.add(Long.toString(d.getSomme_dep()));
+                                listdep.add(Double.toString(d.getSomme_dep()));
                                 depsum=depsum+d.getSomme_dep();
-
                             }
                         }
 
-
-                    List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Authorisation'");
+                    List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Authorization'");
                     for (Revenus r : revlist) {
                         if (r.getDate_rev().getMonthValue() == tf.getMonthValue()) {
-                            listr.add(Long.toString(r.getSomme_rev()));
+                            listr.add(Double.toString(r.getSomme_rev()));
                             revsum=revsum+r.getSomme_rev();
 
                         }
@@ -151,7 +146,7 @@ public class ActivityReportsPrintController {
                     List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Complaints'");
                     for (Revenus r : revlist) {
                         if (r.getDate_rev().getMonthValue() == tf.getMonthValue()) {
-                            listr.add(Long.toString(r.getSomme_rev()));
+                            listr.add(Double.toString(r.getSomme_rev()));
                             revsum=revsum+r.getSomme_rev();
 
                         }
@@ -161,7 +156,7 @@ public class ActivityReportsPrintController {
                     List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Complaints'");
                     for (Depenses d : deplist) {
                         if (d.getDate_dep().getMonthValue() == tf.getMonthValue()) {
-                            listdep.add(Long.toString(d.getSomme_dep()));
+                            listdep.add(Double.toString(d.getSomme_dep()));
                             depsum=depsum+d.getSomme_dep();
                         }
                     }
@@ -212,14 +207,14 @@ public class ActivityReportsPrintController {
                     List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Events'");
                     for (Revenus r : revlist) {
                         if (r.getDate_rev().getMonthValue() == tf.getMonthValue()) {
-                            listr.add(Long.toString(r.getSomme_rev()));
+                            listr.add(Double.toString(r.getSomme_rev()));
                             revsum = revsum + r.getSomme_rev();
                         }
                     }
                     List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Events'");
                     for (Depenses d : deplist) {
                         if (d.getDate_dep().getMonthValue() == tf.getMonthValue()) {
-                            listdep.add(Long.toString(d.getSomme_dep()));
+                            listdep.add(Double.toString(d.getSomme_dep()));
                             depsum = depsum + d.getSomme_dep();
                         }
                     }
@@ -264,20 +259,20 @@ public class ActivityReportsPrintController {
                     }
                 }
                 /*------Materiel----------*/
-                else if(sec.matches("Materiel")) {
+                else if(sec.matches("Tools")) {
 
-                    List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Materiel'");
+                    List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Tools'");
                     for (Revenus r : revlist) {
                         if (r.getDate_rev().getMonthValue() == tf.getMonthValue()) {
-                            listr.add(Long.toString(r.getSomme_rev()));
+                            listr.add(Double.toString(r.getSomme_rev()));
                             revsum = revsum + r.getSomme_rev();
                         }
                     }
 
-                    List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Events'");
+                    List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Tools'");
                     for (Depenses d : deplist) {
                         if (d.getDate_dep().getMonthValue() == tf.getMonthValue()) {
-                            listdep.add(Long.toString(d.getSomme_dep()));
+                            listdep.add(Double.toString(d.getSomme_dep()));
                             depsum = depsum + d.getSomme_dep();
 
                         }
@@ -328,7 +323,7 @@ public class ActivityReportsPrintController {
                     List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Teams'");
                     for (Revenus r : revlist) {
                         if (r.getDate_rev().getMonthValue() == tf.getMonthValue()) {
-                            listr.add(Long.toString(r.getSomme_rev()));
+                            listr.add(Double.toString(r.getSomme_rev()));
                             revsum=revsum+r.getSomme_rev();
                         }
                     }
@@ -336,7 +331,7 @@ public class ActivityReportsPrintController {
                     List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Teams'");
                     for (Depenses d : deplist) {
                         if (d.getDate_dep().getMonthValue() == tf.getMonthValue()) {
-                            listdep.add(Long.toString(d.getSomme_dep()));
+                            listdep.add(Double.toString(d.getSomme_dep()));
                             depsum=depsum+d.getSomme_dep();
                         }
                     }
@@ -385,19 +380,19 @@ public class ActivityReportsPrintController {
 
                 }
                 /*------Projet----------*/
-                else if(sec.matches("Projets")) {
+                else if(sec.matches("Projects")) {
 
-                    List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Projets'");
+                    List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Projects'");
                     for (Revenus r : revlist) {
                         if (r.getDate_rev().getMonthValue() == tf.getMonthValue()) {
-                            listr.add(Long.toString(r.getSomme_rev()));
+                            listr.add(Double.toString(r.getSomme_rev()));
                             revsum=revsum+r.getSomme_rev();
                         }
                     }
-                    List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Projets'");
+                    List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Projects'");
                     for (Depenses d : deplist) {
                         if (d.getDate_dep().getMonthValue() == tf.getMonthValue()) {
-                            listdep.add(Long.toString(d.getSomme_dep()));
+                            listdep.add(Double.toString(d.getSomme_dep()));
                             depsum=depsum+d.getSomme_dep();
                         }
                     }
@@ -451,14 +446,14 @@ public class ActivityReportsPrintController {
                     List<Revenus> revlist = revenuService.selectBy("SOURCE_REV", "'Tasks'");
                     for (Revenus r : revlist) {
                         if (r.getDate_rev().getMonthValue() == tf.getMonthValue()) {
-                            listr.add(Long.toString(r.getSomme_rev()));
+                            listr.add(Double.toString(r.getSomme_rev()));
                             revsum=revsum+r.getSomme_rev();
                         }
                     }
                     List<Depenses> deplist = depenseService.selectBy("SECTEUR_DEP", "'Tasks'");
                     for (Depenses d : deplist) {
                         if (d.getDate_dep().getMonthValue() == tf.getMonthValue()) {
-                            listdep.add(Long.toString(d.getSomme_dep()));
+                            listdep.add(Double.toString(d.getSomme_dep()));
                             depsum=depsum+d.getSomme_dep();
                         }
                     }
@@ -503,25 +498,18 @@ public class ActivityReportsPrintController {
                             }
                         }
                     }
-
                 }
 
                 /*-----------------------total------------*/
 
-                PdfPCell cell6 = new PdfPCell(new Phrase(Long.toString(revsum)));
+                PdfPCell cell6 = new PdfPCell(new Phrase(Double.toString(revsum)));
                 cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell6);
-                PdfPCell cell7 = new PdfPCell(new Phrase(Long.toString(depsum)));
+                PdfPCell cell7 = new PdfPCell(new Phrase(Double.toString(depsum)));
                 cell7.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell7);
 
                 /*-------------------------*/
-
-
-
-
-
-
 
                 p3.add("Total\n");
                 p4.add("\nContact : \n");

@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -78,6 +80,7 @@ public class MainInterfaceController implements Initializable{
 
     
 	public boolean isAlphaNumericdotdashbel8(String name) {
+
 		return name.matches("[a-zA-Z._0-9]+");
 	}
     
@@ -204,32 +207,31 @@ public class MainInterfaceController implements Initializable{
 		}
 	}
 
-
     //******** Menu Buttons ************
 	@FXML
 	public void dashboardButton(MouseEvent event) {
 		String role = userAccount.getEmployee().getRole();
         String dashboard = "";
         switch(role) {
-            case "Administrateur": dashboard = "Dashboard";
+            case "Administrator": dashboard = "Dashboard";
                 break;
                 //dali did it
-            case "Chef Personnel": dashboard = "DashboardCF";
+            case "Personnel Supervisor": dashboard = "DashboardCF";
                 break;
                 //done
-            case "Agent De Service": dashboard = "DashboardAS";
+            case "Service Agent": dashboard = "DashboardAS";
                 break;
                 //done
-            case "Gestionnaire de Magasin": dashboard = "DashboardG";
+            case "Tools Manager": dashboard = "DashboardG";
                 break;
                 //done
-            case "Financier": dashboard = "DashboardF";
+            case "Finance Manager": dashboard = "DashboardF";
                 break;
                 //hanine is gonna do it
-            case "Ingenieur d'Affaires": dashboard = "DashboardT";
+            case "Project Manager": dashboard = "DashboardT";
                 break;
                 //done
-            case "Secretaire General": dashboard = "DashboardSG";
+            case "General Secretary": dashboard = "DashboardSG";
                 break;
                 //done
         }
@@ -265,7 +267,6 @@ public class MainInterfaceController implements Initializable{
 		contentBorderPane.setCenter(view);
 		currentPageTitle.setText("Finance");
 	}
-
 	@FXML
 	public void projectsButton(MouseEvent mouseEvent) {
 		Pane view = CustomFxmlLoader.getPage("ProjectPage");
@@ -301,7 +302,6 @@ public class MainInterfaceController implements Initializable{
 		GridPane g = f.load();
 		MunicipalityInfoController muniController = f.getController();
 		muniController.setCurrentAccount(userAccount);
-
 		contentBorderPane.setCenter(g);
 		currentPageTitle.setText("Municipality Informations");
 
@@ -320,22 +320,23 @@ public class MainInterfaceController implements Initializable{
 	}
 	
 	public void setMenu() {
+
 		String role = userAccount.getEmployee().getRole();
 		switch(role) {
-			case "Administrateur": mymenu.getChildren().addAll(services, tools, ts, finance, tasks, projects, events, accounts);
+			case "Administrator": mymenu.getChildren().addAll(services, tools, ts, finance, tasks, projects, events, accounts);
 				break;
-			case "Chef Personnel": mymenu.getChildren().add(ts);
+			case "Personnel Supervisor": mymenu.getChildren().add(ts);
 							       mymenu.getChildren().add(tasks);
 				break;
-			case "Agent De Service": mymenu.getChildren().add(services);
+			case "Service Agent": mymenu.getChildren().add(services);
 				break;
-			case "Gestionnaire de Magasin": mymenu.getChildren().add(tools);
+			case "Tools Manager": mymenu.getChildren().add(tools);
 				break;
-			case "Financier": mymenu.getChildren().add(finance);
+			case "Finance Manager": mymenu.getChildren().add(finance);
 				break;
-			case "Ingenieur d'Affaires": mymenu.getChildren().add(projects);
+			case "Project Manager": mymenu.getChildren().add(projects);
 				break;
-			case "Secretaire General": mymenu.getChildren().add(events);
+			case "General Secretary": mymenu.getChildren().add(events);
 				break;
 		}
 		dashboardButton(null);

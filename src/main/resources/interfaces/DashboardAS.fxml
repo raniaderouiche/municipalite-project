@@ -27,7 +27,7 @@
                               <Insets left="15.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="authorizationCount" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" style="-fx-font-size: 70; -fx-background-color: transparent;" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
+                        <Label fx:id="authorizationCount" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" style="-fx-font-size: 70; -fx-background-color: transparent;" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
                      </children>
                      <HBox.margin>
                         <Insets />
@@ -46,7 +46,7 @@
                               <Insets left="15.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="complaintCount" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" style="-fx-font-size: 70; -fx-background-color: transparent;" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
+                        <Label fx:id="complaintCount" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="100.0" style="-fx-font-size: 70; -fx-background-color: transparent;" styleClass="dashboardLables" text="50" VBox.vgrow="ALWAYS" />
                      </children>
                      <HBox.margin>
                         <Insets />

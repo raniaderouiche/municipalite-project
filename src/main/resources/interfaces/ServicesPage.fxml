@@ -6,62 +6,65 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="Container" stylesheets="@../assets/css/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.ServicesController">
    <center>
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="684.0" spacing="10.0" stylesheets="@../assets/css/application.css">
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" stylesheets="@../assets/css/application.css" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="autoPane" onMouseClicked="#autoButton" prefHeight="425.0" prefWidth="345.0" styleClass="paneButtonIcons">
+            <VBox alignment="CENTER" onMouseClicked="#autoButton" styleClass="paneButtonIcons">
                <children>
-                  <VBox>
-                     <children>
-                        <ImageView fitHeight="287.0" fitWidth="453.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@../assets/img/auto.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets left="20.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label prefHeight="133.0" prefWidth="337.0" style="-fx-alignment: CENTER;" text="AUTHORIZATION">
-                           <font>
-                              <Font name="☞Gilroy-Regular" size="30.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
+                  <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../assets/img/digital_agreement.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label style="-fx-alignment: CENTER;" text="Authorization">
+                     <font>
+                        <Font name="☞Gilroy-Regular" size="30.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
-            </Pane>
-            <Pane fx:id="compPane" onMouseClicked="#compButton" prefHeight="425.0" prefWidth="345.0" styleClass="paneButtonIcons">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#compButton" styleClass="paneButtonIcons">
                <children>
-                  <VBox prefHeight="423.0" prefWidth="335.0">
-                     <children>
-                        <ImageView fitHeight="288.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@../assets/img/comp.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets left="30.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label prefHeight="133.0" prefWidth="346.0" style="-fx-alignment: CENTER;" text="COMPLAINT">
-                           <font>
-                              <Font name="☞Gilroy-Regular" size="30.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
+                  <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../assets/img/warning.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label style="-fx-alignment: CENTER;" text="Complaint">
+                     <font>
+                        <Font name="☞Gilroy-Regular" size="30.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
-            </Pane>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
          </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <BorderPane.margin>
-            <Insets top="20.0" />
+            <Insets bottom="20.0" top="20.0" />
          </BorderPane.margin>
       </HBox>
    </center>

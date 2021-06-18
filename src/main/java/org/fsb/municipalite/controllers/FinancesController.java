@@ -8,12 +8,7 @@ import javafx.scene.layout.Pane;
 public class FinancesController {
     @FXML
     private BorderPane ContainerF;
-    @FXML
-    private Pane actPane;
-    @FXML
-    private Pane financePane;
-    @FXML
-    private Pane statsPane;
+
     @FXML
     void actButton(MouseEvent event) {
         System.out.println("Activity Reports clicked");

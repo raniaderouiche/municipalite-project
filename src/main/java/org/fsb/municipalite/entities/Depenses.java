@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Depenses extends BaseEntity{
     private String secteur_dep;
     private LocalDate date_dep;
-    private long somme_dep;
+    private double somme_dep;
 
 
     public Depenses() {
@@ -21,7 +21,7 @@ public class Depenses extends BaseEntity{
         this.date_dep = date_dep;
     }
 
-    public void setSomme_dep(long somme_dep) {
+    public void setSomme_dep(double somme_dep) {
         this.somme_dep = somme_dep;
     }
 
@@ -33,7 +33,7 @@ public class Depenses extends BaseEntity{
         return date_dep;
     }
 
-    public long getSomme_dep() {
+    public double getSomme_dep() {
         return somme_dep;
     }
 

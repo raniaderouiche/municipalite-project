@@ -24,9 +24,9 @@ import java.util.List;
 
 public class FinanceReportsPrintController {
     public static void downloadPDF(String year, Window window) {
-        Long depAut=0L;
-        Long budAut=0L;
-        Long revAut=0L;
+        double depAut=0L;
+        double budAut=0L;
+        double revAut=0L;
         try {
             MunicipaliteServiceImpl mc = new MunicipaliteServiceImpl();
             Municipalite m = mc.selectAll().get(0);
@@ -52,19 +52,16 @@ public class FinanceReportsPrintController {
                 Paragraph p3 = new Paragraph(null, FontFactory.getFont(FontFactory.HELVETICA, 10));
                 Paragraph p4 = new Paragraph(null, FontFactory.getFont(FontFactory.HELVETICA, 10));
 
-
                 p1.add("Tunisian republic\n"+m.getNom());
                 p1.setAlignment(Element.ALIGN_CENTER);
                 p1.setFont(municipalityName);
 
-
                 p2.add("\nRapport Financiers \n ======================================================");
                 p2.setAlignment(Element.ALIGN_CENTER);
                 p2.setFont(documentType);
-                p3.add("\n Generee le:"+ new Date().toString());
+                p3.add("\n Generee le:"+ new Date());
                 p3.setAlignment(Element.ALIGN_CENTER);
                 p3.setFont(documentType);
-
 
                 /*----------header------------*/
                 PdfPTable table = new PdfPTable(5);
@@ -91,48 +88,42 @@ public class FinanceReportsPrintController {
                 /*-----------------*/
 
                 /*-----authorisation--------*/
-                PdfPCell cell5 = new PdfPCell(new Phrase("Authorisation"));
+                PdfPCell cell5 = new PdfPCell(new Phrase("Authorization"));
                 cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell5);
 
-                List<Budget> budlista = budgetService.selectBy("SECTEUR", "'Authorisation'");
+                List<Budget> budlista = budgetService.selectBy("SECTEUR", "'Authorization'");
                 for (Budget b : budlista) {
                     if (b.getYear().getYear() == Integer.parseInt(year)) {
                         budAut=budAut+b.getBudget();
-
-
                     }
                 }
-                List<Depenses> deplista = depenseService.selectBy("SECTEUR_DEP", "'Authorisation'");
+                List<Depenses> deplista = depenseService.selectBy("SECTEUR_DEP", "'Authorization'");
                 for (Depenses d : deplista) {
                     if (d.getDate_dep().getYear() == Integer.parseInt(year)) {
                         depAut=depAut+d.getSomme_dep();
-
-
                     }
                 }
 
 
-                List<Revenus> revlista = revenuService.selectBy("SOURCE_REV", "'Authorisation'");
+                List<Revenus> revlista = revenuService.selectBy("SOURCE_REV", "'Authorization'");
                 for (Revenus r : revlista) {
                     if (r.getDate_rev().getYear() == Integer.parseInt(year)) {
                         revAut=revAut+r.getSomme_rev();
-
-
                     }
                 }
-                long ecartAut=(budAut+revAut)-depAut;
+                double ecartAut=(budAut+revAut)-depAut;
 
-                PdfPCell cell6 = new PdfPCell(new Phrase(budAut.toString()));
+                PdfPCell cell6 = new PdfPCell(new Phrase(budAut+""));
                 cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell6);
-                PdfPCell cell7 = new PdfPCell(new Phrase(revAut.toString()));
+                PdfPCell cell7 = new PdfPCell(new Phrase(revAut+""));
                 cell7.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell7);
-                PdfPCell cell8 = new PdfPCell(new Phrase(depAut.toString()));
+                PdfPCell cell8 = new PdfPCell(new Phrase(depAut+""));
                 cell8.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell8);
-                PdfPCell cell9 = new PdfPCell(new Phrase(Long.toString(ecartAut)));
+                PdfPCell cell9 = new PdfPCell(new Phrase(Double.toString(ecartAut)));
                 cell9.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell9);
 
@@ -146,7 +137,7 @@ public class FinanceReportsPrintController {
                 table.addCell(cell10);
 
                 List<Budget> budliste = budgetService.selectBy("SECTEUR", "'Events'");
-                Long budEvn=0L;
+                double budEvn=0L;
                 for (Budget b : budliste) {
                     if (b.getYear().getYear() == Integer.parseInt(year)) {
                         budEvn=budEvn+b.getBudget();
@@ -155,7 +146,7 @@ public class FinanceReportsPrintController {
                     }
                 }
                 List<Depenses> depliste = depenseService.selectBy("SECTEUR_DEP", "'Events'");
-                Long depEvn=0L;
+                double depEvn=0L;
                 for (Depenses d : depliste) {
                     if (d.getDate_dep().getYear() == Integer.parseInt(year)) {
                         depEvn=depEvn+d.getSomme_dep();
@@ -166,7 +157,7 @@ public class FinanceReportsPrintController {
 
 
                 List<Revenus> revliste = revenuService.selectBy("SOURCE_REV", "'Events'");
-                Long revEvn=0L;
+                double revEvn=0L;
                 for (Revenus r : revliste) {
                     if (r.getDate_rev().getYear() == Integer.parseInt(year)) {
                         revEvn=revEvn+r.getSomme_rev();
@@ -174,18 +165,18 @@ public class FinanceReportsPrintController {
 
                     }
                 }
-                long ecartEvn=(budEvn+revEvn)-depEvn;
+                double ecartEvn=(budEvn+revEvn)-depEvn;
 
-                PdfPCell cell11 = new PdfPCell(new Phrase(budEvn.toString()));
+                PdfPCell cell11 = new PdfPCell(new Phrase(budEvn+""));
                 cell11.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell11);
-                PdfPCell cell12 = new PdfPCell(new Phrase(revEvn.toString()));
+                PdfPCell cell12 = new PdfPCell(new Phrase(revEvn+""));
                 cell12.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell12);
-                PdfPCell cell13 = new PdfPCell(new Phrase(depEvn.toString()));
+                PdfPCell cell13 = new PdfPCell(new Phrase(depEvn+""));
                 cell13.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell13);
-                PdfPCell cell14 = new PdfPCell(new Phrase(Long.toString(ecartEvn)));
+                PdfPCell cell14 = new PdfPCell(new Phrase(Double.toString(ecartEvn)));
                 cell14.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell14);
                 /*----------------*/
@@ -195,56 +186,51 @@ public class FinanceReportsPrintController {
                 table.addCell(cell15);
 
                 List<Budget> budlistc = budgetService.selectBy("SECTEUR", "'Complaints'");
-                Long budcom=0L;
+                double budcom=0L;
                 for (Budget b : budlistc) {
                     if (b.getYear().getYear() == Integer.parseInt(year)) {
                         budcom=budcom+b.getBudget();
 
-
                     }
                 }
                 List<Depenses> deplistc = depenseService.selectBy("SECTEUR_DEP", "'Complaints'");
-                Long depcom=0L;
+                double depcom=0L;
                 for (Depenses d : deplistc) {
                     if (d.getDate_dep().getYear() == Integer.parseInt(year)) {
                         depcom=depcom+d.getSomme_dep();
 
-
                     }
                 }
 
-
-                List<Revenus> revlistc = revenuService.selectBy("SOURCE_REV", "'Authorisation'");
-                Long revcom=0L;
+                List<Revenus> revlistc = revenuService.selectBy("SOURCE_REV", "'Complaints'");
+                double revcom=0L;
                 for (Revenus r : revlistc) {
                     if (r.getDate_rev().getYear() == Integer.parseInt(year)) {
                         revcom=revcom+r.getSomme_rev();
-
-
                     }
                 }
-                long ecartcom=(budcom+revcom)-depcom;
+                double ecartcom=(budcom+revcom)-depcom;
 
-                PdfPCell cell16 = new PdfPCell(new Phrase(budcom.toString()));
+                PdfPCell cell16 = new PdfPCell(new Phrase(budcom+""));
                 cell16.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell6);
-                PdfPCell cell17 = new PdfPCell(new Phrase(revcom.toString()));
+                PdfPCell cell17 = new PdfPCell(new Phrase(revcom+""));
                 cell17.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell17);
-                PdfPCell cell18 = new PdfPCell(new Phrase(depcom.toString()));
+                PdfPCell cell18 = new PdfPCell(new Phrase(depcom+""));
                 cell18.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell18);
-                PdfPCell cell19 = new PdfPCell(new Phrase(Long.toString(ecartcom)));
+                PdfPCell cell19 = new PdfPCell(new Phrase(Double.toString(ecartcom)));
                 cell19.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell19);
                 /*----------------------*/
                 /*-----------projects-------------*/
-                PdfPCell cell20 = new PdfPCell(new Phrase("Projets"));
+                PdfPCell cell20 = new PdfPCell(new Phrase("Projects"));
                 cell20.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell20);
 
-                List<Budget> budlistp = budgetService.selectBy("SECTEUR", "'Projets'");
-                Long budPro=0L;
+                List<Budget> budlistp = budgetService.selectBy("SECTEUR", "'Projects'");
+                double budPro=0L;
                 for (Budget b : budlistp) {
                     if (b.getYear().getYear() == Integer.parseInt(year)) {
                         budPro=budPro+b.getBudget();
@@ -252,68 +238,61 @@ public class FinanceReportsPrintController {
 
                     }
                 }
-                List<Depenses> deplistp = depenseService.selectBy("SECTEUR_DEP", "'Projets'");
-                Long depPro=0L;
+                List<Depenses> deplistp = depenseService.selectBy("SECTEUR_DEP", "'Projects'");
+                double depPro=0L;
                 for (Depenses d : deplistp) {
                     if (d.getDate_dep().getYear() == Integer.parseInt(year)) {
                         depPro=depPro+d.getSomme_dep();
 
-
                     }
                 }
-
-
-                List<Revenus> revlistp = revenuService.selectBy("SOURCE_REV", "'Authorisation'");
-                Long revPro=0L;
+                List<Revenus> revlistp = revenuService.selectBy("SOURCE_REV", "'Projects'");
+                double revPro=0L;
                 for (Revenus r : revlistp) {
                     if (r.getDate_rev().getYear() == Integer.parseInt(year)) {
                         revPro=revPro+r.getSomme_rev();
 
-
                     }
                 }
-                long ecartPro=(budPro+revPro)-depPro;
+                double ecartPro=(budPro+revPro)-depPro;
 
-                PdfPCell cell21 = new PdfPCell(new Phrase(budPro.toString()));
+                PdfPCell cell21 = new PdfPCell(new Phrase(budPro+""));
                 cell21.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell21);
-                PdfPCell cell22 = new PdfPCell(new Phrase(revPro.toString()));
+                PdfPCell cell22 = new PdfPCell(new Phrase(revPro+""));
                 cell22.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell22);
-                PdfPCell cell23 = new PdfPCell(new Phrase(depPro.toString()));
+                PdfPCell cell23 = new PdfPCell(new Phrase(depPro+""));
                 cell23.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell23);
-                PdfPCell cell24 = new PdfPCell(new Phrase(Long.toString(ecartPro)));
+                PdfPCell cell24 = new PdfPCell(new Phrase(Double.toString(ecartPro)));
                 cell24.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell24);
                 /*---------------------------*/
                 /*----------Materiel-----------*/
-                PdfPCell cell25 = new PdfPCell(new Phrase("Materiel"));
+                PdfPCell cell25 = new PdfPCell(new Phrase("Tools"));
                 cell25.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell25);
 
-                List<Budget> budlistm = budgetService.selectBy("SECTEUR", "'Materiel'");
-                Long budM=0L;
+                List<Budget> budlistm = budgetService.selectBy("SECTEUR", "'Tools'");
+                double budM=0L;
                 for (Budget b : budlistm) {
                     if (b.getYear().getYear() == Integer.parseInt(year)) {
                         budM=budM+b.getBudget();
 
-
                     }
                 }
-                List<Depenses> deplistm = depenseService.selectBy("SECTEUR_DEP", "'Materiel'");
-                Long depM=0L;
+                List<Depenses> deplistm = depenseService.selectBy("SECTEUR_DEP", "'Tools'");
+                double depM=0L;
                 for (Depenses d : deplistm) {
                     if (d.getDate_dep().getYear() == Integer.parseInt(year)) {
                         depM=depM+d.getSomme_dep();
 
-
                     }
                 }
 
-
-                List<Revenus> revlistm = revenuService.selectBy("SOURCE_REV", "'Materiel'");
-                Long revM=0L;
+                List<Revenus> revlistm = revenuService.selectBy("SOURCE_REV", "'Tools'");
+                double revM=0L;
                 for (Revenus r : revlistm) {
                     if (r.getDate_rev().getYear() == Integer.parseInt(year)) {
                         revM=revM+r.getSomme_rev();
@@ -321,18 +300,18 @@ public class FinanceReportsPrintController {
 
                     }
                 }
-                long ecartM=(budM+revM)-depM;
+                double ecartM=(budM+revM)-depM;
 
-                PdfPCell cell26 = new PdfPCell(new Phrase(budM.toString()));
+                PdfPCell cell26 = new PdfPCell(new Phrase(budM+""));
                 cell26.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell26);
-                PdfPCell cell27 = new PdfPCell(new Phrase(revM.toString()));
+                PdfPCell cell27 = new PdfPCell(new Phrase(revM+""));
                 cell26.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell27);
-                PdfPCell cell28 = new PdfPCell(new Phrase(depM.toString()));
+                PdfPCell cell28 = new PdfPCell(new Phrase(depM+""));
                 cell28.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell28);
-                PdfPCell cell29 = new PdfPCell(new Phrase(Long.toString(ecartM)));
+                PdfPCell cell29 = new PdfPCell(new Phrase(Double.toString(ecartM)));
                 cell29.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell29);
                 /*-------------------------*/
@@ -341,8 +320,8 @@ public class FinanceReportsPrintController {
                 cell30.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell30);
 
-                    List<Budget> budlistt = budgetService.selectBy("SECTEUR", "'Teams'");
-                Long budT=0L;
+                List<Budget> budlistt = budgetService.selectBy("SECTEUR", "'Teams'");
+                double budT=0L;
                 for (Budget b : budlistt) {
                     if (b.getYear().getYear() == Integer.parseInt(year)) {
                         budT=budT+b.getBudget();
@@ -351,7 +330,7 @@ public class FinanceReportsPrintController {
                     }
                 }
                 List<Depenses> deplistt = depenseService.selectBy("SECTEUR_DEP", "'Teams'");
-                Long depT=0L;
+                double depT=0L;
                 for (Depenses d : deplistt) {
                     if (d.getDate_dep().getYear() == Integer.parseInt(year)) {
                         depT=depT+d.getSomme_dep();
@@ -362,7 +341,7 @@ public class FinanceReportsPrintController {
 
 
                 List<Revenus> revlistt = revenuService.selectBy("SOURCE_REV", "'Teams'");
-                Long revT=0L;
+                double revT=0L;
                 for (Revenus r : revlistt) {
                     if (r.getDate_rev().getYear() == Integer.parseInt(year)) {
                         revT=revT+r.getSomme_rev();
@@ -370,18 +349,18 @@ public class FinanceReportsPrintController {
 
                     }
                 }
-                long ecartT=(budT+revT)-depT;
+                double ecartT=(budT+revT)-depT;
 
-                PdfPCell cell31 = new PdfPCell(new Phrase(budT.toString()));
+                PdfPCell cell31 = new PdfPCell(new Phrase(budT+""));
                 cell31.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell31);
-                PdfPCell cell32 = new PdfPCell(new Phrase(revT.toString()));
+                PdfPCell cell32 = new PdfPCell(new Phrase(revT+""));
                 cell32.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell32);
-                PdfPCell cell33 = new PdfPCell(new Phrase(depT.toString()));
+                PdfPCell cell33 = new PdfPCell(new Phrase(depT+""));
                 cell33.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell33);
-                PdfPCell cell34 = new PdfPCell(new Phrase(Long.toString(ecartT)));
+                PdfPCell cell34 = new PdfPCell(new Phrase(Double.toString(ecartT)));
                 cell34.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell34);
                 /*----------------------*/
@@ -391,7 +370,7 @@ public class FinanceReportsPrintController {
                 table.addCell(cell35);
 
                 List<Budget> budlisttas = budgetService.selectBy("SECTEUR", "'Tasks'");
-                Long budtas=0L;
+                double budtas=0L;
                 for (Budget b : budlisttas) {
                     if (b.getYear().getYear() == Integer.parseInt(year)) {
                         budtas=budtas+b.getBudget();
@@ -400,7 +379,7 @@ public class FinanceReportsPrintController {
                     }
                 }
                 List<Depenses> deplisttas = depenseService.selectBy("SECTEUR_DEP", "'Tasks'");
-                Long deptas=0L;
+                double deptas=0L;
                 for (Depenses d : deplisttas) {
                     if (d.getDate_dep().getYear() == Integer.parseInt(year)) {
                         deptas=deptas+d.getSomme_dep();
@@ -411,7 +390,7 @@ public class FinanceReportsPrintController {
 
 
                 List<Revenus> revlisttas = revenuService.selectBy("SOURCE_REV", "'Tasks'");
-                Long revtas=0L;
+                double revtas=0L;
                 for (Revenus r : revlisttas) {
                     if (r.getDate_rev().getYear() == Integer.parseInt(year)) {
                         revtas=revtas+r.getSomme_rev();
@@ -419,41 +398,41 @@ public class FinanceReportsPrintController {
 
                     }
                 }
-                long ecarttas=(budtas+revtas)-deptas;
+                double ecarttas=(budtas+revtas)-deptas;
 
-                PdfPCell cell36 = new PdfPCell(new Phrase(budtas.toString()));
+                PdfPCell cell36 = new PdfPCell(new Phrase(budtas+""));
                 cell36.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell36);
-                PdfPCell cell37 = new PdfPCell(new Phrase(revtas.toString()));
+                PdfPCell cell37 = new PdfPCell(new Phrase(revtas+""));
                 cell37.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell37);
-                PdfPCell cell38 = new PdfPCell(new Phrase(deptas.toString()));
+                PdfPCell cell38 = new PdfPCell(new Phrase(deptas+""));
                 cell38.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell38);
-                PdfPCell cell39 = new PdfPCell(new Phrase(Long.toString(ecarttas)));
+                PdfPCell cell39 = new PdfPCell(new Phrase(Double.toString(ecarttas)));
                 cell39.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell39);
                 /*-------------------------*/
 
 
                 /*-----------------Total-------------*/
-                long budtot=budAut+budEvn+budtas+budcom+budPro+budT+budM;
-                long revtot=revAut+revcom+revtas+revEvn+revPro+revT+revM;
-                long deptot=depAut+deptas+depcom+depEvn+depPro+depM+depT;
-                long ecarttot=ecartAut+ecartcom+ecartEvn+ecarttas+ecartPro+ecartM+ecartT;
+                double budtot=budAut+budEvn+budtas+budcom+budPro+budT+budM;
+                double revtot=revAut+revcom+revtas+revEvn+revPro+revT+revM;
+                double deptot=depAut+deptas+depcom+depEvn+depPro+depM+depT;
+                double ecarttot=ecartAut+ecartcom+ecartEvn+ecarttas+ecartPro+ecartM+ecartT;
                 PdfPCell cell40 = new PdfPCell(new Phrase("Total"));
                 cell40.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell40);
-                PdfPCell cell41 = new PdfPCell(new Phrase(Long.toString(budtot)));
+                PdfPCell cell41 = new PdfPCell(new Phrase(Double.toString(budtot)));
                 cell41.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell41);
-                PdfPCell cell42 = new PdfPCell(new Phrase(Long.toString(revtot)));
+                PdfPCell cell42 = new PdfPCell(new Phrase(Double.toString(revtot)));
                 cell42.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell42);
-                PdfPCell cell43 = new PdfPCell(new Phrase(Long.toString(deptot)));
+                PdfPCell cell43 = new PdfPCell(new Phrase(Double.toString(deptot)));
                 cell43.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell43);
-                PdfPCell cell44 = new PdfPCell(new Phrase(Long.toString(ecarttot)));
+                PdfPCell cell44 = new PdfPCell(new Phrase(Double.toString(ecarttot)));
                 cell44.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell44);
 

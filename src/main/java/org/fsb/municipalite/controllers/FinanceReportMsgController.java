@@ -23,8 +23,6 @@ public class FinanceReportMsgController implements Initializable {
 
     }
     public void downloadF(ActionEvent event) {
-        System.out.println("download button clicked");
-
         FinanceReportsPrintController.downloadPDF( yearbox.getValue(), yearbox.getScene().getWindow());
     }
 }

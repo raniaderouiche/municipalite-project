@@ -120,7 +120,7 @@ public class ComplaintPageController implements Initializable{
     }
 
     @FXML
-    public void monStock(ActionEvent event){
+    public void reload(ActionEvent event){
         tableView.getItems().clear();
         ComplaintServiceImpl complaintService =new ComplaintServiceImpl();
         List<Complaint> list = complaintService.selectAll();
@@ -175,7 +175,7 @@ public class ComplaintPageController implements Initializable{
     		
     		//cin field listener
     		edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
-    			if(isNumeric(newValue) && newValue.length() == 8) {
+    			if(isNumeric(newValue) && newValue.length() == 8 && !newValue.matches("00000000")) {
     				edc.labCin.setVisible(false);
     			}else
     				edc.labCin.setVisible(true);
@@ -183,14 +183,15 @@ public class ComplaintPageController implements Initializable{
 
     		//subject listener
     		edc.subject.textProperty().addListener((observable, oldValue, newValue) -> {    			
-    			if(!isAlpha(newValue)) {
+    			if(newValue.length()>255 || newValue.length() == 0) {
     				edc.labSubject.setVisible(true);
     			}else
     				edc.labSubject.setVisible(false);    				
     		});
+
     		edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
-    			edc.msgLength.setText(Integer.toString(edc.msg.getText().length())+"/3000");
-    			if(!isAlphaE(newValue)) {
+    			edc.msgLength.setText(newValue.length()+"/3000");
+    			if(newValue.length()>3000 || newValue.length() == 0) {
 					edc.labMsg.setVisible(true);
 				}else
 					edc.labMsg.setVisible(false);
@@ -203,13 +204,12 @@ public class ComplaintPageController implements Initializable{
 
     		//apply button binder
     		d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
-	    		edc.name.getText().isEmpty() || !isAlpha(edc.name.getText())||
+	    		edc.name.getText().isEmpty() || !isAlpha(edc.name.getText())|| edc.cin.getText().matches("00000000") ||
 				edc.cin.getText().isEmpty()||edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||				
-				edc.subject.getText().length() >60|| edc.subject.getText().isEmpty()||!isAlpha(edc.subject.getText())||
-				edc.msg.getText().length()>3000 ||edc.msg.getText().isEmpty()||!isAlphaE(edc.msg.getText()),												
+				edc.subject.getText().length() >255|| edc.subject.getText().isEmpty() ||
+				edc.msg.getText().length()>3000 ||edc.msg.getText().isEmpty(),
 				edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
 				edc.msg.textProperty()));
-
 
     		Optional<ButtonType> clickedButton = d.showAndWait();
     		//new Complaint creation and addition
@@ -228,8 +228,7 @@ public class ComplaintPageController implements Initializable{
 
     			ComplaintServiceImpl complaintService = new ComplaintServiceImpl();
     			complaintService.create(c);
-    			System.out.println("COMPLAINT ADDED !");
-    			monStock(event);
+				reload(event);
     		}
 
     	} catch (Exception e) {
@@ -251,7 +250,7 @@ public class ComplaintPageController implements Initializable{
 		        Complaint test = complaintService.getById(c.getId());
 
 				edc.setComplaintDialogPane(test);
-				edc.titleLabel.setText("Update Complaint");
+				edc.titleLabel.setText("Update Complaint " + test.getId());
 				Dialog<ButtonType> d = new Dialog<>();
 				
 				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
@@ -261,7 +260,6 @@ public class ComplaintPageController implements Initializable{
 				d.setTitle("Update Complaint");
 				d.setResizable(false);
 				d.initStyle(StageStyle.UNDECORATED);
-				
 				
 				complaintDialogPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			           @Override
@@ -287,16 +285,15 @@ public class ComplaintPageController implements Initializable{
 
 				//cin field listener
 				edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
-					System.out.println("textfield changed from " + oldValue + " to " + newValue);
-					if(isNumeric(newValue) && newValue.length() == 8) {
-						edc.labCin.setVisible(false);
-					}else
+					if(!isNumeric(newValue) || newValue.length() != 8 || newValue.matches("00000000")) {
 						edc.labCin.setVisible(true);
+					}else
+						edc.labCin.setVisible(false);
 				});
 
 				//subject listener
 				edc.subject.textProperty().addListener((observable, oldValue, newValue) -> {
-					if(!isAlpha(newValue)) {
+					if(newValue.length() > 255 || newValue.length() == 0) {
 						edc.labSubject.setVisible(true);
 					}else
 						edc.labSubject.setVisible(false);
@@ -305,7 +302,7 @@ public class ComplaintPageController implements Initializable{
 				//message Listener
 				edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
 					edc.msgLength.setText(newValue.length()+"/3000");
-					if(!isAlphaE(newValue)) {
+					if(newValue.length()>3000 || newValue.length() == 0) {
 						edc.labMsg.setVisible(true);
 					}else
 						edc.labMsg.setVisible(false);
@@ -321,8 +318,8 @@ public class ComplaintPageController implements Initializable{
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
 												edc.name.getText().isEmpty() || !isAlpha(edc.name.getText())||
 												edc.cin.getText().isEmpty()||edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||				
-												edc.subject.getText().length() >60|| edc.subject.getText().isEmpty()||!isAlpha(edc.subject.getText())||
-												edc.msg.getText().length()>3000 ||edc.msg.getText().isEmpty()||!isAlphaE(edc.msg.getText()),												
+												edc.subject.getText().length() >255|| edc.subject.getText().isEmpty()||
+												edc.msg.getText().length()>3000 ||edc.msg.getText().isEmpty(),
 												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
 												edc.msg.textProperty()));
 
@@ -331,7 +328,7 @@ public class ComplaintPageController implements Initializable{
 						
 						edc.getCurrentComplaint(test);
 				        complaintService.update(test);
-				        monStock(event);
+						reload(event);
 				}
 			}
 		
@@ -356,7 +353,7 @@ public class ComplaintPageController implements Initializable{
                 	ComplaintServiceImpl cService = new ComplaintServiceImpl();
                 	cService.remove(c.getId());
                 }
-                monStock(event);
+				reload(event);
             }
         }
     }
@@ -428,6 +425,3 @@ public class ComplaintPageController implements Initializable{
 	    return name.matches("[a-zA-Z 0-9]+[a-zA-Z .',0-9\n' ']*");
 	}
 }
-
-
-

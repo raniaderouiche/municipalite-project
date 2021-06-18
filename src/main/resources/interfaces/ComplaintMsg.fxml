@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -28,17 +29,6 @@
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
-            </Label>
-            <Label fx:id="msgLabel" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="379.0" prefWidth="469.0" styleClass="msgLabelProperties" text="None" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </GridPane.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <font>
-                  <Font size="18.0" />
-               </font>
             </Label>
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="399.0" prefWidth="74.0" styleClass="dialogLabels" text="Body :" GridPane.rowIndex="1">
                <GridPane.margin>
@@ -64,6 +54,7 @@
                   <Insets left="240.0" />
                </GridPane.margin>
             </MaterialDesignIconView>
+            <TextArea fx:id="msgLabel" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </content>
@@ -72,7 +63,7 @@
    </buttonTypes>
    
    <header>
-      <Label fx:id="title" alignment="CENTER" prefHeight="55.0" styleClass="dialogheader" text="Complaint" textFill="WHITE">
+      <Label fx:id="title" alignment="CENTER" prefHeight="55.0" prefWidth="724.0" styleClass="dialogheader" text="Complaint" textFill="WHITE">
          <font>
             <Font name="☞Gilroy-Regular" size="25.0" />
          </font>

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Budget extends BaseEntity{
     private String secteur;
     private LocalDate year;
-    private long budget;
+    private double budget;
 
 
     public Budget() {
@@ -29,13 +29,11 @@ public class Budget extends BaseEntity{
         this.year = year;
     }
 
-
-
-    public Long getBudget() {
+    public double getBudget() {
         return budget;
     }
 
-    public void setBudget(Long budget) {
+    public void setBudget(double budget) {
         this.budget = budget;
     }
 

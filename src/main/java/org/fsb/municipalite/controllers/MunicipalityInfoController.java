@@ -63,7 +63,7 @@ public class MunicipalityInfoController implements Initializable{
 
 	public void setCurrentAccount(Compte currentAccount) {
 		this.currentAccount = currentAccount;
-		if((this.currentAccount.getEmployee().getRole().equals("Administrateur"))){
+		if((this.currentAccount.getEmployee().getRole().equals("Administrator"))){
 			modifyButton.setVisible(true);
 		}
 	}
@@ -175,11 +175,12 @@ public class MunicipalityInfoController implements Initializable{
 		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
 		List<Municipalite> list = municipaliteService.selectAll();
 		if(list.isEmpty()){
+			MunicipaliteServiceImpl municipaliteService2 = new MunicipaliteServiceImpl();
 			Municipalite municipalite = new Municipalite();
-			municipaliteService.create(municipalite);
+			municipaliteService2.create(municipalite);
 		}
 		else{
-			municipalite = municipaliteService.getById(list.get(0).getId());
+			municipalite = list.get(0);
 			nameField.setText(municipalite.getNom());
 			numberField.setText(municipalite.getTel());
 			emailField.setText(municipalite.getEmail());

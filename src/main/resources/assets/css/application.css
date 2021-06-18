@@ -548,11 +548,10 @@
 }
 
 .resetChoice .context-menu{
-		-fx-pref-width:500;
+    -fx-pref-width:500;
 }
 .resetChoice{
-        -fx-background-color: rgba(255, 255, 255, 0.7);
-
+    -fx-background-color: rgba(255, 255, 255, 0.7);
 }
 
 .msgLabelProperties{
@@ -570,7 +569,9 @@
     -fx-font-size : 20;
     -fx-font-family:Gilroy-Regular;
 }
-.jfx-text-field{
-    -fx-text-fill: white;
-    -fx-prompt-text-fill:white;
+
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill: WHITE;
+    -jfx-focus-color: white;
+    -jfx-unfocus-color: transparent;
 }

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Revenus extends BaseEntity {
     private String source_rev;
     private LocalDate date_rev;
-    private Long somme_rev;
+    private double somme_rev;
 
     public Revenus() {
     }
@@ -20,7 +20,7 @@ public class Revenus extends BaseEntity {
         return date_rev;
     }
 
-    public Long getSomme_rev() {
+    public double getSomme_rev() {
         return somme_rev;
     }
 
@@ -32,7 +32,7 @@ public class Revenus extends BaseEntity {
         this.date_rev = date_rev;
     }
 
-    public void setSomme_rev(Long somme_rev) {
+    public void setSomme_rev(double somme_rev) {
         this.somme_rev = somme_rev;
     }
 

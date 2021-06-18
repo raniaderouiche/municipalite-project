@@ -3,11 +3,8 @@ package org.fsb.municipalite.controllers;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
-import com.jfoenix.controls.JFXSpinner;
 import org.fsb.municipalite.entities.Compte;
 import org.fsb.municipalite.services.impl.CompteServiceImpl;
-
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,7 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class LoginController {
+public class LoginController  {
 	
 	@FXML
 	private TextField usernameText;
@@ -35,8 +32,6 @@ public class LoginController {
 	private TextField passwordText;
 	@FXML
 	private Label conditionText;
-	@FXML
-	private JFXSpinner spino;
 
 	private Stage stage;
 	private Scene scene;
@@ -71,8 +66,11 @@ public class LoginController {
 		}
 		else {
 			CompteServiceImpl compteService = new CompteServiceImpl();
+
 			List<String> usernameList = compteService.selectAllInONEColumn("username");
 			List<String> passwordList = compteService.selectAllInONEColumn("password");
+
+
 			if(usernameText.getText().matches("override")&&passwordText.getText().matches("override")){
 				//default username and password
 				stage.setScene(scene);
@@ -199,6 +197,7 @@ public class LoginController {
 		}
 
 	}
+
 
 
 }

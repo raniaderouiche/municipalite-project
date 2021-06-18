@@ -1,8 +1,8 @@
 package org.fsb.municipalite.controllers;
 
-
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextArea;
 import org.fsb.municipalite.entities.Autorisation;
 
 import javafx.fxml.FXML;
@@ -12,7 +12,7 @@ import org.fsb.municipalite.services.impl.AutorisationServiceImpl;
 
 public class AutorisationMsgController {
 	@FXML
-    Label msgLabel;
+	TextArea msgLabel;
 	@FXML
     Label subjectLabel;
 	@FXML
@@ -27,7 +27,7 @@ public class AutorisationMsgController {
     	subjectLabel.setText(a.getSujet());
     	autorisation=a;
     }
-
+	@FXML
     public void download(ActionEvent event) {
     	AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
         Autorisation auto = autorisationService.getById(autorisation.getId());

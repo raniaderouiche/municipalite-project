@@ -15,16 +15,16 @@ public class AutorisationDialogController {
 			    
 		@FXML
 	    TextField name;
-	    @FXML
+		@FXML
+		TextField cin;
+		@FXML
 	    TextField subject;
 	    @FXML
 	    RadioButton unprocessed;
 	    @FXML
 	    ToggleGroup status;
 	    @FXML
-	    RadioButton processed; 
-	    @FXML
-	    TextField cin; 
+	    RadioButton processed;
 	    @FXML
 	    TextArea msg;
 	    @FXML

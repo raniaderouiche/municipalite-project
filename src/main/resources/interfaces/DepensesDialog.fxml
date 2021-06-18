@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
@@ -24,11 +26,6 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="secteur_dep" prefHeight="38.0" prefWidth="375.0" promptText="Sector" styleClass="dialogTextFields" GridPane.columnIndex="1">
-                    <GridPane.margin>
-                        <Insets right="30.0" />
-                    </GridPane.margin>
-                </TextField>
                 <Label styleClass="dialogLabels" text="Sector :">
                     <font>
                         <Font size="16.0" />
@@ -46,7 +43,7 @@
                     </GridPane.margin>
                 </Label>
 
-                <Label styleClass="dialogLabels" text="Sum :" GridPane.rowIndex="1">
+                <Label styleClass="dialogLabels" text="Value :" GridPane.rowIndex="1">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -54,7 +51,7 @@
                         <Insets left="30.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="somme_dep" prefHeight="37.0" prefWidth="375.0" promptText="Sum" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <TextField fx:id="somme_dep" prefHeight="37.0" prefWidth="375.0" promptText="ie : 1500" styleClass="dialogTextFields" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets right="30.0" />
                     </GridPane.margin>
@@ -76,13 +73,23 @@
                         <Insets left="5.0" top="65.0" />
                     </GridPane.margin>
                 </Label>
-                <DatePicker fx:id="date_dep" prefHeight="31.0" prefWidth="378.0" promptText=".. / .. / ...." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <DatePicker fx:id="date_dep" prefHeight="31.0" prefWidth="378.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label fx:id="inv_depdate" layoutX="189.0" layoutY="243.0" style="-fx-font-size: 16;" styleClass="dialogLabels" text="Invalid Date" textFill="#e43131" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>
                <GridPane.margin>
                   <Insets top="60.0" />
+               </GridPane.margin>
+            </Label>
+            <ChoiceBox fx:id="secteur_dep" prefHeight="37.0" prefWidth="375.0" styleClass="customChoiceBox" GridPane.columnIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ChoiceBox>
+            <Label alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="19.0" text="DT" textFill="#7c7c7c" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="385.0" />
                </GridPane.margin>
             </Label>
 

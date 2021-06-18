@@ -20,19 +20,20 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.4.29.Final</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>com.oracle.ojdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>19.3.0.0</version>
-        </dependency>-->
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/oracle/ojdbc6 -->
+        <!--
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
         </dependency>
-
+        -->
 
         <dependency>
             <groupId>org.openjfx</groupId>

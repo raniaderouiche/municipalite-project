@@ -343,22 +343,6 @@ public class BRDController implements Initializable {
             d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
             d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
-            //listeners
-            edc.secteur.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isAlpha(newValue)) {
-                    edc.inv_sec.setVisible(true);
-                }else
-                    edc.inv_sec.setVisible(false);
-            });
-
-
-            edc.budget.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isNumeric(newValue)) {
-                    edc.inv_budget.setVisible(true);
-                }else
-                    edc.inv_budget.setVisible(false);
-            });
-
             edc.year.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue != null) {
                     if (newValue.isBefore(LocalDate.now())) {
@@ -369,13 +353,18 @@ public class BRDController implements Initializable {
                 }
             });
 
-
+            edc.budget.textProperty().addListener((observable, oldValue, newValue) -> {
+                if( !newValue.matches("(\\d+(\\.\\d+)?)")) {
+                    edc.inv_budget.setVisible(true);
+                }else
+                    edc.inv_budget.setVisible(false);
+            });
 
             //apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            edc.secteur.getText().isEmpty() || edc.budget.getText().isEmpty() || edc.year.getValue()==null ||
-                                    !isNumeric(edc.budget.getText()) || !isAlpha(edc.secteur.getText()) || edc.year.getValue().isBefore(LocalDate.now()),
-                    edc.secteur.textProperty(),  edc.budget.textProperty(), edc.year.valueProperty()));
+                              edc.budget.getText().isEmpty() || edc.year.getValue() == null ||
+                                    !edc.budget.getText().matches("(\\d+(\\.\\d+)?)") || edc.year.getValue().isBefore(LocalDate.now()),
+                      edc.budget.textProperty(), edc.year.valueProperty()));
 
             Optional<ButtonType> clickedButton = d.showAndWait();
 
@@ -435,21 +424,6 @@ public class BRDController implements Initializable {
                 d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
                 d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
-                //listeners
-                bud.secteur.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if (!isAlpha(newValue)) {
-                        bud.inv_sec.setVisible(true);
-                    } else
-                        bud.inv_sec.setVisible(false);
-                });
-
-                bud.budget.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if (!isNumeric(newValue)) {
-                        bud.inv_budget.setVisible(true);
-                    } else
-                        bud.inv_budget.setVisible(false);
-                });
-
                 bud.year.valueProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                             if (newValue.isBefore(LocalDate.now())) {
@@ -461,25 +435,28 @@ public class BRDController implements Initializable {
                     }
                 });
 
+                bud.budget.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if( !newValue.matches("(\\d+(\\.\\d+)?)")) {
+                        bud.inv_budget.setVisible(true);
+                    }else
+                        bud.inv_budget.setVisible(false);
+                });
 
-                    //apply button binder
-                    d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                                    bud.secteur.getText().isEmpty() || bud.budget.getText().isEmpty()
-                                            || bud.year.getValue() == null
-                                            || !isAlpha(bud.secteur.getText())
-                                            || !isNumeric(bud.budget.getText())
-                                            || bud.year.getValue().isBefore(LocalDate.now()),
-                            bud.secteur.textProperty(), bud.budget.textProperty(), bud.year.valueProperty()));
+                //apply button binder
+                d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
+                                bud.budget.getText().isEmpty() || bud.year.getValue() == null ||
+                                !bud.budget.getText().matches("(\\d+(\\.\\d+)?)") ||
+                                bud.year.getValue().isBefore(LocalDate.now()),
+                        bud.budget.textProperty(), bud.year.valueProperty()));
 
+                Optional<ButtonType> clickedButton = d.showAndWait();
 
-                    Optional<ButtonType> clickedButton = d.showAndWait();
-
-                    if (clickedButton.get() == ButtonType.APPLY) {
-                        bud.setCurrentBudget(budget);
-                        budgetService.update(budget);
-                        refreshBud(event);
-                    }
+                if (clickedButton.get() == ButtonType.APPLY) {
+                    bud.setCurrentBudget(budget);
+                    budgetService.update(budget);
+                    refreshBud(event);
                 }
+            }
 
             }catch(Exception e){
                 e.printStackTrace();
@@ -538,17 +515,8 @@ public class BRDController implements Initializable {
                 }
             });
 
-            //listeners
-            edc.source_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isAlpha(newValue)) {
-                    edc.inv_source.setVisible(true);
-                }else
-                    edc.inv_source.setVisible(false);
-            });
-
-
             edc.somme_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isNumeric(newValue)) {
+                if(!newValue.matches("(\\d+(\\.\\d+)?)")) {
                     edc.inv_somme.setVisible(true);
                 }else
                     edc.inv_somme.setVisible(false);
@@ -564,19 +532,18 @@ public class BRDController implements Initializable {
                 }
             });
 
-
             //to apply css on the dialog pane buttons
             d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
             d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
             //make date field first to be selected
             edc.source_rev.requestFocus();
+
             //apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getValue() == null ||
-                                    !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || edc.date_rev.getValue().isBefore(LocalDate.now()),
-                    edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.valueProperty()));
-
+                                     edc.somme_rev.getText().isEmpty() || edc.date_rev.getValue() == null ||
+                                     !edc.somme_rev.getText().matches("(\\d+(\\.\\d+)?)") || edc.date_rev.getValue().isBefore(LocalDate.now()),
+                                     edc.somme_rev.textProperty(), edc.date_rev.valueProperty()));
 
             Optional<ButtonType> clickedButton = d.showAndWait();
             //new revenu creation and addition
@@ -637,16 +604,8 @@ public class BRDController implements Initializable {
                 d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
                 d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
-                //listeners
-                edc.source_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isAlpha(newValue)) {
-                        edc.inv_source.setVisible(true);
-                    }else
-                        edc.inv_source.setVisible(false);
-                });
-
                 edc.somme_rev.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isNumeric(newValue)) {
+                    if(!newValue.matches("(\\d+(\\.\\d+)?)")) {
                         edc.inv_somme.setVisible(true);
                     }else
                         edc.inv_somme.setVisible(false);
@@ -665,10 +624,9 @@ public class BRDController implements Initializable {
 
                 //apply button binder
                 d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                                edc.source_rev.getText().isEmpty() || edc.somme_rev.getText().isEmpty() || edc.date_rev.getValue() == null ||
-                                        !isNumeric(edc.somme_rev.getText()) || !isAlpha(edc.source_rev.getText()) || edc.date_rev.getValue().isBefore(LocalDate.now()),
-                        edc.source_rev.textProperty(),  edc.somme_rev.textProperty(), edc.date_rev.valueProperty()));
-
+                                edc.somme_rev.getText().isEmpty() || edc.date_rev.getValue() == null ||
+                                        !edc.somme_rev.getText().matches("(\\d+(\\.\\d+)?)") || edc.date_rev.getValue().isBefore(LocalDate.now()),
+                        edc.somme_rev.textProperty(), edc.date_rev.valueProperty()));
 
                 Optional<ButtonType> clickedButton = d.showAndWait();
 
@@ -734,23 +692,12 @@ public class BRDController implements Initializable {
                 }
             });
 
-            edc.secteur_dep.requestFocus();
-
             //to apply css on the dialog pane buttons
             d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
             d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
-            //listeners
-            edc.secteur_dep.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isAlpha(newValue)) {
-                    edc.inv_depsec.setVisible(true);
-                }else
-                    edc.inv_depsec.setVisible(false);
-            });
-
-
             edc.somme_dep.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isNumeric(newValue)) {
+                if(!newValue.matches("(\\d+(\\.\\d+)?)")) {
                     edc.inv_depsomme.setVisible(true);
                 }else
                     edc.inv_depsomme.setVisible(false);
@@ -769,9 +716,9 @@ public class BRDController implements Initializable {
 
             //apply button binder
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            edc.secteur_dep.getText().isEmpty() || edc.somme_dep.getText().isEmpty() || edc.date_dep.getValue() == null ||
-                                    !isNumeric(edc.somme_dep.getText()) || !isAlpha(edc.secteur_dep.getText()) || edc.date_dep.getValue().isBefore(LocalDate.now()) ,
-                    edc.secteur_dep.textProperty(),  edc.somme_dep.textProperty(), edc.date_dep.valueProperty()));
+                            edc.secteur_dep.getValue().isEmpty() || edc.somme_dep.getText().isEmpty() || edc.date_dep.getValue() == null ||
+                                    !edc.somme_dep.getText().matches("(\\d+(\\.\\d+)?)") || edc.date_dep.getValue().isBefore(LocalDate.now()) ,
+                    edc.secteur_dep.valueProperty(),  edc.somme_dep.textProperty(), edc.date_dep.valueProperty()));
 
             Optional<ButtonType> clickedButton = d.showAndWait();
 
@@ -832,16 +779,8 @@ public class BRDController implements Initializable {
                 d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
                 d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
-                //listeners
-                edc.secteur_dep.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isAlpha(newValue)) {
-                        edc.inv_depsec.setVisible(true);
-                    }else
-                        edc.inv_depsec.setVisible(false);
-                });
-
                 edc.somme_dep.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isNumeric(newValue)) {
+                    if(!newValue.matches("(\\d+(\\.\\d+)?)")) {
                         edc.inv_depsomme.setVisible(true);
                     }else
                         edc.inv_depsomme.setVisible(false);
@@ -860,10 +799,9 @@ public class BRDController implements Initializable {
 
                 //apply button binder
                 d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                                edc.secteur_dep.getText().isEmpty() || edc.somme_dep.getText().isEmpty() || edc.date_dep.getValue() == null ||
-                                        !isNumeric(edc.somme_dep.getText()) || !isAlpha(edc.secteur_dep.getText()) || edc.date_dep.getValue().isBefore(LocalDate.now()),
-                        edc.secteur_dep.textProperty(),  edc.somme_dep.textProperty(), edc.date_dep.valueProperty()));
-
+                                edc.secteur_dep.getValue().isEmpty() || edc.somme_dep.getText().isEmpty() || edc.date_dep.getValue() == null ||
+                                        !edc.somme_dep.getText().matches("(\\d+(\\.\\d+)?)") || edc.date_dep.getValue().isBefore(LocalDate.now()),
+                        edc.secteur_dep.valueProperty(), edc.somme_dep.textProperty(), edc.date_dep.valueProperty()));
 
                 Optional<ButtonType> clickedButton = d.showAndWait();
 

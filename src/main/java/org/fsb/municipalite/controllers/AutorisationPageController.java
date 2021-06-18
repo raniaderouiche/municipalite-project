@@ -123,7 +123,7 @@ public class AutorisationPageController implements Initializable{
     }
 		
     @FXML
-    public void monStock(ActionEvent event){
+    public void reload(ActionEvent event){
         tableView.getItems().clear();
         AutorisationServiceImpl autorisationService =new AutorisationServiceImpl();
         List<Autorisation> list = autorisationService.selectAll();
@@ -178,14 +178,15 @@ public class AutorisationPageController implements Initializable{
 
     		//cin field listener
     		edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
-    			if(isNumeric(newValue) && newValue.length() == 8) {
+    			if(isNumeric(newValue) && newValue.length() == 8 && !newValue.matches("00000000")) {
     				edc.labCin.setVisible(false);
     			}else
     				edc.labCin.setVisible(true);
     		});
-    		edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
-    			edc.msgLength.setText(Integer.toString(edc.msg.getText().length())+"/3000");
-    			if(!isAlphaE(newValue)) {
+
+			edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
+				edc.msgLength.setText(newValue.length()+"/3000");
+				if(newValue.length()>3000 || newValue.length() == 0) {
 					edc.labMsg.setVisible(true);
 				}else
 					edc.labMsg.setVisible(false);
@@ -193,26 +194,21 @@ public class AutorisationPageController implements Initializable{
 
     		//subject listener
     		edc.subject.textProperty().addListener((observable, oldValue, newValue) -> {
-    			if(!isAlpha(newValue)) {
+    			if(newValue.length() > 255) {
     				edc.labSubject.setVisible(true);
     			}else
     				edc.labSubject.setVisible(false);
     		});
-    		edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
-				if(!isAlpha(newValue)) {
-					edc.labMsg.setVisible(true);
-				}else
-					edc.labMsg.setVisible(false);
-			});
+
     		d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
     		d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 
     		
     		d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
-    		edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
+    		edc.name.getText().isEmpty() || edc.cin.getText().isEmpty() || edc.cin.getText().matches("00000000") ||
     		edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
-    		edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
-    		edc.msg.getText().length()>255 || edc.subject.getText().isEmpty()||
+    		edc.subject.getText().length() >255||edc.msg.getText().isEmpty()||
+    		edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
     		!isAlpha(edc.name.getText()),
     		edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
     		edc.msg.textProperty()));
@@ -236,7 +232,7 @@ public class AutorisationPageController implements Initializable{
     			AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
     			autorisationService.create(a);
     			System.out.println("Authorization ADDED !");
-    			monStock(event);
+				reload(event);
     		}
 
     	} catch (Exception e) {
@@ -262,7 +258,7 @@ public class AutorisationPageController implements Initializable{
 				
 				Stage stage = (Stage) d.getDialogPane().getScene().getWindow();
 				stage.getIcons().add(new Image("/assets/img/icon.png"));
-				
+				edc.titleLabel.setText("Update Authorization");
 				d.setDialogPane((DialogPane) autorisationDialogPane);
 				d.setTitle("Update Authorization");
 				d.setResizable(false);
@@ -291,8 +287,7 @@ public class AutorisationPageController implements Initializable{
 
 				//cin field listener
 				edc.cin.textProperty().addListener((observable, oldValue, newValue) -> {
-					System.out.println("textfield changed from " + oldValue + " to " + newValue);
-					if(isNumeric(newValue) && newValue.length() == 8) {
+					if(isNumeric(newValue) && newValue.length() == 8 && !newValue.matches("00000000")) {
 						edc.labCin.setVisible(false);
 					}else
 						edc.labCin.setVisible(true);
@@ -309,7 +304,7 @@ public class AutorisationPageController implements Initializable{
 				//message Listener
 				edc.msg.textProperty().addListener((observable, oldValue, newValue) -> {
 					edc.msgLength.setText(newValue.length()+"/3000");
-					if(!isAlpha(newValue)) {
+					if(newValue.length()>3000) {
 						edc.labMsg.setVisible(true);
 					}else
 						edc.labMsg.setVisible(false);
@@ -324,9 +319,10 @@ public class AutorisationPageController implements Initializable{
 				//apply button binder
 				d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() -> 
 												edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
-												edc.cin.getText().length() != 8||!isNumeric(edc.cin.getText())||
+												edc.cin.getText().length() != 8|| edc.cin.getText().matches("00000000") ||
+												!isNumeric(edc.cin.getText())||
 												edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
-												edc.msg.getText().length()>255 || edc.subject.getText().isEmpty()||
+												edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
 												!isAlpha(edc.name.getText()),
 												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
 												edc.msg.textProperty()));
@@ -338,7 +334,7 @@ public class AutorisationPageController implements Initializable{
 						edc.getCurrentAutorisation(test);
 						System.out.println(test);
 						autorisationService.update(test);
-				        monStock(event);
+						reload(event);
 				}
 			}
 		
@@ -363,7 +359,7 @@ public class AutorisationPageController implements Initializable{
                 	AutorisationServiceImpl cService = new AutorisationServiceImpl();
                 	cService.remove(c.getId());
                 }
-                monStock(event);
+				reload(event);
             }
         }
     }

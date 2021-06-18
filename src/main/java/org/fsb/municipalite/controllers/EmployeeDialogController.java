@@ -54,7 +54,7 @@ public class EmployeeDialogController implements Initializable{
     @FXML
     Label titleLabel;
     ObservableList<String> civilStatusList = FXCollections.observableArrayList("Single", "Married", "Divorced");
-    ObservableList<String> roleList = FXCollections.observableArrayList("Administrateur", "Chef Personnel", "Agent De Service","Gestionnaire de Magasin","Financier","Ingenieur d'Affaires","Secretaire General");
+    ObservableList<String> roleList = FXCollections.observableArrayList("Administrator", "Personnel Supervisor", "Service Agent", "Tools Manager", "Finance Manager", "Project Manager","General Secretary", "Staff");
     RadioButton selectedRadioButton;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
