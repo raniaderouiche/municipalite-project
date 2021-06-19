@@ -171,35 +171,45 @@ public class MunicipalityInfoController implements Initializable{
     	});
 	}
 
+	public void createNewMunicipalite(){
+		MunicipaliteServiceImpl municipaliteService2 = new MunicipaliteServiceImpl();
+		Municipalite municipalite = new Municipalite();
+		municipaliteService2.create(municipalite);
+	}
+
+	public void fillMunicipaliteFields(Municipalite municipalite){
+		nameField.setText(municipalite.getNom());
+		numberField.setText(municipalite.getTel());
+		emailField.setText(municipalite.getEmail());
+		addressField.setText(municipalite.getAdresse());
+		websiteField.setText(municipalite.getWebsite());
+
+		if(municipalite.getWorkHours() != null) {
+			List<String> wHours = Arrays.asList(municipalite.getWorkHours().split(",").clone());
+			everydayF.setText(wHours.get(0));
+			everydayU.setText(wHours.get(1));
+			fridayF.setText(wHours.get(2));
+			fridayU.setText(wHours.get(3));
+		}
+	}
+
 	public void getMunicipalite(){
 		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
 		List<Municipalite> list = municipaliteService.selectAll();
 		if(list.isEmpty()){
-			MunicipaliteServiceImpl municipaliteService2 = new MunicipaliteServiceImpl();
-			Municipalite municipalite = new Municipalite();
-			municipaliteService2.create(municipalite);
+			createNewMunicipalite();
+			list = municipaliteService.selectAll();
+			municipalite = list.get(0);
+			fillMunicipaliteFields(municipalite);
 		}
 		else{
 			municipalite = list.get(0);
-			nameField.setText(municipalite.getNom());
-			numberField.setText(municipalite.getTel());
-			emailField.setText(municipalite.getEmail());
-			addressField.setText(municipalite.getAdresse());
-			websiteField.setText(municipalite.getWebsite());
-			
-		    if(municipalite.getWorkHours() != null) {
-				List<String> wHours = Arrays.asList(municipalite.getWorkHours().split(",").clone());
-				everydayF.setText(wHours.get(0));
-				everydayU.setText(wHours.get(1));
-			    fridayF.setText(wHours.get(2));
-			    fridayU.setText(wHours.get(3));
-			}
-			
+			fillMunicipaliteFields(municipalite);
 		}
 
 	}
 
-	public void setMunicipalite(Municipalite municipalite){
+	public void updateMunicipalite(Municipalite municipalite){
 		municipalite.setNom(nameField.getText());
 		municipalite.setTel(numberField.getText());
 		municipalite.setEmail(emailField.getText());
@@ -207,6 +217,8 @@ public class MunicipalityInfoController implements Initializable{
 		municipalite.setWebsite(websiteField.getText());
 		municipalite.setWorkHours(everydayF.getText() + "," + everydayU.getText() + "," +
 								  fridayF.getText() + "," + fridayU.getText());
+		MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
+		municipaliteService.update(municipalite);
 	}
 
     public void setFieldsDisabled(Boolean b) {
@@ -243,9 +255,8 @@ public class MunicipalityInfoController implements Initializable{
         	this.modifyButton.setDisable(false);
 			MunicipaliteServiceImpl municipaliteService = new MunicipaliteServiceImpl();
 			List<Municipalite> list = municipaliteService.selectAll();
-			municipalite = municipaliteService.getById(list.get(0).getId());
-    		setMunicipalite(municipalite);
-    		municipaliteService.update(municipalite);
+			municipalite = list.get(0);
+    		updateMunicipalite(municipalite);
     		
     	}else {
     		check = true;

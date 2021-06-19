@@ -109,7 +109,13 @@ public class MaterielDialogController implements Initializable {
     		ProjetServiceImpl projetService = new ProjetServiceImpl();
     		Projet p = projetService.getById(m.getProjet().getId());
     		projectsChoice.setValue(p.getId() + ", " + p.getName());
-    	}
+    	}else{
+			startDate.setDisable(true);
+			endDate.setDisable(true);
+			startDate.getEditor().clear();
+			endDate.getEditor().clear();
+			UnavailableRB.setDisable(true);
+		}
 		
     	if(m.getEtat().equals(Etat.disponible)) {
     		availableRB.setSelected(true);

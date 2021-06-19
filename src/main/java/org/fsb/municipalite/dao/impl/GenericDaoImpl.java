@@ -25,11 +25,6 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     public GenericDaoImpl() {
         //create an entity manager
         //EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("todo");
-
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
         em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
         Type t = getClass().getGenericSuperclass();
@@ -39,10 +34,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E save(E entity) {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         em.persist(entity);
         em.getTransaction().commit();
         entityManagerFactory.close();
@@ -51,10 +43,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E update(E entity) {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         em.merge(entity);
         em.getTransaction().commit();
         entityManagerFactory.close();
@@ -63,39 +52,25 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public List<E> selectAll() {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+
+        entityManagerFactory = App.getCurrentSessionFromJPA();
+
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t");
         List<E> list = query.getResultList();
         entityManagerFactory.close();
         return list;
     }
 
-    /*@Override
-    public List<E> selectAll() {
-        Query query = em.createQuery("select t from " + type.getSimpleName() + " t");
-        List<E> list = query.getResultList();
-        return list;
-    }*/
-
     @Override
     public List<E> selectAll(String sortField, String sort) {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t order by " + sortField + " " + sort);
         return query.getResultList();
     }
 
     @Override
     public List<E> selectBy(String param, String value) {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+" = "+value);
         List<E> list = query.getResultList();
         return list;
@@ -103,9 +78,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E getById(Long id) {
-        if(entityManagerFactory.isClosed()){
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         E entity = em.find(type, id);
         return entity;
     }
@@ -113,10 +86,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public void remove(Long id) {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         E tab = em.getReference(type, id);
         em.remove(tab);
         em.getTransaction().commit();
@@ -125,10 +95,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E findOne(String paramName, Object paramValue) {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where " + paramName + " = :x");
         query.setParameter("x", paramValue);
         return query.getResultList().size() > 0 ? (E) query.getResultList().get(0) : null;
@@ -163,10 +130,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public List<E> selectLike(String param, String value) {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+" LIKE "+value);
         List<E> list = query.getResultList();
         return list;
@@ -174,10 +138,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     
     @Override
     public List<E> selectAllInColumn(String param) {
-        if(!entityManagerFactory.isOpen()){
-            System.out.println("***Session Opened***");
-            entityManagerFactory = App.getCurrentSessionFromJPA();
-        }
+        entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select " + param +" from " + type.getSimpleName() + "");
         List<E> list = query.getResultList();
         return list;
