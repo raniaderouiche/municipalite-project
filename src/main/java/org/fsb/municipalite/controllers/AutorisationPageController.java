@@ -250,7 +250,7 @@ public class AutorisationPageController implements Initializable{
 	    	
 			if(tableView.getSelectionModel().getSelectedItem() != null) {
 				AutorisationServiceImpl autorisationService = new AutorisationServiceImpl();
-				Autorisation c = (Autorisation) tableView.getSelectionModel().getSelectedItem();
+				Autorisation c = tableView.getSelectionModel().getSelectedItem();
 				Autorisation test = autorisationService.getById(c.getId());
 
 				edc.setAutorisationDialogPane(test);
@@ -310,7 +310,6 @@ public class AutorisationPageController implements Initializable{
 						edc.labMsg.setVisible(false);
 				});
 
-
 				d.getDialogPane().lookupButton(ButtonType.APPLY).getStyleClass().add("dialogButtons");
 				d.getDialogPane().lookupButton(ButtonType.CANCEL).getStyleClass().add("dialogButtons");
 				
@@ -321,7 +320,7 @@ public class AutorisationPageController implements Initializable{
 												edc.name.getText().isEmpty() || edc.cin.getText().isEmpty()||
 												edc.cin.getText().length() != 8|| edc.cin.getText().matches("00000000") ||
 												!isNumeric(edc.cin.getText())||
-												edc.subject.getText().length() >50||edc.msg.getText().isEmpty()||
+												edc.subject.getText().length() >255||edc.msg.getText().isEmpty()||
 												edc.msg.getText().length()>3000 || edc.subject.getText().isEmpty()||
 												!isAlpha(edc.name.getText()),
 												edc.name.textProperty(),edc.cin.textProperty(),edc.subject.textProperty(),
