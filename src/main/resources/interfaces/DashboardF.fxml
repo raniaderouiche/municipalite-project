@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="621.0" prefWidth="1019.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fsb.municipalite.controllers.DashboardFController">
+   <children>
+      <HBox layoutY="7.0" prefHeight="443.0" prefWidth="1019.0">
+         <children>
+            <PieChart fx:id="depenseChart" prefHeight="400.0" prefWidth="373.0" title="Expenses" />
+            <PieChart fx:id="budgetChart" prefHeight="400.0" prefWidth="315.0" title="Budgets" />
+            <PieChart fx:id="revenuChart" prefHeight="409.0" prefWidth="335.0" title="Incomes" />
+         </children>
+      </HBox>
+      <BarChart fx:id="profitChart" layoutX="111.0" layoutY="460.0" prefHeight="161.0" prefWidth="687.0" title="Yearly Profits">
+        <xAxis>
+          <NumberAxis label="Profit (in DTN)" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <CategoryAxis label="Sectors" side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>
