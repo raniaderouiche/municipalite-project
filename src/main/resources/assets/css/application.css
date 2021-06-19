@@ -186,6 +186,7 @@
 .CustomButtons:hover{
 	-fx-background-color: rgba(13, 64, 120, 0.5);
     -fx-text-fill: white;
+    -fx-cursor: hand;
 }
 .CustomButtons:pressed {
     -fx-background-color: rgba(13, 64, 120, 0.8);

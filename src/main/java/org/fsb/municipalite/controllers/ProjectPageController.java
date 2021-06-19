@@ -162,7 +162,7 @@ public class ProjectPageController implements Initializable {
             
             //name field listener
             pac.name.textProperty().addListener((observable, oldValue, newValue) -> {
-                if(!isAlpha(newValue)) {
+                if(!newValue.matches("[a-zA-Z0-9 ]+")) {
                     pac.inv_name.setVisible(true);
                 }else
                     pac.inv_name.setVisible(false);
@@ -203,7 +203,6 @@ public class ProjectPageController implements Initializable {
             	}catch(Exception e) {
             		System.out.println("end date picked");
             	}
-                
             });
 
             //to apply css on the dialog pane buttons
@@ -214,9 +213,9 @@ public class ProjectPageController implements Initializable {
 			pac.name.requestFocus();
             
             d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            pac.name.getText().isEmpty()
+                                       pac.name.getText().isEmpty()
                                     || pac.budget.getText().isEmpty()
-                                    ||!isAlpha(pac.name.getText())
+                                    ||!pac.name.getText().matches("[a-zA-Z0-9 ]+")
                                     ||!isNumeric(pac.budget.getText())
                                     ||pac.description.getText().isEmpty()
                                     || pac.start.getValue() == null
@@ -324,7 +323,7 @@ public class ProjectPageController implements Initializable {
 				
                 //name field listener
                 puc.name.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if(!isAlpha(newValue)) {
+                    if(!newValue.matches("[a-zA-Z0-9 ]+")) {
                         puc.inv_name.setVisible(true);
                     }else
                         puc.inv_name.setVisible(false);
@@ -366,9 +365,9 @@ public class ProjectPageController implements Initializable {
 				puc.name.requestFocus();
                 
                 d.getDialogPane().lookupButton(ButtonType.APPLY).disableProperty().bind(Bindings.createBooleanBinding(() ->
-                                puc.name.getText().isEmpty()
+                                        puc.name.getText().isEmpty()
                                         || puc.budget.getText().isEmpty()
-                                        ||!isAlpha(puc.name.getText())
+                                        ||!puc.name.getText().matches("[a-zA-Z0-9 ]+")
                                         ||!isNumeric(puc.budget.getText())
                                         || puc.start.getValue() == null
                                         || puc.end.getValue() == null

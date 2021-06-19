@@ -262,7 +262,6 @@ public class MainInterfaceController implements Initializable{
 	}
 	@FXML
 	private void FinanceButton(MouseEvent event) {
-		System.out.println("Finance Clicked");
 		Pane view = CustomFxmlLoader.getPage("FinancePage");
 		contentBorderPane.setCenter(view);
 		currentPageTitle.setText("Finance");
