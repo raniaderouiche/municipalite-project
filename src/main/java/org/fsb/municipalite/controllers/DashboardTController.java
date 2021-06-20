@@ -1,17 +1,15 @@
 package org.fsb.municipalite.controllers;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
-import org.fsb.municipalite.entities.Employee;
 import org.fsb.municipalite.entities.Equipe;
 import org.fsb.municipalite.entities.Projet;
-import org.fsb.municipalite.entities.Tache;
-import org.fsb.municipalite.services.impl.EmployeeServiceImpl;
 import org.fsb.municipalite.services.impl.EquipeServiceImpl;
 import org.fsb.municipalite.services.impl.ProjetServiceImpl;
-import org.fsb.municipalite.services.impl.TacheServiceImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +26,7 @@ public class DashboardTController implements Initializable{
 	@FXML
 	private PieChart projectChart;
 	@FXML 
-	private PieChart projectTeamChart;
+	private PieChart projectPlaceChart;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -43,7 +41,7 @@ public class DashboardTController implements Initializable{
 		projectCount.setText(listP.size()+"");
 		teamCount.setText(listE.size()+"");
 		projectLoad(listP);
-		e_t_Load(listP);
+		projectPlaceLoad(listP);
 	}
 	
 	public void projectLoad(List<Projet> list) {
@@ -63,7 +61,7 @@ public class DashboardTController implements Initializable{
     	projectChart.setData(pie);
 	}
 	
-	public void e_t_Load(List<Projet> list) {
+	/*public void e_t_Load(List<Projet> list) {
 		ObservableList<PieChart.Data> pie = FXCollections.observableArrayList();
 		
 		int withTeam = 0;
@@ -77,6 +75,23 @@ public class DashboardTController implements Initializable{
     	pie.add(new PieChart.Data("affeted to a Team", withTeam));
     	pie.add(new PieChart.Data("not affected to a Team", withoutTeam));
     	projectTeamChart.setData(pie);   	
-	}
+	}*/
+	public void projectPlaceLoad(List<Projet> list) {
+		ObservableList<PieChart.Data> pie = FXCollections.observableArrayList();
+		Map<String,Long> mp = new HashMap();
+		
+		for(Projet e : list) {
+			if(mp.containsKey(e.getLieu())) {
+				mp.replace(e.getLieu(),mp.get(e.getLieu())+1);
+			}
+			if(!mp.containsKey(e.getLieu())) 
+				mp.put(e.getLieu(),(long)1);
+		}
+		
+		for(String e : mp.keySet()) {
+			pie.add(new PieChart.Data(e, mp.get(e)));
+		}
+		projectPlaceChart.setData(pie);
+	}	
 	
 }

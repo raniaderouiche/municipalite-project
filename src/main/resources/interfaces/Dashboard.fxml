@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.chart.StackedAreaChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -59,29 +57,6 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </HBox>
-            <VBox styleClass="countersdiv" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label maxWidth="1.7976931348623157E308" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 15 15 0 0;" styleClass="dashboardLables" text="Financals" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets left="15.0" />
-                     </padding>
-                  </Label>
-                  <StackedAreaChart prefHeight="130.0" prefWidth="979.0">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </StackedAreaChart>
-               </children>
-               <VBox.margin>
-                  <Insets left="20.0" right="20.0" />
-               </VBox.margin>
-            </VBox>
             <HBox spacing="10.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />

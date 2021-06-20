@@ -77,7 +77,7 @@
                   </VBox>
                   <VBox prefHeight="242.0" prefWidth="979.0" styleClass="countersdiv">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 15 15 0 0;" styleClass="dashboardLables" text="Projects &amp; Teams" VBox.vgrow="ALWAYS">
+                        <Label maxWidth="1.7976931348623157E308" prefHeight="60.0" style="-fx-background-color: transparent; -fx-background-radius: 15 15 0 0;" styleClass="dashboardLables" text="Projects &amp; Region" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -85,7 +85,7 @@
                               <Insets left="15.0" />
                            </padding>
                         </Label>
-                        <PieChart fx:id="projectTeamChart" prefHeight="190.0" VBox.vgrow="ALWAYS" />
+                        <PieChart fx:id="projectPlaceChart" prefHeight="190.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
