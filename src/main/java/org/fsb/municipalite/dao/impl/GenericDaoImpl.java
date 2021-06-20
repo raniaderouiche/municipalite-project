@@ -34,7 +34,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E save(E entity) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         em.persist(entity);
         em.getTransaction().commit();
         entityManagerFactory.close();
@@ -43,7 +43,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E update(E entity) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         em.merge(entity);
         em.getTransaction().commit();
         entityManagerFactory.close();
@@ -52,8 +52,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public List<E> selectAll() {
-
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
 
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t");
         List<E> list = query.getResultList();
@@ -63,14 +62,14 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public List<E> selectAll(String sortField, String sort) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t order by " + sortField + " " + sort);
         return query.getResultList();
     }
 
     @Override
     public List<E> selectBy(String param, String value) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+" = "+value);
         List<E> list = query.getResultList();
         return list;
@@ -78,7 +77,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E getById(Long id) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         E entity = em.find(type, id);
         return entity;
     }
@@ -86,7 +85,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public void remove(Long id) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         E tab = em.getReference(type, id);
         em.remove(tab);
         em.getTransaction().commit();
@@ -95,7 +94,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public E findOne(String paramName, Object paramValue) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where " + paramName + " = :x");
         query.setParameter("x", paramValue);
         return query.getResultList().size() > 0 ? (E) query.getResultList().get(0) : null;
@@ -130,7 +129,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public List<E> selectLike(String param, String value) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select t from " + type.getSimpleName() + " t where "+param+" LIKE "+value);
         List<E> list = query.getResultList();
         return list;
@@ -138,7 +137,7 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
     
     @Override
     public List<E> selectAllInColumn(String param) {
-        entityManagerFactory = App.getCurrentSessionFromJPA();
+        //entityManagerFactory = App.getCurrentSessionFromJPA();
         Query query = em.createQuery("select " + param +" from " + type.getSimpleName() + "");
         List<E> list = query.getResultList();
         return list;
