@@ -1,11 +1,11 @@
 package org.fsb.municipalite.controllers;
 
+import com.itextpdf.awt.DefaultFontMapper;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-import javafx.scene.control.ChoiceBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.fsb.municipalite.entities.Budget;
@@ -16,14 +16,21 @@ import org.fsb.municipalite.services.impl.BudgetServiceImpl;
 import org.fsb.municipalite.services.impl.DepensesServiceImpl;
 import org.fsb.municipalite.services.impl.MunicipaliteServiceImpl;
 import org.fsb.municipalite.services.impl.RevenusServiceImpl;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
 
 public class FinanceReportsPrintController {
-    public static void downloadPDF(String year, Window window) {
+    public static void downloadPDF(String year, Window window)   {
         double depAut=0L;
         double budAut=0L;
         double revAut=0L;
@@ -63,7 +70,7 @@ public class FinanceReportsPrintController {
                 p3.setAlignment(Element.ALIGN_CENTER);
                 p3.setFont(documentType);
 
-                /*----------header------------*/
+                /*----------header of table------------*/
                 PdfPTable table = new PdfPTable(5);
                 PdfPCell cell = new PdfPCell(new Phrase("Secteurs"));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -437,23 +444,156 @@ public class FinanceReportsPrintController {
                 table.addCell(cell44);
 
                 /*----------------*/
+                /*---------logo------------*/
+                Image img = Image.getInstance("src/main/resources/assets/img/Coat_of_arms.png");
+                //maintaining aspect ratio
+                float imgW = 64;
+                float imgH = 101;
+                float padding = 15;
+                img.setAbsolutePosition(padding,document.getPageSize().getHeight() - (imgH+padding));
+                img.scaleAbsolute(imgW,imgH);
 
+                /*------end second page---*/
 
+                /*--footer----*/
                 p4.add("\nContact : \n");
                 p4.add("   number : "+m.getTel()+"\n");
                 p4.add("   email : "+m.getEmail()+"\n");
                 p4.add("   adress : "+m.getAdresse()+"\n");
                 p4.add("   web site : "+m.getWebsite()+"\n");
                 p4.add("\nSignature \n");
-
+                p4.setAlignment(Element.ALIGN_BOTTOM);
+                /*--end footer----*/
+                document.add(img);
                 document.add(p1);
                 document.add(p2);
                 document.add(p3);
                 document.add(new LineSeparator());
-                document.add(p4);
                 document.add(table);
+                document.add(new LineSeparator());
+                document.add(p4);
+                /*------sencond page--------------*/
+                document.newPage();
+                document.add(img);
+
+                /*---------budget pie chart----------*/
+                DefaultPieDataset dataSetB = new DefaultPieDataset();
+                dataSetB.setValue("Authorizations", budAut);
+                dataSetB.setValue("Complaints", budcom);
+                dataSetB.setValue("Teams", budT);
+                dataSetB.setValue("Tasks", budtas);
+                dataSetB.setValue("Tools", budM);
+                dataSetB.setValue("Projects", budPro);
+                dataSetB.setValue("Events", budEvn);
+
+                JFreeChart chartB = ChartFactory.createPieChart(
+                        "Budgets per Sectors", dataSetB, true, true, false);
+
+
+                PdfContentByte contentByteB = writer.getDirectContent();
+                float width=350;
+                float height=250;
+                PdfTemplate templateB = contentByteB.createTemplate(width, height);
+                Graphics2D graphics2dB = templateB.createGraphics(width, height,
+                        new DefaultFontMapper());
+                Rectangle2D rectangle2d = new Rectangle2D.Double(0, 0, width,
+                        height);
+
+                chartB.draw(graphics2dB, rectangle2d);
+
+                graphics2dB.dispose();
+                contentByteB.addTemplate(templateB, 100, 550);
+                /*-------------*/
+                /*---depenses pie chart------------*/
+                DefaultPieDataset dataSetD = new DefaultPieDataset();
+                dataSetD.setValue("Authorizations", depAut);
+                dataSetD.setValue("Complaints", depcom);
+                dataSetD.setValue("Teams", depT);
+                dataSetD.setValue("Tasks", deptas);
+                dataSetD.setValue("Tools", depM);
+                dataSetD.setValue("Projects", depPro);
+                dataSetD.setValue("Events", depEvn);
+
+                JFreeChart chartD = ChartFactory.createPieChart(
+                        "Expenses per Sectors", dataSetD, true, true, false);
+
+
+                PdfContentByte contentByteD = writer.getDirectContent();
+
+                PdfTemplate templateD = contentByteD.createTemplate(width, height);
+                Graphics2D graphics2dD = templateD.createGraphics(width, height,
+                        new DefaultFontMapper());
+                Rectangle2D rectangle2dD = new Rectangle2D.Double(0, 0, width,
+                        height);
+
+                chartD.draw(graphics2dD, rectangle2dD);
+
+                graphics2dD.dispose();
+                contentByteD.addTemplate(templateD, 100, 270);
+                /*--------------*/
+                /*---------revenus pie chart-----------*/
+                DefaultPieDataset dataSetR = new DefaultPieDataset();
+                dataSetR.setValue("Authorizations", revAut);
+                dataSetR.setValue("Complaints", revcom);
+                dataSetR.setValue("Teams", revT);
+                dataSetR.setValue("Tasks", revtas);
+                dataSetR.setValue("Tools", revM);
+                dataSetR.setValue("Projects", revPro);
+                dataSetR.setValue("Events", revEvn);
+
+                JFreeChart chartR = ChartFactory.createPieChart(
+                        "Incomes per Sectors", dataSetR, true, true, false);
+
+
+                PdfContentByte contentByteR = writer.getDirectContent();
+
+                PdfTemplate templateR = contentByteR.createTemplate(width, height);
+                Graphics2D graphics2dR = templateR.createGraphics(width, height,
+                        new DefaultFontMapper());
+                Rectangle2D rectangle2dR = new Rectangle2D.Double(0, 0, width,
+                        height);
+
+                chartR.draw(graphics2dR, rectangle2dR);
+
+                graphics2dR.dispose();
+                contentByteR.addTemplate(templateR, 100, 20);
+                /*---------------------*/
+                /*--- end second page-----*/
+                /*------third page--------------*/
+                document.newPage();
+                document.add(img);
+                document.add(new LineSeparator());
+                /*-----profit chart----------*/
+                DefaultCategoryDataset dataSetP = new DefaultCategoryDataset();
+                dataSetP.setValue(ecartAut, "Profits", "Authorisations");
+                dataSetP.setValue(ecartcom, "Profits", "Complaints");
+                dataSetP.setValue(ecartT, "Profits", "Teams");
+                dataSetP.setValue(ecartM, "Profits", "Tools");
+                dataSetP.setValue(ecartPro, "Profits", "Projects");
+                dataSetP.setValue(ecartEvn, "Profits", "Events");
+                dataSetP.setValue(ecarttas, "Profits", "Tasks");
+
+                JFreeChart chartP = ChartFactory.createBarChart(
+                        "Yearly profits", "Sectors", "Profit in DTN",
+                        dataSetP, PlotOrientation.VERTICAL, false, true, false);
+                PdfContentByte contentByteP = writer.getDirectContent();
+                float widthP=550;
+                PdfTemplate templateP = contentByteP.createTemplate(widthP, height);
+                Graphics2D graphics2dP = templateP.createGraphics(widthP, height,
+                        new DefaultFontMapper());
+                Rectangle2D rectangle2dP = new Rectangle2D.Double(0, 0, widthP,
+                        height);
+
+                chartP.draw(graphics2dP, rectangle2dP);
+
+                graphics2dP.dispose();
+                contentByteP.addTemplate(templateP, 20, 300);
+                /*-----------------*/
+
+                document.add(new LineSeparator());
                 document.close();
                 writer.close();
+
 
             }
 
