@@ -667,7 +667,7 @@ public class TSController implements Initializable {
 			Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 			//this is just for adding an icon to the dialog pane
 			stage.getIcons().add(new Image("/assets/img/icon.png"));
-			alert.setTitle("Delete Employee ?");
+			alert.setTitle("Delete Team ?");
 			alert.setHeaderText(null);
 			alert.setContentText("Are you Sure You Want to Delete Selected Item(s) ?");
 			Optional <ButtonType> action = alert.showAndWait();
@@ -675,18 +675,22 @@ public class TSController implements Initializable {
 				ObservableList<Equipe> selectedItems = teamTable.getSelectionModel().getSelectedItems();
 				for (Equipe e : selectedItems) {
 					try {
-						List<Employee> employeeList = employeeService.selectBy("equipe",e.getId()+"");
+						EmployeeServiceImpl service = new EmployeeServiceImpl();
+						List<Employee> employeeList = service.selectBy("equipe",e.getId()+"");
 						for (Employee emp : employeeList){
 							if (emp.getEquipe() != null){
+								EmployeeServiceImpl service2 = new EmployeeServiceImpl();
 								emp.setEquipe(null);
-								employeeService.update(emp);
+								service2.update(emp);
 							}
 						}
+
 
 						//delete team
 						EquipeServiceImpl equipeService = new EquipeServiceImpl();
 						equipeService.remove(e.getId());
 					}catch(Exception ex) {
+						ex.printStackTrace();
 						Alert alert_2 = new Alert(AlertType.ERROR);
 						alert_2.setTitle("Error!");
 						alert_2.setHeaderText(null);

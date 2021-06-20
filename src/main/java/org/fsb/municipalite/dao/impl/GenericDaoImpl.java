@@ -85,7 +85,6 @@ public class GenericDaoImpl<E> implements IGenericDao<E> {
 
     @Override
     public void remove(Long id) {
-        //entityManagerFactory = App.getCurrentSessionFromJPA();
         E tab = em.getReference(type, id);
         em.remove(tab);
         em.getTransaction().commit();

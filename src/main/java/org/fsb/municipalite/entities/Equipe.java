@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -39,13 +37,13 @@ public class Equipe extends BaseEntity{
     }
 
 
-    /* public List<Employee> getEmployeeList() {
+    public List<Employee> getEmployeeList() {
         return employeeList;
-    }*/
+    }
 
-  /*  public void setEmployeeList(List<Employee> employeeList) {
+    public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
-    }*/
+    }
 
     
     public List<Projet> getProjetList() {
